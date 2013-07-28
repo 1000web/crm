@@ -7,10 +7,8 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Client', 'url'=>array('index')),
-	array('label'=>'Manage Client', 'url'=>array('admin')),
-);
+$this->menu = $this->menuOperations('create');
+
 ?>
 
 <h1>Create Client</h1>

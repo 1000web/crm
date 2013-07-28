@@ -2,6 +2,8 @@
 
 class SiteController extends Controller
 {
+    public $actions = array();
+
     /**
      * Declares class-based actions.
      */
@@ -100,5 +102,12 @@ class SiteController extends Controller
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionTest(){
+        $rules = $this->accessRules();
+        echo '<pre>';
+        print_r($rules);
+        echo '</pre>';
     }
 }

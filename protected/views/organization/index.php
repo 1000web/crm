@@ -6,10 +6,8 @@ $this->breadcrumbs=array(
 	'Organizations',
 );
 
-$this->menu=array(
-	array('label'=>'Create Organization', 'url'=>array('create')),
-	array('label'=>'Manage Organization', 'url'=>array('admin')),
-);
+$this->menu = $this->menuOperations('index');
+
 ?>
 
 <h1>Organizations</h1>

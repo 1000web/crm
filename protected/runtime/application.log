@@ -287,3 +287,11 @@ Stack trace:
 #10 {main}
 REQUEST_URI=/index.php/rights
 ---
+2013/07/28 11:04:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "rightst".' in /Applications/MAMP/vhosts/dogovor.1000web.ru/web/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/vhosts/dogovor.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('rightst')
+#1 /Applications/MAMP/vhosts/dogovor.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Applications/MAMP/vhosts/dogovor.1000web.ru/web/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/rightst
+---
