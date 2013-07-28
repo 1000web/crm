@@ -5,7 +5,19 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
+
+switch (substr($_SERVER['SERVER_NAME'],0,6)) {
+    // если имя сервера начинается на local.
+    case "local.":
+        $config = 'development.php';
+        break;
+    default:
+        $config = 'production.php';
+}
+// склеиваем массив - основной и настройки БД
+return CMap::mergeArray(
+    require($config),
+    array(
     // Языки для мультиязычности сайта
     'sourceLanguage' => 'ru',
     'language' => 'ru',
@@ -87,14 +99,6 @@ return array(
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),
-        'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=1000web_crm',
-            'emulatePrepare' => true,
-            'username' => '1000web_crm',
-            'password' => 'CRM1pass',
-            'charset' => 'utf8',
-            'tablePrefix' => 'tbl_',
-        ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
@@ -122,4 +126,5 @@ return array(
         // this is used in contact page
         'adminEmail' => 'admin@1000web.ru',
     ),
+)
 );
