@@ -39,8 +39,9 @@
                 array('label' => 'Contact', 'url' => array('/site/contact')),
                 array('label' => 'Client', 'url' => array('/client')),
                 array('label' => 'Organization', 'url' => array('/organization')),
-                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                array('label' => 'Login', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
+                array('label' => 'Profile', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest)
             ),
         )); ?>
     </div>
@@ -56,9 +57,7 @@
     <div class="clear"></div>
 
     <div id="footer">
-        Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-        All Rights Reserved.<br/>
-        <?php echo Yii::powered(); ?>
+        &copy; <?php echo date('Y'); ?> АтомСпецСервис<br/>
     </div>
     <!-- footer -->
 
