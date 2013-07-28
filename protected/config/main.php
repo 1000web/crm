@@ -11,7 +11,7 @@ return array(
     'language' => 'ru',
 
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Договора',
+    'name' => 'CRM',
 
     // preloading 'log' component
     'preload' => array('log'),
@@ -88,10 +88,10 @@ return array(
             ),
         ),
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=1000web_dogovor',
+            'connectionString' => 'mysql:host=localhost;dbname=1000web_crm',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => 'root',
+            'username' => '1000web_crm',
+            'password' => 'CRM1pass',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),
