@@ -10,11 +10,15 @@ class Controller extends RController
     public $breadcrumbs = array();
     public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete');
 
-
+    /**
+     * @return array action filters
+     */
     public function filters()
     {
         return array(
             //'rights'
+            'accessControl', // perform access control for CRUD operations
+            'postOnly + delete', // we only allow deletion via POST request
         );
     }
 

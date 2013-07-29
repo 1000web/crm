@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="875caa9d-27d7-4d7d-8df2-dd32aa472912" name="Default" comment="Заменяет во всех View ста стандартных на такие:&#10;$this-&gt;menu = $this-&gt;menuOperations('{action}');&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sxd/backup/1000web_crm_2013-07-29_20-22-35.sql.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/controllers/KbController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/controllers/ProductController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/_form.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/_search.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/_view.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/admin.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/create.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/kb/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/runtime/state.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/update.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/product/view.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/data/schema.mysql.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/data/schema.sqlite.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/data/testdrive.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/models/ContactForm.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/models/LoginForm.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/ContactType.php" afterPath="$PROJECT_DIR$/protected/models/ContactType.php" />
+    <list default="true" id="875caa9d-27d7-4d7d-8df2-dd32aa472912" name="Default" comment="Реорганизовано меню и справочники.&#10;Частичная руссификация.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/controllers/ClientController.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ContactTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/ContactTypeController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/components/Controller.php" afterPath="$PROJECT_DIR$/protected/components/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Customer.php" afterPath="$PROJECT_DIR$/protected/models/Customer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/CustomerContact.php" afterPath="$PROJECT_DIR$/protected/models/CustomerContact.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Organization.php" afterPath="$PROJECT_DIR$/protected/models/Organization.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/OrganizationContact.php" afterPath="$PROJECT_DIR$/protected/models/OrganizationContact.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/OrganizationGroup.php" afterPath="$PROJECT_DIR$/protected/models/OrganizationGroup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/OrganizationRegion.php" afterPath="$PROJECT_DIR$/protected/models/OrganizationRegion.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/OrganizationType.php" afterPath="$PROJECT_DIR$/protected/models/OrganizationType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Product.php" afterPath="$PROJECT_DIR$/protected/models/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/ProductType.php" afterPath="$PROJECT_DIR$/protected/models/ProductType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/TaskType.php" afterPath="$PROJECT_DIR$/protected/models/TaskType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/customer/_view.php" afterPath="$PROJECT_DIR$/protected/views/customer/_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/runtime/application.log" afterPath="$PROJECT_DIR$/protected/runtime/application.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/layouts/column2.php" afterPath="$PROJECT_DIR$/protected/views/layouts/column2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/glossary/index.php" afterPath="$PROJECT_DIR$/protected/views/glossary/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/layouts/main.php" afterPath="$PROJECT_DIR$/protected/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sxd/ses.php" afterPath="$PROJECT_DIR$/sxd/ses.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/CustomerContactController.php" afterPath="$PROJECT_DIR$/protected/controllers/CustomerContactController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/CustomerController.php" afterPath="$PROJECT_DIR$/protected/controllers/CustomerController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationContactController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationContactController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ProductController.php" afterPath="$PROJECT_DIR$/protected/controllers/ProductController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web.iws" />
@@ -61,10 +38,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/protected/views/glossary/index.php">
+      <file leaf-file-name="OrganizationContactController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationContactController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.23607749" vertical-offset="0" max-vertical-offset="826">
+            <state line="10" column="0" selection-start="275" selection-end="275" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizationController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizationGroupController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizationRegionController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="274" selection-end="274" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizationTypeController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/ProductController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="263" selection-end="263" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductTypeController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/ProductTypeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SiteController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="0" selection-start="81" selection-end="170" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="1275">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskTypeController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/TaskTypeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="264" selection-end="264" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Controller.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/protected/components/Controller.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="0.01867995" vertical-offset="270" max-vertical-offset="2160">
               <folding />
             </state>
           </provider>
@@ -88,22 +146,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/protected/views/product/update.php" />
-        <option value="$PROJECT_DIR$/protected/views/product/create.php" />
-        <option value="$PROJECT_DIR$/protected/views/product/admin.php" />
-        <option value="$PROJECT_DIR$/protected/models/TaskType.php" />
-        <option value="$PROJECT_DIR$/protected/models/ContactType.php" />
-        <option value="$PROJECT_DIR$/protected/models/Customer.php" />
-        <option value="$PROJECT_DIR$/protected/models/CustomerContact.php" />
-        <option value="$PROJECT_DIR$/protected/models/Organization.php" />
-        <option value="$PROJECT_DIR$/protected/models/OrganizationContact.php" />
-        <option value="$PROJECT_DIR$/protected/models/OrganizationGroup.php" />
-        <option value="$PROJECT_DIR$/protected/models/OrganizationRegion.php" />
-        <option value="$PROJECT_DIR$/protected/models/OrganizationType.php" />
         <option value="$PROJECT_DIR$/protected/models/Product.php" />
         <option value="$PROJECT_DIR$/protected/models/ProductType.php" />
         <option value="$PROJECT_DIR$/protected/views/layouts/main.php" />
         <option value="$PROJECT_DIR$/protected/views/glossary/index.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/CustomerController.php" />
+        <option value="$PROJECT_DIR$/protected/components/Controller.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/ContactTypeController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/CustomerContactController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/OrganizationContactController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/OrganizationController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/ProductController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" />
       </list>
     </option>
   </component>
@@ -270,6 +328,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CRM.1000web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CRM.1000web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -363,12 +457,16 @@
       <created>1375119232411</created>
       <updated>1375119232411</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Реорганизовано меню и справочники.&#10;Частичная руссификация.">
+      <created>1375123810735</created>
+      <updated>1375123810735</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="998" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3257403" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -379,7 +477,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -459,7 +557,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Заменяет во всех View ста стандартных на такие:&#10;$this-&gt;menu = $this-&gt;menuOperations('{action}');&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реорганизовано меню и справочники.&#10;Частичная руссификация." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -479,121 +577,120 @@
     <MESSAGE value="Заменяет меню операций для Клиетов и Организаций." />
     <MESSAGE value="Добавляет разделение конфигурации &#10;Development и Production." />
     <MESSAGE value="Заменяет во всех View ста стандартных на такие:&#10;$this-&gt;menu = $this-&gt;menuOperations('{action}');&#10;" />
+    <MESSAGE value="Реорганизовано меню и справочники.&#10;Частичная руссификация." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/views/product/_view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="284" selection-end="284" vertical-scroll-proportion="0.23607749" vertical-offset="0" max-vertical-offset="826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/product/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="0" selection-start="969" selection-end="969" vertical-scroll-proportion="0.6174334" vertical-offset="0" max-vertical-offset="826">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/ContactType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="2567" selection-end="2567" vertical-scroll-proportion="-18.125" vertical-offset="825" max-vertical-offset="1770">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/Customer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="0" selection-start="3118" selection-end="3118" vertical-scroll-proportion="-18.75" vertical-offset="900" max-vertical-offset="1980">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/CustomerContact.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="0" selection-start="2681" selection-end="2681" vertical-scroll-proportion="-23.75" vertical-offset="720" max-vertical-offset="1860">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/Organization.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="0" selection-start="3321" selection-end="3321" vertical-scroll-proportion="-20.625" vertical-offset="900" max-vertical-offset="1995">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/OrganizationContact.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="0" selection-start="2737" selection-end="2737" vertical-scroll-proportion="-28.125" vertical-offset="615" max-vertical-offset="1860">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/OrganizationGroup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2440" selection-end="2440" vertical-scroll-proportion="-23.125" vertical-offset="675" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/OrganizationRegion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2446" selection-end="2446" vertical-scroll-proportion="-28.75" vertical-offset="540" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/OrganizationType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2434" selection-end="2434" vertical-scroll-proportion="-21.25" vertical-offset="720" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="0" selection-start="2464" selection-end="2464" vertical-scroll-proportion="-26.875" vertical-offset="600" max-vertical-offset="1785">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/ProductType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2384" selection-end="2384" vertical-scroll-proportion="-23.75" vertical-offset="660" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/models/TaskType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="2088" selection-end="2230" vertical-scroll-proportion="-12.208333" vertical-offset="907" max-vertical-offset="1710">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/migrations/m110805_153437_installYiiUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.7433414" vertical-offset="1440" max-vertical-offset="3300">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="18" selection-start="1611" selection-end="1611" vertical-scroll-proportion="0.69007266" vertical-offset="0" max-vertical-offset="1095">
-          <folding>
-            <marker date="1375123689000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/glossary/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="0.23607749" vertical-offset="0" max-vertical-offset="826">
+        <state line="13" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/ContactTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/CustomerContactController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="271" selection-end="271" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/CustomerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="264" selection-end="264" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/GlossaryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/KbController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="850">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationContactController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="275" selection-end="275" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="268" selection-end="268" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="274" selection-end="274" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="272" selection-end="272" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/ProductController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="263" selection-end="263" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/ProductTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="81" selection-end="170" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TaskTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="264" selection-end="264" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/components/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="0.01867995" vertical-offset="270" max-vertical-offset="2160">
           <folding />
         </state>
       </provider>
