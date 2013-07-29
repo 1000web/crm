@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="875caa9d-27d7-4d7d-8df2-dd32aa472912" name="Default" comment="Реорганизовано меню и справочники.&#10;Частичная руссификация.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/controllers/ClientController.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ContactTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/ContactTypeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/components/Controller.php" afterPath="$PROJECT_DIR$/protected/components/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/CustomerContactController.php" afterPath="$PROJECT_DIR$/protected/controllers/CustomerContactController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/CustomerController.php" afterPath="$PROJECT_DIR$/protected/controllers/CustomerController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationContactController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationContactController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationGroupController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationRegionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/OrganizationTypeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ProductController.php" afterPath="$PROJECT_DIR$/protected/controllers/ProductController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" afterPath="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" />
+    <list default="true" id="875caa9d-27d7-4d7d-8df2-dd32aa472912" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/protected/views/site/contact.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/SiteController.php" afterPath="$PROJECT_DIR$/protected/controllers/SiteController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web.iws" />
@@ -38,15 +27,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="OrganizationContactController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationContactController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="275" selection-end="275" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OrganizationController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/OrganizationController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -101,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SiteController.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SiteController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="81" selection-end="170" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="1275">
+            <state line="49" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.7758406" vertical-offset="112" max-vertical-offset="915">
               <folding />
             </state>
           </provider>
@@ -119,10 +99,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Controller.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/components/Controller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="0.01867995" vertical-offset="270" max-vertical-offset="2160">
+            <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="-0.625" vertical-offset="270" max-vertical-offset="2160">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/site/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="435">
               <folding />
             </state>
           </provider>
@@ -146,7 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/protected/models/Product.php" />
         <option value="$PROJECT_DIR$/protected/models/ProductType.php" />
         <option value="$PROJECT_DIR$/protected/views/layouts/main.php" />
         <option value="$PROJECT_DIR$/protected/views/glossary/index.php" />
@@ -162,6 +150,7 @@
         <option value="$PROJECT_DIR$/protected/controllers/ProductController.php" />
         <option value="$PROJECT_DIR$/protected/controllers/ProductTypeController.php" />
         <option value="$PROJECT_DIR$/protected/controllers/TaskTypeController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/SiteController.php" />
       </list>
     </option>
   </component>
@@ -245,6 +234,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CRM.1000web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="site" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,12 +472,16 @@
       <created>1375123810735</created>
       <updated>1375123810735</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Из контроллеров удалены filter() и accessControl().">
+      <created>1375124228260</created>
+      <updated>1375124228261</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="998" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3257403" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -557,7 +572,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реорганизовано меню и справочники.&#10;Частичная руссификация." />
+    <option name="LAST_COMMIT_MESSAGE" value="Из контроллеров удалены filter() и accessControl()." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -578,18 +593,12 @@
     <MESSAGE value="Добавляет разделение конфигурации &#10;Development и Production." />
     <MESSAGE value="Заменяет во всех View ста стандартных на такие:&#10;$this-&gt;menu = $this-&gt;menuOperations('{action}');&#10;" />
     <MESSAGE value="Реорганизовано меню и справочники.&#10;Частичная руссификация." />
+    <MESSAGE value="Из контроллеров удалены filter() и accessControl()." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/views/glossary/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="269" selection-end="269" vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/ContactTypeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
@@ -674,13 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="81" selection-end="170" vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="1275">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TaskTypeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="264" selection-end="264" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="2130">
@@ -690,7 +692,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/components/Controller.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="0.01867995" vertical-offset="270" max-vertical-offset="2160">
+        <state line="19" column="0" selection-start="515" selection-end="515" vertical-scroll-proportion="-0.625" vertical-offset="270" max-vertical-offset="2160">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/site/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="827">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.7758406" vertical-offset="112" max-vertical-offset="915">
           <folding />
         </state>
       </provider>
