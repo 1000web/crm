@@ -23,7 +23,7 @@ return CMap::mergeArray(
     'language' => 'ru',
 
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'CRM',
+    'name' => 'CRM.1000web',
 
     // preloading 'log' component
     'preload' => array('log'),

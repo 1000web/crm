@@ -1,0 +1,16 @@
+<?php
+/* @var $this CustomerController */
+/* @var $model Customer */
+
+$this->breadcrumbs=array(
+	'Customers'=>array('index'),
+	'Create',
+);
+
+$this->menu = $this->menuOperations('create');
+
+?>
+
+<h1>Create Customer</h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

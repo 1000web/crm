@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Organizations'=>array('index'),
-	$model->name,
+	$model->id,
 );
 
 $this->menu = $this->menuOperations('view', $model->id);
@@ -17,10 +17,10 @@ $this->menu = $this->menuOperations('view', $model->id);
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'create_time',
-		'update_time',
-		'create_user',
-		'update_user',
-		'name',
+		'organization_type_id',
+		'organization_group_id',
+		'organization_region_id',
+		'value',
+		'description',
 	),
 )); ?>

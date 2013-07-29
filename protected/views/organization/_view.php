@@ -5,29 +5,24 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+    <?php
+        echo $this->view_value($data);
+    ?>
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('organization_type_id')); ?>:</b>
+	<?php echo CHtml::encode($data->organizationType->value); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
-	<?php echo CHtml::encode($data->create_time); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('organization_group_id')); ?>:</b>
+	<?php echo CHtml::encode($data->organizationGroup->value); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
-	<?php echo CHtml::encode($data->update_time); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('organization_region_id')); ?>:</b>
+	<?php echo CHtml::encode($data->organizationRegion->value); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
-
+	<?php
+        echo $this->view_description($data);
+    ?>
 
 </div>

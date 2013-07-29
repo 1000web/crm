@@ -7,13 +7,22 @@
  * @property integer $id
  * @property integer $create_time
  * @property integer $update_time
- * @property integer $create_user
- * @property integer $update_user
- * @property string $name
+ * @property integer $create_user_id
+ * @property integer $update_user_id
+ * @property integer $organization_type_id
+ * @property integer $organization_group_id
+ * @property integer $organization_region_id
+ * @property string $value
+ * @property string $description
  *
  * The followings are the available model relations:
- * @property Users $updateUser
+ * @property Customer[] $customers
  * @property Users $createUser
+ * @property Users $updateUser
+ * @property OrganizationType $organizationType
+ * @property OrganizationGroup $organizationGroup
+ * @property OrganizationRegion $organizationRegion
+ * @property OrganizationContact[] $organizationContacts
  */
 class Organization extends MyActiveRecord
 {
@@ -43,12 +52,13 @@ class Organization extends MyActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('create_time, update_time, create_user, update_user', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
+			array('organization_type_id, organization_group_id, organization_region_id, value', 'required'),
+			array('create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id', 'numerical', 'integerOnly'=>true),
+			array('value', 'length', 'max'=>255),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, create_time, update_time, create_user, update_user, name', 'safe', 'on'=>'search'),
+			array('id, create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id, value, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,8 +70,13 @@ class Organization extends MyActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user'),
-			'createUser' => array(self::BELONGS_TO, 'Users', 'create_user'),
+			'customers' => array(self::HAS_MANY, 'Customer', 'organization_id'),
+			'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+			'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+			'organizationType' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
+			'organizationGroup' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
+			'organizationRegion' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
+			'organizationContacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
 		);
 	}
 
@@ -74,9 +89,13 @@ class Organization extends MyActiveRecord
 			'id' => 'ID',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
-			'create_user' => 'Create User',
-			'update_user' => 'Update User',
-			'name' => 'Name',
+			'create_user_id' => 'Create User',
+			'update_user_id' => 'Update User',
+			'organization_type_id' => 'Organization Type',
+			'organization_group_id' => 'Organization Group',
+			'organization_region_id' => 'Organization Region',
+			'value' => 'Value',
+			'description' => 'Description',
 		);
 	}
 
@@ -94,9 +113,13 @@ class Organization extends MyActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);
-		$criteria->compare('create_user',$this->create_user);
-		$criteria->compare('update_user',$this->update_user);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('create_user_id',$this->create_user_id);
+		$criteria->compare('update_user_id',$this->update_user_id);
+		$criteria->compare('organization_type_id',$this->organization_type_id);
+		$criteria->compare('organization_group_id',$this->organization_group_id);
+		$criteria->compare('organization_region_id',$this->organization_region_id);
+		$criteria->compare('value',$this->value,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -27,18 +27,38 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'create_user'); ?>
-		<?php echo $form->textField($model,'create_user'); ?>
+		<?php echo $form->label($model,'create_user_id'); ?>
+		<?php echo $form->textField($model,'create_user_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'update_user'); ?>
-		<?php echo $form->textField($model,'update_user'); ?>
+		<?php echo $form->label($model,'update_user_id'); ?>
+		<?php echo $form->textField($model,'update_user_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'organization_type_id'); ?>
+		<?php echo $form->textField($model,'organization_type_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'organization_group_id'); ?>
+		<?php echo $form->textField($model,'organization_group_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'organization_region_id'); ?>
+		<?php echo $form->textField($model,'organization_region_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'value'); ?>
+		<?php echo $form->textField($model,'value',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

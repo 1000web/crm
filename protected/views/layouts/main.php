@@ -34,13 +34,14 @@
     <div id="mainmenu">
         <?php $this->widget('zii.widgets.CMenu', array(
             'items' => array(
-                array('label' => 'Home', 'url' => array('/site/index')),
-                array('label' => 'Contact', 'url' => array('/site/contact')),
-                array('label' => 'Client', 'url' => array('/client')),
-                array('label' => 'Organization', 'url' => array('/organization')),
-                array('label' => 'Login', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
-                array('label' => 'Profile', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
-                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest)
+                array('label' => 'Главная', 'url' => array('/site/index')),
+                //array('label' => 'Обратная связь', 'url' => array('/site/contact')),
+                array('label' => 'Контактные лица', 'url' => array('/customer')),
+                array('label' => 'Организации', 'url' => array('/organization')),
+                array('label' => 'Справочники', 'url' => array('/glossary')),
+                array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
+                array('label' => 'Профиль', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest)
             ),
         )); ?>
     </div>
