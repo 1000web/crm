@@ -819,3 +819,21 @@ Stack trace:
 REQUEST_URI=/site/login
 HTTP_REFERER=http://local.crm.1000web.ru/product
 ---
+2013/07/29 21:15:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "task".' in /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('task')
+#1 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Applications/MAMP/vhosts/crm.1000web.ru/web/index.php(18): CApplication->run()
+#3 {main}
+REQUEST_URI=/task
+HTTP_REFERER=http://local.crm.1000web.ru/glossary
+---
+2013/07/29 21:20:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "task".' in /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('task')
+#1 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Applications/MAMP/vhosts/crm.1000web.ru/web/index.php(18): CApplication->run()
+#3 {main}
+REQUEST_URI=/task
+HTTP_REFERER=http://local.crm.1000web.ru/glossary
+---

@@ -34,6 +34,15 @@ class SiteController extends Controller
         $this->render('index');
     }
 
+    public function actionLogin()
+    {
+        /*
+        TODO
+        НУЖНО ИСПРАВИТЬ
+        */
+        $this->redirect('/user/login');
+    }
+
     /**
      * This is the action to handle external exceptions.
      */

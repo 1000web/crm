@@ -38,6 +38,7 @@
                 //array('label' => 'Контактные лица', 'url' => array('/customer')),
                 //array('label' => 'Организации', 'url' => array('/organization')),
                 array('label' => 'Справочники', 'url' => array('/glossary')),
+                array('label' => 'База знаний', 'url' => array('/kb')),
                 array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
                 array('label' => 'Профиль', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
                 array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest)
@@ -47,7 +48,7 @@
     <!-- mainmenu -->
     <?php if (isset($this->breadcrumbs)): ?>
         <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
+			'links' => $this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
     <?php endif ?>
 
@@ -56,7 +57,8 @@
     <div class="clear"></div>
 
     <div id="footer">
-        &copy; <?php echo date('Y'); ?> АтомСпецСервис<br/>
+        &copy; <?php echo date('Y'); ?> <a href="http://atomspetsservice.ru/" target="_blank">АтомСпецСервис</a><br/>
+        Разработка <a href="http://1000web.ru" target="_blank">1000web.ru</a>
     </div>
     <!-- footer -->
 
