@@ -14,9 +14,9 @@
  * @property string $description
  *
  * The followings are the available model relations:
- * @property ProductType $productType
  * @property Users $createUser
  * @property Users $updateUser
+ * @property ProductType $productType
  */
 class Product extends MyActiveRecord
 {
@@ -46,9 +46,10 @@ class Product extends MyActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, create_time, update_time, create_user_id, update_user_id, product_type_id, value, description', 'required'),
-			array('id, create_time, update_time, create_user_id, update_user_id, product_type_id', 'numerical', 'integerOnly'=>true),
+			array('product_type_id, value', 'required'),
+			array('create_time, update_time, create_user_id, update_user_id, product_type_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'length', 'max'=>255),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, create_time, update_time, create_user_id, update_user_id, product_type_id, value, description', 'safe', 'on'=>'search'),
@@ -63,9 +64,9 @@ class Product extends MyActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'productType' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
 			'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+			'productType' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
 		);
 	}
 
@@ -76,13 +77,13 @@ class Product extends MyActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
-			'create_user_id' => 'Create User',
-			'update_user_id' => 'Update User',
-			'product_type_id' => 'Product Type',
-			'value' => 'Value',
-			'description' => 'Description',
+            'create_time' => 'Дата создания',
+            'update_time' => 'Дата изменения',
+            'create_user_id' => 'Создал',
+            'update_user_id' => 'Изменил',
+			'product_type_id' => 'Тип продукта',
+			'value' => 'Значение',
+			'description' => 'Описание',
 		);
 	}
 

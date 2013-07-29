@@ -80,14 +80,14 @@ class CustomerContact extends MyActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
-			'create_user_id' => 'Create User',
-			'update_user_id' => 'Update User',
-			'contact_type_id' => 'Contact Type',
-			'customer_id' => 'Customer',
-			'value' => 'Value',
-			'description' => 'Description',
+            'create_time' => 'Дата создания',
+            'update_time' => 'Дата изменения',
+            'create_user_id' => 'Создал',
+            'update_user_id' => 'Изменил',
+			'contact_type_id' => 'Тип контакта',
+			'customer_id' => 'Клиент',
+			'value' => 'Значение',
+			'description' => 'Описание',
 		);
 	}
 

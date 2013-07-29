@@ -6,7 +6,7 @@
 <div class="view">
 
     <?php
-    echo $this->view_name($data);
+    echo $this->view_fullname($data);
     ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('organization_id')); ?>:</b>

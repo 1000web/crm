@@ -80,14 +80,14 @@ class OrganizationContact extends MyActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
-			'create_user_id' => 'Create User',
-			'update_user_id' => 'Update User',
-			'organization_id' => 'Organization',
-			'contact_type_id' => 'Contact Type',
-			'value' => 'Value',
-			'description' => 'Description',
+            'create_time' => 'Дата создания',
+            'update_time' => 'Дата изменения',
+            'create_user_id' => 'Создал',
+            'update_user_id' => 'Изменил',
+			'organization_id' => 'Организация',
+			'contact_type_id' => 'Тип контакта',
+			'value' => 'Значение',
+			'description' => 'Описание',
 		);
 	}
 

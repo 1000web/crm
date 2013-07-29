@@ -107,7 +107,7 @@ class Controller extends RController
         return $menu;
     }
 
-    public function view_name($data){
+    public function view_fullname($data){
         if($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
         else $name = $data->firstname;
         return "<b>" . CHtml::link(CHtml::encode($name), array('view', 'id'=>$data->id)) . "</b>\n<br />\n";

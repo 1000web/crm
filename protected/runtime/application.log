@@ -786,3 +786,36 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/organizationContact
 ---
+2013/07/29 19:52:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "login".' in /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#3 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Applications/MAMP/vhosts/crm.1000web.ru/web/index.php(18): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/login
+HTTP_REFERER=http://local.crm.1000web.ru/organizationType
+---
+2013/07/29 20:17:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "login".' in /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#3 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Applications/MAMP/vhosts/crm.1000web.ru/web/index.php(18): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/login
+HTTP_REFERER=http://local.crm.1000web.ru/customer
+---
+2013/07/29 20:35:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "login".' in /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CController.php(270): CController->missingAction('login')
+#1 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(282): CController->run('login')
+#2 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#3 /Applications/MAMP/vhosts/crm.1000web.ru/web/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Applications/MAMP/vhosts/crm.1000web.ru/web/index.php(18): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/login
+HTTP_REFERER=http://local.crm.1000web.ru/product
+---
