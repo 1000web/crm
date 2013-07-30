@@ -19,7 +19,8 @@ class CustomerContactController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new CustomerContact;
+		$model = new CustomerContact;
+		$model_log = new CustomerContactLog;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -27,8 +28,11 @@ class CustomerContactController extends Controller
 		if(isset($_POST['CustomerContact']))
 		{
 			$model->attributes=$_POST['CustomerContact'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+                $model_log->attributes = $model->attributes;
+                $model_log->save();
+                $this->redirect(array('view','id'=>$model->id));
+            }
 		}
 
 		$this->render('create',array(
@@ -43,7 +47,8 @@ class CustomerContactController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
+        $model_log = new CustomerContactLog;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -51,8 +56,11 @@ class CustomerContactController extends Controller
 		if(isset($_POST['CustomerContact']))
 		{
 			$model->attributes=$_POST['CustomerContact'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+                $model_log->attributes = $model->attributes;
+                $model_log->save();
+                $this->redirect(array('view','id'=>$model->id));
+            }
 		}
 
 		$this->render('update',array(
@@ -67,11 +75,17 @@ class CustomerContactController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+//		$this->loadModel($id)->delete();
+        $model = $this->loadModel($id);
+        $model_log = new CustomerContactLog;
+        $model_log->attributes = $model->attributes;
+        $model_log->setAttribute('deleted', 1);
+        $model_log->save();
+        $model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
