@@ -5,7 +5,7 @@
  */
 class Controller extends RController
 {
-    public $layout = '//layouts/column1';
+    public $layout = '//layouts/column2';
     public $menu = array();
     public $breadcrumbs = array();
     public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete');
