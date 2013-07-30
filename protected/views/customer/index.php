@@ -3,14 +3,30 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
-    'Customers',
+    'Контакты',
 );
 
 $this->menu = $this->menuOperations('index');
 
 ?>
 
-<h1>Customers</h1>
+<table width="80%">
+    <tr>
+        <td width="170" rowspan="2">
+            <img src="/images/contact.jpg" />
+        </td>
+        <td colspan="2">
+            <h1>Контакты</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>Упорядочивайте свои Контакты</h2>
+            Контакты - это люди в компании, с которыми вы общаетесь и взаимодействуете в рамках достижения бизнес-задач.
+        </td>
+    </tr>
+</table>
+
 
 <?php $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,

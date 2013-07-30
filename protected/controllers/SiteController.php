@@ -34,6 +34,11 @@ class SiteController extends Controller
         $this->render('index');
     }
 
+    public function actionAbout()
+    {
+        $this->render('about');
+    }
+
     public function actionLogin()
     {
         /* TODO НУЖНО ИСПРАВИТЬ */

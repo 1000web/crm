@@ -35,8 +35,8 @@
         <?php $this->widget('zii.widgets.CMenu', array(
             'items' => array(
                 array('label' => 'Главная', 'url' => array('/site/index')),
-                //array('label' => 'Контактные лица', 'url' => array('/customer')),
-                //array('label' => 'Организации', 'url' => array('/organization')),
+                array('label' => 'Контакты', 'url' => array('/customer')),
+                array('label' => 'Контрагенты', 'url' => array('/organization')),
                 array('label' => 'Справочники', 'url' => array('/glossary')),
                 array('label' => 'База знаний', 'url' => array('/kb')),
                 array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
