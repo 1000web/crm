@@ -42,7 +42,8 @@ class SiteController extends Controller
     public function actionLogin()
     {
         /* TODO НУЖНО ИСПРАВИТЬ */
-        $this->redirect('/user/login');
+        $this->render('login');
+//        $this->redirect('/user/login');
     }
 
     /**

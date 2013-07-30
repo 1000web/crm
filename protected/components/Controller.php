@@ -16,7 +16,7 @@ class Controller extends RController
     public function filters()
     {
         return array(
-            //'rights'
+            'rights',
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
         );
@@ -135,9 +135,15 @@ class Controller extends RController
 
     public function submit_button($isNewRecord)
     {
-        $ret = "\n<div class='row buttons'>\n";
-        $ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
-        $ret .= "\n</div>\n";
-        return $ret;
+        echo "\n<div class='row buttons'>\n";
+        //$ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
+            'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'buttonType' => 'submit',
+        //    'size' => 'large', // null, 'large', 'small' or 'mini'
+        ));
+        echo "\n</div>\n";
+        //return $ret;
     }
 }

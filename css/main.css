@@ -6,9 +6,9 @@ body
 	font: normal 10pt Arial,Helvetica,sans-serif;
 	background: #EFEFEF;
 }
-
 #page
 {
+    padding-top: 60px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	background: white;

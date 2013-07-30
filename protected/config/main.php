@@ -3,6 +3,10 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
+// Define a path alias for the Bootstrap extension as it's used internally.
+// In this example we assume that you unzipped the extension under protected/extensions.
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
@@ -24,6 +28,7 @@ return CMap::mergeArray(
 
         'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
         'name' => 'CRM.1000web',
+        //'theme'=>'bootstrap', // requires you to copy the theme under your themes directory
 
         // preloading 'log' component
         'preload' => array('log'),
@@ -72,6 +77,9 @@ return CMap::mergeArray(
             'gii' => array(
                 'class' => 'system.gii.GiiModule',
                 'password' => 'gii',
+                'generatorPaths'=>array(
+                    'bootstrap.gii',
+                ),
                 // If removed, Gii defaults to localhost only. Edit carefully to taste.
                 'ipFilters' => array('127.0.0.1', '::1'),
             ),
@@ -104,6 +112,9 @@ return CMap::mergeArray(
                 'class' => 'application.extensions.yii-sms.Sms',
                 'login' => '9185569410', // Логин на сайте sms.ru
                 'password' => 'SMS1pass', // Пароль
+            ),
+            'bootstrap'=>array(
+                'class'=>'bootstrap.components.Bootstrap',
             ),
             'errorHandler' => array(
                 // use 'site/error' action to display errors
