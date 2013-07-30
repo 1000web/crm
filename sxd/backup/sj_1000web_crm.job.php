@@ -7,13 +7,6 @@ $JOB = array (
   'comment' => '',
   'del_time' => '',
   'del_count' => '',
-  'obj' => 
-  array (
-    'TA' => 
-    array (
-      0 => '*',
-    ),
-  ),
   'job' => '1000web_crm',
   'title' => '',
 );
