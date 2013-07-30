@@ -7,13 +7,8 @@ $this->breadcrumbs = array(
     $model->id,
 );
 
-$this->menu = array(
-    array('label' => 'List Task', 'url' => array('index')),
-    array('label' => 'Create Task', 'url' => array('create')),
-    array('label' => 'Update Task', 'url' => array('update', 'id' => $model->id)),
-    array('label' => 'Delete Task', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage Task', 'url' => array('admin')),
-);
+$this->menu = $this->menuOperations('view');
+
 ?>
 
 <h1>View Task #<?php echo $model->id; ?></h1>

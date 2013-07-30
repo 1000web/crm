@@ -7,10 +7,7 @@ $this->breadcrumbs = array(
     'Manage',
 );
 
-$this->menu = array(
-    array('label' => 'List Task', 'url' => array('index')),
-    array('label' => 'Create Task', 'url' => array('create')),
-);
+$this->menu = $this->menuOperations('admin');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

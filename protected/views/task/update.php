@@ -8,12 +8,8 @@ $this->breadcrumbs = array(
     'Update',
 );
 
-$this->menu = array(
-    array('label' => 'List Task', 'url' => array('index')),
-    array('label' => 'Create Task', 'url' => array('create')),
-    array('label' => 'View Task', 'url' => array('view', 'id' => $model->id)),
-    array('label' => 'Manage Task', 'url' => array('admin')),
-);
+$this->menu = $this->menuOperations('update');
+
 ?>
 
     <h1>Update Task <?php echo $model->id; ?></h1>

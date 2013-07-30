@@ -7,10 +7,8 @@ $this->breadcrumbs = array(
     'Create',
 );
 
-$this->menu = array(
-    array('label' => 'List Task', 'url' => array('index')),
-    array('label' => 'Manage Task', 'url' => array('admin')),
-);
+$this->menu = $this->menuOperations('create');
+
 ?>
 
     <h1>Create Task</h1>

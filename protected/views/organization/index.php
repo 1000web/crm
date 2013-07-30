@@ -10,17 +10,13 @@ $this->menu = $this->menuOperations('index');
 
 ?>
 
-<table width="80%">
+<table class="span-20">
     <tr>
-        <td width="170" rowspan="2">
+        <td class="span-4">
             <img src="/images/organization-150x150.jpg" />
         </td>
-        <td colspan="2">
+        <td class="span-16">
             <h1>Контрагенты</h1>
-        </td>
-    </tr>
-    <tr>
-        <td>
             <h2>Заключайте сделки с Контрагентами</h2>
             Контрагенты - это компании или корпоративные отделы, с которыми вы имеете деловые отношения.
         </td>
