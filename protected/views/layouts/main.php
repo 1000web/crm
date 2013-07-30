@@ -37,8 +37,10 @@
                 array('label' => 'Главная', 'url' => array('/site/index')),
                 array('label' => 'Контакты', 'url' => array('/customer')),
                 array('label' => 'Контрагенты', 'url' => array('/organization')),
+                array('label' => 'Операции', 'url' => array('/task')),
+                array('label' => 'Сделки', 'url' => array('/deal')),
                 array('label' => 'Справочники', 'url' => array('/glossary')),
-                array('label' => 'База знаний', 'url' => array('/kb')),
+                //array('label' => 'База знаний', 'url' => array('/kb')),
                 array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
                 array('label' => 'Профиль', 'url' => array('/user/profile'), 'visible' => !Yii::app()->user->isGuest),
                 array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout'), 'visible' => !Yii::app()->user->isGuest)

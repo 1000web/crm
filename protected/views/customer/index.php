@@ -13,7 +13,7 @@ $this->menu = $this->menuOperations('index');
 <table width="80%">
     <tr>
         <td width="170" rowspan="2">
-            <img src="/images/contact.jpg" />
+            <img src="/images/customer-150x150.jpg" />
         </td>
         <td colspan="2">
             <h1>Контакты</h1>
