@@ -73,9 +73,8 @@ class OrganizationContactController extends Controller
      */
     public function actionDelete($id)
     {
-        //$this->loadModel($id)->delete();
-        $model = $this->loadModel($id);
         $model_log = new OrganizationContactLog;
+        $model = $this->loadModel($id);
         $model_log->attributes = $model->attributes;
         $model_log->setAttribute('deleted', 1);
         $model_log->save();

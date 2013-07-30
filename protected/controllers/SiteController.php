@@ -56,7 +56,8 @@ class SiteController extends Controller
         }
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $rules = $this->accessRules();
         echo '<pre>';
         print_r($rules);

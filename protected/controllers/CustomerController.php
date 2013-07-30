@@ -73,8 +73,8 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->loadModel($id);
         $model_log = new CustomerLog;
+        $model = $this->loadModel($id);
         $model_log->attributes = $model->attributes;
         $model_log->setAttribute('deleted', 1);
         $model_log->save();
