@@ -27,7 +27,7 @@ class TaskTypeController extends Controller
 
         if (isset($_POST['TaskType'])) {
             $model->attributes = $_POST['TaskType'];
-            if ($model->save()){
+            if ($model->save()) {
                 $model_log->attributes = $model->attributes;
                 $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));
@@ -54,7 +54,7 @@ class TaskTypeController extends Controller
 
         if (isset($_POST['TaskType'])) {
             $model->attributes = $_POST['TaskType'];
-            if ($model->save()){
+            if ($model->save()) {
                 $model_log->attributes = $model->attributes;
                 $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));

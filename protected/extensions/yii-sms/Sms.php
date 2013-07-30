@@ -2,7 +2,7 @@
 
 class Sms extends CApplicationComponent
 {
-    const HOST  = 'http://sms.ru/';
+    const HOST = 'http://sms.ru/';
     const SEND = 'sms/send?';
     const STATUS = 'sms/status?';
     const COST = 'sms/cost?';
@@ -17,31 +17,30 @@ class Sms extends CApplicationComponent
     public $token;
     public $id;
     public $sha512;
-    
+
     /**
      * Init
-     * 
+     *
      * @throws CException
      */
     public function init()
     {
-        if (!function_exists ('curl_init'))
-        {
+        if (!function_exists('curl_init')) {
             throw new CException ('Для работы расширения требуется cURL');
         }
 
         parent::init();
     }
-    
+
     /**
      * Send message
-     * 
-     * @param string $to 
-     * @param string $text 
-     * @param string $from 
-     * @param integer $time 
-     * @param boolean $test 
-     * @param type $partner_id 
+     *
+     * @param string $to
+     * @param string $text
+     * @param string $from
+     * @param integer $time
+     * @param boolean $test
+     * @param type $partner_id
      * @return array
      */
     public function send($to, $text, $from = null, $time = null, $test = false, $partner_id = null)
@@ -71,19 +70,19 @@ class Sms extends CApplicationComponent
         return array(
             'code' => $result[0],
             'id' => $result[1],
-            'balance' => str_replace( 'balance=', '', $result[2] )
+            'balance' => str_replace('balance=', '', $result[2])
         );
     }
-    
+
     /**
      * Check message status
-     * 
+     *
      * @param type $id
      * @return type
      */
     public function status($id)
     {
-        $url = self::HOST.self::STATUS;
+        $url = self::HOST . self::STATUS;
 
         $params = $this->get_default_params();
         $params['id'] = $id;
@@ -91,7 +90,7 @@ class Sms extends CApplicationComponent
 
         return $result;
     }
-    
+
     /**
      * Check user balance
      * @return array
@@ -109,10 +108,10 @@ class Sms extends CApplicationComponent
             'balance' => $result[1]
         );
     }
-    
+
     /**
      * Check day limit
-     * 
+     *
      * @return array
      */
     public function limit()
@@ -129,17 +128,17 @@ class Sms extends CApplicationComponent
             'current' => $result[2]
         );
     }
-    
+
     /**
      * Get message cost
-     * 
+     *
      * @param type $to
      * @param type $text
      * @return type
      */
-    public function cost($to, $text) 
+    public function cost($to, $text)
     {
-        $url = self::HOST.self::COST;
+        $url = self::HOST . self::COST;
         $this->id = null;
 
         $params = $this->get_default_params();
@@ -155,17 +154,17 @@ class Sms extends CApplicationComponent
             'number' => $result[2]
         );
     }
-    
+
     /**
      * Get my senders list
-     * 
+     *
      * @return array
      */
-    public function senders() 
+    public function senders()
     {
         $url = self::HOST . self::SENDERS;
         $params = $this->get_default_params();
-        $result = $this->request( $url, $params );
+        $result = $this->request($url, $params);
         $result = explode("\n", rtrim($result));
 
         $response = array(
@@ -177,13 +176,13 @@ class Sms extends CApplicationComponent
 
         return $response;
     }
-    
+
     /**
      * Check user auth
-     * 
+     *
      * @return type
      */
-    public function check() 
+    public function check()
     {
         $url = self::HOST . self::CHECK;
         $params = $this->get_default_params();
@@ -191,8 +190,8 @@ class Sms extends CApplicationComponent
 
         return $result;
     }
-    
-    protected function get_default_params() 
+
+    protected function get_default_params()
     {
         $this->get_auth_token();
         $this->get_sha512();
@@ -203,8 +202,8 @@ class Sms extends CApplicationComponent
             'sha512' => $this->sha512
         );
     }
-    
-    protected function get_auth_token() 
+
+    protected function get_auth_token()
     {
         $url = self::HOST . self::GET_TOKEN;
         $this->token = $this->request($url);
@@ -212,13 +211,13 @@ class Sms extends CApplicationComponent
         return $this->token;
 
     }
-    
-    protected function get_sha512() 
+
+    protected function get_sha512()
     {
-        $this->sha512 = hash('sha512', $this->password.$this->token);
+        $this->sha512 = hash('sha512', $this->password . $this->token);
     }
-    
-    protected function request($url, $params = array()) 
+
+    protected function request($url, $params = array())
     {
         $ch = curl_init($url);
         $options = array(

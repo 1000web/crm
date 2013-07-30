@@ -2,15 +2,15 @@
 /* @var $this CustomerController */
 /* @var $model Customer */
 
-$this->breadcrumbs=array(
-	'Customers'=>array('index'),
-	'Create',
+$this->breadcrumbs = array(
+    'Customers' => array('index'),
+    'Create',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-<h1>Create Customer</h1>
+    <h1>Create Customer</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

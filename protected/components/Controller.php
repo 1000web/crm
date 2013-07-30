@@ -111,28 +111,32 @@ class Controller extends RController
         return $menu;
     }
 
-    public function view_fullname($data){
-        if($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
+    public function view_fullname($data)
+    {
+        if ($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
         else $name = $data->firstname;
-        return "<b>" . CHtml::link(CHtml::encode($name), array('view', 'id'=>$data->id)) . "</b>\n<br />\n";
+        return "<b>" . CHtml::link(CHtml::encode($name), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
     }
 
-    public function view_value($data){
-        return "<b>" . CHtml::link(CHtml::encode($data->value), array('view', 'id'=>$data->id)) . "</b>\n<br />\n";
+    public function view_value($data)
+    {
+        return "<b>" . CHtml::link(CHtml::encode($data->value), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
     }
 
-    public function view_description($data){
+    public function view_description($data)
+    {
         $ret = '';
-        if($data->description) {
+        if ($data->description) {
             $ret .= "<b>" . CHtml::encode($data->getAttributeLabel('description')) . ":</b>\n";
             $ret .= CHtml::encode($data->description) . "<br />\n";
         }
         return $ret;
     }
 
-    public function submit_button($isNewRecord){
+    public function submit_button($isNewRecord)
+    {
         $ret = "\n<div class='row buttons'>\n";
-		$ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
+        $ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
         $ret .= "\n</div>\n";
         return $ret;
     }

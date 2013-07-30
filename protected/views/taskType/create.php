@@ -2,16 +2,16 @@
 /* @var $this TaskTypeController */
 /* @var $model TaskType */
 
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
     'Справочники' => 'glossary',
-    'Типы задач'=>array('index'),
-	'Создать',
+    'Типы задач' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-<h1>Создать Тип задач</h1>
+    <h1>Создать Тип задач</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

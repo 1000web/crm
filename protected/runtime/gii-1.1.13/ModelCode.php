@@ -1,9 +1,9 @@
 <?php
-return array (
-  'template' => 'default',
-  'connectionId' => 'db',
-  'tablePrefix' => 'tbl_',
-  'modelPath' => 'application.models',
-  'baseClass' => 'MyActiveRecord',
-  'buildRelations' => '1',
+return array(
+    'template' => 'default',
+    'connectionId' => 'db',
+    'tablePrefix' => 'tbl_',
+    'modelPath' => 'application.models',
+    'baseClass' => 'MyActiveRecord',
+    'buildRelations' => '1',
 );

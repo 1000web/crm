@@ -4,8 +4,7 @@ class MyActiveRecord extends CActiveRecord
 {
     public function beforeSave()
     {
-        if (parent::beforeSave())
-        {
+        if (parent::beforeSave()) {
             $t = time();
             $u = Yii::app()->user->id;
             $this->update_time = $t;
@@ -15,8 +14,7 @@ class MyActiveRecord extends CActiveRecord
                 $this->create_user_id = $u;
             }
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
 }

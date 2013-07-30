@@ -2,7 +2,7 @@
 /* @var $this KbController */
 
 $this->breadcrumbs = array(
-	'База знаний',
+    'База знаний',
 );
 ?>
 <h1>База знаний</h1>

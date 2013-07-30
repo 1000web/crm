@@ -2,8 +2,8 @@
 /* @var $this CustomerController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Customers',
+$this->breadcrumbs = array(
+    'Customers',
 );
 
 $this->menu = $this->menuOperations('index');
@@ -13,6 +13,6 @@ $this->menu = $this->menuOperations('index');
 <h1>Customers</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+    'dataProvider' => $dataProvider,
+    'itemView' => '_view',
 )); ?>
