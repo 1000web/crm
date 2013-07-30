@@ -99,6 +99,12 @@ return CMap::mergeArray(
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),
+        'sms' => array
+        (
+            'class'    => 'application.extensions.yii-sms.Sms',
+            'login'     => '9185569410',      // Логин на сайте sms.ru
+            'password'   => 'SMS1pass',     // Пароль
+        ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
