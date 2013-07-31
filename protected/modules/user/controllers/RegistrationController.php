@@ -1,6 +1,6 @@
 <?php
 
-class RegistrationController extends Controller
+class RegistrationController extends MyUserController
 {
     public $defaultAction = 'registration';
 

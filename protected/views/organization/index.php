@@ -23,6 +23,51 @@ $this->menu = $this->menuOperations('index');
     </tr>
 </table>
 
+<div class="row">
+<div class="btn-toolbar span2">
+    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'Тип контрагента', 'url'=>'#'),
+            array('items'=>array(
+                array('label'=>'Партнер', 'url'=>'#'),
+                array('label'=>'Заказчик', 'url'=>'#'),
+                array('label'=>'Поставщик', 'url'=>'#'),
+                '---',
+                array('label'=>'АтомСпецСервис', 'url'=>'#'),
+            )),
+        ),
+    )); ?>
+</div>
+
+<div class="btn-toolbar span2">
+    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'Регион', 'url'=>'#'),
+            array('items'=>array(
+                array('label'=>'Россия', 'url'=>'#'),
+                array('label'=>'Украина', 'url'=>'#'),
+                array('label'=>'Зарубежье', 'url'=>'#'),
+            )),
+        ),
+    )); ?>
+</div>
+
+<div class="btn-toolbar span2">
+    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'Группа контрагентов', 'url'=>'#'),
+            array('items'=>array(
+                array('label'=>'1', 'url'=>'#'),
+                array('label'=>'2', 'url'=>'#'),
+                array('label'=>'3', 'url'=>'#'),
+            )),
+        ),
+    )); ?>
+</div>
+</div>
 
 <?php $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,

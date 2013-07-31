@@ -1,6 +1,6 @@
 <?php
 
-class ProfileFieldController extends Controller
+class ProfileFieldController extends MyUserController
 {
 
     /**
@@ -10,16 +10,6 @@ class ProfileFieldController extends Controller
     private static $_widgets = array();
     public $defaultAction = 'admin';
     public $layout = '//layouts/column2';
-
-    /**
-     * @return array action filters
-     */
-    public function filters()
-    {
-        return CMap::mergeArray(parent::filters(), array(
-            'accessControl', // perform access control for CRUD operations
-        ));
-    }
 
     /**
      * Specifies the access control rules.

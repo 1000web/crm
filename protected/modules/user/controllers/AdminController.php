@@ -1,21 +1,11 @@
 <?php
 
-class AdminController extends Controller
+class AdminController extends MyUserController
 {
     public $defaultAction = 'admin';
     public $layout = '//layouts/column2';
 
     private $_model;
-
-    /**
-     * @return array action filters
-     */
-    public function filters()
-    {
-        return CMap::mergeArray(parent::filters(), array(
-            'accessControl', // perform access control for CRUD operations
-        ));
-    }
 
     /**
      * Specifies the access control rules.

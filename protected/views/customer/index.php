@@ -10,12 +10,12 @@ $this->menu = $this->menuOperations('index');
 
 ?>
 
-<table class="span-20">
+<table class="span10">
     <tr>
-        <td class="span-4">
+        <td class="span2">
             <img src="/images/customer-150x150.jpg" />
         </td>
-        <td class="span-16">
+        <td class="span8">
             <h1>Контакты</h1>
             <h2>Упорядочивайте свои Контакты</h2>
             Контакты - это люди в компании, с которыми вы общаетесь и взаимодействуете в рамках достижения бизнес-задач.

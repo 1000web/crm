@@ -1,6 +1,6 @@
 <?php
 
-class RecoveryController extends Controller
+class RecoveryController extends MyUserController
 {
     public $defaultAction = 'recovery';
 
