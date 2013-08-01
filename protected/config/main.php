@@ -23,7 +23,7 @@ return CMap::mergeArray(
     require($config),
     array(
         // Языки для мультиязычности сайта
-        'sourceLanguage' => 'ru',
+        'sourceLanguage' => 'en',
         'language' => 'ru',
 
         'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
