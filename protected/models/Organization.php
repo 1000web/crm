@@ -59,6 +59,11 @@ class Organization extends MyActiveRecord
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id, value, description', 'safe', 'on' => 'search'),
+
+            array('organization_type_id', 'in', 'range' => OrganizationType::getAllowedRange()),
+            array('organization_group_id', 'in', 'range' => OrganizationGroup::getAllowedRange()),
+            array('organization_region_id', 'in', 'range' => OrganizationRegion::getAllowedRange()),
+
         );
     }
 

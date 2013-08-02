@@ -3,15 +3,20 @@
 /* @var $model Organization */
 
 $this->breadcrumbs = array(
-    'Organizations' => array('index'),
+    'Организации' => array('index'),
     $model->id => array('view', 'id' => $model->id),
-    'Update',
+    'Изменить',
 );
 
 $this->menu = $this->menuOperations('update', $model->id);
 
 ?>
 
-    <h1>Update Organization <?php echo $model->id; ?></h1>
+    <h1>Изменить <?php echo $model->value; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<?php echo $this->renderPartial('_form', array(
+    'model' => $model,
+    'modelType' => $modelType,
+    'modelGroup' => $modelGroup,
+    'modelRegion' => $modelRegion,
+)); ?>

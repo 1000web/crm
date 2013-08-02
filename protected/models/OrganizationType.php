@@ -37,6 +37,27 @@ class OrganizationType extends MyActiveRecord
         return '{{organization_type}}';
     }
 
+    public function getOptions()
+    {
+        $ret = array();
+        $items = $this->findAll();
+        foreach($items as $item){
+            $ret[$item['id']] = $item['value'];
+        }
+        return $ret;
+    }
+
+    public static function getAllowedRange()
+    {
+        $ret = array(1,2,3);
+        /*
+        $items = $this->findAll();
+        foreach($items as $item){
+            $ret[] = $item['id'];
+        }/**/
+        return $ret;
+    }
+
     /**
      * @return array validation rules for model attributes.
      */

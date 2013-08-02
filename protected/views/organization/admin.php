@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление организациями</h1>
+<h1>Управление Организациями</h1>
 
 <?php
     echo $this->manage_search_form($model);

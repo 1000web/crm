@@ -8,8 +8,33 @@ class OrganizationController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $contact = new CActiveDataProvider('OrganizationContact', array(
+            'criteria' => array(
+                'condition' => 'organization_id=' . $id,
+                //'order' => 'create_time DESC',
+                //'with' => array('category'),
+            ),
+                /*
+            'pagination' => array(
+                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+            ),*/
+        ));
+        $customer = new CActiveDataProvider('Customer', array(
+            'criteria' => array(
+                'condition' => 'organization_id=' . $id,
+                //'order' => 'create_time DESC',
+                //'with' => array('category'),
+            ),
+                /*
+            'pagination' => array(
+                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+            ),*/
+        ));
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
+            'contact' => $contact,
+            'customer' => $customer,
         ));
     }
 
@@ -21,6 +46,10 @@ class OrganizationController extends Controller
     {
         $model = new Organization;
         $model_log = new OrganizationLog;
+
+        $modelType = new OrganizationType;
+        $modelRegion = new OrganizationRegion;
+        $modelGroup = new OrganizationGroup;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -36,6 +65,9 @@ class OrganizationController extends Controller
 
         $this->render('create', array(
             'model' => $model,
+            'modelType' => $modelType,
+            'modelRegion' => $modelRegion,
+            'modelGroup' => $modelGroup,
         ));
     }
 
@@ -48,6 +80,11 @@ class OrganizationController extends Controller
     {
         $model = $this->loadModel($id);
         $model_log = new OrganizationLog;
+
+        $modelType = new OrganizationType;
+        $modelRegion = new OrganizationRegion;
+        $modelGroup = new OrganizationGroup;
+
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -63,6 +100,9 @@ class OrganizationController extends Controller
 
         $this->render('update', array(
             'model' => $model,
+            'modelType' => $modelType,
+            'modelRegion' => $modelRegion,
+            'modelGroup' => $modelGroup,
         ));
     }
 

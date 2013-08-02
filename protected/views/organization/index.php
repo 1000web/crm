@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
-    'Контрагенты',
+    'Организации',
 );
 
 $this->menu = $this->menuOperations('index');
@@ -16,7 +16,7 @@ $this->menu = $this->menuOperations('index');
             <img src="/images/organization-150x150.jpg" />
         </td>
         <td class="span-16">
-            <h1>Контрагенты</h1>
+            <h1>Организации</h1>
             <h2>Заключайте сделки с Контрагентами</h2>
             Контрагенты - это компании или корпоративные отделы, с которыми вы имеете деловые отношения.
         </td>
