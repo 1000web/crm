@@ -23,22 +23,34 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Organizations</h1>
+<h1>Управление организациями</h1>
 
-<p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-        &lt;&gt;</b>
-    or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+<?php
+    echo $this->manage_search_form($model);
+?>
 
-<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array(
-        'model' => $model,
-    )); ?>
-</div><!-- search-form -->
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'type'=>'striped bordered condensed',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'template'=>"{items}",
+    'columns'=>array(
+        array('name'=>'id', 'header'=>'#'),
+        array('name'=>'organization_type_id', 'header'=>'Тип'),
+        array('name'=>'organization_group_id', 'header'=>'Группа'),
+        array('name'=>'organization_region_id', 'header'=>'Регион'),
+        array('name'=>'value', 'header'=>'Название'),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('style'=>'width: 50px'),
+        ),
+    ),
+)); ?>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+
+
+<?php /*
+    $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'organization-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
@@ -49,14 +61,12 @@ $('.search-form form').submit(function(){
         'create_user_id',
         'update_user_id',
         'organization_type_id',
-        /*
         'organization_group_id',
         'organization_region_id',
         'value',
         'description',
-        */
         array(
             'class' => 'CButtonColumn',
         ),
     ),
-)); ?>
+)); */?>

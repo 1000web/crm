@@ -146,4 +146,14 @@ class Controller extends RController
         echo "\n</div>\n";
         //return $ret;
     }
+
+    public function manage_search_form($model){
+        $ret = "\n<p>\nМожно использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> или <b>=</b>) в начале параметра поиска.\n</p>\n";
+        $ret .= CHtml::link('Расширенный поиск', '#', array('class' => 'search-button'));
+        $ret .= '<div class="search-form" style="display:none">';
+        $ret .= $this->renderPartial('_search', array('model' => $model), true);
+        $ret .= "</div>\n\n";
+        return $ret;
+    }
+
 }
