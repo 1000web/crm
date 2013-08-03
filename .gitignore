@@ -1,3 +1,6 @@
+.DS_Store
+.Trashes
+.Spotlight_V100
+.idea/
 assets/
 protected/runtime/
-.idea/
