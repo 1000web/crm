@@ -8,8 +8,21 @@ class CustomerController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $contact = new CActiveDataProvider('CustomerContact', array(
+            'criteria' => array(
+                'condition' => 'customer_id=' . $id,
+                //'order' => 'create_time DESC',
+                //'with' => array('category'),
+            ),
+            /*
+        'pagination' => array(
+            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+        ),*/
+        ));
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
+            'contact' => $contact,
         ));
     }
 
