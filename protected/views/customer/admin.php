@@ -3,8 +3,8 @@
 /* @var $model Customer */
 
 $this->breadcrumbs = array(
-    'Customers' => array('index'),
-    'Manage',
+    'Клиенты' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Customers</h1>
+<h1>Управление Клиентами</h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>

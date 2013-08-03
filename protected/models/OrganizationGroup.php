@@ -37,26 +37,6 @@ class OrganizationGroup extends MyActiveRecord
         return '{{organization_group}}';
     }
 
-    public function getOptions()
-    {
-        $ret = array();
-        $items = $this->findAll();
-        foreach($items as $item){
-            $ret[$item['id']] = $item['value'];
-        }
-        return $ret;
-    }
-
-    public static function getAllowedRange()
-    {
-        return array(1, 2, 3);
-    }
-
-    public function getValue($id)
-    {
-        return $this->findAllByPk($id)->value;
-    }
-
     /**
      * @return array validation rules for model attributes.
      */

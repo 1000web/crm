@@ -38,10 +38,10 @@
                         array('label' => 'Создать клиента', 'url' => array('/customer/create')),
                         ),
                 ),
-                array('label' => 'Контрагенты',
+                array('label' => 'Организации',
                     'items' => array(
-                        array('label' => 'Список контрагентов', 'url' => array('/organization/index')),
-                        array('label' => 'Создать контрагента', 'url' => array('/organization/create')),
+                        array('label' => 'Список организаций', 'url' => array('/organization/index')),
+                        array('label' => 'Создать организацию', 'url' => array('/organization/create')),
                     ),
                 ),
                 array('label' => 'Операции',
@@ -60,10 +60,10 @@
                     'items' => array(
                         array('label' => 'Контрагенты',
                             'items' => array(
-                                array('label' => 'Типы контрагентов', 'url' => array('/organizationType/index')),
-                                array('label' => 'Регионы контрагентов', 'url' => array('/organizationRegion/index')),
-                                array('label' => 'Группы контрагентов', 'url' => array('/organizationGroup/index')),
-                                array('label' => 'Контакты контрагентов', 'url' => array('/organizationContact/index')),
+                                array('label' => 'Типы организаций', 'url' => array('/organizationType/index')),
+                                array('label' => 'Регионы организаций', 'url' => array('/organizationRegion/index')),
+                                array('label' => 'Группы организаций', 'url' => array('/organizationGroup/index')),
+                                array('label' => 'Контакты организаций', 'url' => array('/organizationContact/index')),
                             ),
                         ),
                         array('label' => 'Типы контактов', 'url' => array('/contactType/index')),

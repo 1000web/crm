@@ -17,4 +17,24 @@ class MyActiveRecord extends CActiveRecord
         } else return false;
     }
 
+    public function getOptions($id = 'id', $value = 'value')
+    {
+        $ret = array();
+        $items = $this->findAll();
+        foreach($items as $item){
+            $ret[$item[$id]] = $item[$value];
+        }
+        return $ret;
+    }
+
+    public function getAllowedRange()
+    {
+        $items = $this->findAll();
+        foreach($items as $item){
+            $ret[] = $item['id'];
+        }
+        return $ret;
+    }
+
+
 }

@@ -3,14 +3,14 @@
 /* @var $model Customer */
 
 $this->breadcrumbs = array(
-    'Customers' => array('index'),
-    'Create',
+    'Клиенты' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create Customer</h1>
+    <h1>Создать Клиента</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

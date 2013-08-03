@@ -2,16 +2,18 @@
 /* @var $this CustomerController */
 /* @var $model Customer */
 
+$fullname = $model->lastname . ' ' . $model->firstname;
+
 $this->breadcrumbs = array(
-    'Customers' => array('index'),
-    $model->id => array('view', 'id' => $model->id),
-    'Update',
+    'Клиенты' => array('index'),
+    $fullname => array('view', 'id' => $model->id),
+    'Редактировать',
 );
 
 $this->menu = $this->menuOperations('update', $model->id);
 
 ?>
 
-    <h1>Update Customer <?php echo $model->id; ?></h1>
+    <h1><?php echo $fullname; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

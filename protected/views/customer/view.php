@@ -3,7 +3,6 @@
 /* @var $model Customer */
 
 $fullname = $model->lastname . ' ' . $model->firstname;
-
 $this->breadcrumbs = array(
     'Клиенты' => array('index'),
     $fullname,
