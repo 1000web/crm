@@ -13,9 +13,4 @@ $this->menu = $this->menuOperations('create');
 
     <h1>Создать Организацию</h1>
 
-<?php echo $this->renderPartial('_form', array(
-    'model' => $model,
-    'modelType' => $modelType,
-    'modelGroup' => $modelGroup,
-    'modelRegion' => $modelRegion,
-)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

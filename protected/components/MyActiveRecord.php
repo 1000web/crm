@@ -22,7 +22,11 @@ class MyActiveRecord extends CActiveRecord
         $ret = array();
         $items = $this->findAll();
         foreach($items as $item){
-            $ret[$item[$id]] = $item[$value];
+            switch($value){
+                case 'fullname': $ret[$item[$id]] = $item['lastname'] . ' ' . $item['firstname'];
+                    break;
+                default: $ret[$item[$id]] = $item[$value];
+            }
         }
         return $ret;
     }

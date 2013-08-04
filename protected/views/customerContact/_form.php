@@ -14,27 +14,35 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'contact_type_id'); ?>
-        <?php echo $form->textField($model, 'contact_type_id'); ?>
-        <?php echo $form->error($model, 'contact_type_id'); ?>
+        <?php
+        echo $form->labelEx($model, 'contact_type_id');
+        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions());
+        echo $form->error($model, 'contact_type_id');
+        ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'customer_id'); ?>
-        <?php echo $form->textField($model, 'customer_id'); ?>
-        <?php echo $form->error($model, 'customer_id'); ?>
+        <?php
+        echo $form->labelEx($model, 'customer_id');
+        echo $form->dropDownList($model, 'customer_id', Customer::model()->getOptions('id','fullname'));
+        echo $form->error($model, 'customer_id');
+        ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'value'); ?>
-        <?php echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'value'); ?>
+        <?php
+        echo $form->labelEx($model, 'value');
+        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
+        echo $form->error($model, 'value');
+        ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?php
+        echo $form->labelEx($model, 'description');
+        echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50));
+        echo $form->error($model, 'description');
+        ?>
     </div>
 
     <?php echo $this->submit_button($model->isNewRecord); ?>

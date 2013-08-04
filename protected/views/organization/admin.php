@@ -35,10 +35,10 @@ $('.search-form form').submit(function(){
     'filter' => $model,
     'template'=>"{items}",
     'columns'=>array(
-        array('name'=>'id', 'header'=>'#'),
-        array('name'=>'organization_type_id', 'header'=>'Тип'),
-        array('name'=>'organization_group_id', 'header'=>'Группа'),
-        array('name'=>'organization_region_id', 'header'=>'Регион'),
+        //array('name'=>'id', 'header'=>'#'),
+        array('name'=>'organization_type_id', 'header'=>'Тип', 'value' => '$data->organizationType->value'),
+        array('name'=>'organization_group_id', 'header'=>'Группа', 'value' => '$data->organizationGroup->value'),
+        array('name'=>'organization_region_id', 'header'=>'Регион', 'value' => '$data->organizationRegion->value'),
         array('name'=>'value', 'header'=>'Название'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -46,7 +46,6 @@ $('.search-form form').submit(function(){
         ),
     ),
 )); ?>
-
 
 
 <?php /*

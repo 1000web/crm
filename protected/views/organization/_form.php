@@ -16,7 +16,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'organization_type_id');
-        echo $form->dropDownList($model, 'organization_type_id', $modelType->getOptions());
+        echo $form->dropDownList($model, 'organization_type_id', OrganizationType::model()->getOptions());
         echo $form->error($model, 'organization_type_id');
         ?>
     </div>
@@ -24,7 +24,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'organization_group_id');
-        echo $form->dropDownList($model, 'organization_group_id', $modelGroup->getOptions());
+        echo $form->dropDownList($model, 'organization_group_id', OrganizationGroup::model()->getOptions());
         echo $form->error($model, 'organization_group_id');
         ?>
     </div>
@@ -32,7 +32,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'organization_region_id');
-        echo $form->dropDownList($model, 'organization_region_id', $modelRegion->getOptions());
+        echo $form->dropDownList($model, 'organization_region_id', OrganizationRegion::model()->getOptions());
         echo $form->error($model, 'organization_region_id');
         ?>
     </div>

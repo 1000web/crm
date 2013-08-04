@@ -47,10 +47,6 @@ class OrganizationController extends Controller
         $model = new Organization;
         $model_log = new OrganizationLog;
 
-        $modelType = new OrganizationType;
-        $modelRegion = new OrganizationRegion;
-        $modelGroup = new OrganizationGroup;
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -65,9 +61,6 @@ class OrganizationController extends Controller
 
         $this->render('create', array(
             'model' => $model,
-            'modelType' => $modelType,
-            'modelRegion' => $modelRegion,
-            'modelGroup' => $modelGroup,
         ));
     }
 
@@ -80,11 +73,6 @@ class OrganizationController extends Controller
     {
         $model = $this->loadModel($id);
         $model_log = new OrganizationLog;
-
-        $modelType = new OrganizationType;
-        $modelRegion = new OrganizationRegion;
-        $modelGroup = new OrganizationGroup;
-
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -100,9 +88,6 @@ class OrganizationController extends Controller
 
         $this->render('update', array(
             'model' => $model,
-            'modelType' => $modelType,
-            'modelRegion' => $modelRegion,
-            'modelGroup' => $modelGroup,
         ));
     }
 
