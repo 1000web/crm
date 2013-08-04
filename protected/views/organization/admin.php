@@ -25,9 +25,7 @@ $('.search-form form').submit(function(){
 
 <h1>Управление Организациями</h1>
 
-<?php
-    echo $this->manage_search_form($model);
-?>
+<?php echo $this->manage_search_form($model); ?>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',

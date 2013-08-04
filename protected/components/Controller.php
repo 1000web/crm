@@ -128,28 +128,6 @@ class Controller extends RController
         );
     }
 
-    public function view_fullname($data)
-    {
-        if ($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
-        else $name = $data->firstname;
-        return "<b>" . CHtml::link(CHtml::encode($name), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
-    }
-
-    public function view_value($data)
-    {
-        return "<b>" . CHtml::link(CHtml::encode($data->value), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
-    }
-
-    public function view_description($data)
-    {
-        $ret = '';
-        if ($data->description) {
-            $ret .= "<b>" . CHtml::encode($data->getAttributeLabel('description')) . ":</b>\n";
-            $ret .= CHtml::encode($data->description) . "<br />\n";
-        }
-        return $ret;
-    }
-
     public function submit_button($isNewRecord)
     {
         echo "\n<div class='row buttons'>\n";
@@ -169,7 +147,7 @@ class Controller extends RController
         $ret .= CHtml::link('Расширенный поиск', '#', array('class' => 'search-button'));
         $ret .= '<div class="search-form" style="display:none">';
         $ret .= $this->renderPartial('_search', array('model' => $model), true);
-        $ret .= "</div>\n\n";
+        $ret .= "</div><!-- search-form -->\n\n";
         return $ret;
     }
 
