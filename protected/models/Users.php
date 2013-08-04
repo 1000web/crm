@@ -125,24 +125,6 @@ class Users extends CActiveRecord
 	}
 
 	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'email' => 'Email',
-			'activkey' => 'Activkey',
-			'superuser' => 'Superuser',
-			'status' => 'Status',
-			'create_at' => 'Create At',
-			'lastvisit_at' => 'Lastvisit At',
-		);
-	}
-
-	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

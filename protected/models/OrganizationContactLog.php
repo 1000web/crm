@@ -65,26 +65,6 @@ class OrganizationContactLog extends MyActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'log_id' => 'Log',
-            'id' => 'ID',
-            'deleted' => 'Deleted',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'organization_id' => 'Organization',
-            'contact_type_id' => 'Contact Type',
-            'value' => 'Value',
-            'description' => 'Description',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
