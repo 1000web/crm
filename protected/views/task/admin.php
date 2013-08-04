@@ -3,8 +3,8 @@
 /* @var $model Task */
 
 $this->breadcrumbs = array(
-    'Tasks' => array('index'),
-    'Manage',
+    'Задачи' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Tasks</h1>
+<h1>Управление Задачами</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

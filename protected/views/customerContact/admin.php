@@ -3,8 +3,8 @@
 /* @var $model CustomerContact */
 
 $this->breadcrumbs = array(
-    'Customer Contacts' => array('index'),
-    'Manage',
+    'Контакты клиентов' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Customer Contacts</h1>
+<h1>Управление Контактами Клиентов Customer Contacts</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

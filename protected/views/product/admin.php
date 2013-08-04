@@ -3,7 +3,7 @@
 /* @var $model Product */
 
 $this->breadcrumbs = array(
-    'Продукты' => array('index'),
+    'Продукция' => array('index'),
     'Управление',
 );
 
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление продуктами</h1>
+<h1>Управление Продукцией</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

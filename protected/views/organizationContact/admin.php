@@ -3,8 +3,8 @@
 /* @var $model OrganizationContact */
 
 $this->breadcrumbs = array(
-    'Organization Contacts' => array('index'),
-    'Manage',
+    'Контакты Организаций' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Organization Contacts</h1>
+<h1>Управление Контактами Организаций</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

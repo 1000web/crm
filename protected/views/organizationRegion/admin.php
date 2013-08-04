@@ -3,8 +3,8 @@
 /* @var $model OrganizationRegion */
 
 $this->breadcrumbs = array(
-    'Organization Regions' => array('index'),
-    'Manage',
+    'Регионы Организаций' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Organization Regions</h1>
+<h1>Управление Регионами Организаций</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

@@ -3,9 +3,8 @@
 /* @var $model TaskType */
 
 $this->breadcrumbs = array(
-    'Справочники' => 'glossary',
     'Типы задач' => array('index'),
-    'Manage',
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -24,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Task Types</h1>
+<h1>Управление Типами Задач</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

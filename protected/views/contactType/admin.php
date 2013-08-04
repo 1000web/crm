@@ -3,8 +3,8 @@
 /* @var $model ContactType */
 
 $this->breadcrumbs = array(
-    'Contact Types' => array('index'),
-    'Manage',
+    'Типы контактов' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Contact Types</h1>
+<h1>Управление Типами контактов</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

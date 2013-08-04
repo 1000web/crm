@@ -3,8 +3,8 @@
 /* @var $model ProductType */
 
 $this->breadcrumbs = array(
-    'Product Types' => array('index'),
-    'Manage',
+    'Типы Продукции' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Product Types</h1>
+<h1>Управление Типами Продукции</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 

@@ -3,8 +3,8 @@
 /* @var $model OrganizationType */
 
 $this->breadcrumbs = array(
-    'Organization Types' => array('index'),
-    'Manage',
+    'Типы Организаций' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Organization Types</h1>
+<h1>Управление Типами Организаций</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 
