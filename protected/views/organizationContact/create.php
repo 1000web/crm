@@ -3,14 +3,14 @@
 /* @var $model OrganizationContact */
 
 $this->breadcrumbs = array(
-    'Organization Contacts' => array('index'),
-    'Create',
+    'Контакты Организаций' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create OrganizationContact</h1>
+    <h1>Создать Контакт Организации</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

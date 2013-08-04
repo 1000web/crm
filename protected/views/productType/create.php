@@ -3,14 +3,14 @@
 /* @var $model ProductType */
 
 $this->breadcrumbs = array(
-    'Product Types' => array('index'),
-    'Create',
+    'Типы Продукции' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create ProductType</h1>
+    <h1>Создать Тип Продукции</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

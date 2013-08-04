@@ -3,7 +3,6 @@
 /* @var $model TaskType */
 
 $this->breadcrumbs = array(
-    'Справочники' => 'glossary',
     'Типы задач' => array('index'),
     'Создать',
 );

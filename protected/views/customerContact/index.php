@@ -22,18 +22,6 @@ $this->menu = $this->menuOperations('index');
     </tr>
 </table>
 
-
-<?php
-/*
-$this->widget('zii.widgets.CListView', array(
-    'dataProvider' => $dataProvider,
-    'itemView' => '_view',
-));
-/**/
-?>
-
-
-
 <?php
 /**/
 $this->widget('bootstrap.widgets.TbGridView', array(

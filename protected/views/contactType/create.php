@@ -3,14 +3,14 @@
 /* @var $model ContactType */
 
 $this->breadcrumbs = array(
-    'Contact Types' => array('index'),
-    'Create',
+    'Типы Контактов' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create ContactType</h1>
+    <h1>Создать Тип Контактов</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

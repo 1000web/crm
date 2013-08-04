@@ -3,16 +3,29 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
-    'Product Types',
+    'Типы Продукции',
 );
 
 $this->menu = $this->menuOperations('index');
 
 ?>
 
-<h1>Product Types</h1>
+<h1>Типы Продукции</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
-    'itemView' => '_view',
+    'template' => "{items}",
+    'columns' => array(
+        array('name' => 'id', 'header' => '#'),
+        array('name' => 'value', 'header' => 'Значение'),
+        array('name' => 'description', 'header' => 'Описание'),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array(
+                'style'=>'width: 50px',
+            ),
+        )
+    ),
 )); ?>
+

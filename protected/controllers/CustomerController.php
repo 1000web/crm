@@ -13,7 +13,7 @@ class CustomerController extends Controller
             'criteria' => array(
                 'condition' => 'customer_id=' . $id,
                 //'order' => 'create_time DESC',
-                //'with' => array('category'),
+                //'with' => array('createUser','updateUser'),
             ),
             /*
         'pagination' => array(

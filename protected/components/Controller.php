@@ -111,6 +111,23 @@ class Controller extends RController
         return $menu;
     }
 
+    public function created_updated($model){
+        $create_time = date('Y-m-d H:i:s', $model->create_time);
+        //$create_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->create_time);
+        $create_user = $model->createUser->profiles->last_name . ' ' . $model->createUser->profiles->first_name . ' ('.$model->createUser->username . ')';
+
+        $update_time = date('Y-m-d H:i:s', $model->update_time);
+        //$update_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->update_time);
+        $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name .' ('.$model->updateUser->username . ')';
+
+        return array(
+            array('name' => 'create_time', 'label' => 'Дата создания', 'value' => $create_time),
+            array('name' => 'create_user_id', 'label' => 'Кто создал', 'value' => $create_user),
+            array('name' => 'update_time', 'label' => 'Дата изменения', 'value' => $update_time),
+            array('name' => 'update_user_id', 'label' => 'Кто изменил', 'value' => $update_user),
+        );
+    }
+
     public function view_fullname($data)
     {
         if ($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
