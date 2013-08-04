@@ -151,4 +151,47 @@ class Controller extends RController
         return $ret;
     }
 
+    public function attributeLabels($key){
+        $arr = array (
+            'activkey' => 'Activkey',
+            'create_at' => 'Дата создания',
+            'create_time' => 'Дата создания',
+            'create_user_id' => 'Кто создал',
+            'contact_type' => 'Тип контакта',
+            'contact_type_id' => 'Тип контакта',
+            'customer_id' => 'Клиент',
+            'datetime' => 'Дата/время',
+            'deleted' => 'Удалено',
+            'description' => 'Описание',
+            'email' => 'Email',
+            'firstname' => 'Имя',
+            'first_name' => 'Имя',
+            'id' => '#',
+            'lastname' => 'Фамилия',
+            'last_name' => 'Фамилия',
+            'lastvisit_at' => 'Lastvisit At',
+            'log_id' => 'Log #',
+            'organization' => 'Организация',
+            'organization_id' => 'Организация',
+            'organization_type_id' => 'Тип организации',
+            'organization_group_id' => 'Группа огранизаций',
+            'organization_region_id' => 'Регион',
+            'type' => 'Тип',
+            'group' => 'Группа',
+            'region' => 'Регион',
+            'password' => 'Пароль',
+            'position' => 'Должность',
+            'product_type_id' => 'Тип продукта',
+            'status' => 'Статус',
+            'superuser' => 'Суперпользователь',
+            'task_type_id' => 'Тип задачи',
+            'update_time' => 'Дата изменения',
+            'update_user_id' => 'Кто изменил',
+            'user_id' => 'Пользователь',
+            'username' => 'Имя пользователя',
+            'value' => 'Значение',
+        );
+        return $arr[$key];
+    }
+
 }

@@ -27,8 +27,8 @@ $this->menu = $this->menuOperations('index');
     'dataProvider' => $dataProvider,
     'template' => "{items}",
     'columns' => array(
-        array('name' => 'organization_id', 'header' => '#'),// 'value' => 'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))),
-        array('name' => 'organization', 'header' => 'Организация', 'value' => '$data->organization->value'),
+        array('name' => 'organization_id', 'header' => $this->attributeLabels('id')),// 'value' => 'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))),
+        array('name' => 'organization', 'header' => $this->attributeLabels('organization'), 'value' => '$data->organization->value'),
         /*
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -44,10 +44,10 @@ $this->menu = $this->menuOperations('index');
                 'style'=>'width: 5px',
             ),
         ),/**/
-        array('name' => 'lastname', 'header' => 'Фамилия'),
-        array('name' => 'firstname', 'header' => 'Имя'),
-        array('name' => 'position', 'header' => 'Должность'),
-        array('name' => 'description', 'header' => 'Описание'),
+        array('name' => 'lastname', 'header' => $this->attributeLabels('lastname')),
+        array('name' => 'firstname', 'header' => $this->attributeLabels('firstname')),
+        array('name' => 'position', 'header' => $this->attributeLabels('position')),
+        array('name' => 'description', 'header' => $this->attributeLabels('description')),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
             'htmlOptions'=>array(

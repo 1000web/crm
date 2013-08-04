@@ -23,31 +23,17 @@ $this->menu = $this->menuOperations('index');
     </tr>
 </table>
 
-
-<?php /*
-    <b><?php echo CHtml::encode($data->getAttributeLabel('task_type_id')); ?>:</b>
-    <?php echo CHtml::encode($data->task_type_id); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('datetime')); ?>:</b>
-    <?php echo CHtml::encode($data->datetime); ?>
-    <br/>
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->user_id); ?>
-	<br />
-  /**/ ?>
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
     'columns' => array(
-        array('name' => 'id', 'header' => '#'),
-        array('name' => 'task_type_id', 'header' => 'Тип задачи', 'value' => '$data->taskType->value'),
-        array('name' => 'datetime', 'header' => 'Дата/время', 'value' => '$data->datetime'),
-        array('name' => 'user_id', 'header' => 'Тип задачи', 'value' => '$data->user->value'),
-        array('name' => 'value', 'header' => 'Значение'),
-        array('name' => 'description', 'header' => 'Описание'),
+        array('name' => 'id', 'header' => $this->attributeLabels('id')),
+        array('name' => 'task_type_id', 'header' => $this->attributeLabels('task_type_id'), 'value' => '$data->taskType->value'),
+        array('name' => 'datetime', 'header' => $this->attributeLabels('datetime'), 'value' => '$data->datetime'),
+        array('name' => 'user_id', 'header' => $this->attributeLabels('user_id'), 'value' => '$data->user->value'),
+        array('name' => 'value', 'header' => $this->attributeLabels('value')),
+        array('name' => 'description', 'header' => $this->attributeLabels('description')),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
             'htmlOptions'=>array(

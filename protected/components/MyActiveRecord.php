@@ -75,7 +75,6 @@ class MyActiveRecord extends CActiveRecord
             'username' => 'Имя пользователя',
             'value' => 'Значение',
         );
-
     }
 
 
