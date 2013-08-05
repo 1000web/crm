@@ -3,6 +3,7 @@
 /* @var $model Customer */
 
 $fullname = $model->lastname . ' ' . $model->firstname;
+
 $this->breadcrumbs = array(
     'Клиенты' => array('index'),
     $fullname,
@@ -14,17 +15,21 @@ $this->menu = $this->menuOperations('view', $model->id);
 
 <h1><?php echo $fullname; ?></h1>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
-    'type' => 'striped bordered condensed',
-    'attributes' => array(
-//        array('name' => 'id', 'label' => '#'),
-        //array('name' => 'organization_id', 'label' => 'Организация', 'value' => Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))),
+<?php
+$attr = CMap::mergeArray(
+    $this->created_updated($model),
+    array(
         array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
         array('name' => 'position', 'label' => 'Должность'),
         array('name' => 'description', 'label' => 'Описание'),
-    ),
-)); ?>
+    )
+);
+$this->widget('bootstrap.widgets.TbDetailView', array(
+    'data' => $model,
+    'type' => 'striped bordered condensed',
+    'attributes' => $attr,
+));
+?>
 
 <h2>Контакты Клиента</h2>
 

@@ -87,25 +87,6 @@ class Organization extends MyActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'create_time' => 'Дата создания',
-            'update_time' => 'Дата изменения',
-            'create_user_id' => 'Создал',
-            'update_user_id' => 'Изменил',
-            'organization_type_id' => 'Тип организации',
-            'organization_group_id' => 'Группа огранизаций',
-            'organization_region_id' => 'Регион',
-            'value' => 'Значение',
-            'description' => 'Описание',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

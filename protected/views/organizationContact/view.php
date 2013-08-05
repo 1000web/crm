@@ -3,27 +3,29 @@
 /* @var $model OrganizationContact */
 
 $this->breadcrumbs = array(
-    'Organization Contacts' => array('index'),
-    $model->id,
+    'Контакты Организации' => array('index'),
+    $model->value,
 );
 
 $this->menu = $this->menuOperations('view', $model->id);
 
 ?>
 
-<h1>View OrganizationContact #<?php echo $model->id; ?></h1>
+<h1><?php echo $model->value; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php
+$attr = CMap::mergeArray(
+    $this->created_updated($model),
+    array(
+        array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
+        array('name' => 'contact_type_id', 'label' => 'Тип контакта', 'value' => $model->contactType->value),
+        array('name' => 'value', 'label' => 'Значение'),
+        array('name' => 'description', 'label' => 'Описание'),
+    )
+);
+$this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
-    'attributes' => array(
-        'id',
-        'create_time',
-        'update_time',
-        'create_user_id',
-        'update_user_id',
-        'organization_id',
-        'contact_type_id',
-        'value',
-        'description',
-    ),
-)); ?>
+    'type' => 'striped bordered condensed',
+    'attributes' => $attr,
+));
+?>

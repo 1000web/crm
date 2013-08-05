@@ -3,7 +3,7 @@
 /* @var $model ProductType */
 
 $this->breadcrumbs = array(
-    'Product Types' => array('index'),
+    'Типы Продукции' => array('index'),
     $model->id,
 );
 
@@ -11,17 +11,19 @@ $this->menu = $this->menuOperations('view', $model->id);
 
 ?>
 
-<h1>View ProductType #<?php echo $model->id; ?></h1>
+<h1><?php echo $model->value; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php
+$attr = CMap::mergeArray(
+    $this->created_updated($model),
+    array(
+        array('name' => 'value', 'label' => 'Значение'),
+        array('name' => 'description', 'label' => 'Описание'),
+    )
+);
+$this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
-    'attributes' => array(
-        'id',
-        'create_time',
-        'update_time',
-        'create_user_id',
-        'update_user_id',
-        'value',
-        'description',
-    ),
-)); ?>
+    'type' => 'striped bordered condensed',
+    'attributes' => $attr,
+));
+?>

@@ -68,22 +68,6 @@ class TaskType extends MyActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'create_time' => 'Дата создания',
-            'update_time' => 'Дата изменения',
-            'create_user_id' => 'Создал',
-            'update_user_id' => 'Изменил',
-            'value' => 'Значение',
-            'description' => 'Описание',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

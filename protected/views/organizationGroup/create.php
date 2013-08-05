@@ -3,14 +3,14 @@
 /* @var $model OrganizationGroup */
 
 $this->breadcrumbs = array(
-    'Organization Groups' => array('index'),
-    'Create',
+    'Группы Организаций' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create OrganizationGroup</h1>
+    <h1>Создать Группу Организаций</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

@@ -16,7 +16,6 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'product_type_id');
-        //echo $form->textField($model, 'product_type_id');
         echo $form->dropDownList($model, 'product_type_id', ProductType::model()->getOptions());
         echo $form->error($model, 'product_type_id');
         ?>

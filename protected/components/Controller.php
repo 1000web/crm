@@ -111,26 +111,21 @@ class Controller extends RController
         return $menu;
     }
 
-    public function view_fullname($data)
-    {
-        if ($data->lastname) $name = $data->lastname . ' ' . $data->firstname;
-        else $name = $data->firstname;
-        return "<b>" . CHtml::link(CHtml::encode($name), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
-    }
+    public function created_updated($model){
+        $create_time = date('Y-m-d H:i:s', $model->create_time);
+        //$create_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->create_time);
+        $create_user = $model->createUser->profiles->last_name . ' ' . $model->createUser->profiles->first_name . ' ('.$model->createUser->username . ')';
 
-    public function view_value($data)
-    {
-        return "<b>" . CHtml::link(CHtml::encode($data->value), array('view', 'id' => $data->id)) . "</b>\n<br />\n";
-    }
+        $update_time = date('Y-m-d H:i:s', $model->update_time);
+        //$update_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->update_time);
+        $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name .' ('.$model->updateUser->username . ')';
 
-    public function view_description($data)
-    {
-        $ret = '';
-        if ($data->description) {
-            $ret .= "<b>" . CHtml::encode($data->getAttributeLabel('description')) . ":</b>\n";
-            $ret .= CHtml::encode($data->description) . "<br />\n";
-        }
-        return $ret;
+        return array(
+            array('name' => 'create_time', 'label' => 'Дата создания', 'value' => $create_time),
+            array('name' => 'create_user_id', 'label' => 'Кто создал', 'value' => $create_user),
+            array('name' => 'update_time', 'label' => 'Дата изменения', 'value' => $update_time),
+            array('name' => 'update_user_id', 'label' => 'Кто изменил', 'value' => $update_user),
+        );
     }
 
     public function submit_button($isNewRecord)
@@ -152,8 +147,61 @@ class Controller extends RController
         $ret .= CHtml::link('Расширенный поиск', '#', array('class' => 'search-button'));
         $ret .= '<div class="search-form" style="display:none">';
         $ret .= $this->renderPartial('_search', array('model' => $model), true);
-        $ret .= "</div>\n\n";
+        $ret .= "</div><!-- search-form -->\n\n";
         return $ret;
+    }
+
+    public function attributeLabels($key){
+        $arr = array (
+            'activkey' => 'Activkey',
+            'create_at' => 'Дата создания',
+            'create_time' => 'Дата создания',
+            'create_user_id' => 'Кто создал',
+            'contact_type' => 'Тип контакта',
+            'contact_type_id' => 'Тип контакта',
+            'customer_id' => 'Клиент',
+            'datetime' => 'Дата/время',
+            'deleted' => 'Удалено',
+            'description' => 'Описание',
+            'email' => 'Email',
+            'firstname' => 'Имя',
+            'first_name' => 'Имя',
+            'id' => '#',
+            'lastname' => 'Фамилия',
+            'last_name' => 'Фамилия',
+            'lastvisit_at' => 'Lastvisit At',
+            'log_id' => 'Log #',
+            'organization' => 'Организация',
+            'organization_id' => 'Организация',
+            'organization_type_id' => 'Тип организации',
+            'organization_group_id' => 'Группа огранизаций',
+            'organization_region_id' => 'Регион',
+            'type' => 'Тип',
+            'group' => 'Группа',
+            'region' => 'Регион',
+            'password' => 'Пароль',
+            'position' => 'Должность',
+            'product_type_id' => 'Тип продукта',
+            'status' => 'Статус',
+            'superuser' => 'Суперпользователь',
+            'task_type_id' => 'Тип задачи',
+            'update_time' => 'Дата изменения',
+            'update_user_id' => 'Кто изменил',
+            'user_id' => 'Пользователь',
+            'username' => 'Имя пользователя',
+            'value' => 'Значение',
+
+            'parent_id' => 'Родитель',
+            'prior' => 'Приоритет',
+            'visible' => 'Видимость',
+            'title' => 'Title',
+            'h1' => 'H1',
+            'module' => 'Module',
+            'controller' => 'Controller',
+            'action' => 'Action',
+
+        );
+        return $arr[$key];
     }
 
 }

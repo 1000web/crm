@@ -3,8 +3,8 @@
 /* @var $model CustomerContact */
 
 $this->breadcrumbs = array(
-    'Customer Contacts' => array('index'),
-    'Manage',
+    'Контакты клиентов' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -23,20 +23,9 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Customer Contacts</h1>
+<h1>Управление Контактами Клиентов Customer Contacts</h1>
 
-<p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-        &lt;&gt;</b>
-    or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array(
-        'model' => $model,
-    )); ?>
-</div><!-- search-form -->
+<?php echo $this->manage_search_form($model); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'customer-contact-grid',

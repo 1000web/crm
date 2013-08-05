@@ -3,14 +3,14 @@
 /* @var $model Task */
 
 $this->breadcrumbs = array(
-    'Tasks' => array('index'),
-    'Create',
+    'Задачи' => array('index'),
+    'Создать',
 );
 
 $this->menu = $this->menuOperations('create');
 
 ?>
 
-    <h1>Create Task</h1>
+    <h1>Создать Задачу</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

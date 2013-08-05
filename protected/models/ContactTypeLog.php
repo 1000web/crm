@@ -67,21 +67,6 @@ class ContactTypeLog extends MyActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'log_id' => 'Log',
-            'id' => 'ID',
-            'update_time' => 'Update Time',
-            'update_user_id' => 'Update User',
-            'value' => 'Value',
-            'description' => 'Description',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

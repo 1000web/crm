@@ -3,8 +3,8 @@
 /* @var $model Organization */
 
 $this->breadcrumbs = array(
-    'Organizations' => array('index'),
-    'Manage',
+    'Организации' => array('index'),
+    'Управление',
 );
 
 $this->menu = $this->menuOperations('admin');
@@ -25,9 +25,7 @@ $('.search-form form').submit(function(){
 
 <h1>Управление Организациями</h1>
 
-<?php
-    echo $this->manage_search_form($model);
-?>
+<?php echo $this->manage_search_form($model); ?>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
@@ -47,25 +45,3 @@ $('.search-form form').submit(function(){
     ),
 )); ?>
 
-
-<?php /*
-    $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'organization-grid',
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    'columns' => array(
-        'id',
-        'create_time',
-        'update_time',
-        'create_user_id',
-        'update_user_id',
-        'organization_type_id',
-        'organization_group_id',
-        'organization_region_id',
-        'value',
-        'description',
-        array(
-            'class' => 'CButtonColumn',
-        ),
-    ),
-)); */?>
