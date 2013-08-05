@@ -2,12 +2,8 @@
 /* @var $this OrganizationTypeController */
 /* @var $model OrganizationType */
 
-$this->breadcrumbs = array(
-    'Типы Организаций' => array('index'),
-    $model->value,
-);
-
-$this->menu = $this->menuOperations('view', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

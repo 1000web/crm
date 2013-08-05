@@ -2,12 +2,8 @@
 /* @var $this OrganizationController */
 /* @var $model Organization */
 
-$this->breadcrumbs = array(
-    'Организации' => array('index'),
-    'Управление',
-);
-
-$this->menu = $this->menuOperations('admin');
+$this->breadcrumbs  = $this->make_breadcrumbs('admin');
+$this->menu         = $this->menuOperations('admin');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -45,3 +41,25 @@ $('.search-form form').submit(function(){
     ),
 )); ?>
 
+
+<?php /*
+    $this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'organization-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'id',
+        'create_time',
+        'update_time',
+        'create_user_id',
+        'update_user_id',
+        'organization_type_id',
+        'organization_group_id',
+        'organization_region_id',
+        'value',
+        'description',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
+)); */?>

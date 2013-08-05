@@ -2,6 +2,7 @@
 
 class CustomerController extends Controller
 {
+    public $name = 'Клиенты';
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -149,5 +150,48 @@ class CustomerController extends Controller
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function make_breadcrumbs($action, $model = NULL)
+    {
+        switch ($action) {
+            case 'admin':
+                $ret = array(
+                    $this->name => array('index'),
+                    'Управление',
+                );
+                break;
+            case
+            'create':
+                $ret = array(
+                    $this->name => array('index'),
+                    'Создать',
+                );
+                break;
+            case 'index':
+                $ret = array(
+                    $this->name,
+                );
+                break;
+            case 'update':
+                $ret = array(
+                    $this->name => array('index'),
+                    $model->lastname . ' ' . $model->firstname => array('view', 'id' => $model->id),
+                    'Редактировать',
+                );
+                break;
+            case 'view':
+                $ret = array(
+                    $this->name => array('index'),
+                    $model->lastname . ' ' . $model->firstname,
+                );
+                break;
+            default:
+                $ret = array(
+                    $this->name => array('index'),
+                    'Неизвестный раздел',
+                );
+        }
+        return $ret;
     }
 }

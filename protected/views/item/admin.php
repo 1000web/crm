@@ -2,12 +2,8 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-$this->breadcrumbs=array(
-	'Пункты меню'=>array('index'),
-	'Управление',
-);
-
-$this->menu = $this->menuOperations('admin');
+$this->breadcrumbs  = $this->make_breadcrumbs('admin');
+$this->menu         = $this->menuOperations('admin');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

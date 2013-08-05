@@ -2,12 +2,8 @@
 /* @var $this MenuController */
 /* @var $model Menu */
 
-$this->breadcrumbs=array(
-	'Меню'=>array('index'),
-	'Управление',
-);
-
-$this->menu = $this->menuOperations('admin');
+$this->breadcrumbs  = $this->make_breadcrumbs('admin');
+$this->menu         = $this->menuOperations('admin');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

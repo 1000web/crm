@@ -2,12 +2,8 @@
 /* @var $this ProductTypeController */
 /* @var $model ProductType */
 
-$this->breadcrumbs = array(
-    'Типы Продукции' => array('index'),
-    'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

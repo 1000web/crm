@@ -2,11 +2,8 @@
 /* @var $this MenuController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Меню',
-);
-
-$this->menu = $this->menuOperations('index');
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
 ?>
 

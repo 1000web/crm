@@ -2,16 +2,11 @@
 /* @var $this CustomerContactController */
 /* @var $model CustomerContact */
 
-$this->breadcrumbs = array(
-    'Контакты Клиентов' => array('index'),
-    $model->value => array('view', 'id' => $model->id),
-    'Редактировать',
-);
-
-$this->menu = $this->menuOperations('update', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('update', $model);;
+$this->menu         = $this->menuOperations('update', $model->id);
 
 ?>
 
-    <h1><?php echo $model->value; ?></h1>
+    <h1>Update CustomerContact <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

@@ -2,12 +2,8 @@
 /* @var $this MenuController */
 /* @var $model Menu */
 
-$this->breadcrumbs = array(
-	'Меню' => array('index'),
-	'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

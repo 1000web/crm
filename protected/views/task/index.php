@@ -2,11 +2,8 @@
 /* @var $this TaskController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs = array(
-    'Задачи',
-);
-
-$this->menu = $this->menuOperations('index');
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
 ?>
 

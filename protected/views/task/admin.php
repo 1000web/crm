@@ -2,12 +2,8 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-$this->breadcrumbs = array(
-    'Задачи' => array('index'),
-    'Управление',
-);
-
-$this->menu = $this->menuOperations('admin');
+$this->breadcrumbs  = $this->make_breadcrumbs('admin');
+$this->menu         = $this->menuOperations('admin');
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

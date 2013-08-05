@@ -2,12 +2,8 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-$this->breadcrumbs=array(
-	'Пункты меню'=>array('index'),
-	'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

@@ -2,12 +2,8 @@
 /* @var $this OrganizationRegionController */
 /* @var $model OrganizationRegion */
 
-$this->breadcrumbs = array(
-    'Регионы Организаций' => array('index'),
-    $model->value,
-);
-
-$this->menu = $this->menuOperations('view', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

@@ -2,6 +2,8 @@
 
 class OrganizationTypeController extends Controller
 {
+    public $name = 'Типы организаций';
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

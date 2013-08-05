@@ -2,12 +2,8 @@
 /* @var $this OrganizationController */
 /* @var $model Organization */
 
-$this->breadcrumbs = array(
-    'Организации' => array('index'),
-    $model->value,
-);
-
-$this->menu = $this->menuOperations('view', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

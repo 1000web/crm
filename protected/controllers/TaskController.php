@@ -2,6 +2,8 @@
 
 class TaskController extends Controller
 {
+    public $name = 'Задачи';
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

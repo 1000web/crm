@@ -2,6 +2,7 @@
 
 class CustomerContactController extends Controller
 {
+    public $name = 'Контакты клиентов';
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

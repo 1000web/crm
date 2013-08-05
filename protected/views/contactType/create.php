@@ -2,12 +2,8 @@
 /* @var $this ContactTypeController */
 /* @var $model ContactType */
 
-$this->breadcrumbs = array(
-    'Типы Контактов' => array('index'),
-    'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

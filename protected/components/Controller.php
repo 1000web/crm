@@ -8,6 +8,7 @@ class Controller extends RController
     public $layout = '//layouts/column2';
     public $menu = array();
     public $breadcrumbs = array();
+    public $name = 'Controller';
     public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete');
 
     /**
@@ -109,6 +110,49 @@ class Controller extends RController
                 break;
         }
         return $menu;
+    }
+
+    public function make_breadcrumbs($action, $model = NULL)
+    {
+        switch ($action) {
+            case 'admin':
+                $ret = array(
+                    $this->name => array('index'),
+                    'Управление',
+                );
+                break;
+            case
+            'create':
+                $ret = array(
+                    $this->name => array('index'),
+                    'Создать',
+                );
+                break;
+            case 'index':
+                $ret = array(
+                    $this->name,
+                );
+                break;
+            case 'update':
+                $ret = array(
+                    $this->name => array('index'),
+                    $model->value => array('view', 'id' => $model->id),
+                    'Редактировать',
+                );
+                break;
+            case 'view':
+                $ret = array(
+                    $this->name => array('index'),
+                    $model->value,
+                );
+                break;
+            default:
+                $ret = array(
+                    $this->name => array('index'),
+                    'Неизвестный раздел',
+                );
+        }
+        return $ret;
     }
 
     public function created_updated($model){

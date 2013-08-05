@@ -2,12 +2,8 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-$this->breadcrumbs = array(
-    'Операции' => array('index'),
-    $model->id,
-);
-
-$this->menu = $this->menuOperations('view');
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

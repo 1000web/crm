@@ -2,11 +2,8 @@
 /* @var $this OrganizationTypeController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs = array(
-    'Типы Организаций',
-);
-
-$this->menu = $this->menuOperations('index');
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
 ?>
 

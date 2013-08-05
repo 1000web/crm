@@ -2,12 +2,8 @@
 /* @var $this OrganizationGroupController */
 /* @var $model OrganizationGroup */
 
-$this->breadcrumbs = array(
-    'Группы Организаций' => array('index'),
-    'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

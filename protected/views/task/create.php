@@ -2,12 +2,8 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-$this->breadcrumbs = array(
-    'Задачи' => array('index'),
-    'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

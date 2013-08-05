@@ -2,12 +2,8 @@
 /* @var $this CustomerContactController */
 /* @var $model CustomerContact */
 
-$this->breadcrumbs = array(
-    'Контакты Клиентов' => array('index'),
-    $model->value,
-);
-
-$this->menu = $this->menuOperations('view', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

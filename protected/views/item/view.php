@@ -2,12 +2,8 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-$this->breadcrumbs = array(
-    'Пункты меню' => array('index'),
-    $model->value,
-);
-
-$this->menu = $this->menuOperations('update', $model->id);
+$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
+$this->menu         = $this->menuOperations('view', $model->id);
 
 ?>
 

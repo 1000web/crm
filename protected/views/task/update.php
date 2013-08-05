@@ -2,13 +2,8 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-$this->breadcrumbs = array(
-    'Задачи' => array('index'),
-    $model->value => array('view', 'id' => $model->id),
-    'Редактировать',
-);
-
-$this->menu = $this->menuOperations('update');
+$this->breadcrumbs  = $this->make_breadcrumbs('update', $model);;
+$this->menu         = $this->menuOperations('update', $model->id);
 
 ?>
 

@@ -2,12 +2,8 @@
 /* @var $this CustomerController */
 /* @var $model Customer */
 
-$this->breadcrumbs = array(
-    'Клиенты' => array('index'),
-    'Создать',
-);
-
-$this->menu = $this->menuOperations('create');
+$this->breadcrumbs  = $this->make_breadcrumbs('create');
+$this->menu         = $this->menuOperations('create');
 
 ?>
 

@@ -2,11 +2,8 @@
 /* @var $this OrganizationRegionController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs = array(
-    'Регионы организаций',
-);
-
-$this->menu = $this->menuOperations('index');
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
 ?>
 

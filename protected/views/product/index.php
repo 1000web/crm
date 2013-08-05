@@ -2,11 +2,8 @@
 /* @var $this ProductController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs = array(
-    'Продукция',
-);
-
-$this->menu = $this->menuOperations('index');
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
 ?>
 

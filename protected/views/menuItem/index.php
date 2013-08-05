@@ -2,14 +2,9 @@
 /* @var $this MenuItemController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Menu Items',
-);
+$this->breadcrumbs  = $this->make_breadcrumbs('index');;
+$this->menu         = $this->menuOperations('index');
 
-$this->menu=array(
-	array('label'=>'Create MenuItem', 'url'=>array('create')),
-	array('label'=>'Manage MenuItem', 'url'=>array('admin')),
-);
 ?>
 
 <h1>Menu Items</h1>
