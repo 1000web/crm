@@ -34,11 +34,6 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'parent_id',
-		'create_time',
-		'update_time',
-		'create_user_id',
-		'update_user_id',
-		/**/
 		'module',
 		'controller',
 		'action',
@@ -46,7 +41,6 @@ $('.search-form form').submit(function(){
 		'h1',
 		'value',
 		'description',
-		/**/
 		array(
 			'class'=>'CButtonColumn',
 		),

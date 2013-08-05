@@ -29,12 +29,46 @@ foreach($menu->items as $item) {
         $items[$item['id']][$key] = $item[$key];
     }
 }
+/**/
 echo '<pre>';
 print_r($items);
 echo '</pre>';
+/**/
+?>
+<div class="btn-toolbar">
+    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+    'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'buttons'=>array(
+        array('label'=>'Action','url' => '/site/test',
+            'items'=>array(
+            array('label'=>'Action', 'url'=>'#'),
+            array('label'=>'Another action', 'url'=>'#'),
+            array('label'=>'Something else', 'url'=>'#'),
+            '---',
+            array('label'=>'Separate link', 'url'=>'#'),
+        )),
+    ),
+)); ?>
+</div>
 
 
+<div class="btn-group">
+    <button type="button" class="btn btn-default" url="/customer/index">Customer</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="/customer/create">Create</a></li>
+        <li><a href="/customer/index">Index</a></li>
+        <li><a href="/customer/admin">Manage</a></li>
+        <!--li class="divider"></li>
+        <li><a href="#">Separated link</a></li-->
+    </ul>
+</div>
 
+<?php
+
+/*
 echo '<br><br><br><br>';
 
 echo '<ul>';
@@ -63,7 +97,7 @@ foreach($menu->items as $item) {
     echo '</li>';
 }
 echo '</ul>';
-
+/**/
 
 
 /*
