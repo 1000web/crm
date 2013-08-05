@@ -132,7 +132,7 @@ return CMap::mergeArray(
                     array(
                         'class'=>'CWebLogRoute',
                     ),
-                    */
+                    /**/
                 ),
             ),
         ),

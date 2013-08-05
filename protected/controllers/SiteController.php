@@ -29,8 +29,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
         $this->render('index');
     }
 
@@ -61,9 +59,33 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $rules = $this->accessRules();
-        echo '<pre>';
-        print_r($rules);
-        echo '</pre>';
+        // top menu
+        /*
+        $menu = new CActiveDataProvider('MenuItem', array(
+            'criteria' => array(
+                'condition' => 'menu_id=' . $menu_id,
+                'condition' => 'visible=1',
+                'order' => 'prior ASC',
+                //'with' => array('createUser','updateUser'),
+            ),
+        ));/**/
+
+        $menu = Menu::model()->with('menuItems','items')->findByAttributes(array(
+            'value' => 'home_menu',
+        ));
+
+/*
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'menu_id=:menu_id';
+        $criteria->condition = 'parent_id=:parent_id';
+        $criteria->condition = 'visible=1';
+        $criteria->params = array(':menu_id' => $menu_id);
+        $criteria->params = array(':parent_id' => NULL);
+        $menu = Item::model()->find($criteria); // $params не требуется
+        /**/
+
+        $this->render('test', array(
+            'menu' => $menu,
+        ));
     }
 }

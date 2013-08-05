@@ -2,9 +2,9 @@
 /* @var $this MenuController */
 /* @var $model Menu */
 
-$this->breadcrumbs=array(
-	'Меню'=>array('index'),
-	$model->value,
+$this->breadcrumbs = array(
+    'Меню' => array('index'),
+    $model->value,
 );
 
 $this->menu = $this->menuOperations('view', $model->id);

@@ -1,6 +1,6 @@
 <?php
-/* @var $this MenuController */
-/* @var $model Menu */
+/* @var $this MenuItemController */
+/* @var $model MenuItem */
 /* @var $form CActiveForm */
 ?>
 
@@ -36,14 +36,29 @@
 		<?php echo $form->textField($model,'update_user_id'); ?>
 	</div>
 
-    <div class="row">
-		<?php echo $form->label($model,'value'); ?>
-		<?php echo $form->textField($model,'value',array('size'=>60,'maxlength'=>255)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'parent_id'); ?>
+		<?php echo $form->textField($model,'parent_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'menu_id'); ?>
+		<?php echo $form->textField($model,'menu_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'item_id'); ?>
+		<?php echo $form->textField($model,'item_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'prior'); ?>
+		<?php echo $form->textField($model,'prior'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'visible'); ?>
+		<?php echo $form->textField($model,'visible'); ?>
 	</div>
 
 	<div class="row buttons">

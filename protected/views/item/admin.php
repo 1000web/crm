@@ -1,9 +1,9 @@
 <?php
-/* @var $this MenuController */
-/* @var $model Menu */
+/* @var $this ItemController */
+/* @var $model Item */
 
 $this->breadcrumbs=array(
-	'Меню'=>array('index'),
+	'Пункты меню'=>array('index'),
 	'Управление',
 );
 
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#menu-grid').yiiGridView('update', {
+	$('#item-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,22 +23,30 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление Меню</h1>
+<h1>Управление пунктами меню</h1>
 
 <?php echo $this->manage_search_form($model); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'menu-grid',
+	'id'=>'item-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
+		'parent_id',
 		'create_time',
 		'update_time',
 		'create_user_id',
 		'update_user_id',
+		/**/
+		'module',
+		'controller',
+		'action',
+		'title',
+		'h1',
 		'value',
 		'description',
+		/**/
 		array(
 			'class'=>'CButtonColumn',
 		),

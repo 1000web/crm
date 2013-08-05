@@ -1,6 +1,6 @@
 <?php
-/* @var $this MenuController */
-/* @var $model Menu */
+/* @var $this ItemController */
+/* @var $model Item */
 /* @var $form CActiveForm */
 ?>
 
@@ -14,6 +14,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'parent_id'); ?>
+		<?php echo $form->textField($model,'parent_id'); ?>
 	</div>
 
 	<div class="row">
@@ -36,7 +41,32 @@
 		<?php echo $form->textField($model,'update_user_id'); ?>
 	</div>
 
-    <div class="row">
+	<div class="row">
+		<?php echo $form->label($model,'module'); ?>
+		<?php echo $form->textField($model,'module',array('size'=>60,'maxlength'=>64)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'controller'); ?>
+		<?php echo $form->textField($model,'controller',array('size'=>60,'maxlength'=>64)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'action'); ?>
+		<?php echo $form->textField($model,'action',array('size'=>60,'maxlength'=>64)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'h1'); ?>
+		<?php echo $form->textField($model,'h1',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'value'); ?>
 		<?php echo $form->textField($model,'value',array('size'=>60,'maxlength'=>255)); ?>
 	</div>

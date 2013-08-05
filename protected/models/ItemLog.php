@@ -1,28 +1,31 @@
 <?php
 
 /**
- * This is the model class for table "{{menu}}".
+ * This is the model class for table "{{item_log}}".
  *
- * The followings are the available columns in table '{{menu}}':
+ * The followings are the available columns in table '{{item_log}}':
+ * @property integer $log_id
+ * @property integer $deleted
  * @property integer $id
+ * @property integer $parent_id
  * @property integer $create_time
  * @property integer $update_time
  * @property integer $create_user_id
  * @property integer $update_user_id
+ * @property string $module
+ * @property string $controller
+ * @property string $action
+ * @property string $title
+ * @property string $h1
  * @property string $value
  * @property string $description
- *
- * The followings are the available model relations:
- * @property Users $createUser
- * @property Users $updateUser
- * @property MenuItem[] $menuItems
  */
-class Menu extends MyActiveRecord
+class ItemLog extends MyActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Menu the static model class
+	 * @return ItemLog the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +37,7 @@ class Menu extends MyActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{menu}}';
+		return '{{item_log}}';
 	}
 
 	/**
@@ -45,13 +48,14 @@ class Menu extends MyActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'required'),
-			array('create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('value', 'length', 'max'=>64),
+			array('id, value', 'required'),
+			array('deleted, id, parent_id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('module, controller, action', 'length', 'max'=>64),
+			array('title, h1, value', 'length', 'max'=>255),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, create_time, update_time, create_user_id, update_user_id, value, description', 'safe', 'on'=>'search'),
+			array('log_id, deleted, id, parent_id, create_time, update_time, create_user_id, update_user_id, module, controller, action, title, h1, value, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,10 +67,6 @@ class Menu extends MyActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-			'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-			'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id'),
-            'items'    => array(self::HAS_MANY, 'Item','item_id','through' => 'menuItems'),
 		);
 	}
 
@@ -76,11 +76,19 @@ class Menu extends MyActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'log_id' => 'Log',
+			'deleted' => 'Deleted',
 			'id' => 'ID',
+			'parent_id' => 'Parent',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 			'create_user_id' => 'Create User',
 			'update_user_id' => 'Update User',
+			'module' => 'Module',
+			'controller' => 'Controller',
+			'action' => 'Action',
+			'title' => 'Title',
+			'h1' => 'H1',
 			'value' => 'Value',
 			'description' => 'Description',
 		);
@@ -97,11 +105,19 @@ class Menu extends MyActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('log_id',$this->log_id);
+		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('id',$this->id);
+		$criteria->compare('parent_id',$this->parent_id);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_user_id',$this->update_user_id);
+		$criteria->compare('module',$this->module,true);
+		$criteria->compare('controller',$this->controller,true);
+		$criteria->compare('action',$this->action,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('h1',$this->h1,true);
 		$criteria->compare('value',$this->value,true);
 		$criteria->compare('description',$this->description,true);
 

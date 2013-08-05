@@ -1,28 +1,34 @@
 <?php
 
 /**
- * This is the model class for table "{{menu}}".
+ * This is the model class for table "{{menu_item}}".
  *
- * The followings are the available columns in table '{{menu}}':
+ * The followings are the available columns in table '{{menu_item}}':
  * @property integer $id
  * @property integer $create_time
  * @property integer $update_time
  * @property integer $create_user_id
  * @property integer $update_user_id
- * @property string $value
- * @property string $description
+ * @property integer $parent_id
+ * @property integer $menu_id
+ * @property integer $item_id
+ * @property integer $prior
+ * @property integer $visible
  *
  * The followings are the available model relations:
- * @property Users $createUser
  * @property Users $updateUser
+ * @property MenuItem $parent
  * @property MenuItem[] $menuItems
+ * @property Menu $menu
+ * @property Item $item
+ * @property Users $createUser
  */
-class Menu extends MyActiveRecord
+class MenuItem extends MyActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Menu the static model class
+	 * @return MenuItem the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +40,7 @@ class Menu extends MyActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{menu}}';
+		return '{{menu_item}}';
 	}
 
 	/**
@@ -45,13 +51,11 @@ class Menu extends MyActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'required'),
-			array('create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('value', 'length', 'max'=>64),
-			array('description', 'safe'),
+			array('menu_id, item_id, prior, visible', 'required'),
+			array('create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, create_time, update_time, create_user_id, update_user_id, value, description', 'safe', 'on'=>'search'),
+			array('id, create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,10 +67,12 @@ class Menu extends MyActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
 			'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-			'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id'),
-            'items'    => array(self::HAS_MANY, 'Item','item_id','through' => 'menuItems'),
+			'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id'),
+			'childs' => array(self::HAS_MANY, 'MenuItem', 'parent_id'),
+			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+			'item' => array(self::BELONGS_TO, 'Item', 'item_id'),
 		);
 	}
 
@@ -81,8 +87,11 @@ class Menu extends MyActiveRecord
 			'update_time' => 'Update Time',
 			'create_user_id' => 'Create User',
 			'update_user_id' => 'Update User',
-			'value' => 'Value',
-			'description' => 'Description',
+			'parent_id' => 'Parent',
+			'menu_id' => 'Menu',
+			'item_id' => 'Item',
+			'prior' => 'Prior',
+			'visible' => 'Visible',
 		);
 	}
 
@@ -102,8 +111,11 @@ class Menu extends MyActiveRecord
 		$criteria->compare('update_time',$this->update_time);
 		$criteria->compare('create_user_id',$this->create_user_id);
 		$criteria->compare('update_user_id',$this->update_user_id);
-		$criteria->compare('value',$this->value,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('parent_id',$this->parent_id);
+		$criteria->compare('menu_id',$this->menu_id);
+		$criteria->compare('item_id',$this->item_id);
+		$criteria->compare('prior',$this->prior);
+		$criteria->compare('visible',$this->visible);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

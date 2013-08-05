@@ -190,6 +190,16 @@ class Controller extends RController
             'user_id' => 'Пользователь',
             'username' => 'Имя пользователя',
             'value' => 'Значение',
+
+            'parent_id' => 'Родитель',
+            'prior' => 'Приоритет',
+            'visible' => 'Видимость',
+            'title' => 'Title',
+            'h1' => 'H1',
+            'module' => 'Module',
+            'controller' => 'Controller',
+            'action' => 'Action',
+
         );
         return $arr[$key];
     }

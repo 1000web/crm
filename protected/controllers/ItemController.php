@@ -1,6 +1,6 @@
 <?php
 
-class MenuController extends Controller
+class ItemController extends Controller
 {
     /**
      * Displays a particular model.
@@ -19,14 +19,14 @@ class MenuController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Menu;
-        $model_log = new MenuLog;
+        $model = new Item;
+        $model_log = new ItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Menu'])) {
-            $model->attributes = $_POST['Menu'];
+        if (isset($_POST['Item'])) {
+            $model->attributes = $_POST['Item'];
             if ($model->save()) {
                 $model_log->attributes = $model->attributes;
                 $model_log->save();
@@ -47,14 +47,13 @@ class MenuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        $model_log = new MenuLog;
-
+        $model_log = new ItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Menu'])) {
-            $model->attributes = $_POST['Menu'];
+        if (isset($_POST['Item'])) {
+            $model->attributes = $_POST['Item'];
             if ($model->save()) {
                 $model_log->attributes = $model->attributes;
                 $model_log->save();
@@ -74,7 +73,7 @@ class MenuController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new MenuLog;
+        $model_log = new ItemLog;
         $model = $this->loadModel($id);
         $model_log->attributes = $model->attributes;
         $model_log->setAttribute('deleted', 1);
@@ -91,7 +90,7 @@ class MenuController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Menu');
+        $dataProvider = new CActiveDataProvider('Item');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -102,10 +101,10 @@ class MenuController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new Menu('search');
+        $model = new Item('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Menu']))
-            $model->attributes = $_GET['Menu'];
+        if (isset($_GET['Item']))
+            $model->attributes = $_GET['Item'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -116,12 +115,12 @@ class MenuController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Menu the loaded model
+     * @return Item the loaded model
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = Menu::model()->findByPk($id);
+        $model = Item::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -129,11 +128,11 @@ class MenuController extends Controller
 
     /**
      * Performs the AJAX validation.
-     * @param Menu $model the model to be validated
+     * @param Item $model the model to be validated
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'menu-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'item-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
