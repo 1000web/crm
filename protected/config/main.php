@@ -46,6 +46,26 @@ return CMap::mergeArray(
 
         'modules' => array(
             'rights',
+            'menubuilder' => array(
+                //'theme'=>'bootstrap', //comment for bluegrid theme (=default)
+                'checkInstall'=>false, //uncomment after first usage
+                //'cacheDuration'=> -1, //uncomment for disabling the menucaching
+                'languages'=>array('ru','en'),
+                'supportedScenarios'=>array('backend' => 'Backend', 'frontend' => 'Frontend', 'dashboard' => 'Dashboard'),
+
+                //set EMBDbAdapter to switch to mysql (checkInstall=>true on first run)
+                'dataAdapterClass'=> 'EMBDbAdapter', //'EMBMongoDbAdapter',
+
+                //the available menus/lists for the preview
+                'previewMenus'=>array(
+                     'superfish'=>'Superfish',
+                     'mbmenu'=>'MbMenu',
+                    //'bootstrapnavbar'=>'Bootstrap Navbar',
+                    //'bootstrapmenu'=>'Bootstrap Menu',
+                     'dropdownlist'=>'Dropdownlist',
+                    'unorderedlist'=>'Unordered list'
+                )
+            ),
             'user' => array(
                 # encrypting method (php hash function)
                 'hash' => 'md5',
