@@ -154,48 +154,4 @@ class CustomerController extends Controller
         }
     }
 
-    /*
-    public function buildBreadcrumbs($model = NULL)
-    {
-        switch ($this->getAction()->getId()) {
-            case 'admin':
-                $ret = array(
-                    $this->name => array('index'),
-                    'Управление',
-                );
-                break;
-            case
-            'create':
-                $ret = array(
-                    $this->name => array('index'),
-                    'Создать',
-                );
-                break;
-            case 'index':
-                $ret = array(
-                    $this->name,
-                );
-                break;
-            case 'update':
-                $ret = array(
-                    $this->name => array('index'),
-                    $model->lastname . ' ' . $model->firstname => array('view', 'id' => $model->id),
-                    'Редактировать',
-                );
-                break;
-            case 'view':
-                $ret = array(
-                    $this->name => array('index'),
-                    $model->lastname . ' ' . $model->firstname,
-                );
-                break;
-            default:
-                $ret = array(
-                    $this->name => array('index'),
-                    'Неизвестный раздел',
-                );
-        }
-        return $ret;
-    }
-    /**/
 }

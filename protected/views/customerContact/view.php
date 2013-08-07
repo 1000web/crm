@@ -8,7 +8,7 @@ else $this->buildPageOptions($model);
 $attr = CMap::mergeArray(
     $this->created_updated($model),
     array(
-        array('name' => 'customer_id', 'label' => 'Клиент', 'value' => $model->customer->lastname . ' ' . $model->customer->firstname),
+        array('name' => 'customer_id', 'label' => 'Клиент', 'value' => $model->customer->value),
 //        array('name' => 'value', 'label' => 'Значение'),
         array('name' => 'description', 'label' => 'Описание'),
     )

@@ -10,7 +10,7 @@
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('customer_id')); ?>:</b>
-    <?php echo CHtml::encode($data->customer->lastname . ' ' . $data->customer->firstname); ?>
+    <?php echo CHtml::encode($data->customer->value); ?>
     <br/>
 
     <?php

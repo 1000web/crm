@@ -70,9 +70,8 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'template' => "{items}",
     'columns' => array(
         //array('name' => 'id', 'header' => '#'),
-        array('name' => 'lastname', 'header' => 'Фамилия'),
-        array('name' => 'firstname', 'header' => 'Имя'),
         array('name' => 'position', 'header' => 'Должность'),
+        array('name' => 'value', 'header' => 'Значение/имя'),
         array('name' => 'description', 'header' => 'Описание'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
