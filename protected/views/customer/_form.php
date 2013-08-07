@@ -23,25 +23,17 @@
 
     <div class="row">
         <?php
-        echo $form->labelEx($model, 'firstname');
-        echo $form->textField($model, 'firstname', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'firstname');
-        ?>
-    </div>
-
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'lastname');
-        echo $form->textField($model, 'lastname', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'lastname');
-        ?>
-    </div>
-
-    <div class="row">
-        <?php
         echo $form->labelEx($model, 'position');
         echo $form->textField($model, 'position', array('size' => 60, 'maxlength' => 255));
         echo $form->error($model, 'position');
+        ?>
+    </div>
+
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'value');
+        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
+        echo $form->error($model, 'value');
         ?>
     </div>
 

@@ -22,11 +22,7 @@ class MyActiveRecord extends CActiveRecord
         $ret = array();
         $items = $this->findAll();
         foreach($items as $item){
-            switch($value){
-                case 'fullname': $ret[$item[$id]] = $item['lastname'] . ' ' . $item['firstname'];
-                    break;
-                default: $ret[$item[$id]] = $item[$value];
-            }
+            $ret[$item[$id]] = $item[$value];
         }
         return $ret;
     }
@@ -52,10 +48,8 @@ class MyActiveRecord extends CActiveRecord
             'deleted' => 'Удалено',
             'description' => 'Описание',
             'email' => 'Email',
-            'firstname' => 'Имя',
             'first_name' => 'Имя',
             'id' => '#',
-            'lastname' => 'Фамилия',
             'last_name' => 'Фамилия',
             'lastvisit_at' => 'Lastvisit At',
             'log_id' => 'Log #',

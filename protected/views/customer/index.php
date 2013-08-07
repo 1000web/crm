@@ -34,8 +34,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             ),
         ),/**/
         array('name' => 'organization', 'header' => $this->attributeLabels('organization'), 'value' => '$data->organization->value'),
-        array('name' => 'lastname', 'header' => $this->attributeLabels('lastname')),
-        array('name' => 'firstname', 'header' => $this->attributeLabels('firstname')),
+        array('name' => 'value', 'header' => $this->attributeLabels('value')),
         array('name' => 'position', 'header' => $this->attributeLabels('position')),
         array('name' => 'description', 'header' => $this->attributeLabels('description')),
         array(

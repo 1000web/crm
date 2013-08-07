@@ -11,9 +11,8 @@
  * @property integer $update_user_id
  * @property integer $organization_id
  * @property integer $user_id
- * @property string $firstname
- * @property string $lastname
  * @property string $position
+ * @property string $value
  * @property string $description
  *
  * The followings are the available model relations:
@@ -51,13 +50,13 @@ class Customer extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('firstname', 'required'),
+            array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, organization_id, user_id', 'numerical', 'integerOnly' => true),
-            array('firstname, lastname, position', 'length', 'max' => 255),
+            array('value, position', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, organization_id, user_id, firstname, lastname, position, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, organization_id, user_id, value, position, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -95,8 +94,7 @@ class Customer extends MyActiveRecord
         $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('organization_id', $this->organization_id);
         $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('firstname', $this->firstname, true);
-        $criteria->compare('lastname', $this->lastname, true);
+        $criteria->compare('value', $this->value, true);
         $criteria->compare('position', $this->position, true);
         $criteria->compare('description', $this->description, true);
 

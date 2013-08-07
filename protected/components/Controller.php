@@ -116,10 +116,9 @@ class Controller extends RController
 
     public function buildBreadcrumbs($model = NULL)
     {
-        if($model) {
-            if($this->id == 'customer') $value = $model->lastname . ' ' . $model->firstname;
-            else $value = $model->value;
-        } else $value = NULL;
+        /*
+        if($model) $value = $model->value;
+        else $value = NULL;/**/
 
         switch ($this->getAction()->getId()) {
             case 'admin':
@@ -138,14 +137,14 @@ class Controller extends RController
             case 'update':
                 $this->breadcrumbs = array(
                     $this->name => array('index'),
-                    $value => array('view', 'id' => $model->id),
+                    $model->value => array('view', 'id' => $model->id),
                     'Редактировать',
                 );
                 break;
             case 'view':
                 $this->breadcrumbs = array(
                     $this->name => array('index'),
-                    $value,
+                    $model->value,
                 );
                 break;
             case 'index':
@@ -278,7 +277,6 @@ class Controller extends RController
             'deleted' => 'Удалено',
             'description' => 'Описание',
             'email' => 'Email',
-            'firstname' => 'Имя',
             'first_name' => 'Имя',
             'id' => '#',
             'lastname' => 'Фамилия',

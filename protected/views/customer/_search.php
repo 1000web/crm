@@ -42,18 +42,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'firstname'); ?>
-        <?php echo $form->textField($model, 'firstname', array('size' => 60, 'maxlength' => 255)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'lastname'); ?>
-        <?php echo $form->textField($model, 'lastname', array('size' => 60, 'maxlength' => 255)); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->label($model, 'position'); ?>
         <?php echo $form->textField($model, 'position', array('size' => 60, 'maxlength' => 255)); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->label($model, 'value'); ?>
+        <?php echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255)); ?>
     </div>
 
     <div class="row">

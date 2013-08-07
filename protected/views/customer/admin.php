@@ -32,9 +32,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'update_user_id',
         'organization_id',
         /*
-        'firstname',
-        'lastname',
         'position',
+        'value',
         'description',
         */
         array(
