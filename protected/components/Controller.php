@@ -77,42 +77,33 @@ class Controller extends RController
                 )
             ),
         );
+        $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                $this->menu = array(
-                    $items['index'],
-                    $items['admin'],
-                );
+                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
+                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'index':
-                $this->menu = array(
-                    $items['create'],
-                    $items['admin'],
-                );
+                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
+                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'admin':
-                $this->menu = array(
-                    $items['index'],
-                    $items['create'],
-                );
+                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
+                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
                 break;
             case 'update':
-                $this->menu = array(
-                    $items['index'],
-                    $items['create'],
-                    $items['view'],
-                    $items['delete'],
-                    $items['admin'],
-                );
+                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
+                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
+                if(Yii::app()->user->checkAccess($this->id . '.view'))      array_push($this->menu, $items['view']);
+                if(Yii::app()->user->checkAccess($this->id . '.delete'))    array_push($this->menu, $items['delete']);
+                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'view':
-                $this->menu = array(
-                    $items['index'],
-                    $items['create'],
-                    $items['update'],
-                    $items['delete'],
-                    $items['admin'],
-                );
+                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
+                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
+                if(Yii::app()->user->checkAccess($this->id . '.update'))    array_push($this->menu, $items['update']);
+                if(Yii::app()->user->checkAccess($this->id . '.delete'))    array_push($this->menu, $items['delete']);
+                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
                 break;
         }
         return;
