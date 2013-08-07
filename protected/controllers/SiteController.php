@@ -7,6 +7,7 @@ class SiteController extends Controller
     /**
      * Declares class-based actions.
      */
+    /*
     public function actions()
     {
         return array(
@@ -21,7 +22,7 @@ class SiteController extends Controller
                 'class' => 'CViewAction',
             ),
         );
-    }
+    }/**/
 
     /**
      * This is the default 'index' action that is invoked
@@ -57,6 +58,10 @@ class SiteController extends Controller
         }
     }
 
+    public function buildBreadcrumbs($model = NULL) {}
+
+    public function buildMenuOperations($model = NULL) {}
+
     public function actionTest()
     {
         // top menu
@@ -70,9 +75,6 @@ class SiteController extends Controller
             ),
         ));/**/
 
-        $menu = Menu::model()->with('menuItems','items')->findByAttributes(array(
-            'value' => 'home_menu',
-        ));
 
 /*
         $criteria = new CDbCriteria;
@@ -84,8 +86,6 @@ class SiteController extends Controller
         $menu = Item::model()->find($criteria); // $params не требуется
         /**/
 
-        $this->render('test', array(
-            'menu' => $menu,
-        ));
+        $this->render('test');
     }
 }

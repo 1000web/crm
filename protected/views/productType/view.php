@@ -2,14 +2,9 @@
 /* @var $this ProductTypeController */
 /* @var $model ProductType */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
-$this->menu         = $this->menuOperations('view', $model->id);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<h1><?php echo $model->value; ?></h1>
-
-<?php
 $attr = CMap::mergeArray(
     $this->created_updated($model),
     array(
@@ -22,4 +17,3 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));
-?>

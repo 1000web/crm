@@ -2,25 +2,9 @@
 /* @var $this CustomerContactController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');;
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<table class="span10">
-    <tr>
-        <td class="span2">
-            <img src="/images/customer-150x150.jpg" />
-        </td>
-        <td class="span8">
-            <h1>Контакты Клиентов</h1>
-            <p>Упорядочивайте контакты Клиентов</p>
-        </td>
-    </tr>
-</table>
-
-<?php
-/**/
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
@@ -42,5 +26,3 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         )
     ),
 ));
-/**/
-?>

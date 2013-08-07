@@ -2,23 +2,10 @@
 /* @var $this OrganizationController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');;
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
 ?>
-
-<table class="span-20">
-    <tr>
-        <td class="span-4">
-            <img src="/images/organization-150x150.jpg" />
-        </td>
-        <td class="span-16">
-            <h1>Организации</h1>
-            <h2>Заключайте сделки с Организациями</h2>
-            Организации - это компании или корпоративные отделы, с которыми вы имеете деловые отношения.
-        </td>
-    </tr>
-</table>
 
 <div class="row">
 <div class="btn-toolbar span2">
@@ -78,9 +65,9 @@ $this->menu         = $this->menuOperations('index');
     <b><?php echo CHtml::encode($data->getAttributeLabel('organization_region_id')); ?>:</b>
 <?php echo CHtml::encode($data->organizationRegion->value); ?>
     <br/>
-/**/?>
+/**/
 
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
@@ -98,4 +85,4 @@ $this->menu         = $this->menuOperations('index');
             ),
         )
     ),
-)); ?>
+));

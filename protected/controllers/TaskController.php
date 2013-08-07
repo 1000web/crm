@@ -3,6 +3,7 @@
 class TaskController extends Controller
 {
     public $name = 'Задачи';
+    public $description = 'Задачи - перечень или реестр задач, событий и звонков, связанных с записями CRM, относящимися к различным модулям.';
 
     /**
      * Displays a particular model.

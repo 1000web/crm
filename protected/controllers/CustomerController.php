@@ -3,6 +3,8 @@
 class CustomerController extends Controller
 {
     public $name = 'Клиенты';
+    public $description = 'Клиенты - это люди в компании, с которыми вы общаетесь и взаимодействуете в рамках достижения бизнес-задач.';
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -152,9 +154,10 @@ class CustomerController extends Controller
         }
     }
 
-    public function make_breadcrumbs($action, $model = NULL)
+    /*
+    public function buildBreadcrumbs($model = NULL)
     {
-        switch ($action) {
+        switch ($this->getAction()->getId()) {
             case 'admin':
                 $ret = array(
                     $this->name => array('index'),
@@ -194,4 +197,5 @@ class CustomerController extends Controller
         }
         return $ret;
     }
+    /**/
 }

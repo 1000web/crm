@@ -7,8 +7,14 @@ class Controller extends RController
 {
     public $layout = '//layouts/column2';
     public $menu = array();
+    public $top_menu_items = array();
     public $breadcrumbs = array();
+
     public $name = 'Controller';
+    public $pageHeader = '';
+    public $h1 = 'Header H1';
+    public $description = '';
+
     public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete');
 
     /**
@@ -44,7 +50,7 @@ class Controller extends RController
         return $rules;
     }
 
-    public function menuOperations($action, $id = NULL)
+    public function buildMenuOperations($id = NULL)
     {
         $items = array(
             'create' => array(
@@ -71,27 +77,27 @@ class Controller extends RController
                 )
             ),
         );
-        switch ($action) {
+        switch ($this->getAction()->getId()) {
             case 'create':
-                $menu = array(
+                $this->menu = array(
                     $items['index'],
                     $items['admin'],
                 );
                 break;
             case 'index':
-                $menu = array(
+                $this->menu = array(
                     $items['create'],
                     $items['admin'],
                 );
                 break;
             case 'admin':
-                $menu = array(
+                $this->menu = array(
                     $items['index'],
                     $items['create'],
                 );
                 break;
             case 'update':
-                $menu = array(
+                $this->menu = array(
                     $items['index'],
                     $items['create'],
                     $items['view'],
@@ -100,7 +106,7 @@ class Controller extends RController
                 );
                 break;
             case 'view':
-                $menu = array(
+                $this->menu = array(
                     $items['index'],
                     $items['create'],
                     $items['update'],
@@ -109,60 +115,126 @@ class Controller extends RController
                 );
                 break;
         }
-        return $menu;
+        return;
     }
 
-    public function make_breadcrumbs($action, $model = NULL)
+    public function buildBreadcrumbs($model = NULL)
     {
-        switch ($action) {
+        if($model) {
+            if($this->id == 'customer') $value = $model->lastname . ' ' . $model->firstname;
+            else $value = $model->value;
+        } else $value = NULL;
+
+        switch ($this->getAction()->getId()) {
             case 'admin':
-                $ret = array(
+                $this->breadcrumbs = array(
                     $this->name => array('index'),
                     'Управление',
                 );
                 break;
             case
             'create':
-                $ret = array(
+                $this->breadcrumbs = array(
                     $this->name => array('index'),
                     'Создать',
                 );
                 break;
-            case 'index':
-                $ret = array(
-                    $this->name,
-                );
-                break;
             case 'update':
-                $ret = array(
+                $this->breadcrumbs = array(
                     $this->name => array('index'),
-                    $model->value => array('view', 'id' => $model->id),
+                    $value => array('view', 'id' => $model->id),
                     'Редактировать',
                 );
                 break;
             case 'view':
-                $ret = array(
+                $this->breadcrumbs = array(
                     $this->name => array('index'),
-                    $model->value,
+                    $value,
                 );
                 break;
+            case 'index':
             default:
-                $ret = array(
-                    $this->name => array('index'),
-                    'Неизвестный раздел',
+            $this->breadcrumbs = array(
+                    $this->name,
                 );
         }
-        return $ret;
+        return;
     }
 
-    public function created_updated($model){
+    public function buildHeaderH1($model = NULL){
+        switch ($this->getAction()->getId()) {
+            case 'admin':
+                $this->h1 = 'Управление ' . $this->name;
+                break;
+            case 'create':
+                $this->h1 = 'Создать ' . $this->name;
+                break;
+            case 'update':
+                $this->h1 = 'Редактировать:' . $model->value;
+                break;
+            case 'view':
+                $this->h1 = $model->value;
+                $this->description = $model->description;
+                break;
+            case 'index':
+            default:
+                $this->h1 = $this->name;
+        }
+    }
+
+    public function buildPageOptions($model = NULL){
+        $item = Item::model()->findByAttributes(array(
+            'controller' => $this->id,
+            'action' => $this->getAction()->getId(),
+        ));
+        $this->h1 = $item['h1'];
+        $this->pageTitle = $item['title'];
+        $this->description = $item['description'];
+
+        $this->top_menu_items = Menu::model()->get_menu('top_menu');
+
+        $this->buildBreadcrumbs($model);
+        $this->buildPageHeader('150x150');
+
+        if($model) $this->buildMenuOperations($model->id);
+        else $this->buildMenuOperations();
+    }
+
+    public function insertImage($size){
+        $images_folder = 'images';
+        $basePath = Yii::app()->basePath . '/..';
+        $img = '/'.$images_folder.'/'.$size.'/' . $this->id . '/' . $this->getAction()->getId() . '.jpg';
+        if (!file_exists($basePath . $img)) {
+            $img = '/'.$images_folder.'/'.$size.'/' . $this->id . '/index.jpg';
+            if (!file_exists($basePath . $img)) {
+                $img = '/'.$images_folder.'/'.$size.'/nophoto.jpg';
+            }
+        }
+        return $img;
+    }
+    public function buildPageHeader($size)
+    {
+        $this->pageHeader = "
+<table class='span10'>
+    <tr><td class='span2' ><img src='" . $this->insertImage($size) . "' /></td>
+        <td class='span8'>
+            <h1>".$this->h1."</h1>
+            <p>".$this->description."</p>
+        </td>
+    </tr>
+</table>\n\n";
+        return;
+    }
+
+    public function created_updated($model)
+    {
         $create_time = date('Y-m-d H:i:s', $model->create_time);
         //$create_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->create_time);
-        $create_user = $model->createUser->profiles->last_name . ' ' . $model->createUser->profiles->first_name . ' ('.$model->createUser->username . ')';
+        $create_user = $model->createUser->profiles->last_name . ' ' . $model->createUser->profiles->first_name . ' (' . $model->createUser->username . ')';
 
         $update_time = date('Y-m-d H:i:s', $model->update_time);
         //$update_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->update_time);
-        $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name .' ('.$model->updateUser->username . ')';
+        $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name . ' (' . $model->updateUser->username . ')';
 
         return array(
             array('name' => 'create_time', 'label' => 'Дата создания', 'value' => $create_time),
@@ -180,13 +252,14 @@ class Controller extends RController
             'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-        //    'size' => 'large', // null, 'large', 'small' or 'mini'
+            //    'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         echo "\n</div>\n";
         //return $ret;
     }
 
-    public function manage_search_form($model){
+    public function manage_search_form($model)
+    {
         $ret = "\n<p>\nМожно использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> или <b>=</b>) в начале параметра поиска.\n</p>\n";
         $ret .= CHtml::link('Расширенный поиск', '#', array('class' => 'search-button'));
         $ret .= '<div class="search-form" style="display:none">';
@@ -195,8 +268,9 @@ class Controller extends RController
         return $ret;
     }
 
-    public function attributeLabels($key){
-        $arr = array (
+    public function attributeLabels($key)
+    {
+        $arr = array(
             'activkey' => 'Activkey',
             'create_at' => 'Дата создания',
             'create_time' => 'Дата создания',

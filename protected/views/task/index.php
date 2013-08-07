@@ -2,25 +2,10 @@
 /* @var $this TaskController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');;
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<table class="span-20">
-    <tr>
-        <td class="span-4">
-            <img src="/images/task-150x150.jpg" />
-        </td>
-        <td class="span-16">
-            <h1>Задачи</h1>
-            <h2>Отслеживайте свои Задачи</h2>
-            Задачи - перечень или реестр задач, событий и звонков, связанных с записями CRM, относящимися к различным модулям.
-        </td>
-    </tr>
-</table>
-
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
@@ -38,4 +23,4 @@ $this->menu         = $this->menuOperations('index');
             ),
         )
     ),
-)); ?>
+));

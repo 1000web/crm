@@ -2,8 +2,8 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('admin');
-$this->menu         = $this->menuOperations('admin');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -17,13 +17,10 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
-?>
 
-<h1>Управление пунктами меню</h1>
+echo $this->manage_search_form($model);
 
-<?php echo $this->manage_search_form($model); ?>
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'item-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -41,4 +38,4 @@ $('.search-form form').submit(function(){
 			'class'=>'CButtonColumn',
 		),
 	),
-)); ?>
+));

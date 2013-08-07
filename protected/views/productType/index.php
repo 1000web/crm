@@ -2,14 +2,10 @@
 /* @var $this ProductTypeController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');;
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<h1>Типы Продукции</h1>
-
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
@@ -24,5 +20,4 @@ $this->menu         = $this->menuOperations('index');
             ),
         )
     ),
-)); ?>
-
+));

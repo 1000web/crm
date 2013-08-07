@@ -2,31 +2,21 @@
 /* @var $this CustomerController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<table class="span10">
-    <tr>
-        <td class="span2">
-            <img src="/images/customer-150x150.jpg" />
-        </td>
-        <td class="span8">
-            <h1>Клиенты</h1>
-            <p>Клиенты - это люди в компании, с которыми вы общаетесь и взаимодействуете в рамках достижения бизнес-задач.</p>
-        </td>
-    </tr>
-</table>
-
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
     'columns' => array(
-        array('name' => 'organization_id', 'header' => $this->attributeLabels('id')),// 'value' => 'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))),
-        array('name' => 'organization', 'header' => $this->attributeLabels('organization'), 'value' => '$data->organization->value'),
         /*
+        array(
+            'name' => 'organization_id',
+            'header' => $this->attributeLabels('id'),
+            //'encodeLabel' => false,
+            'value' => 'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))'
+        ),/**/
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
             'template'=>'{view}',
@@ -34,13 +24,16 @@ $this->menu         = $this->menuOperations('index');
             (
                 'view' => array
                 (
+                    'icon' => 'icon-list',
                     'url'=>'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))',
+                    'label' => $this->attributeLabels('organization'),
                 ),
             ),
             'htmlOptions'=>array(
-                'style'=>'width: 5px',
+                'style'=>'width: 5px; text-align:center;',
             ),
         ),/**/
+        array('name' => 'organization', 'header' => $this->attributeLabels('organization'), 'value' => '$data->organization->value'),
         array('name' => 'lastname', 'header' => $this->attributeLabels('lastname')),
         array('name' => 'firstname', 'header' => $this->attributeLabels('firstname')),
         array('name' => 'position', 'header' => $this->attributeLabels('position')),
@@ -69,4 +62,4 @@ $this->menu         = $this->menuOperations('index');
             ),/**/
         )
     ),
-)); ?>
+));

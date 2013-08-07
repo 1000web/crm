@@ -2,8 +2,8 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('admin');
-$this->menu         = $this->menuOperations('admin');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -17,13 +17,10 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
-?>
 
-<h1>Управление Задачами</h1>
+echo $this->manage_search_form($model);
 
-<?php echo $this->manage_search_form($model); ?>
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'task-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
@@ -44,4 +41,4 @@ $('.search-form form').submit(function(){
             'class' => 'CButtonColumn',
         ),
     ),
-)); ?>
+));

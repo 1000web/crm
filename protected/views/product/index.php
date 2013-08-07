@@ -2,20 +2,16 @@
 /* @var $this ProductController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('index');;
-$this->menu         = $this->menuOperations('index');
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<h1>Продукция</h1>
-
-<?php /*
+/*
 <b><?php echo CHtml::encode($data->getAttributeLabel('product_type_id')); ?>:</b>
 <?php echo CHtml::encode($data->productType->value); ?>
 <br/>
-*/?>
+*/
 
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
@@ -31,4 +27,4 @@ $this->menu         = $this->menuOperations('index');
             ),
         )
     ),
-)); ?>
+));

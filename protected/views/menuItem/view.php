@@ -2,14 +2,10 @@
 /* @var $this MenuItemController */
 /* @var $model MenuItem */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('view', $model);
-$this->menu         = $this->menuOperations('view', $model->id);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-<h1>View MenuItem #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -23,4 +19,4 @@ $this->menu         = $this->menuOperations('view', $model->id);
 		'prior',
 		'visible',
 	),
-)); ?>
+));

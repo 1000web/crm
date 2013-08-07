@@ -1,17 +1,10 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle = Yii::app()->name . ' - О программе';
-$this->breadcrumbs = array(
-    'О программе',
-);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
+
 ?>
-
-<h1>О программе <?php echo CHtml::encode(Yii::app()->name); ?></h1>
-
-<p>CRM (Customer Relationship Management) — систематический подход к управлению «жизненным циклом клиента».</p>
-<p>CRM — это стратегия, позволяющая предложить правильный продукт правильному клиенту через правильный канал оптимальным
-    способом.</p>
 
 <h2>Какие первостепенные задачи ставят руководители российских предприятий перед CRM?</h2>
 <ul>

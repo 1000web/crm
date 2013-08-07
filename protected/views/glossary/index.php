@@ -1,11 +1,10 @@
 <?php
 /* @var $this GlossaryController */
 
-$this->breadcrumbs = array(
-    'Справочники',
-);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
+
 ?>
-<h1>Справочники</h1>
 
 <ul>
     <li><?php echo CHtml::link('Типы контактов', '/contactType'); ?></li>

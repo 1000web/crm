@@ -1,11 +1,10 @@
 <?php
 /* @var $this KbController */
 
-$this->breadcrumbs = array(
-    'База знаний',
-);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
+
 ?>
-<h1>База знаний</h1>
 
 <p>
     В процессе разработки.

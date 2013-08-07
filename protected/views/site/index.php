@@ -1,14 +1,14 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle = Yii::app()->name;
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
 ?>
 
-<h1>Начало работы в <?php echo CHtml::encode(Yii::app()->name); ?></h1>
 <table class="span10">
 <tr>
-    <td class="span1"><img src="/images/customer-75x75.jpg" /></td>
+    <td class="span1"><img src="/images/75x75/customer/index.jpg" /></td>
     <td class="span9">
         <h3>Клиенты</h3>
         <p>Клиенты - это люди в компании, с которыми вы общаетесь и взаимодействуете в рамках достижения бизнес-задач.</p>
@@ -20,7 +20,7 @@ $this->pageTitle = Yii::app()->name;
     </td>
 </tr>
 <tr>
-    <td class="span1"><img src="/images/organization-75x75.jpg" /></td>
+    <td class="span1"><img src="/images/75x75/organization/index.jpg" /></td>
     <td class="span9">
         <h3>Организации</h3>
         <p>Организации - это компании или корпоративные отделы, с которыми вы имеете деловые отношения.</p>
@@ -32,7 +32,7 @@ $this->pageTitle = Yii::app()->name;
     </td>
 </tr>
 <tr>
-    <td class="span1"><img src="/images/task-75x75.jpg" /></td>
+    <td class="span1"><img src="/images/75x75/task/index.jpg" /></td>
     <td class="span9">
         <h3>Задачи</h3>
         <p>Задачи - перечень или реестр задач, событий и звонков, связанных с записями CRM, относящимися к различным модулям.</p>
@@ -44,7 +44,7 @@ $this->pageTitle = Yii::app()->name;
     </td>
 </tr>
 <tr>
-    <td class="span1"><img src="/images/deal-75x75.jpg" /></td>
+    <td class="span1"><img src="/images/75x75/deal/index.jpg" /></td>
     <td class="span9">
         <h3>Потенциальные сделки</h3>
         <p>Потенциальные сделки - это сделки с организациями или людьми, приносящие доход вашей организации.</p>

@@ -2,10 +2,9 @@
 /* @var $this SiteController */
 /* @var $error array */
 
-$this->pageTitle = Yii::app()->name . ' - Error';
-$this->breadcrumbs = array(
-    'Error',
-);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
+
 ?>
 
 <h2>Error <?php echo $code; ?></h2>

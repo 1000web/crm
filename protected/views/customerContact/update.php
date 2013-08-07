@@ -2,11 +2,7 @@
 /* @var $this CustomerContactController */
 /* @var $model CustomerContact */
 
-$this->breadcrumbs  = $this->make_breadcrumbs('update', $model);;
-$this->menu         = $this->menuOperations('update', $model->id);
+if(!isset($model)) $this->buildPageOptions();
+else $this->buildPageOptions($model);
 
-?>
-
-    <h1>Update CustomerContact <?php echo $model->id; ?></h1>
-
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+echo $this->renderPartial('_form', array('model' => $model)); ?>
