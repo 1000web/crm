@@ -34,11 +34,13 @@ class Controller extends RController
         if($this->getModule()) $module = $this->getModule()->id . '.';
         else $module = '';
         $controller = $this->getId() . '.';
+        $rules = array();
+        /*
         $rules = array(
             array('allow',
                 'roles' => array($module . $controller . '*'),
             ),
-        );
+        );/**/
         // разрешения для каждого действия
         foreach ($this->actions as $action) {
             $rules[] = array(
