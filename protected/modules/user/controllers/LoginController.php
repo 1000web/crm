@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends MyUserController
+class LoginController extends Controller
 {
     public $defaultAction = 'login';
 

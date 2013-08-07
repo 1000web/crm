@@ -1,6 +1,6 @@
 <?php
 
-class ActivationController extends MyUserController
+class ActivationController extends Controller
 {
     public $defaultAction = 'activation';
 

@@ -1,6 +1,6 @@
 <?php
 
-class ProfileController extends MyUserController
+class ProfileController extends Controller
 {
     public $defaultAction = 'profile';
     public $layout = '//layouts/column2';

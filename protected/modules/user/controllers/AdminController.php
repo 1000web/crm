@@ -1,29 +1,11 @@
 <?php
 
-class AdminController extends MyUserController
+class AdminController extends Controller
 {
     public $defaultAction = 'admin';
     public $layout = '//layouts/column2';
 
     private $_model;
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules()
-    {
-        return array(
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'create', 'update', 'view'),
-                'users' => UserModule::getAdmins(),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
-        );
-    }
 
     /**
      * Manages all models.

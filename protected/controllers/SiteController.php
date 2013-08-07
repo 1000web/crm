@@ -62,6 +62,13 @@ class SiteController extends Controller
 
     public function buildMenuOperations($model = NULL) {}
 
+    /*
+    public function actionTestM(){
+        if($this->getModule()) $module = $this->getModule()->id . '.';
+        $controller = $this->getId() . '.';
+        echo $module . $controller . $this->getAction()->id;
+    }*/
+
     public function actionTest()
     {
         // top menu

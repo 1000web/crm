@@ -23,7 +23,7 @@ class Controller extends RController
     public function filters()
     {
         return array(
-            'rights',
+            //'rights',
             //'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
         );
@@ -31,16 +31,18 @@ class Controller extends RController
 
     public function accessRules()
     {
+        if($this->getModule()) $module = $this->getModule()->id . '.';
+        $controller = $this->getId() . '.';
         $rules = array(
             array('allow',
-                'roles' => array($this->getId() . '.*'),
+                'roles' => array($module . $controller . '*'),
             ),
         );
         // разрешения для каждого действия
         foreach ($this->actions as $action) {
             $rules[] = array(
                 'actions' => array($action),
-                'roles' => array($this->getId() . '.' . $action),
+                'roles' => array($module . $controller . $action),
             );
         }
         // если ни одно правило не сработало, то действие запрещено
