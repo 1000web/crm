@@ -40,9 +40,9 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        /* TODO НУЖНО ИСПРАВИТЬ */
-//        $this->render('login');
-        $this->redirect('/user/login');
+        //$this->render('login');
+        if(Yii::app()->user->isGuest) $this->redirect('/user/login');
+        else $this->redirect('/');
     }
 
     /**
