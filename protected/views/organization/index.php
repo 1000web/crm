@@ -53,36 +53,18 @@ else $this->buildPageOptions($model);
 </div>
 </div>
 
-<?php /*
-    <b><?php echo CHtml::encode($data->getAttributeLabel('organization_type_id')); ?>:</b>
-<?php echo CHtml::encode($data->organizationType->value); ?>
-    <br/>
+<?php
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('organization_group_id')); ?>:</b>
-<?php echo CHtml::encode($data->organizationGroup->value); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('organization_region_id')); ?>:</b>
-<?php echo CHtml::encode($data->organizationRegion->value); ?>
-    <br/>
-/**/
-
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'type' => 'striped bordered condensed',
-    'dataProvider' => $dataProvider,
-    'template' => "{items}",
-    'columns' => array(
+$columns = array(
         array('name' => 'id', 'header' => $this->attributeLabels('id')),
         array('name' => 'value', 'header' => $this->attributeLabels('value')),
         array('name' => 'organization_type_id', 'header' => $this->attributeLabels('type'), 'value' => '$data->organizationType->value'),
         array('name' => 'organization_group_id', 'header' =>$this->attributeLabels('group'), 'value' => '$data->organizationGroup->value'),
         array('name' => 'organization_region_id', 'header' => $this->attributeLabels('region'), 'value' => '$data->organizationRegion->value'),
-        array('name' => 'description', 'header' => $this->attributeLabels('description')),
-        array(
-            'class'=>'bootstrap.widgets.TbButtonColumn',
-            'htmlOptions'=>array(
-                'style'=>'width: 50px',
-            ),
-        )
-    ),
+        array('name' => 'description', 'header' => $this->attributeLabels('description'))
+);
+
+echo $this->renderPartial('../grid_view', array(
+    'dataProvider' => $dataProvider,
+    'columns' => $columns,
 ));

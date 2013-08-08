@@ -8,9 +8,9 @@ else $this->buildPageOptions($model);
 
 $attr = array(
     array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
-    array('name' => 'position', 'label' => 'Должность'),
-    array('name' => 'value', 'label' => 'Имя'),
-    array('name' => 'description', 'label' => 'Описание'),
+    array('name' => 'position', 'label' => $this->attributeLabels('position')),
+    array('name' => 'value', 'label' => $this->attributeLabels('value')),
+    array('name' => 'description', 'label' => $this->attributeLabels('description')),
 );
 
 if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(

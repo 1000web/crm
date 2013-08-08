@@ -5,7 +5,9 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+$columns_list = array('id', 'parent_id', 'menu_id', 'prior', 'visible');
+
+echo $this->renderPartial('../grid_view', array(
+    'dataProvider' => $dataProvider,
+    'columns_list' => $columns_list,
 ));

@@ -67,10 +67,10 @@ class Controller extends RController
         return Yii::app()->user->checkAccess($param);
     }
 
-    public function addButtonTo(&$buttons, $controller, $action){
+    public function addButtonTo(&$buttons, $controller, $action, $id = '$data->id'){
         if ($this->checkAccess($controller, $action)) {
             $buttons[$action] = array(
-                    'url' => 'Yii::app()->createUrl("'.$controller.'/'.$action.'", array("id"=>$data->id))',
+                'url' => 'Yii::app()->createUrl("'.$controller.'/'.$action.'", array("id"=>'.$id.'))',
             );
         }
     }
@@ -292,6 +292,7 @@ class Controller extends RController
             'create_user_id' => 'Кто создал',
             'contact_type' => 'Тип контакта',
             'contact_type_id' => 'Тип контакта',
+            'customer' => 'Клиент',
             'customer_id' => 'Клиент',
             'datetime' => 'Дата/время',
             'deleted' => 'Удалено',
@@ -303,6 +304,7 @@ class Controller extends RController
             'last_name' => 'Фамилия',
             'lastvisit_at' => 'Lastvisit At',
             'log_id' => 'Log #',
+            'menu_id' => 'Menu #',
             'organization' => 'Организация',
             'organization_id' => 'Организация',
             'organization_type_id' => 'Тип организации',
