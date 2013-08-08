@@ -20,22 +20,15 @@ $('.search-form form').submit(function(){
 
 echo $this->manage_search_form($model);
 
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'type'=>'striped bordered condensed',
+$columns = array(
+    array('name'=>'organization_type_id', 'header' => $this->attributeLabels('organization_type_id'), 'value' => '$data->organizationType->value'),
+    array('name'=>'organization_group_id', 'header' => $this->attributeLabels('organization_group_id'), 'value' => '$data->organizationGroup->value'),
+    array('name'=>'organization_region_id', 'header' => $this->attributeLabels('organization_group_id'), 'value' => '$data->organizationRegion->value'),
+    array('name'=>'value', 'header' => $this->attributeLabels('value')),
+);
+echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $model->search(),
-    'filter' => $model,
-    'template'=>"{items}",
-    'columns'=>array(
-        //array('name'=>'id', 'header'=>'#'),
-        array('name'=>'organization_type_id', 'header'=>'Тип', 'value' => '$data->organizationType->value'),
-        array('name'=>'organization_group_id', 'header'=>'Группа', 'value' => '$data->organizationGroup->value'),
-        array('name'=>'organization_region_id', 'header'=>'Регион', 'value' => '$data->organizationRegion->value'),
-        array('name'=>'value', 'header'=>'Название'),
-        array(
-            'class'=>'bootstrap.widgets.TbButtonColumn',
-            'htmlOptions'=>array('style'=>'width: 50px'),
-        ),
-    ),
+    'columns' => $columns,
 ));
 
 /*
@@ -45,10 +38,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'filter' => $model,
     'columns' => array(
         'id',
-        'create_time',
-        'update_time',
-        'create_user_id',
-        'update_user_id',
         'organization_type_id',
         'organization_group_id',
         'organization_region_id',

@@ -252,10 +252,10 @@ class Controller extends RController
         $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name . ' (' . $model->updateUser->username . ')';
 
         return array(
-            array('name' => 'create_time', 'label' => 'Дата создания', 'value' => $create_time),
-            array('name' => 'create_user_id', 'label' => 'Кто создал', 'value' => $create_user),
-            array('name' => 'update_time', 'label' => 'Дата изменения', 'value' => $update_time),
-            array('name' => 'update_user_id', 'label' => 'Кто изменил', 'value' => $update_user),
+            array('name' => 'create_time', 'label' => $this->attributeLabels('create_time'), 'value' => $create_time),
+            array('name' => 'create_user_id', 'label' => $this->attributeLabels('create_user_id'), 'value' => $create_user),
+            array('name' => 'update_time', 'label' => $this->attributeLabels('update_time'), 'value' => $update_time),
+            array('name' => 'update_user_id', 'label' => $this->attributeLabels('update_user_id'), 'value' => $update_user),
         );
     }
 
