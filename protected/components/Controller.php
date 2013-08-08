@@ -176,28 +176,6 @@ class Controller extends RController
         return;
     }
 
-    public function buildHeaderH1($model = NULL)
-    {
-        switch ($this->getAction()->getId()) {
-            case 'admin':
-                $this->h1 = 'Управление ' . $this->name;
-                break;
-            case 'create':
-                $this->h1 = 'Создать ' . $this->name;
-                break;
-            case 'update':
-                $this->h1 = 'Редактировать:' . $model->value;
-                break;
-            case 'view':
-                $this->h1 = $model->value;
-                $this->description = $model->description;
-                break;
-            case 'index':
-            default:
-                $this->h1 = $this->name;
-        }
-    }
-
     public function buildPageOptions($model = NULL)
     {
         $this->top_menu_items = Menu::model()->get_menu('top_menu');
@@ -221,7 +199,15 @@ class Controller extends RController
 
             $this->buildMenuOperations();
         }
-        $this->buildPageHeader('150x150');
+        $this->pageHeader = "
+<table class='span10'>
+    <tr><td class='span2' ><img src='" . $this->insertImage('150x150') . "' /></td>
+        <td class='span8'>
+            <h1>".$this->h1."</h1>
+            <p>".$this->description."</p>
+        </td>
+    </tr>
+</table>\n\n";
     }
 
     public function insertImage($size)
@@ -236,19 +222,6 @@ class Controller extends RController
             }
         }
         return $img;
-    }
-    public function buildPageHeader($size)
-    {
-        $this->pageHeader = "
-<table class='span10'>
-    <tr><td class='span2' ><img src='" . $this->insertImage($size) . "' /></td>
-        <td class='span8'>
-            <h1>".$this->h1."</h1>
-            <p>".$this->description."</p>
-        </td>
-    </tr>
-</table>\n\n";
-        return;
     }
 
     public function created_updated($model)
