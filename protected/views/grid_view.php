@@ -13,11 +13,11 @@ if(!isset($columns)) $columns = array();
 if(!isset($columns_list)) $columns_list = array();
 
 $controller = $this->id;
-/*
-if(!$buttons) {
-}*/
-foreach($buttons_list as $button){
-    $this->addButtonTo($buttons, $controller, $button);
+
+if($buttons_list !== NULL) {
+    foreach($buttons_list as $button){
+        $this->addButtonTo($buttons, $controller, $button);
+    }
 }
 
 $template = '';

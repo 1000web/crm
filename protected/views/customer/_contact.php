@@ -30,7 +30,7 @@ if (!empty($template)) array_push($columns,
         'template' => $template,
         'buttons' => $buttons,
         'htmlOptions' => array(
-            'style' => 'width: 50px',
+            'style' => 'text-align:center; width: 50px',
         ),
     ));
 $this->widget('bootstrap.widgets.TbGridView', array(

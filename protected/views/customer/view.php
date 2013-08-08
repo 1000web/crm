@@ -7,7 +7,7 @@ if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
 $attr = array(
-    array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
+    array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $model->organization->value),
     array('name' => 'position', 'label' => $this->attributeLabels('position')),
     array('name' => 'value', 'label' => $this->attributeLabels('value')),
     array('name' => 'description', 'label' => $this->attributeLabels('description')),
