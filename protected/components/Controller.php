@@ -65,8 +65,16 @@ class Controller extends RController
             $param = $param1 . '.' . $param2;
         }
         return Yii::app()->user->checkAccess($param);
-    } 
-    
+    }
+
+    public function addButtonTo(&$buttons, $controller, $action){
+        if ($this->checkAccess($controller, $action)) {
+            $buttons[$action] = array(
+                    'url' => 'Yii::app()->createUrl("'.$controller.'/'.$action.'", array("id"=>$data->id))',
+            );
+        }
+    }
+
     public function buildMenuOperations($id = NULL)
     {
         $items = array(
