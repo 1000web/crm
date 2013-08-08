@@ -176,7 +176,8 @@ class Controller extends RController
         return;
     }
 
-    public function buildHeaderH1($model = NULL){
+    public function buildHeaderH1($model = NULL)
+    {
         switch ($this->getAction()->getId()) {
             case 'admin':
                 $this->h1 = 'Управление ' . $this->name;
@@ -197,25 +198,34 @@ class Controller extends RController
         }
     }
 
-    public function buildPageOptions($model = NULL){
+    public function buildPageOptions($model = NULL)
+    {
+        $this->top_menu_items = Menu::model()->get_menu('top_menu');
+        $this->buildBreadcrumbs($model);
+
         $item = Item::model()->findByAttributes(array(
             'controller' => $this->id,
             'action' => $this->getAction()->getId(),
         ));
-        $this->h1 = $item['h1'];
-        $this->pageTitle = $item['title'];
-        $this->description = $item['description'];
+        if($model) {
+            $this->h1 = $model->value;
+            $this->description = $model->description;
+            $this->pageTitle = $model->value . ' - ' . $item['title'];
 
-        $this->top_menu_items = Menu::model()->get_menu('top_menu');
+            $this->buildMenuOperations($model->id);
+        }
+        else {
+            $this->h1 = $item['h1'];
+            $this->description = $item['description'];
+            $this->pageTitle = $item['title'];
 
-        $this->buildBreadcrumbs($model);
+            $this->buildMenuOperations();
+        }
         $this->buildPageHeader('150x150');
-
-        if($model) $this->buildMenuOperations($model->id);
-        else $this->buildMenuOperations();
     }
 
-    public function insertImage($size){
+    public function insertImage($size)
+    {
         $images_folder = 'images';
         $basePath = Yii::app()->basePath . '/..';
         $img = '/'.$images_folder.'/'.$size.'/' . $this->id . '/' . $this->getAction()->getId() . '.jpg';

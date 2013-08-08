@@ -5,9 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="ru"/>
 
+    <?php /*
     <!-- blueprint CSS framework -->
-    <!-- link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
-          media="screen, projection"/ -->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
+          media="screen, projection"/ >
+    /**/?>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css"
           media="print"/>
     <!--[if lt IE 8]>
@@ -52,7 +54,6 @@ if(isset($this->top_menu_items)) {
 
     <?php
     if(isset($this->pageHeader)) echo $this->pageHeader;
-    //echo $this->printHeader();
     ?>
 
     <?php echo $content; ?>

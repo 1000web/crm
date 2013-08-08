@@ -5,7 +5,7 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-$columns_list = array('id', 'parent_id', 'module', 'controller', 'action', 'value', 'description');
+$columns_list = array('id', 'parent_id', 'module', 'controller', 'action', 'value', 'title', 'h1');
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
