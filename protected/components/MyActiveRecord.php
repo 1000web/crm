@@ -27,7 +27,7 @@ class MyActiveRecord extends CActiveRecord
         return $ret;
     }
 
-    public function getAllowedRange()
+    public function getAllowedRange($id = NULL)
     {
         $items = $this->findAll();
         foreach($items as $item){

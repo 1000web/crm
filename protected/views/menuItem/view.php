@@ -5,18 +5,20 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-$this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'create_time',
-		'update_time',
-		'create_user_id',
-		'update_user_id',
-		'parent_id',
-		'menu_id',
-		'item_id',
-		'prior',
-		'visible',
-	),
+$attr = array(
+    array('name' => 'parent_id', 'label' => 'Parent'),
+    array('name' => 'menu_id', 'label' => 'Menu'),
+    array('name' => 'item_id', 'label' => 'Item'),
+    array('name' => 'prior', 'label' => 'Prior'),
+    array('name' => 'visible', 'label' => 'visible'),
+);
+if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+    $this->created_updated($model),
+    $attr
+);
+$this->widget('bootstrap.widgets.TbDetailView', array(
+    'data' => $model,
+    'type' => 'striped bordered condensed',
+    'attributes' => $attr,
 ));
+

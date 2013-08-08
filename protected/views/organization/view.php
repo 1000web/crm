@@ -5,9 +5,7 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-$attr = CMap::mergeArray(
-    $this->created_updated($model),
-    array(
+$attr = array(
 //        array('name' => 'id', 'label' => '#'),
         //array('name' => 'organization_type_id', 'label' => 'Тип'),
         //array('name' => 'organizationType->value', 'label' => 'Тип'),
@@ -16,7 +14,10 @@ $attr = CMap::mergeArray(
         array('name' => 'organization_region_id', 'label' => 'Регион', 'value' => $model->organizationRegion->value),
         //array('name' => 'value', 'label' => 'Название'),
         array('name' => 'description', 'label' => 'Описание'),
-    )
+);
+if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+    $this->created_updated($model),
+    $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,

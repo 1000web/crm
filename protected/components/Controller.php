@@ -54,7 +54,19 @@ class Controller extends RController
         );
         return $rules;
     }
-
+    
+    public function checkAccess($param1, $param2, $param3 = NULL){
+        if($param3) {
+            // param1 = module, $param2 = controller, param3 = action
+            $param = $param1 . '.' . $param2 . '.' . $param3;
+        }
+        else {
+            // $param1 = controller, param2 = action
+            $param = $param1 . '.' . $param2;
+        }
+        return Yii::app()->user->checkAccess($param);
+    } 
+    
     public function buildMenuOperations($id = NULL)
     {
         $items = array(
@@ -85,30 +97,30 @@ class Controller extends RController
         $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
-                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
+                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
+                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'index':
-                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
-                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
+                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
+                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'admin':
-                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
-                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
+                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
+                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
                 break;
             case 'update':
-                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
-                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
-                if(Yii::app()->user->checkAccess($this->id . '.view'))      array_push($this->menu, $items['view']);
-                if(Yii::app()->user->checkAccess($this->id . '.delete'))    array_push($this->menu, $items['delete']);
-                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
+                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
+                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
+                if($this->checkAccess($this->id, 'view'))      array_push($this->menu, $items['view']);
+                if($this->checkAccess($this->id, 'delete'))    array_push($this->menu, $items['delete']);
+                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
                 break;
             case 'view':
-                if(Yii::app()->user->checkAccess($this->id . '.index'))     array_push($this->menu, $items['index']);
-                if(Yii::app()->user->checkAccess($this->id . '.create'))    array_push($this->menu, $items['create']);
-                if(Yii::app()->user->checkAccess($this->id . '.update'))    array_push($this->menu, $items['update']);
-                if(Yii::app()->user->checkAccess($this->id . '.delete'))    array_push($this->menu, $items['delete']);
-                if(Yii::app()->user->checkAccess($this->id . '.admin'))     array_push($this->menu, $items['admin']);
+                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
+                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
+                if($this->checkAccess($this->id, 'update'))    array_push($this->menu, $items['update']);
+                if($this->checkAccess($this->id, 'delete'))    array_push($this->menu, $items['delete']);
+                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
                 break;
         }
         return;

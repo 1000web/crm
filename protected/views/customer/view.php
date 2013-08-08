@@ -5,17 +5,23 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
+$attr = array(
+    array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
+    array('name' => 'position', 'label' => 'Должность'),
+    array('name' => 'value', 'label' => 'Имя'),
+    array('name' => 'description', 'label' => 'Описание'),
+);
+
+if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+    $this->created_updated($model),
+    $attr
+);
 $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
     'type' => 'striped bordered condensed',
-    'attributes' => array(
-//        array('name' => 'id', 'label' => '#'),
-        //array('name' => 'organization_id', 'label' => 'Организация', 'value' => Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))),
-        array('name' => 'organization_id', 'label' => 'Организация', 'value' => $model->organization->value),
-        array('name' => 'position', 'label' => 'Должность'),
-        array('name' => 'description', 'label' => 'Описание'),
-    ),
+    'attributes' => $attr,
 ));
+
 ?>
 
 <h2>Контакты Клиента</h2>
