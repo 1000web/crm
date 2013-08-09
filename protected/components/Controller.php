@@ -74,7 +74,13 @@ class Controller extends RController
         $items = array();
         $userProfile = $this->getUserProfile();
         $button_title = $this->attributeLabels($param);
-
+        if ($userProfile->getAttribute('filter_' . $param)) {
+            $items[] = array(
+                'label' => 'Сбросить фильтр',
+                'url' => array('filter', 'param' => $param, 'value' => 0),
+            );
+            $items[] = '---';
+        }
         foreach ($options as $key => $value) {
             $button = array(
                 'label' => $value,
@@ -86,25 +92,13 @@ class Controller extends RController
             }
             $items[] = $button;
         }
-        $flag = false;
-        if ($userProfile->getAttribute('filter_' . $param)) {
-            $flag = true;
-            $button_reset_filter = array(
-                'label' => 'Сбросить фильтр',
-                'url' => array('filter', 'param' => $param, 'value' => 0),
-            );
-        }
         if ($this->checkAccess($param, 'index')) {
-            $flag = true;
-            $button_param_list = array(
+            $items[] = array(
                 'label' => 'Список',
+                'icon' => 'list',
                 'url' => '/' . $param . '/index',
             );
         }
-        if ($flag) $items[] = '---';
-        if (isset($button_reset_filter)) $items[] = $button_reset_filter;
-        if (isset($button_param_list)) $items[] = $button_param_list;
-
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
             'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
