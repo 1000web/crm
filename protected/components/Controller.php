@@ -28,83 +28,106 @@ class Controller extends RController
             'postOnly + delete', // we only allow deletion via POST request
         );
     }
-/*
-    public function accessRules()
-    {
-        if($this->getModule()) $module = $this->getModule()->id . '.';
-        else $module = '';
-        $controller = $this->getId() . '.';
-        $rules = array();
-        // разрешения для каждого действия
-        foreach ($this->actions as $action) {
+
+    /*
+        public function accessRules()
+        {
+            if($this->getModule()) $module = $this->getModule()->id . '.';
+            else $module = '';
+            $controller = $this->getId() . '.';
+            $rules = array();
+            // разрешения для каждого действия
+            foreach ($this->actions as $action) {
+                $rules[] = array(
+                    'actions' => array($action),
+                    'roles' => array($module . $controller . $action),
+                );
+            }
+            // если ни одно правило не сработало, то действие запрещено
             $rules[] = array(
-                'actions' => array($action),
-                'roles' => array($module . $controller . $action),
+                array('deny'),
             );
-        }
-        // если ни одно правило не сработало, то действие запрещено
-        $rules[] = array(
-            array('deny'),
-        );
-        return $rules;
-    }/**/
-    
-    public function checkAccess($param1, $param2, $param3 = NULL){
-        if($param3) {
+            return $rules;
+        }/**/
+
+    public function checkAccess($param1, $param2, $param3 = NULL)
+    {
+        if ($param3) {
             // param1 = module, $param2 = controller, param3 = action
             $param = $param1 . '.' . $param2 . '.' . $param3;
-        }
-        else {
+        } else {
             // $param1 = controller, param2 = action
             $param = $param1 . '.' . $param2;
         }
         return Yii::app()->user->checkAccess($param);
     }
 
-    public function buildFilterButton($options, $param){
+    public function getUserProfile()
+    {
+        if (Yii::app()->user->id) $model = Yii::app()->user->user();
+        if ($model === null) $this->redirect(Yii::app()->user->loginUrl);
+        return $model->profile;
+    }
+
+    public function buildFilterButton($options, $param)
+    {
         $items = array();
-        foreach($options as $key => $value){
-            $items[] = array(
+        $userProfile = $this->getUserProfile();
+        $button_title = $this->attributeLabels($param);
+
+        foreach ($options as $key => $value) {
+            $button = array(
                 'label' => $value,
                 'url' => array('filter', 'param' => $param, 'value' => $key),
             );
+            if($userProfile->getAttribute('filter_' . $param) == $key) {
+                $button['icon'] = 'ok';
+                $button_title = $value;
+            }
+            $items[] = $button;
         }
-        $items[] = '---';
-        $items[] = array(
-            'label' => 'Сбросить фильтр',
-            'url' => array('filter', $param => 0),
-        );
-        if($this->checkAccess($param, 'index')) {
-            $items[] = array(
-                'label' => 'Список',
-                'url' => '/'.$param.'/index',
+        $flag = false;
+        if ($userProfile->getAttribute('filter_' . $param)) {
+            $flag = true;
+            $button_reset_filter = array(
+                'label' => 'Сбросить фильтр',
+                'url' => array('filter', 'param' => $param, 'value' => 0),
             );
         }
+        if ($this->checkAccess($param, 'index')) {
+            $flag = true;
+            $button_param_list = array(
+                'label' => 'Список',
+                'url' => '/' . $param . '/index',
+            );
+        }
+        if ($flag) $items[] = '---';
+        if (isset($button_reset_filter)) $items[] = $button_reset_filter;
+        if (isset($button_param_list)) $items[] = $button_param_list;
+
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
-            'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'buttons'=>array(
-                array('label' => $this->attributeLabels($param), 'url'=>'#'),
+            'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'buttons' => array(
+                array('label' => $button_title, 'url' => ''),
                 array('items' => $items),
             ),
         ));
     }
 
-    public function actionFilter($param, $value){
-        //echo $param.'-'.$value;
-        if (Yii::app()->user->id) $model = Yii::app()->user->user();
-        if ($model === null) $this->redirect(Yii::app()->user->loginUrl);
-
-        $model->profile->setAttributes(array('filter_'.$param => $value));
-        $model->profile->save();
-
-        if($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+    public function actionFilter($param, $value)
+    {
+        $userProfile = $this->getUserProfile();
+        $userProfile->setAttribute('filter_' . $param, $value);
+        $userProfile->save();
+        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
         else $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function addButtonTo(&$buttons, $controller, $action, $id = '$data->id'){
+    public function addButtonTo(&$buttons, $controller, $action, $id = '$data->id')
+    {
         if ($this->checkAccess($controller, $action)) {
             $buttons[$action] = array(
-                'url' => 'Yii::app()->createUrl("'.$controller.'/'.$action.'", array("id"=>'.$id.'))',
+                'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>' . $id . '))',
             );
         }
     }
@@ -139,30 +162,30 @@ class Controller extends RController
         $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
-                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'index':
-                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
-                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
+                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'admin':
-                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
-                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 break;
             case 'update':
-                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
-                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
-                if($this->checkAccess($this->id, 'view'))      array_push($this->menu, $items['view']);
-                if($this->checkAccess($this->id, 'delete'))    array_push($this->menu, $items['delete']);
-                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
+                if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
-                if($this->checkAccess($this->id, 'index'))     array_push($this->menu, $items['index']);
-                if($this->checkAccess($this->id, 'create'))    array_push($this->menu, $items['create']);
-                if($this->checkAccess($this->id, 'update'))    array_push($this->menu, $items['update']);
-                if($this->checkAccess($this->id, 'delete'))    array_push($this->menu, $items['delete']);
-                if($this->checkAccess($this->id, 'admin'))     array_push($this->menu, $items['admin']);
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
+                if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
         }
         return;
@@ -203,7 +226,7 @@ class Controller extends RController
                 break;
             case 'index':
             default:
-            $this->breadcrumbs = array(
+                $this->breadcrumbs = array(
                     $this->name,
                 );
         }
@@ -219,14 +242,13 @@ class Controller extends RController
             'controller' => $this->id,
             'action' => $this->getAction()->getId(),
         ));
-        if($model) {
+        if ($model) {
             $this->h1 = $model->value;
             $this->description = $model->description;
             $this->pageTitle = $model->value . ' - ' . $item['title'];
 
             $this->buildMenuOperations($model->id);
-        }
-        else {
+        } else {
             $this->h1 = $item['h1'];
             $this->description = $item['description'];
             $this->pageTitle = $item['title'];
@@ -237,8 +259,8 @@ class Controller extends RController
 <table class='span10'>
     <tr><td class='span2' ><img src='" . $this->insertImage('150x150') . "' /></td>
         <td class='span8'>
-            <h1>".$this->h1."</h1>
-            <p>".$this->description."</p>
+            <h1>" . $this->h1 . "</h1>
+            <p>" . $this->description . "</p>
         </td>
     </tr>
 </table>\n\n";
@@ -248,11 +270,11 @@ class Controller extends RController
     {
         $images_folder = 'images';
         $basePath = Yii::app()->basePath . '/..';
-        $img = '/'.$images_folder.'/'.$size.'/' . $this->id . '/' . $this->getAction()->getId() . '.jpg';
+        $img = '/' . $images_folder . '/' . $size . '/' . $this->id . '/' . $this->getAction()->getId() . '.jpg';
         if (!file_exists($basePath . $img)) {
-            $img = '/'.$images_folder.'/'.$size.'/' . $this->id . '/index.jpg';
+            $img = '/' . $images_folder . '/' . $size . '/' . $this->id . '/index.jpg';
             if (!file_exists($basePath . $img)) {
-                $img = '/'.$images_folder.'/'.$size.'/nophoto.jpg';
+                $img = '/' . $images_folder . '/' . $size . '/nophoto.jpg';
             }
         }
         return $img;

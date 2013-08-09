@@ -79,7 +79,25 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Product');
+        $userProfile = $this->getUserProfile();
+        $criteria = array(
+            'order'=>'value ASC',
+            'condition' => '',
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if($type = $userProfile->getAttribute('filter_producttype')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'product_type_id=' . $type;
+            $flag = true;
+        }
+        $dataProvider=new CActiveDataProvider('Product', array(
+            'criteria' => $criteria,
+            /*
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),/**/
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

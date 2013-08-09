@@ -119,7 +119,35 @@ class OrganizationController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Organization');
+        $userProfile = $this->getUserProfile();
+        $criteria = array(
+            'order'=>'value ASC',
+            'condition' => '',
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if($type = $userProfile->getAttribute('filter_organizationtype')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'organization_type_id=' . $type;
+            $flag = true;
+        }
+        if($group = $userProfile->getAttribute('filter_organizationgroup')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'organization_group_id=' . $group;
+            $flag = true;
+        }
+        if($region = $userProfile->getAttribute('filter_organizationregion')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'organization_region_id=' . $region;
+            $flag = true;
+        }
+        $dataProvider=new CActiveDataProvider('Organization', array(
+            'criteria' => $criteria,
+            /*
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),/**/
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

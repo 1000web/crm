@@ -80,7 +80,25 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Task');
+        $userProfile = $this->getUserProfile();
+        $criteria = array(
+            'order'=>'value ASC',
+            'condition' => '',
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if($type = $userProfile->getAttribute('filter_tasktype')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'task_type_id=' . $type;
+            $flag = true;
+        }
+        $dataProvider=new CActiveDataProvider('Task', array(
+            'criteria' => $criteria,
+            /*
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),/**/
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

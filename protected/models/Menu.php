@@ -180,6 +180,13 @@ class Menu extends MyActiveRecord
                             array('label' => 'Группы организаций', 'url' => array('/organizationGroup/index')),
                         ),
                     ),
+                    array('label' => 'Меню',
+                        'items' => array(
+                            array('label' => 'Меню', 'url' => array('/menu/index')),
+                            array('label' => 'Пункты', 'url' => array('/item/index')),
+                            array('label' => 'Пункты меню', 'url' => array('/menuitem/index')),
+                        ),
+                    ),
                     array('label' => 'Типы контактов', 'url' => array('/contactType/index')),
                     array('label' => 'Продукция', 'url' => array('/product/index')),
                     array('label' => 'Типы продукции', 'url' => array('/productType/index')),
@@ -189,6 +196,7 @@ class Menu extends MyActiveRecord
             array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
             array('label' => 'Профиль', 'visible' => !Yii::app()->user->isGuest,
                 'items' => array(
+                    array('label' => 'Rights', 'url' => array('/rights/assignment/view')),
                     array('label' => 'Профиль', 'url' => array('/user/profile/profile')),
                     array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout')),
                 ),
