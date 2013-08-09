@@ -15,7 +15,7 @@ class OrganizationController extends Controller
         $contact = new CActiveDataProvider('OrganizationContact', array(
             'criteria' => array(
                 'condition' => 'organization_id=' . $id,
-                //'order' => 'create_time DESC',
+                'order' => 'contact_type_id ASC',
                 //'with' => array('category'),
             ),
                 /*
@@ -26,7 +26,7 @@ class OrganizationController extends Controller
         $customer = new CActiveDataProvider('Customer', array(
             'criteria' => array(
                 'condition' => 'organization_id=' . $id,
-                //'order' => 'create_time DESC',
+                'order' => 'value ASC',
                 //'with' => array('category'),
             ),
                 /*

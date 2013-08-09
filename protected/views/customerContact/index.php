@@ -5,6 +5,16 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
+?>
+    <div class="row">
+        <div class="btn-toolbar span2">
+            <?php
+            $options = ContactType::model()->getOptions();
+            $this->buildFilterButton($options, 'contacttype');
+            ?>
+        </div>
+    </div>
+<?php
 if($this->checkAccess('customer', 'view')) {
     $buttons['list'] = array(
         'icon' => 'icon-list',

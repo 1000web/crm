@@ -28,19 +28,13 @@ class Controller extends RController
             'postOnly + delete', // we only allow deletion via POST request
         );
     }
-
+/*
     public function accessRules()
     {
         if($this->getModule()) $module = $this->getModule()->id . '.';
         else $module = '';
         $controller = $this->getId() . '.';
         $rules = array();
-        /*
-        $rules = array(
-            array('allow',
-                'roles' => array($module . $controller . '*'),
-            ),
-        );/**/
         // разрешения для каждого действия
         foreach ($this->actions as $action) {
             $rules[] = array(
@@ -53,7 +47,7 @@ class Controller extends RController
             array('deny'),
         );
         return $rules;
-    }
+    }/**/
     
     public function checkAccess($param1, $param2, $param3 = NULL){
         if($param3) {
@@ -65,6 +59,46 @@ class Controller extends RController
             $param = $param1 . '.' . $param2;
         }
         return Yii::app()->user->checkAccess($param);
+    }
+
+    public function buildFilterButton($options, $param){
+        $items = array();
+        foreach($options as $key => $value){
+            $items[] = array(
+                'label' => $value,
+                'url' => array('filter', 'param' => $param, 'value' => $key),
+            );
+        }
+        $items[] = '---';
+        $items[] = array(
+            'label' => 'Сбросить фильтр',
+            'url' => array('filter', $param => 0),
+        );
+        if($this->checkAccess($param, 'index')) {
+            $items[] = array(
+                'label' => 'Список',
+                'url' => '/'.$param.'/index',
+            );
+        }
+        $this->widget('bootstrap.widgets.TbButtonGroup', array(
+            'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'buttons'=>array(
+                array('label' => $this->attributeLabels($param), 'url'=>'#'),
+                array('items' => $items),
+            ),
+        ));
+    }
+
+    public function actionFilter($param, $value){
+        //echo $param.'-'.$value;
+        if (Yii::app()->user->id) $model = Yii::app()->user->user();
+        if ($model === null) $this->redirect(Yii::app()->user->loginUrl);
+
+        $model->profile->setAttributes(array('filter_'.$param => $value));
+        $model->profile->save();
+
+        if($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+        else $this->redirect(Yii::app()->homeUrl);
     }
 
     public function addButtonTo(&$buttons, $controller, $action, $id = '$data->id'){
@@ -273,6 +307,7 @@ class Controller extends RController
             'create_at' => 'Дата создания',
             'create_time' => 'Дата создания',
             'create_user_id' => 'Кто создал',
+            'contacttype' => 'Тип контакта',
             'contact_type' => 'Тип контакта',
             'contact_type_id' => 'Тип контакта',
             'customer' => 'Клиент',
@@ -283,24 +318,28 @@ class Controller extends RController
             'email' => 'Email',
             'first_name' => 'Имя',
             'id' => '#',
-            'lastname' => 'Фамилия',
             'last_name' => 'Фамилия',
             'lastvisit_at' => 'Lastvisit At',
             'log_id' => 'Log #',
             'menu_id' => 'Menu #',
             'organization' => 'Организация',
             'organization_id' => 'Организация',
+            'organizationtype' => 'Тип организации',
             'organization_type_id' => 'Тип организации',
+            'organizationgroup' => 'Группа огранизаций',
             'organization_group_id' => 'Группа огранизаций',
+            'organizationregion' => 'Регион',
             'organization_region_id' => 'Регион',
             'type' => 'Тип',
             'group' => 'Группа',
             'region' => 'Регион',
             'password' => 'Пароль',
             'position' => 'Должность',
+            'producttype' => 'Тип продукта',
             'product_type_id' => 'Тип продукта',
             'status' => 'Статус',
             'superuser' => 'Суперпользователь',
+            'tasktype' => 'Тип задачи',
             'task_type_id' => 'Тип задачи',
             'update_time' => 'Дата изменения',
             'update_user_id' => 'Кто изменил',

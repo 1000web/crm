@@ -20,8 +20,14 @@ class MyActiveRecord extends CActiveRecord
     public function getOptions($id = 'id', $value = 'value')
     {
         $ret = array();
-        $items = $this->findAll();
-        foreach($items as $item){
+        $items = $this->findAll(
+            array(
+                //'condition' => 'parent!=:p',
+                'order' => $value
+            )
+            //, array(':p' => '0')
+        );
+        foreach ($items as $item) {
             $ret[$item[$id]] = $item[$value];
         }
         return $ret;
@@ -30,13 +36,14 @@ class MyActiveRecord extends CActiveRecord
     public function getAllowedRange($id = NULL)
     {
         $items = $this->findAll();
-        foreach($items as $item){
+        foreach ($items as $item) {
             $ret[] = $item['id'];
         }
         return $ret;
     }
 
-    public function attributeLabels(){
+    public function attributeLabels()
+    {
         return array(
             'activkey' => 'Activkey',
             'create_at' => 'Дата создания',
