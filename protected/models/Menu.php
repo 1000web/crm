@@ -197,6 +197,7 @@ class Menu extends MyActiveRecord
             array('label' => 'Профиль', 'visible' => !Yii::app()->user->isGuest,
                 'items' => array(
                     array('label' => 'Rights', 'url' => array('/rights/assignment/view')),
+                    array('label' => 'DB Dump', 'url' => array('/sxd/')),
                     array('label' => 'Профиль', 'url' => array('/user/profile/profile')),
                     array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout')),
                 ),
