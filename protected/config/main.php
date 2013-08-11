@@ -31,8 +31,10 @@ return CMap::mergeArray(
         //'theme'=>'bootstrap', // requires you to copy the theme under your themes directory
 
         // preloading 'log' component
-        'preload' => array('log'),
-
+        'preload' => array(
+            'log',
+            'bootstrap',
+        ),
         // autoloading model and component classes
         'import' => array(
             'application.models.*',
@@ -44,7 +46,6 @@ return CMap::mergeArray(
             'application.modules.rights.models.*',
             'application.modules.rights.components.*',
         ),
-
         'modules' => array(
             'rights',
             'menubuilder' => array(
@@ -98,8 +99,8 @@ return CMap::mergeArray(
             'gii' => array(
                 'class' => 'system.gii.GiiModule',
                 'password' => 'gii',
-                'generatorPaths'=>array(
-                    'bootstrap.gii',
+                'generatorPaths' => array(
+                    'bootstrap.gii'
                 ),
                 // If removed, Gii defaults to localhost only. Edit carefully to taste.
                 'ipFilters' => array('127.0.0.1', '::1'),
@@ -134,8 +135,9 @@ return CMap::mergeArray(
                 'login' => '9185569410', // Логин на сайте sms.ru
                 'password' => 'SMS1pass', // Пароль
             ),
-            'bootstrap'=>array(
-                'class'=>'bootstrap.components.Bootstrap',
+            'bootstrap' => array(
+                'class' => 'ext.bootstrap.components.bootstrap',
+                'responsiveCss' => true,
             ),
             'errorHandler' => array(
                 // use 'site/error' action to display errors
