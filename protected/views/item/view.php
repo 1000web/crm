@@ -6,9 +6,9 @@ if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
 $attr = array(
-        array('name' => 'module', 'label' => 'Значение'),
-        array('name' => 'controller', 'label' => 'Значение'),
-        array('name' => 'action', 'label' => 'Значение'),
+        array('name' => 'module', 'label' => 'Module'),
+        array('name' => 'controller', 'label' => 'Controller'),
+        array('name' => 'action', 'label' => 'Action'),
         array('name' => 'title', 'label' => 'Title'),
         array('name' => 'h1', 'label' => 'H1'),
         array('name' => 'value', 'label' => 'Значение'),

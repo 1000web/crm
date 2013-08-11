@@ -15,7 +15,7 @@ class Controller extends RController
     public $h1 = 'Header H1';
     public $description = '';
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete');
+    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter');
 
     /**
      * @return array action filters
@@ -320,6 +320,7 @@ class Controller extends RController
     {
         $arr = array(
             'activkey' => 'Activkey',
+            'answer' => 'Ответ',
             'create_at' => 'Дата создания',
             'create_time' => 'Дата создания',
             'create_user_id' => 'Кто создал',
@@ -337,6 +338,7 @@ class Controller extends RController
             'last_name' => 'Фамилия',
             'lastvisit_at' => 'Lastvisit At',
             'log_id' => 'Log #',
+            'menu' => 'Menu #',
             'menu_id' => 'Menu #',
             'organization' => 'Организация',
             'organization_id' => 'Организация',
@@ -349,10 +351,13 @@ class Controller extends RController
             'type' => 'Тип',
             'group' => 'Группа',
             'region' => 'Регион',
+            'parent' => 'Родитель',
+            'parent_id' => 'Родитель',
             'password' => 'Пароль',
             'position' => 'Должность',
             'producttype' => 'Тип продукта',
             'product_type_id' => 'Тип продукта',
+            'state' => 'Статус',
             'status' => 'Статус',
             'superuser' => 'Суперпользователь',
             'tasktype' => 'Тип задачи',
@@ -362,8 +367,8 @@ class Controller extends RController
             'user_id' => 'Пользователь',
             'username' => 'Имя пользователя',
             'value' => 'Значение',
+            'question' => 'Вопрос',
 
-            'parent_id' => 'Родитель',
             'prior' => 'Приоритет',
             'visible' => 'Видимость',
             'title' => 'Title',

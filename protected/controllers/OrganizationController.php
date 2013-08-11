@@ -2,9 +2,6 @@
 
 class OrganizationController extends Controller
 {
-    public $name = 'Организации';
-    public $description = 'Организации - это компании или корпоративные отделы, с которыми вы имеете деловые отношения.';
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

@@ -2,8 +2,6 @@
 
 class TaskTypeController extends Controller
 {
-    public $name = 'Типы задач';
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

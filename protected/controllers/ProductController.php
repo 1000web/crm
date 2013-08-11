@@ -2,8 +2,6 @@
 
 class ProductController extends Controller
 {
-    public $name = 'Продукция';
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

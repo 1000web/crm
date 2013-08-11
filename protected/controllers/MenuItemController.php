@@ -2,8 +2,6 @@
 
 class MenuItemController extends Controller
 {
-    public $name = 'Пункты меню';
-
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -81,7 +79,30 @@ class MenuItemController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('MenuItem');
+        $userProfile = $this->getUserProfile();
+        $criteria = array(
+            'order'=>'prior ASC',
+            'condition' => '',
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if($menu = $userProfile->getAttribute('filter_menu')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'menu_id=' . $menu;
+            $flag = true;
+        }
+        if($parent = $userProfile->getAttribute('filter_parent')) {
+            if($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'parent_id=' . $parent;
+            $flag = true;
+        }
+        $dataProvider=new CActiveDataProvider('MenuItem', array(
+            'criteria' => $criteria,
+            /*
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),/**/
+        ));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

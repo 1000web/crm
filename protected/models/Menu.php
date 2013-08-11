@@ -190,6 +190,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Типы контактов', 'url' => array('/contactType/index')),
                     array('label' => 'Продукция', 'url' => array('/product/index')),
                     array('label' => 'Типы продукции', 'url' => array('/productType/index')),
+                    array('label' => 'База знаний', 'url' => array('/kb/index')),
                 ),
             ),
             //array('label' => 'База знаний', 'url' => array('/kb/index')),

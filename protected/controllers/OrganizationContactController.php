@@ -2,8 +2,6 @@
 
 class OrganizationContactController extends Controller
 {
-    public $name = 'Контакты организаций';
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
