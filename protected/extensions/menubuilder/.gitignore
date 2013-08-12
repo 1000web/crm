@@ -1,7 +1,0 @@
-#zipfiles
-.zip
-
-#storage files
-/modules/menubuilder/data/mbmenus.php
-/modules/menubuilder/data/mbmenuitems.php
-
