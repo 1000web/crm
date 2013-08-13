@@ -250,14 +250,17 @@ class Controller extends RController
             $this->buildMenuOperations();
         }
         $this->pageHeader = "
-<table class='span10'>
-    <tr><td class='span2' ><img src='" . $this->insertImage('150x150') . "' /></td>
-        <td class='span8'>
+<div class='span10' id='page_header'>
+    <div class='row'>
+        <div class='span2'>
+            <img src='" . $this->insertImage('150x150') . "' />
+        </div>
+        <div class='span8'>
             <h1>" . $this->h1 . "</h1>
             <p>" . $this->description . "</p>
-        </td>
-    </tr>
-</table>\n\n";
+        </div>
+    </div>
+</div><!-- page_header -->\n\n";
     }
 
     public function insertImage($size)
