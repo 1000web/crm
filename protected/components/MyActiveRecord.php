@@ -17,13 +17,13 @@ class MyActiveRecord extends CActiveRecord
         } else return false;
     }
 
-    public function getOptions($id = 'id', $value = 'value')
+    public function getOptions($id = 'id', $value = 'value', $order = NULL)
     {
         $ret = array();
         $items = $this->findAll(
             array(
                 //'condition' => 'parent!=:p',
-                'order' => $value
+                'order' => ($order?$order:$value)
             )
             //, array(':p' => '0')
         );

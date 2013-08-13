@@ -1,13 +1,13 @@
 <?php
-/* @var $this CustomerContactController */
-/* @var $model CustomerContact */
+/* @var $this DealStageController */
+/* @var $model DealStage */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'customer-contact-form',
+        'id' => 'deal-stage-form',
         'enableAjaxValidation' => false,
     )); ?>
 
@@ -15,17 +15,9 @@
 
     <div class="row">
         <?php
-        echo $form->labelEx($model, 'contact_type_id');
-        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions());
-        echo $form->error($model, 'contact_type_id');
-        ?>
-    </div>
-
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'customer_id');
-        echo $form->dropDownList($model, 'customer_id', Customer::model()->getOptions());
-        echo $form->error($model, 'customer_id');
+        echo $form->labelEx($model, 'prior');
+        echo $form->textField($model, 'prior');
+        echo $form->error($model, 'prior');
         ?>
     </div>
 

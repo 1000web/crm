@@ -45,7 +45,7 @@
  * @property TaskType[] $taskTypes
  * @property TaskType[] $taskTypes1
  */
-class Users extends CActiveRecord
+class Users extends MyActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

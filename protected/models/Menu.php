@@ -112,11 +112,10 @@ class Menu extends MyActiveRecord
 
     function get_menu($menu_name, $parent = NULL, $levels = 2)
     {
+        /*
         $menu = $this->with('menuItems', 'items')->findByAttributes(array(
             'value' => $menu_name,
         ));
-
-
         $items = array();
         $keys_menuItems = array(
             'parent_id', 'prior', 'visible',
@@ -135,14 +134,7 @@ class Menu extends MyActiveRecord
                 //$items[$item['id']][$key] = $item[$key];
                 $items[$item['id']][$key] = $item[$key];
             }
-        }
-
-        /*
-        echo '<pre>';
-        print_r($items);
-        echo '</pre>';
-        /**/
-
+        }/**/
         $items = array(
             array('label' => 'Клиенты', 'url' => array('/customer/index'),
                 'items' => array(
@@ -168,6 +160,8 @@ class Menu extends MyActiveRecord
             array('label' => 'Сделки',
                 'items' => array(
                     array('label' => 'Список сделок', 'url' => array('/deal/index')),
+                    array('label' => 'Этапы сделок', 'url' => array('/dealStage/index')),
+                    array('label' => 'Источники сделок', 'url' => array('/dealSource/index')),
                     array('label' => 'Создать сделку', 'url' => array('/deal/create')),
                 ),
             ),
@@ -198,6 +192,7 @@ class Menu extends MyActiveRecord
             array('label' => 'Профиль', 'visible' => !Yii::app()->user->isGuest,
                 'items' => array(
                     array('label' => 'Rights', 'url' => array('/rights/assignment/view')),
+                    array('label' => 'Gii', 'url' => array('/gii/')),
                     array('label' => 'DB Dump', 'url' => array('/sxd/')),
                     array('label' => 'Профиль', 'url' => array('/user/profile/profile')),
                     array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/user/logout')),
@@ -205,7 +200,6 @@ class Menu extends MyActiveRecord
             ),
 
         );
-
         return $items;
     }
 }
