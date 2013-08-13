@@ -1,6 +1,6 @@
 <?php
 $SES = array (
-  '910ae0e94b86add93c446842a7550d48' => 
+  'c6e14887480ccd357aeab7ad4f32855e' => 
   array (
     'cfg' => 
     array (
@@ -13,7 +13,7 @@ $SES = array (
       'only_create' => 'MRG_MyISAM MERGE HEAP MEMORY',
       'globstat' => 0,
       'my_host' => 'localhost',
-      'my_port' => '8306',
+      'my_port' => 3306,
       'my_user' => 'root',
       'my_pass' => 'root',
       'my_comp' => 0,
@@ -24,7 +24,7 @@ $SES = array (
       'confirm' => '6',
       'exitURL' => './',
     ),
-    'time' => 1376298987,
+    'time' => 1376381191,
     'lng' => 'ru',
   ),
 );
