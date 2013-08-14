@@ -7,19 +7,19 @@ else $this->buildPageOptions($model);
 
 ?>
     <div class="row">
-        <div class="btn-toolbar span2">
+        <div class="btn-toolbar span3">
             <?php
             $options = OrganizationType::model()->getOptions();
             $this->buildFilterButton($options, 'organizationtype');
             ?>
         </div>
-        <div class="btn-toolbar span2">
+        <div class="btn-toolbar span3">
             <?php
             $options = OrganizationRegion::model()->getOptions();
             $this->buildFilterButton($options, 'organizationregion');
             ?>
         </div>
-        <div class="btn-toolbar span2">
+        <div class="btn-toolbar span3">
             <?php
             $options = OrganizationGroup::model()->getOptions();
             $this->buildFilterButton($options, 'organizationgroup');

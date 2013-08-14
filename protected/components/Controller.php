@@ -324,6 +324,8 @@ class Controller extends RController
             'contact_type_id' => 'Тип контакта',
             'customer' => 'Клиент',
             'customer_id' => 'Клиент',
+            'dealsource' => 'Источник',
+            'dealstage' => 'Стадия',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
             'datetime' => 'Дата/время',

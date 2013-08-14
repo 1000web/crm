@@ -90,7 +90,30 @@ class DealController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Deal');
+        $userProfile = $this->getUserProfile();
+        $criteria = array(
+            'order' => 'value ASC',
+            'condition' => '',
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if ($stage = $userProfile->getAttribute('filter_dealstage')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'deal_stage_id=' . $stage;
+            $flag = true;
+        }
+        if ($source = $userProfile->getAttribute('filter_dealsource')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'deal_source_id=' . $source;
+            $flag = true;
+        }
+        $dataProvider = new CActiveDataProvider('Deal', array(
+            'criteria' => $criteria,
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
+
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

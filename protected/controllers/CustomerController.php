@@ -115,7 +115,11 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Customer');
+        $dataProvider = new CActiveDataProvider('Customer', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

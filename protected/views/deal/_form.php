@@ -2,6 +2,9 @@
 /* @var $this DealController */
 /* @var $model Deal */
 /* @var $form CActiveForm */
+
+//Yii::app()->bootstrap->registerAssetCss('bootstrap-datepicker.css');
+//Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
 ?>
 
 <div class="form">
@@ -32,7 +35,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'open_date');
-        echo $form->textField($model, 'open_date');
+        echo $form->dateField($model, 'open_date');
         echo $form->error($model, 'open_date');
         ?>
     </div>

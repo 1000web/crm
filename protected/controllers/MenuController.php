@@ -91,7 +91,11 @@ class MenuController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Menu');
+        $dataProvider = new CActiveDataProvider('Menu', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

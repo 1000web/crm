@@ -90,7 +90,11 @@ class ItemController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Item');
+        $dataProvider = new CActiveDataProvider('Item', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

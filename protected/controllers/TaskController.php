@@ -104,10 +104,9 @@ class TaskController extends Controller
         }
         $dataProvider = new CActiveDataProvider('Task', array(
             'criteria' => $criteria,
-            /*
             'pagination'=>array(
                 'pageSize'=>20,
-            ),/**/
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,

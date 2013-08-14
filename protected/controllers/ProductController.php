@@ -104,10 +104,9 @@ class ProductController extends Controller
         }
         $dataProvider = new CActiveDataProvider('Product', array(
             'criteria' => $criteria,
-            /*
             'pagination'=>array(
                 'pageSize'=>20,
-            ),/**/
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,

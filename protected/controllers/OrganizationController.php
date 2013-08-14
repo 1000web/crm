@@ -151,10 +151,9 @@ class OrganizationController extends Controller
         }
         $dataProvider = new CActiveDataProvider('Organization', array(
             'criteria' => $criteria,
-            /*
-            'pagination'=>array(
-                'pageSize'=>20,
-            ),/**/
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
