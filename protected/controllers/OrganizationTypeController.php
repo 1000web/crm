@@ -1,6 +1,6 @@
 <?php
 
-class OrganizationTypeController extends Controller
+class OrganizationtypeController extends Controller
 {
     /**
      * Displays a particular model.

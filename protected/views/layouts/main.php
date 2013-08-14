@@ -9,13 +9,13 @@
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
           media="screen, projection"/ >
-    /**/?>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css"
           media="print"/>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css"
           media="screen, projection"/>
     <![endif]-->
+    /**/?>
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
@@ -27,34 +27,47 @@
 
 <body>
 
-<?php
-if(isset($this->top_menu_items)) {
-    $this->widget('bootstrap.widgets.TbNavbar', array(
-        'items' => array(
-            array(
-                'class' => 'bootstrap.widgets.TbMenu',
-                'encodeLabel' => false,
-                'items' => $this->top_menu_items,
-            ),
-        ),
-    ));
-}
-?>
-
 <div class="container" id="page">
-
     <?php
+    if(isset($this->top_menu_items)) {
+        $this->widget('bootstrap.widgets.TbNavbar', array(
+            'items' => array(
+                array(
+                    'class' => 'bootstrap.widgets.TbMenu',
+                    'encodeLabel' => false,
+                    'items' => $this->top_menu_items,
+                ),
+            ),
+        ));
+    }
     // если непусто, то показываем крошки
     if($this->breadcrumbs) {
 		$this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
+			'links' => $this->breadcrumbs,
 		));
     }
     ?><!-- breadcrumbs -->
 
+<div class='row'>
+    <div class='span2'>
     <?php
-    if(isset($this->pageHeader)) echo $this->pageHeader;
+    if(isset($this->header_image)) echo "<img src='" . $this->header_image . "' />";
     ?>
+    </div>
+    <div class='span10'>
+    <?php
+    if(isset($this->h1)) echo "<h1>" . $this->h1 . "</h1>\n";
+    if(isset($this->description)) echo "<p>" . $this->description . "</p>";
+    if(isset($this->menu) AND $this->menu) {
+        $this->widget('bootstrap.widgets.TbMenu', array(
+            'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
+            'stacked' => false, // whether this is a stacked menu
+            'items' => $this->menu,
+        ));
+    }
+    ?>
+    </div>
+</div><!-- page_header -->
 
     <?php echo $content; ?>
 

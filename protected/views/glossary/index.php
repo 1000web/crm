@@ -7,8 +7,8 @@ else $this->buildPageOptions($model);
 ?>
 
 <ul>
-    <li><?php echo CHtml::link('Типы контактов', '/contactType'); ?></li>
+    <li><?php echo CHtml::link('Типы контактов', '/contacttype'); ?></li>
     <br/>
-    <li><?php echo CHtml::link('Типы продукции', '/productType'); ?></li>
+    <li><?php echo CHtml::link('Типы продукции', '/producttype'); ?></li>
     <li><?php echo CHtml::link('Продукция', '/product'); ?></li>
 </ul>

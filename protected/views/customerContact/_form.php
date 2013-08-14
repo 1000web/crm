@@ -15,17 +15,20 @@
 
     <div class="row">
         <?php
-        echo $form->labelEx($model, 'contact_type_id');
-        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions());
-        echo $form->error($model, 'contact_type_id');
+        if(isset($_GET['cid'])) $values = Customer::model()->getOptions('id','value','value',$_GET['cid']);
+        else $values = Customer::model()->getOptions();
+
+        echo $form->labelEx($model, 'customer_id');
+        echo $form->dropDownList($model, 'customer_id', $values);
+        echo $form->error($model, 'customer_id');
         ?>
     </div>
 
     <div class="row">
         <?php
-        echo $form->labelEx($model, 'customer_id');
-        echo $form->dropDownList($model, 'customer_id', Customer::model()->getOptions());
-        echo $form->error($model, 'customer_id');
+        echo $form->labelEx($model, 'contact_type_id');
+        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions());
+        echo $form->error($model, 'contact_type_id');
         ?>
     </div>
 

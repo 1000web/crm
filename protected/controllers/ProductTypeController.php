@@ -1,6 +1,6 @@
 <?php
 
-class ProductTypeController extends Controller
+class ProducttypeController extends Controller
 {
     /**
      * Displays a particular model.

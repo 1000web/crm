@@ -1,5 +1,5 @@
 <?php
-/* @var $this ContactTypeController */
+/* @var $this ContacttypeController */
 /* @var $dataProvider CActiveDataProvider */
 
 if(!isset($model)) $this->buildPageOptions();

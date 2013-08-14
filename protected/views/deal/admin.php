@@ -29,6 +29,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'inner_number',
 		'external_number',
 		'value',
+		'open_date',
 		'owner_id',
 		'organization_id',
 		'customer_id',

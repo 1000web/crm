@@ -2,6 +2,7 @@
 /* @var $this OrganizationController */
 /* @var $model Organization */
 /* @var $customer Customer */
+/* @var $deal Deal */
 /* @var $contact OrganizationContact */
 
 if(!isset($model)) $this->buildPageOptions();
@@ -27,6 +28,17 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'attributes' => $attr,
 ));
 
-echo $this->renderPartial('_contact', array('dataProvider' => $contact));
+echo $this->renderPartial('_contact', array(
+    'dataProvider' => $contact,
+    'model' => $model,
+));
 
-echo $this->renderPartial('_customer', array('dataProvider' => $customer));
+echo $this->renderPartial('_customer', array(
+    'dataProvider' => $customer,
+    'model' => $model,
+));
+
+echo $this->renderPartial('_deal', array(
+    'dataProvider' => $deal,
+    'model' => $model,
+));

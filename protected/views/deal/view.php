@@ -18,6 +18,7 @@ $attr = array(
     /**/
     array('name' => 'inner_number', 'label' => $this->attributeLabels('inner_number')),
     array('name' => 'external_number', 'label' => $this->attributeLabels('external_number')),
+    array('name' => 'open_date', 'label' => $this->attributeLabels('open_date')),
     array('name' => 'value', 'label' => $this->attributeLabels('value')),
     array('name' => 'owner_id', 'label' => $this->attributeLabels('owner_id'), 'value' => $model->owner->username),
     array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $model->organization->value),

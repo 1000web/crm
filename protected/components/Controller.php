@@ -5,13 +5,13 @@
  */
 class Controller extends RController
 {
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/column1';
     public $menu = array();
     public $top_menu_items = array();
     public $breadcrumbs = array();
 
     public $name = 'Controller';
-    public $pageHeader = '';
+    public $header_image = '';
     public $h1 = 'Header H1';
     public $description = '';
 
@@ -169,17 +169,17 @@ class Controller extends RController
                 break;
             case 'update':
                 if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
                 if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
                 if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
                 if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
         }
         return;
@@ -236,10 +236,12 @@ class Controller extends RController
             'controller' => $this->id,
             'action' => $this->getAction()->getId(),
         ));
+        $this->header_image = $this->insertImage('150x150');
+
         if ($model) {
-            $this->h1 = $model->value;
+            $this->h1 = (isset($model->value)?$model->value:$item['h1']);
             $this->description = $model->description;
-            $this->pageTitle = $model->value . ' - ' . $item['title'];
+            $this->pageTitle = (isset($model->value)?$model->value:$item['h1']) . ' - ' . $item['title'];
 
             $this->buildMenuOperations($model->id);
         } else {
@@ -249,18 +251,6 @@ class Controller extends RController
 
             $this->buildMenuOperations();
         }
-        $this->pageHeader = "
-<div class='span10' id='page_header'>
-    <div class='row'>
-        <div class='span2'>
-            <img src='" . $this->insertImage('150x150') . "' />
-        </div>
-        <div class='span8'>
-            <h1>" . $this->h1 . "</h1>
-            <p>" . $this->description . "</p>
-        </div>
-    </div>
-</div><!-- page_header -->\n\n";
     }
 
     public function insertImage($size)
@@ -349,6 +339,7 @@ class Controller extends RController
             'log_id' => 'Log #',
             'menu' => 'Menu #',
             'menu_id' => 'Menu #',
+            'open_date' => 'Дата договора',
             'organization' => 'Организация',
             'organization_id' => 'Организация',
             'organizationtype' => 'Тип организации',

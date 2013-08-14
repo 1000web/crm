@@ -1,5 +1,5 @@
 <?php
-/* @var $this ContactTypeController */
+/* @var $this ContacttypeController */
 /* @var $model ContactType */
 /* @var $form CActiveForm */
 ?>

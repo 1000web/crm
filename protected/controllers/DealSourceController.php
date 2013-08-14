@@ -1,6 +1,6 @@
 <?php
 
-class DealSourceController extends Controller
+class DealsourceController extends Controller
 {
     /**
      * Displays a particular model.

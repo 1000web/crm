@@ -1,15 +1,27 @@
 <?php
 /* @var $this OrganizationController */
+/* @var $model Organization */
 /* @var $dataProvider OrganizationContact */
+
+$controller = 'organizationcontact';
+
 ?>
 
-<h2>Контакты Организации</h2>
+    <h2>Контакты Организации
+        <?php
+        if (true) {
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+                'label' => 'Добавить контакт',
+                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            ));
+        }
+        ?>
+    </h2>
 
 <?php
 
 $buttons = array();
-
-$controller = 'organizationContact';
 $this->addButtonTo($buttons, $controller, 'view');
 $this->addButtonTo($buttons, $controller, 'update');
 $this->addButtonTo($buttons, $controller, 'delete');

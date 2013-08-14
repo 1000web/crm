@@ -116,7 +116,7 @@ return CMap::mergeArray(
                 'password' => 'SMS1pass', // Пароль
             ),
             'bootstrap' => array(
-                'class' => 'ext.bootstrap.components.bootstrap',
+                'class' => 'ext.bootstrap.components.Bootstrap',
                 'responsiveCss' => true,
             ),
             'errorHandler' => array(

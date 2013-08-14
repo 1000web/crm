@@ -16,8 +16,8 @@
 	<div class="row">
 		<?php
         echo $form->labelEx($model,'parent_id');
-        //echo $form->dropDownList($model, 'parent_id', MenuItem::model()->getOptions());
-        echo $form->textField($model,'parent_id');
+        echo $form->dropDownList($model, 'parent_id', MenuItem::model()->getOptions('parent_id','parent_id'));
+        //echo $form->textField($model,'parent_id');
         echo $form->error($model,'parent_id');
         ?>
 	</div>

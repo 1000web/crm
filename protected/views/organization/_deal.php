@@ -1,18 +1,18 @@
 <?php
 /* @var $this OrganizationController */
-/* @var $model Customer */
-/* @var $dataProvider CustomerContact */
+/* @var $model Organization */
+/* @var $dataProvider Deal */
 
-$controller = 'customercontact';
+$controller = 'deal';
 
 ?>
 
-    <h2>Контакты Клиента
+    <h2>Сделки
         <?php
         if (true) {
             $this->widget('bootstrap.widgets.TbButton', array(
-                'url' => array('/' . $controller . '/create', 'cid' => $model->id),
-                'label' => 'Добавить контакт',
+                'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+                'label' => 'Добавить сделку',
                 'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             ));
         }
@@ -31,8 +31,8 @@ foreach ($buttons as $key => $value) {
     $template .= '{' . $key . '} ';
 }
 $columns = array(
-    array('name' => 'contact_type_id', 'header' => 'Тип контакта', 'value' => '$data->contactType->value'),
-    array('name' => 'value', 'header' => 'Наименование'),
+    array('name' => 'value', 'header' => 'Значение/имя'),
+    array('name' => 'position', 'header' => 'Должность'),
     array('name' => 'description', 'header' => 'Описание'),
 );
 

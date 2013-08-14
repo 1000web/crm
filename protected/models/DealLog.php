@@ -22,6 +22,7 @@
  * @property integer $deal_stage_id
  * @property string $amount
  * @property integer $probability
+ * @property string $open_date
  * @property string $close_date
  */
 class DealLog extends MyActiveRecord
@@ -56,10 +57,10 @@ class DealLog extends MyActiveRecord
 			array('deleted, id, create_time, update_time, create_user_id, update_user_id, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly'=>true),
 			array('inner_number, external_number, value', 'length', 'max'=>255),
 			array('amount', 'length', 'max'=>12),
-			array('description, close_date', 'safe'),
+			array('description, open_date, close_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('log_id, deleted, id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, close_date', 'safe', 'on'=>'search'),
+			array('log_id, deleted, id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,6 +99,7 @@ class DealLog extends MyActiveRecord
 			'deal_stage_id' => 'Deal Stage',
 			'amount' => 'Amount',
 			'probability' => 'Probability',
+			'open_date' => 'Open Date',
 			'close_date' => 'Close Date',
 		);
 	}
@@ -131,6 +133,7 @@ class DealLog extends MyActiveRecord
 		$criteria->compare('deal_stage_id',$this->deal_stage_id);
 		$criteria->compare('amount',$this->amount,true);
 		$criteria->compare('probability',$this->probability);
+		$criteria->compare('open_date',$this->open_date,true);
 		$criteria->compare('close_date',$this->close_date,true);
 
 		return new CActiveDataProvider($this, array(

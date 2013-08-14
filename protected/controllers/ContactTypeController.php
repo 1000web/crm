@@ -1,6 +1,6 @@
 <?php
 
-class ContactTypeController extends Controller
+class ContacttypeController extends Controller
 {
     /**
      * Displays a particular model.

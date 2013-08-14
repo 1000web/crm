@@ -1,6 +1,6 @@
 <?php
 
-class TaskTypeController extends Controller
+class TasktypeController extends Controller
 {
     /**
      * Displays a particular model.

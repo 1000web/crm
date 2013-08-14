@@ -31,8 +31,20 @@ class OrganizationController extends Controller
                 'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
             ),*/
         ));
+        $deal = new CActiveDataProvider('Deal', array(
+            'criteria' => array(
+                'condition' => 'organization_id=' . $id,
+                'order' => 'inner_number DESC',
+                //'with' => array('category'),
+            ),
+                /*
+            'pagination' => array(
+                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+            ),*/
+        ));
         $this->render('view', array(
             'model' => $model,
+            'deal' => $deal,
             'contact' => $contact,
             'customer' => $customer,
         ));

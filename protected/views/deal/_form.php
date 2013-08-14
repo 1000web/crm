@@ -31,6 +31,14 @@
 
     <div class="row">
         <?php
+        echo $form->labelEx($model, 'open_date');
+        echo $form->textField($model, 'open_date');
+        echo $form->error($model, 'open_date');
+        ?>
+    </div>
+
+    <div class="row">
+        <?php
         echo $form->labelEx($model, 'value');
         echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
         echo $form->error($model, 'value');
@@ -47,8 +55,11 @@
 
     <div class="row">
         <?php
+        if(isset($_GET['oid'])) $values = Organization::model()->getOptions('id','value','value',$_GET['oid']);
+        else $values = Organization::model()->getOptions();
+
         echo $form->labelEx($model, 'organization_id');
-        echo $form->dropDownList($model, 'organization_id', Organization::model()->getOptions());
+        echo $form->dropDownList($model, 'organization_id', $values);
         echo $form->error($model, 'organization_id');
         ?>
     </div>

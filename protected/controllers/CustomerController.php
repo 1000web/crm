@@ -20,9 +20,21 @@ class CustomerController extends Controller
             'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
         ),*/
         ));
+        $deal = new CActiveDataProvider('Deal', array(
+            'criteria' => array(
+                'condition' => 'customer_id=' . $id,
+                //'order' => 'create_time DESC',
+                //'with' => array('createUser','updateUser'),
+            ),
+            /*
+        'pagination' => array(
+            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+        ),*/
+        ));
         $this->render('view', array(
             'model' => $model,
             'contact' => $contact,
+            'deal' => $deal,
         ));
     }
 

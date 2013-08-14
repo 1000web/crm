@@ -5,18 +5,6 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-/*
-?>
-    <div class="row">
-        <div class="btn-toolbar span2">
-            <?php
-            $options = Organization::model()->getOptions();
-            $this->buildFilterButton($options, 'organization');
-            ?>
-        </div>
-    </div>
-<?php
-*/
 if($this->checkAccess('organization', 'view')) {
     $buttons['list'] = array(
         'icon' => 'icon-list',
