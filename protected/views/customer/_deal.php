@@ -11,7 +11,7 @@ $controller = 'deal';
         <?php
         if (true) {
             $this->widget('bootstrap.widgets.TbButton', array(
-                'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+                'url' => array('/' . $controller . '/create', 'cid' => $model->id, 'oid' => $model->organization_id),
                 'label' => 'Добавить сделку',
                 'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             ));
