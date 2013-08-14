@@ -109,10 +109,9 @@ class MenuitemController extends Controller
         }
         $dataProvider = new CActiveDataProvider('MenuItem', array(
             'criteria' => $criteria,
-            /*
             'pagination'=>array(
                 'pageSize'=>20,
-            ),/**/
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,

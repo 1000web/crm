@@ -33,7 +33,6 @@ class OrganizationRegionController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
         $this->render('create', array(
             'model' => $model,
         ));
@@ -90,7 +89,11 @@ class OrganizationRegionController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('OrganizationRegion');
+        $dataProvider = new CActiveDataProvider('OrganizationRegion', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

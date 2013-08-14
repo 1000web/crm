@@ -90,7 +90,11 @@ class ContacttypeController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('ContactType');
+        $dataProvider = new CActiveDataProvider('ContactType', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

@@ -33,7 +33,6 @@ class OrganizationgroupController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
         $this->render('create', array(
             'model' => $model,
         ));
@@ -90,7 +89,11 @@ class OrganizationgroupController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('OrganizationGroup');
+        $dataProvider = new CActiveDataProvider('OrganizationGroup', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

@@ -104,10 +104,9 @@ class OrganizationcontactController extends Controller
         }
         $dataProvider=new CActiveDataProvider('OrganizationContact', array(
             'criteria' => $criteria,
-            /*
             'pagination'=>array(
                 'pageSize'=>20,
-            ),/**/
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,

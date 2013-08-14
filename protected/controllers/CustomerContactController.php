@@ -104,10 +104,9 @@ class CustomercontactController extends Controller
         }
         $dataProvider=new CActiveDataProvider('CustomerContact', array(
             'criteria' => $criteria,
-            /*
-            'pagination'=>array(
-                'pageSize'=>20,
-            ),/**/
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
         ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,

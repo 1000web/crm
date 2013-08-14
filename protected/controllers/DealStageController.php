@@ -90,7 +90,11 @@ class DealstageController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('DealStage');
+        $dataProvider = new CActiveDataProvider('DealStage', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

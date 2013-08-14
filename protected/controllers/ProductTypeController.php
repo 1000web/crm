@@ -90,7 +90,11 @@ class ProducttypeController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('ProductType');
+        $dataProvider = new CActiveDataProvider('ProductType', array(
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
