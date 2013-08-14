@@ -15,10 +15,10 @@ class OrganizationController extends Controller
                 'order' => 'contact_type_id ASC',
                 //'with' => array('category'),
             ),
-                /*
-            'pagination' => array(
-                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-            ),*/
+            /*
+        'pagination' => array(
+            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+        ),*/
         ));
         $customer = new CActiveDataProvider('Customer', array(
             'criteria' => array(
@@ -26,10 +26,10 @@ class OrganizationController extends Controller
                 'order' => 'value ASC',
                 //'with' => array('category'),
             ),
-                /*
-            'pagination' => array(
-                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-            ),*/
+            /*
+        'pagination' => array(
+            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+        ),*/
         ));
         $deal = new CActiveDataProvider('Deal', array(
             'criteria' => array(
@@ -37,10 +37,10 @@ class OrganizationController extends Controller
                 'order' => 'inner_number DESC',
                 //'with' => array('category'),
             ),
-                /*
-            'pagination' => array(
-                'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-            ),*/
+            /*
+        'pagination' => array(
+            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
+        ),*/
         ));
         $this->render('view', array(
             'model' => $model,
@@ -117,7 +117,6 @@ class OrganizationController extends Controller
         $model_log->save();
         $model->delete();
 
-
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -130,27 +129,27 @@ class OrganizationController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $criteria = array(
-            'order'=>'value ASC',
+            'order' => 'value ASC',
             'condition' => '',
             //'with'=>array('author'),
         );
         $flag = false;
-        if($type = $userProfile->getAttribute('filter_organizationtype')) {
-            if($flag) $criteria['condition'] .= ' AND ';
+        if ($type = $userProfile->getAttribute('filter_organizationtype')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'organization_type_id=' . $type;
             $flag = true;
         }
-        if($group = $userProfile->getAttribute('filter_organizationgroup')) {
-            if($flag) $criteria['condition'] .= ' AND ';
+        if ($group = $userProfile->getAttribute('filter_organizationgroup')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'organization_group_id=' . $group;
             $flag = true;
         }
-        if($region = $userProfile->getAttribute('filter_organizationregion')) {
-            if($flag) $criteria['condition'] .= ' AND ';
+        if ($region = $userProfile->getAttribute('filter_organizationregion')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'organization_region_id=' . $region;
             $flag = true;
         }
-        $dataProvider=new CActiveDataProvider('Organization', array(
+        $dataProvider = new CActiveDataProvider('Organization', array(
             'criteria' => $criteria,
             /*
             'pagination'=>array(

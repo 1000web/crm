@@ -20,14 +20,18 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product;
+        $model_log = new ProductLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            if ($model->save())
+            if ($model->save()) {
+                $model_log->attributes = $model->attributes;
+                $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array(
@@ -43,14 +47,18 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        $model_log = new ProductLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            if ($model->save())
+            if ($model->save()) {
+                $model_log->attributes = $model->attributes;
+                $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
@@ -65,7 +73,12 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->loadModel($id)->delete();
+        $model_log = new ProductLog;
+        $model = $this->loadModel($id);
+        $model_log->attributes = $model->attributes;
+        $model_log->setAttribute('deleted', 1);
+        $model_log->save();
+        $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -79,17 +92,17 @@ class ProductController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $criteria = array(
-            'order'=>'value ASC',
+            'order' => 'value ASC',
             'condition' => '',
             //'with'=>array('author'),
         );
         $flag = false;
-        if($type = $userProfile->getAttribute('filter_producttype')) {
-            if($flag) $criteria['condition'] .= ' AND ';
+        if ($type = $userProfile->getAttribute('filter_producttype')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'product_type_id=' . $type;
             $flag = true;
         }
-        $dataProvider=new CActiveDataProvider('Product', array(
+        $dataProvider = new CActiveDataProvider('Product', array(
             'criteria' => $criteria,
             /*
             'pagination'=>array(

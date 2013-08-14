@@ -74,8 +74,9 @@
     <div class="clear"></div>
 
     <div id="footer">
+        <a href="/site/about">О программе</a>
         &copy; <?php echo date('Y'); ?> <a href="http://atomspetsservice.ru/" target="_blank">АтомСпецСервис</a><br/>
-        Разработка <a href="http://1000web.ru" target="_blank">1000web.ru</a>
+        <a href="http://1000web.ru" target="_blank">Разработка компании 1000web.ru</a>
     </div>
     <!-- footer -->
 
