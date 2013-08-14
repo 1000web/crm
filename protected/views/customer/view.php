@@ -23,12 +23,14 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'attributes' => $attr,
 ));
 
-echo $this->renderPartial('_contact', array(
+if($this->checkAccess('customercontact', 'view'))
+    echo $this->renderPartial('_contact', array(
     'dataProvider' => $contact,
     'model' => $model,
 ));
 
-echo $this->renderPartial('_deal', array(
+if($this->checkAccess('deal', 'view'))
+    echo $this->renderPartial('_deal', array(
     'dataProvider' => $deal,
     'model' => $model,
 ));
