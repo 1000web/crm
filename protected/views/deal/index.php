@@ -41,3 +41,7 @@ echo $this->renderPartial('../grid_view', array(
 //    'buttons' => $buttons,
     'columns' => $columns,
 ));
+
+$this->widget('CLinkPager', array(
+    'pages' => $pages,
+));

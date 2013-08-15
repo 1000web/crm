@@ -48,4 +48,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider' => $dataProvider,
     'template' => "{items}",
     'columns' => $columns,
+    'pager' => array(
+        //'maxButtonCount' => Yii::app()->controller->isMobile?4:10,
+        'maxButtonCount' => 10,
+        'class'          => 'bootstrap.widgets.TbPager',
+    ),
 ));
+
+

@@ -31,6 +31,7 @@
     <?php
     if(isset($this->top_menu_items)) {
         $this->widget('bootstrap.widgets.TbNavbar', array(
+            //'htmlOptions' => array('class'=>'nav-collapse collapse'),
             'items' => array(
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',

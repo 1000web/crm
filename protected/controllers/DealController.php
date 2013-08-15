@@ -109,13 +109,22 @@ class DealController extends Controller
         }
         $dataProvider = new CActiveDataProvider('Deal', array(
             'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>20,
+            'pagination' => array(
+                'pageSize' => 5,
             ),
         ));
 
+        $criteria = new CDbCriteria();
+        $count = Deal::model()->count($criteria);
+        $pages = new CPagination($count);
+
+        // results per page
+        $pages->pageSize = 5;
+        $pages->applyLimit($criteria);
+
         $this->render('index', array(
             'dataProvider' => $dataProvider,
+            'pages' => $pages,
         ));
     }
 
