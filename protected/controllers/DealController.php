@@ -171,4 +171,40 @@ class DealController extends Controller
             Yii::app()->end();
         }
     }
+
+    public $favorite_available = true;
+
+    public function checkFavorite($id){
+        if(DealFav::model()->countByAttributes(array(
+            'id' => $id,
+            'user_id' => Yii::app()->user->id,
+        ))) return true;
+        else return false;
+    }
+
+    public function actionFavadd($id)
+    {
+        if(!$this->checkFavorite($id)) {
+            $model = new DealFav;
+            $model->setAttribute('id', $id);
+            $model->setAttribute('datetime', time());
+            $model->setAttribute('user_id', Yii::app()->user->id);
+            $model->save();
+        }
+        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+        else $this->redirect($this->id);
+    }
+
+    public function actionFavdel($id)
+    {
+        $model = DealFav::model()->findByAttributes(array(
+            'id' => $id,
+            'user_id' => Yii::app()->user->id,
+        ));
+        $model->delete();
+
+        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+        else $this->redirect('index');
+    }
+
 }

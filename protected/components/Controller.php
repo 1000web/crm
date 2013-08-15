@@ -15,7 +15,9 @@ class Controller extends RController
     public $h1 = 'Header H1';
     public $description = '';
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter');
+    public $favorite_available = false;
+
+    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favadd', 'favdel');
 
     /**
      * @return array action filters
@@ -131,25 +133,49 @@ class Controller extends RController
         $items = array(
             'create' => array(
                 'label' => Yii::t('lang', 'Создать'),
+                'icon' => 'icon-plus',
                 'url' => array('create')),
             'index' => array(
                 'label' => Yii::t('lang', 'Список'),
+                'icon' => 'icon-list',
                 'url' => array('index')),
             'admin' => array(
                 'label' => Yii::t('lang', 'Управление'),
+                'icon' => 'icon-wrench',
                 'url' => array('admin')),
             'update' => array(
                 'label' => Yii::t('lang', 'Редактировать'),
+                'icon' => 'icon-pencil',
                 'url' => array('update', 'id' => $id)),
             'view' => array(
                 'label' => Yii::t('lang', 'Показать'),
+                'icon' => 'icon-view',
                 'url' => array('view', 'id' => $id)),
             'delete' => array(
                 'label' => Yii::t('lang', 'Удалить'),
+                'icon' => 'icon-trash',
                 'url' => '#',
                 'linkOptions' => array(
                     'submit' => array('delete', 'id' => $id),
                     'confirm' => Yii::t('lang', 'Вы действительно хотите удалить эту запись?')
+                )
+            ),
+            'favadd' => array(
+                'label' => 'В Избранное',
+                'icon' => 'icon-star-empty',
+                'url' => '#',
+                'linkOptions' => array(
+                    'submit' => array('favadd', 'id' => $id),
+                    'confirm' => 'Добавить в Избранное?'
+                )
+            ),
+            'favdel' => array(
+                'label' => 'Уже в Избранном',
+                'icon' => 'icon-star',
+                'url' => '#',
+                'linkOptions' => array(
+                    'submit' => array('favdel', 'id' => $id),
+                    'confirm' => 'Удалить из Избранного?'
                 )
             ),
         );
@@ -175,6 +201,11 @@ class Controller extends RController
                 //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
+                if($this->favorite_available) {
+                    if ($this->checkFavorite($id)) array_push($this->menu, $items['favdel']);
+                    else array_push($this->menu, $items['favadd']);
+                }
+
                 if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
                 //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
@@ -333,6 +364,8 @@ class Controller extends RController
             'description' => 'Описание',
             'email' => 'Email',
             'external_number' => 'Номер договора',
+            'favadd' => 'Добавить в Избранное',
+            'favdel' => 'Удалить из Избранного',
             'first_name' => 'Имя',
             'id' => '#',
             'inner_number' => 'Внутр.номер',

@@ -21,7 +21,7 @@ if($buttons_list !== NULL) {
 }
 
 $template = '';
-$width = 10;
+$width = 15;
 foreach ($buttons as $key => $value) {
     $template .= '{' . $key . '} ';
     $width += 15;
