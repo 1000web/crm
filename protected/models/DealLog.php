@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{deal_log}}':
  * @property integer $log_id
- * @property integer $deleted
+ * @property string $log_action
  * @property integer $id
  * @property integer $create_time
  * @property integer $update_time
@@ -54,13 +54,14 @@ class DealLog extends MyActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id, value, owner_id', 'required'),
-			array('deleted, id, create_time, update_time, create_user_id, update_user_id, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly'=>true),
+			array('id, create_time, update_time, create_user_id, update_user_id, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly'=>true),
+			array('log_action', 'length', 'max'=>16),
 			array('inner_number, external_number, value', 'length', 'max'=>255),
 			array('amount', 'length', 'max'=>12),
 			array('description, open_date, close_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('log_id, deleted, id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on'=>'search'),
+			array('log_id, log_action, id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +83,7 @@ class DealLog extends MyActiveRecord
 	{
 		return array(
 			'log_id' => 'Log',
-			'deleted' => 'Deleted',
+			'log_action' => 'Log Action',
 			'id' => 'ID',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
@@ -116,7 +117,7 @@ class DealLog extends MyActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('log_id',$this->log_id);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('log_action',$this->log_action,true);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);

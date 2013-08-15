@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{item_log}}':
  * @property integer $log_id
- * @property integer $deleted
+ * @property string $log_action
  * @property integer $id
  * @property integer $parent_id
  * @property integer $create_time
@@ -49,13 +49,14 @@ class ItemLog extends MyActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id, value', 'required'),
-			array('deleted, id, parent_id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('id, parent_id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('log_action', 'length', 'max'=>16),
 			array('module, controller, action', 'length', 'max'=>64),
 			array('title, h1, value', 'length', 'max'=>255),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('log_id, deleted, id, parent_id, create_time, update_time, create_user_id, update_user_id, module, controller, action, title, h1, value, description', 'safe', 'on'=>'search'),
+			array('log_id, log_action, id, parent_id, create_time, update_time, create_user_id, update_user_id, module, controller, action, title, h1, value, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,7 +78,7 @@ class ItemLog extends MyActiveRecord
 	{
 		return array(
 			'log_id' => 'Log',
-			'deleted' => 'Deleted',
+			'log_action' => 'Log Action',
 			'id' => 'ID',
 			'parent_id' => 'Parent',
 			'create_time' => 'Create Time',
@@ -106,7 +107,7 @@ class ItemLog extends MyActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('log_id',$this->log_id);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('log_action',$this->log_action,true);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('parent_id',$this->parent_id);
 		$criteria->compare('create_time',$this->create_time);

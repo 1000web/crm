@@ -29,6 +29,7 @@ class CustomercontactController extends Controller
             $model->attributes = $_POST['CustomerContact'];
             if ($model->save()) {
                 $model_log->attributes = $model->attributes;
+                $model_log->setAttribute('log_action', $this->getAction()->id);
                 $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -56,6 +57,7 @@ class CustomercontactController extends Controller
             $model->attributes = $_POST['CustomerContact'];
             if ($model->save()) {
                 $model_log->attributes = $model->attributes;
+                $model_log->setAttribute('log_action', $this->getAction()->id);
                 $model_log->save();
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -76,7 +78,7 @@ class CustomercontactController extends Controller
         $model_log = new CustomerContactLog;
         $model = $this->loadModel($id);
         $model_log->attributes = $model->attributes;
-        $model_log->setAttribute('deleted', 1);
+        $model_log->setAttribute('log_action', $this->getAction()->id);
         $model_log->save();
         $model->delete();
 

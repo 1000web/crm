@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{menu_log}}':
  * @property integer $log_id
- * @property integer $deleted
+ * @property string $log_action
  * @property integer $id
  * @property integer $create_time
  * @property integer $update_time
@@ -43,11 +43,12 @@ class MenuLog extends MyActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id, value, description', 'required'),
-			array('deleted, id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
+			array('log_action', 'length', 'max'=>16),
 			array('value', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('log_id, deleted, id, create_time, update_time, create_user_id, update_user_id, value, description', 'safe', 'on'=>'search'),
+			array('log_id, log_action, id, create_time, update_time, create_user_id, update_user_id, value, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +64,24 @@ class MenuLog extends MyActiveRecord
 	}
 
 	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'log_id' => 'Log',
+			'log_action' => 'Log Action',
+			'id' => 'ID',
+			'create_time' => 'Create Time',
+			'update_time' => 'Update Time',
+			'create_user_id' => 'Create User',
+			'update_user_id' => 'Update User',
+			'value' => 'Value',
+			'description' => 'Description',
+		);
+	}
+
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
@@ -74,7 +93,7 @@ class MenuLog extends MyActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('log_id',$this->log_id);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('log_action',$this->log_action,true);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);
