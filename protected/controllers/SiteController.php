@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-    public $actions = array('index', 'about', 'login', 'error', 'test', 'filter');
+    public $actions = array('index', 'about', 'login', 'error', 'test', 'filter', 'favorite');
 
     /**
      * This is the default 'index' action that is invoked

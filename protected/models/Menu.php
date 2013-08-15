@@ -154,6 +154,7 @@ class Menu extends MyActiveRecord
                 'items' => array(
                     array('label' => 'Список задач', 'icon' => 'icon-tasks', 'url' => array('/task/index')),
                     array('label' => 'Типы задач', 'icon' => 'icon-tags', 'url' => array('/tasktype/index')),
+                    array('label' => 'Этапы задач', 'icon' => 'icon-signal', 'url' => array('/taskstage/index')),
                     array('label' => 'Создать задачу', 'icon' => 'icon-plus', 'url' => array('/task/create')),
                 ),
             ),
