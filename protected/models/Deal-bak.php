@@ -31,7 +31,6 @@
  * @property Customer $customer
  * @property DealSource $dealSource
  * @property DealStage $dealStage
- * @property Users[] $favUsers
  */
 class Deal extends MyActiveRecord
 {
@@ -87,7 +86,6 @@ class Deal extends MyActiveRecord
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'dealSource' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
 			'dealStage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
-			'favUsers' => array(self::MANY_MANY, 'Users', '{{deal_fav}}(id, user_id)'),
 		);
 	}
 

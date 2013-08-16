@@ -21,7 +21,7 @@
  * @property Users $updateUser
  * @property Users $user
  * @property CustomerContact[] $customerContacts
- * @property Users[] $tblUsers
+ * @property Users[] $favUsers
  * @property Deal[] $deals
  */
 class Customer extends MyActiveRecord
