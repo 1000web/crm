@@ -99,7 +99,7 @@ class CustomercontactController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if($type = $userProfile->getAttribute('filter_contacttype')) {
+        if($type = $userProfile->filter_contacttype) {
             if($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'contact_type_id=' . $type;
             $flag = true;
@@ -107,7 +107,7 @@ class CustomercontactController extends Controller
         $dataProvider=new CActiveDataProvider('CustomerContact', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => $userProfile->customercontact_per_page,
             ),
         ));
         $this->render('index', array(

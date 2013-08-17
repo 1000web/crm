@@ -99,12 +99,12 @@ class MenuitemController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($menu = $userProfile->getAttribute('filter_menu')) {
+        if ($menu = $userProfile->filter_menu) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'menu_id=' . $menu;
             $flag = true;
         }
-        if ($parent = $userProfile->getAttribute('filter_parent')) {
+        if ($parent = $userProfile->filter_parent) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'parent_id=' . $parent;
             $flag = true;
@@ -112,7 +112,7 @@ class MenuitemController extends Controller
         $dataProvider = new CActiveDataProvider('MenuItem', array(
             'criteria' => $criteria,
             'pagination'=>array(
-                'pageSize'=>20,
+                'pageSize' => $userProfile->menuitem_per_page,
             ),
         ));
         $this->render('index', array(

@@ -99,15 +99,15 @@ class OrganizationcontactController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if($type = $userProfile->getAttribute('filter_contacttype')) {
+        if($type = $userProfile->filter_contacttype) {
             if($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'contact_type_id=' . $type;
             $flag = true;
         }
         $dataProvider=new CActiveDataProvider('OrganizationContact', array(
             'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>20,
+            'pagination' => array(
+                'pageSize' => $userProfile->organizationcontact_per_page,
             ),
         ));
         $this->render('index', array(
