@@ -117,9 +117,10 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
+        $profile = $this->getUserProfile();
         $dataProvider = new CActiveDataProvider('Customer', array(
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => $profile->customer_per_page,
             ),
         ));
         $this->render('index', array(

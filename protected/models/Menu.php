@@ -110,7 +110,10 @@ class Menu extends MyActiveRecord
         ));
     }
 
-    function get_menu($menu_name, $parent = NULL, $levels = 2)
+    function get_menu($menu_name, $parent = NULL, $levels = 2){
+        return $this->static_menu();
+    }
+    function static_menu()
     {
         /*
         $menu = $this->with('menuItems', 'items')->findByAttributes(array(

@@ -92,7 +92,43 @@ class ItemController extends Controller
      */
     public function actionIndex()
     {
+        $userProfile = $this->getUserProfile();
+        //$criteria->condition='postID=:postID';
+        //$criteria->params=array(':postID'=>10);
+
+        $criteria = array(
+            'order' => 'controller ASC',
+            'condition' => '',
+            'params' => array(),
+            //'with'=>array('author'),
+        );
+        $flag = false;
+        if ($parent_id = $userProfile->getAttribute('filter_itemparent')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'parent_id=:parent_id';
+            $criteria['params'][':parent_id'] = $parent_id;
+            $flag = true;
+        }
+        if ($module = $userProfile->getAttribute('filter_itemmodule')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'parent_id=:module';
+            $criteria['params'][':module'] = $module;
+            $flag = true;
+        }
+        if ($controller = $userProfile->getAttribute('filter_itemcontroller')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'controller=:controller';
+            $criteria['params'][':controller'] = $controller;
+            $flag = true;
+        }
+        if ($action = $userProfile->getAttribute('filter_itemaction')) {
+            if ($flag) $criteria['condition'] .= ' AND ';
+            $criteria['condition'] .= 'action=:action';
+            $criteria['params'][':action'] = $action;
+            $flag = true;
+        }/**/
         $dataProvider = new CActiveDataProvider('Item', array(
+            'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 20,
             ),

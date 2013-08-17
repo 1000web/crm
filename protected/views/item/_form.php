@@ -16,7 +16,7 @@
 	<div class="row">
 		<?php
         echo $form->labelEx($model,'parent_id');
-        echo $form->textField($model,'parent_id');
+        echo $form->dropDownList($model,'parent_id', $model->getOptions('id', 'title'));
         echo $form->error($model,'parent_id');
         ?>
 	</div>
@@ -42,6 +42,14 @@
         echo $form->labelEx($model,'action');
         echo $form->textField($model,'action',array('size'=>60,'maxlength'=>64));
         echo $form->error($model,'action');
+        ?>
+	</div>
+
+	<div class="row">
+		<?php
+        echo $form->labelEx($model,'icon');
+        echo $form->textField($model,'icon',array('size'=>60,'maxlength'=>64));
+        echo $form->error($model,'icon');
         ?>
 	</div>
 

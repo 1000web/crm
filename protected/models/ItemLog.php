@@ -13,6 +13,7 @@
  * @property string $module
  * @property string $controller
  * @property string $action
+ * @property string $icon
  * @property string $title
  * @property string $h1
  * @property string $value
@@ -48,12 +49,12 @@ class ItemLog extends LogActiveRecord
 		return array(
 			array('log_datetime, log_user_id, id, parent_id', 'numerical', 'integerOnly'=>true),
 			array('log_action', 'length', 'max'=>16),
-			array('module, controller, action', 'length', 'max'=>64),
+			array('module, controller, action, icon', 'length', 'max'=>64),
 			array('title, h1, value', 'length', 'max'=>255),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('log_id, log_action, log_datetime, log_user_id, id, parent_id, module, controller, action, title, h1, value, description', 'safe', 'on'=>'search'),
+			array('log_id, log_action, log_datetime, log_user_id, id, parent_id, module, controller, action, icon, title, h1, value, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,6 +84,7 @@ class ItemLog extends LogActiveRecord
 			'module' => 'Module',
 			'controller' => 'Controller',
 			'action' => 'Action',
+			'icon' => 'Icon',
 			'title' => 'Title',
 			'h1' => 'H1',
 			'value' => 'Value',
@@ -110,6 +112,7 @@ class ItemLog extends LogActiveRecord
 		$criteria->compare('module',$this->module,true);
 		$criteria->compare('controller',$this->controller,true);
 		$criteria->compare('action',$this->action,true);
+		$criteria->compare('icon',$this->icon,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('h1',$this->h1,true);
 		$criteria->compare('value',$this->value,true);

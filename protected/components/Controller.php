@@ -368,6 +368,13 @@ class Controller extends RController
             'favdel' => 'Удалить из Избранного',
             'first_name' => 'Имя',
             'id' => '#',
+
+            'itemparent' => 'Parent',
+            'itemmodule' => 'Module',
+            'itemcontroller' => 'Controller',
+            'itemaction' => 'Action',
+
+            'icon' => 'Icon',
             'inner_number' => 'Внутр.номер',
             'last_name' => 'Фамилия',
             'lastvisit_at' => 'Lastvisit At',
