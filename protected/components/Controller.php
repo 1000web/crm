@@ -17,7 +17,7 @@ class Controller extends RController
 
     public $favorite_available = false;
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favadd', 'favdel');
+    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favorite');
 
     /**
      * @return array action filters
@@ -160,23 +160,27 @@ class Controller extends RController
                     'confirm' => Yii::t('lang', 'Вы действительно хотите удалить эту запись?')
                 )
             ),
-            'favadd' => array(
+            'favorite_add' => array(
                 'label' => 'В Избранное',
                 'icon' => 'icon-star-empty',
+                'url' => array('favorite', 'add' => $id),
+                /*
                 'url' => '#',
                 'linkOptions' => array(
-                    'submit' => array('favadd', 'id' => $id),
+                    'submit' => array('favorite', 'add' => $id),
                     'confirm' => 'Добавить в Избранное?'
-                )
+                )/**/
             ),
-            'favdel' => array(
+            'favorite_del' => array(
                 'label' => 'Уже в Избранном',
                 'icon' => 'icon-star',
+                'url' => array('favorite', 'del' => $id),
+                /*
                 'url' => '#',
                 'linkOptions' => array(
-                    'submit' => array('favdel', 'id' => $id),
+                    'submit' => array('favorite', 'del' => $id),
                     'confirm' => 'Удалить из Избранного?'
-                )
+                )/**/
             ),
         );
         $this->menu = array();
@@ -202,10 +206,9 @@ class Controller extends RController
                 break;
             case 'view':
                 if($this->favorite_available) {
-                    if ($this->checkFavorite($id)) array_push($this->menu, $items['favdel']);
-                    else array_push($this->menu, $items['favadd']);
+                    if ($this->checkFavorite($id)) array_push($this->menu, $items['favorite_del']);
+                    else array_push($this->menu, $items['favorite_add']);
                 }
-
                 if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
                 //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);

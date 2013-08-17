@@ -141,6 +141,7 @@ class Menu extends MyActiveRecord
         $items = array(
             array('label' => 'Клиенты', 'url' => array('/customer/index'),
                 'items' => array(
+                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/customer/favorite')),
                     array('label' => 'Список клиентов', 'icon' => 'icon-list', 'url' => array('/customer/index')),
                     array('label' => 'Контакты клиентов', 'icon' => 'icon-envelope', 'url' => array('/customercontact/index')),
                     array('label' => 'Создать клиента', 'icon' => 'icon-plus', 'url' => array('/customer/create')),
@@ -148,6 +149,7 @@ class Menu extends MyActiveRecord
             ),
             array('label' => 'Организации',
                 'items' => array(
+                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/organization/favorite')),
                     array('label' => 'Список организаций', 'icon' => 'icon-list', 'url' => array('/organization/index')),
                     array('label' => 'Контакты организаций', 'icon' => 'icon-envelope', 'url' => array('/organizationcontact/index')),
                     array('label' => 'Создать организацию', 'icon' => 'icon-plus', 'url' => array('/organization/create')),
@@ -155,6 +157,7 @@ class Menu extends MyActiveRecord
             ),
             array('label' => 'Задачи',
                 'items' => array(
+                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/task/favorite')),
                     array('label' => 'Список задач', 'icon' => 'icon-tasks', 'url' => array('/task/index')),
                     array('label' => 'Типы задач', 'icon' => 'icon-tags', 'url' => array('/tasktype/index')),
                     array('label' => 'Этапы задач', 'icon' => 'icon-signal', 'url' => array('/taskstage/index')),
@@ -164,6 +167,7 @@ class Menu extends MyActiveRecord
             ),
             array('label' => 'Сделки',
                 'items' => array(
+                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/deal/favorite')),
                     array('label' => 'Список сделок', 'icon' => 'icon-briefcase', 'url' => array('/deal/index')),
                     array('label' => 'Этапы сделок', 'icon' => 'icon-signal', 'url' => array('/dealstage/index')),
                     array('label' => 'Источники сделок', 'icon' => 'icon-list', 'url' => array('/dealsource/index')),

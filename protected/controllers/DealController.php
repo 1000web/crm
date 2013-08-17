@@ -99,12 +99,12 @@ class DealController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($stage = $userProfile->getAttribute('filter_dealstage')) {
+        if ($stage = $userProfile->filter_dealstage) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'deal_stage_id=' . $stage;
             $flag = true;
         }
-        if ($source = $userProfile->getAttribute('filter_dealsource')) {
+        if ($source = $userProfile->filter_dealsource) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'deal_source_id=' . $source;
             $flag = true;
@@ -112,21 +112,12 @@ class DealController extends Controller
         $dataProvider = new CActiveDataProvider('Deal', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 5,
+                'pageSize' => $userProfile->deal_per_page,
             ),
         ));
 
-        $criteria = new CDbCriteria();
-        $count = Deal::model()->count($criteria);
-        $pages = new CPagination($count);
-
-        // results per page
-        $pages->pageSize = 5;
-        $pages->applyLimit($criteria);
-
         $this->render('index', array(
             'dataProvider' => $dataProvider,
-            'pages' => $pages,
         ));
     }
 
@@ -182,29 +173,51 @@ class DealController extends Controller
         else return false;
     }
 
-    public function actionFavadd($id)
+    /**
+     * Lists favorite models.
+     */
+    public function actionFavorite($add = NULL, $del = NULL)
     {
-        if(!$this->checkFavorite($id)) {
-            $model = new DealFav;
-            $model->setAttribute('id', $id);
-            $model->setAttribute('datetime', time());
-            $model->setAttribute('user_id', Yii::app()->user->id);
-            $model->save();
+        if($add OR $del) {
+            // добавляем в Избранное
+            if(isset($add)){
+                if(!$this->checkFavorite($add)) {
+                    $model = new DealFav();
+                    $model->setAttribute('id', $add);
+                    $model->setAttribute('datetime', time());
+                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->save();
+                }
+            }
+            // удаляем из Избранного
+            if($del){
+                DealFav::model()->findByAttributes(array(
+                    'id' => $del,
+                    'user_id' => Yii::app()->user->id,
+                ))->delete();
+            }
+            if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+            else $this->redirect($this->id);
         }
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect($this->id);
-    }
+        $userProfile = $this->getUserProfile();
 
-    public function actionFavdel($id)
-    {
-        $model = DealFav::model()->findByAttributes(array(
-            'id' => $id,
-            'user_id' => Yii::app()->user->id,
+        $criteria = new CDbCriteria;
+        //$criteria->order('value');
+        //LEFT JOIN
+        $criteria->join = 'LEFT JOIN {{deal_fav}} j ON j.id=t.id';
+        $criteria->addCondition('j.user_id=:userid');
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+
+        $dataProvider = new CActiveDataProvider('Deal', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->deal_per_page,
+            ),
         ));
-        $model->delete();
+        $this->render('favorite', array(
+            'dataProvider' => $dataProvider,
+        ));
 
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect('index');
     }
 
 }

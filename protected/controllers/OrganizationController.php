@@ -136,25 +136,28 @@ class OrganizationController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($type = $userProfile->getAttribute('filter_organizationtype')) {
+        if ($type = $userProfile->filter_organizationtype) {
             if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_type_id=' . $type;
+            $criteria['condition'] .= 'organization_type_id=:type';
+            $criteria['params'][':type'] = $type;
             $flag = true;
         }
-        if ($group = $userProfile->getAttribute('filter_organizationgroup')) {
+        if ($group = $userProfile->filter_organizationgroup) {
             if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_group_id=' . $group;
+            $criteria['condition'] .= 'organization_group_id=:group';
+            $criteria['params'][':group'] = $group;
             $flag = true;
         }
-        if ($region = $userProfile->getAttribute('filter_organizationregion')) {
+        if ($region = $userProfile->filter_organizationregion) {
             if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_region_id=' . $region;
+            $criteria['condition'] .= 'organization_region_id=:region';
+            $criteria['params'][':region'] = $region;
             $flag = true;
         }
         $dataProvider = new CActiveDataProvider('Organization', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => $userProfile->organization_per_page,
             ),
         ));
         $this->render('index', array(
@@ -214,29 +217,63 @@ class OrganizationController extends Controller
         else return false;
     }
 
-    public function actionFavadd($id)
+    /**
+     * Lists favorite models.
+     */
+    public function actionFavorite($add = NULL, $del = NULL)
     {
-        if(!$this->checkFavorite($id)) {
-            $model = new OrganizationFav;
-            $model->setAttribute('id', $id);
-            $model->setAttribute('datetime', time());
-            $model->setAttribute('user_id', Yii::app()->user->id);
-            $model->save();
+        if($add OR $del) {
+            // добавляем в Избранное
+            if(isset($add)){
+                if(!$this->checkFavorite($add)) {
+                    $model = new OrganizationFav;
+                    $model->setAttribute('id', $add);
+                    //$model->setAttribute('datetime', time());
+                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->save();
+                }
+            }
+            // удаляем из Избранного
+            if($del){
+                OrganizationFav::model()->findByAttributes(array(
+                    'id' => $del,
+                    'user_id' => Yii::app()->user->id,
+                ))->delete();
+            }
+            if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+            else $this->redirect($this->id);
         }
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect($this->id);
-    }
+        $userProfile = $this->getUserProfile();
 
-    public function actionFavdel($id)
-    {
-        $model = OrganizationFav::model()->findByAttributes(array(
-            'id' => $id,
-            'user_id' => Yii::app()->user->id,
+        $criteria = new CDbCriteria;
+        //LEFT JOIN
+        $criteria->join = 'LEFT JOIN {{organization_fav}} j ON j.id=t.id';
+        $criteria->addCondition('j.user_id=:userid');
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+
+        //$criteria->order('value');
+        if ($type = $userProfile->filter_organizationtype)      {
+            $criteria->addCondition('organization_type_id=:type');
+            $criteria->params[':type'] = $type;
+        }
+        if ($group = $userProfile->filter_organizationgroup)    {
+            $criteria->addCondition('organization_group_id=:group');
+            $criteria->params[':group'] = $group;
+        }
+        if ($region = $userProfile->filter_organizationregion)  {
+            $criteria->addCondition('organization_region_id=:region');
+            $criteria->params[':region'] = $region;
+        }
+        $dataProvider = new CActiveDataProvider('Organization', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->organization_per_page,
+            ),
         ));
-        $model->delete();
+        $this->render('favorite', array(
+            'dataProvider' => $dataProvider,
+        ));
 
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect('index');
     }
 
 }
