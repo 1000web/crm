@@ -103,25 +103,25 @@ class ItemController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($parent_id = $userProfile->getAttribute('filter_itemparent')) {
+        if ($parent_id = $userProfile->filter_itemparent) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'parent_id=:parent_id';
             $criteria['params'][':parent_id'] = $parent_id;
             $flag = true;
         }
-        if ($module = $userProfile->getAttribute('filter_itemmodule')) {
+        if ($module = $userProfile->filter_itemmodule) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'parent_id=:module';
             $criteria['params'][':module'] = $module;
             $flag = true;
         }
-        if ($controller = $userProfile->getAttribute('filter_itemcontroller')) {
+        if ($controller = $userProfile->filter_itemcontroller) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'controller=:controller';
             $criteria['params'][':controller'] = $controller;
             $flag = true;
         }
-        if ($action = $userProfile->getAttribute('filter_itemaction')) {
+        if ($action = $userProfile->filter_itemaction) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'action=:action';
             $criteria['params'][':action'] = $action;
@@ -130,7 +130,7 @@ class ItemController extends Controller
         $dataProvider = new CActiveDataProvider('Item', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => $userProfile->item_per_page,
             ),
         ));
         $this->render('index', array(

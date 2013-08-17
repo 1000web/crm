@@ -99,15 +99,15 @@ class TaskController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($type = $userProfile->getAttribute('filter_tasktype')) {
+        if ($type = $userProfile->filter_tasktype) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'task_type_id=' . $type;
             $flag = true;
         }
         $dataProvider = new CActiveDataProvider('Task', array(
             'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>20,
+            'pagination' => array(
+                'pageSize' => $userProfile->task_per_page,
             ),
         ));
         $this->render('index', array(
@@ -157,6 +157,7 @@ class TaskController extends Controller
         }
     }
 
+
     public $favorite_available = true;
 
     public function checkFavorite($id){
@@ -167,30 +168,53 @@ class TaskController extends Controller
         else return false;
     }
 
-    public function actionFavadd($id)
+    /**
+     * Lists favorite models.
+     */
+    public function actionFavorite($add = NULL, $del = NULL)
     {
-        if(!$this->checkFavorite($id)) {
-            $model = new TaskFav;
-            $model->setAttribute('id', $id);
-            $model->setAttribute('datetime', time());
-            $model->setAttribute('user_id', Yii::app()->user->id);
-            $model->save();
+        if($add OR $del) {
+            // добавляем в Избранное
+            if(isset($add)){
+                if(!$this->checkFavorite($add)) {
+                    $model = new TaskFav();
+                    $model->setAttribute('id', $add);
+                    $model->setAttribute('datetime', time());
+                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->save();
+                }
+            }
+            // удаляем из Избранного
+            if($del){
+                TaskFav::model()->findByAttributes(array(
+                    'id' => $del,
+                    'user_id' => Yii::app()->user->id,
+                ))->delete();
+            }
+            if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
+            else $this->redirect($this->id);
         }
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect($this->id);
-    }
+        $userProfile = $this->getUserProfile();
 
-    public function actionFavdel($id)
-    {
-        $model = TaskFav::model()->findByAttributes(array(
-            'id' => $id,
-            'user_id' => Yii::app()->user->id,
+        $criteria = new CDbCriteria;
+        //$criteria->order('value');
+        //LEFT JOIN
+        $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
+        $criteria->addCondition('j.user_id=:userid');
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+
+        $dataProvider = new CActiveDataProvider('Task', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->task_per_page,
+            ),
         ));
-        $model->delete();
+        $this->render('favorite', array(
+            'dataProvider' => $dataProvider,
+        ));
 
-        if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-        else $this->redirect('index');
     }
+
 
 
 }

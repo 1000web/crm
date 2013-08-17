@@ -99,15 +99,15 @@ class ProductController extends Controller
             //'with'=>array('author'),
         );
         $flag = false;
-        if ($type = $userProfile->getAttribute('filter_producttype')) {
+        if ($type = $userProfile->filter_producttype) {
             if ($flag) $criteria['condition'] .= ' AND ';
             $criteria['condition'] .= 'product_type_id=' . $type;
             $flag = true;
         }
         $dataProvider = new CActiveDataProvider('Product', array(
             'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize'=>20,
+            'pagination' => array(
+                'pageSize' => $userProfile->product_per_page,
             ),
         ));
         $this->render('index', array(

@@ -6,7 +6,6 @@
  * The followings are the available columns in table '{{organization_fav}}':
  * @property integer $id
  * @property integer $user_id
- * @property integer $datetime
  */
 class OrganizationFav extends CActiveRecord
 {
@@ -36,11 +35,11 @@ class OrganizationFav extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user_id, datetime', 'required'),
-			array('id, user_id, datetime', 'numerical', 'integerOnly'=>true),
+			array('id, user_id', 'required'),
+			array('id, user_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, datetime', 'safe', 'on'=>'search'),
+			array('id, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,9 +60,8 @@ class OrganizationFav extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Organization',
 			'user_id' => 'User',
-			'datetime' => 'Datetime',
 		);
 	}
 
@@ -80,7 +78,6 @@ class OrganizationFav extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('datetime',$this->datetime);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
