@@ -163,6 +163,7 @@ class ItemController extends Controller
     public function loadModel($id)
     {
         $model = Item::model()->findByPk($id);
+        //$model = Item::model()->with(array('createUser', 'updateUser'))->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

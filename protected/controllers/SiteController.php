@@ -38,8 +38,6 @@ class SiteController extends Controller
         }
     }
 
-    public function buildBreadcrumbs($model = NULL) {}
-
     public function buildMenuOperations($model = NULL) {}
 
     /*

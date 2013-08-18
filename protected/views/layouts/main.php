@@ -44,6 +44,7 @@
     // если непусто, то показываем крошки
     if($this->breadcrumbs) {
 		$this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+            'encodeLabel' => false,
 			'links' => $this->breadcrumbs,
 		));
     }

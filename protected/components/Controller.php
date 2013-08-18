@@ -9,8 +9,8 @@ class Controller extends RController
     public $menu = array();
     public $top_menu_items = array();
     public $breadcrumbs = array();
+    protected $_model = NULL;
 
-    public $name = 'Controller';
     public $header_image = '';
     public $h1 = 'Header H1';
     public $description = '';
@@ -88,7 +88,7 @@ class Controller extends RController
                 'label' => $value,
                 'url' => array('filter', 'param' => $param, 'value' => $key),
             );
-            if($userProfile->getAttribute('filter_' . $param) == $key) {
+            if ($userProfile->getAttribute('filter_' . $param) == $key) {
                 $button['icon'] = 'ok';
                 $button_title = $value;
             }
@@ -205,7 +205,7 @@ class Controller extends RController
                 //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
-                if($this->favorite_available) {
+                if ($this->favorite_available) {
                     if ($this->checkFavorite($id)) array_push($this->menu, $items['favorite_del']);
                     else array_push($this->menu, $items['favorite_add']);
                 }
@@ -219,7 +219,7 @@ class Controller extends RController
         return;
     }
 
-    public function buildBreadcrumbs($model = NULL)
+    public function buildBreadcrumbs_bak($model = NULL)
     {
         /*
         if($model) $value = $model->value;
@@ -261,23 +261,56 @@ class Controller extends RController
         return;
     }
 
+    public function buildBreadcrumbs($id)
+    {
+
+        $item = Item::model()->findByPk($id);
+        if (!$item) {
+            // Нет такого пункта, показываем в виде ошибки чтобы исправить
+            $this->breadcrumbs = array('Unknown Controller');
+            return;
+        }
+        // Home page site/index
+        if (!$item->parent_id) return;
+        //if($item->parent_id == 1) return;
+        if (!$this->breadcrumbs) {
+            // это первая крошка
+            $this->breadcrumbs = array($item->value);
+        } else {
+            // не первая крошка
+            $url = '/' . $item['controller'] . '/' . $item['action'];
+            if ($item['module']) $url = '/' . $item['module'] . $url;
+            //$url = CHtml::link($item['value'], $url);
+            $this->breadcrumbs = CMap::mergeArray(
+                array($item['value'] => $url),
+                $this->breadcrumbs
+            );
+        }
+        $this->buildBreadcrumbs($item->parent_id);
+    }
+
     public function buildPageOptions($model = NULL)
     {
         $this->top_menu_items = Menu::model()->get_menu('top_menu');
-        $this->buildBreadcrumbs($model);
+        $this->_model = $model;
 
+        $module = $this->getModule();
+        if (!$module) $module = '';
         $item = Item::model()->findByAttributes(array(
+            'module' => $module,
             'controller' => $this->id,
-            'action' => $this->getAction()->getId(),
+            'action' => $this->getAction()->id,
         ));
+        $this->buildBreadcrumbs($item->id);
+
         $this->header_image = $this->insertImage('150x150');
 
-        if ($model) {
-            $this->h1 = (isset($model->value)?$model->value:$item['h1']);
-            $this->description = $model->description;
-            $this->pageTitle = (isset($model->value)?$model->value:$item['h1']) . ' - ' . $item['title'];
+        if ($this->_model) {
+            $this->h1 = (isset($this->_model->value) ? $this->_model->value : $item['h1']);
+            $this->description = $this->_model->description;
+            $this->pageTitle = (isset($this->_model->value) ? $this->_model->value : $item['h1']) . ' - ' . $item['title'];
 
-            $this->buildMenuOperations($model->id);
+            $this->buildMenuOperations($this->_model->id);
         } else {
             $this->h1 = $item['h1'];
             $this->description = $item['description'];
