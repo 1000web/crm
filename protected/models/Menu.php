@@ -139,6 +139,7 @@ class Menu extends MyActiveRecord
             }
         }/**/
         $items = array(
+            array('label' => 'Избранное', 'url' => array('/site/favorite')),
             array('label' => 'Клиенты', 'url' => array('/customer/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/customer/favorite')),

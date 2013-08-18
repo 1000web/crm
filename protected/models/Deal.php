@@ -152,4 +152,19 @@ class Deal extends MyActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getFavorite($userProfile){
+        $criteria = new CDbCriteria;
+        $criteria->join = 'LEFT JOIN {{deal_fav}} j ON j.id=t.id';
+        $criteria->condition = 'j.user_id=:userid';
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+        $criteria->order = 'value';
+        $criteria->limit = -1;
+        return new CActiveDataProvider('Deal', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->deal_per_page,
+            ),
+        ));
+    }
 }

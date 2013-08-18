@@ -114,7 +114,7 @@ class Organization extends MyActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('create_time',$this->create_time);
@@ -131,4 +131,32 @@ class Organization extends MyActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getFavorite($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->join = 'LEFT JOIN {{organization_fav}} j ON j.id=t.id';
+        $criteria->condition = 'j.user_id=:userid';
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+        $criteria->order = 'value';
+        $criteria->limit = -1;
+        if ($type = $userProfile->filter_organizationtype)      {
+            $criteria->addCondition('organization_type_id=:type');
+            $criteria->params[':type'] = $type;
+        }
+        if ($group = $userProfile->filter_organizationgroup)    {
+            $criteria->addCondition('organization_group_id=:group');
+            $criteria->params[':group'] = $group;
+        }
+        if ($region = $userProfile->filter_organizationregion)  {
+            $criteria->addCondition('organization_region_id=:region');
+            $criteria->params[':region'] = $region;
+        }
+        return new CActiveDataProvider('Organization', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->organization_per_page,
+            ),
+        ));
+    }
 }

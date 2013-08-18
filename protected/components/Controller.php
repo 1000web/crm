@@ -102,7 +102,7 @@ class Controller extends RController
             );
         }
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
-            'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'type' => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
                 array('label' => $button_title, 'url' => ''),
                 array('items' => $items),

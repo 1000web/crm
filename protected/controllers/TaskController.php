@@ -194,23 +194,8 @@ class TaskController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
-        $userProfile = $this->getUserProfile();
-
-        $criteria = new CDbCriteria;
-        //$criteria->order('value');
-        //LEFT JOIN
-        $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
-        $criteria->addCondition('j.user_id=:userid');
-        $criteria->params = array(':userid' => Yii::app()->user->id);
-
-        $dataProvider = new CActiveDataProvider('Task', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_per_page,
-            ),
-        ));
         $this->render('favorite', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Task::model()->getFavorite($this->getUserProfile()),
         ));
 
     }

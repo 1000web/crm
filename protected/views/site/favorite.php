@@ -8,33 +8,27 @@
 if(!isset($model)) $this->buildPageOptions();
 else $this->buildPageOptions($model);
 
-//$columns_list = array('prior','value', 'description');
-
 ?>
-<h2>Клиенты</h2>
+    <h2>Клиенты</h2>
 <?php
-echo $this->renderPartial('../grid_view', array(
+echo $this->renderPartial('../customer/_favorite', array(
     'dataProvider' => $customer,
-//    'columns_list' => $columns_list,
 ));
 ?>
-<h2>Организации</h2>
+    <h2>Организации</h2>
 <?php
-echo $this->renderPartial('../grid_view', array(
+echo $this->renderPartial('../organization/_favorite', array(
     'dataProvider' => $organization,
-//    'columns_list' => $columns_list,
 ));
 ?>
-<h2>Задачи</h2>
+    <h2>Задачи</h2>
 <?php
-echo $this->renderPartial('../grid_view', array(
+echo $this->renderPartial('../task/_favorite', array(
     'dataProvider' => $task,
-//    'columns_list' => $columns_list,
 ));
 ?>
-<h2>Сделки</h2>
+    <h2>Сделки</h2>
 <?php
-echo $this->renderPartial('../grid_view', array(
+echo $this->renderPartial('../deal/_favorite', array(
     'dataProvider' => $deal,
-//    'columns_list' => $columns_list,
 ));

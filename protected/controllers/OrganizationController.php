@@ -130,29 +130,19 @@ class OrganizationController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order' => 'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if ($type = $userProfile->filter_organizationtype) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_type_id=:type';
-            $criteria['params'][':type'] = $type;
-            $flag = true;
+        $criteria = new CDbCriteria;
+        $criteria->order = 'value';
+        if ($type = $userProfile->filter_organizationtype)      {
+            $criteria->addCondition('organization_type_id=:type');
+            $criteria->params[':type'] = $type;
         }
-        if ($group = $userProfile->filter_organizationgroup) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_group_id=:group';
-            $criteria['params'][':group'] = $group;
-            $flag = true;
+        if ($group = $userProfile->filter_organizationgroup)    {
+            $criteria->addCondition('organization_group_id=:group');
+            $criteria->params[':group'] = $group;
         }
-        if ($region = $userProfile->filter_organizationregion) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'organization_region_id=:region';
-            $criteria['params'][':region'] = $region;
-            $flag = true;
+        if ($region = $userProfile->filter_organizationregion)  {
+            $criteria->addCondition('organization_region_id=:region');
+            $criteria->params[':region'] = $region;
         }
         $dataProvider = new CActiveDataProvider('Organization', array(
             'criteria' => $criteria,
@@ -243,37 +233,9 @@ class OrganizationController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
-        $userProfile = $this->getUserProfile();
-
-        $criteria = new CDbCriteria;
-        //LEFT JOIN
-        $criteria->join = 'LEFT JOIN {{organization_fav}} j ON j.id=t.id';
-        $criteria->addCondition('j.user_id=:userid');
-        $criteria->params = array(':userid' => Yii::app()->user->id);
-
-        //$criteria->order('value');
-        if ($type = $userProfile->filter_organizationtype)      {
-            $criteria->addCondition('organization_type_id=:type');
-            $criteria->params[':type'] = $type;
-        }
-        if ($group = $userProfile->filter_organizationgroup)    {
-            $criteria->addCondition('organization_group_id=:group');
-            $criteria->params[':group'] = $group;
-        }
-        if ($region = $userProfile->filter_organizationregion)  {
-            $criteria->addCondition('organization_region_id=:region');
-            $criteria->params[':region'] = $region;
-        }
-        $dataProvider = new CActiveDataProvider('Organization', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organization_per_page,
-            ),
-        ));
         $this->render('favorite', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Organization::model()->getFavorite($this->getUserProfile()),
         ));
-
     }
 
 }

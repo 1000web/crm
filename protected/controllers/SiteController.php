@@ -49,41 +49,12 @@ class SiteController extends Controller
     }*/
 
     public function actionFavorite(){
-        $criteria = array(
-            'order' => 'value ASC',
-            //'condition' => 'product_type_id=' . $type,
-            'with'=>array('favUsers'),
-        );
-        $customer = new CActiveDataProvider('Customer', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
-        $organization = new CActiveDataProvider('Organization', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
-        $task = new CActiveDataProvider('Task', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
-        $deal = new CActiveDataProvider('Deal', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
-
+        $userProfile = $this->getUserProfile();
         $this->render('favorite', array(
-            'customer' => $customer,
-            'organization' => $organization,
-            'task' => $task,
-            'deal' => $deal,
+            'customer' =>       Customer::model()->getFavorite($userProfile),
+            'organization' =>   Organization::model()->getFavorite($userProfile),
+            'task' =>           Task::model()->getFavorite($userProfile),
+            'deal' =>           Deal::model()->getFavorite($userProfile),
         ));
 
     }

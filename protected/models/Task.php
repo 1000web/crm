@@ -121,4 +121,20 @@ class Task extends MyActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getFavorite($userProfile) {
+        $criteria = new CDbCriteria;
+        $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
+        $criteria->condition = 'j.user_id=:userid';
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+        $criteria->order = 'value';
+        $criteria->limit = -1;
+        return new CActiveDataProvider('Task', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->task_per_page,
+            ),
+        ));
+
+    }
 }

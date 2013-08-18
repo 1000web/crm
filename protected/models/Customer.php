@@ -108,7 +108,7 @@ class Customer extends MyActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('create_time',$this->create_time);
@@ -122,7 +122,22 @@ class Customer extends MyActiveRecord
 		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
+
+    public function getFavorite($userProfile) {
+        $criteria = new CDbCriteria;
+        $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
+        $criteria->condition = 'j.user_id=:userid';
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+        $criteria->order = 'value';
+        $criteria->limit = -1;
+        return new CActiveDataProvider('Customer', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->customer_per_page,
+            ),
+        ));
+    }
 }
