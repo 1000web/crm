@@ -149,7 +149,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать клиента', 'icon' => 'icon-plus', 'url' => array('/customer/create')),
                 ),
             ),
-            array('label' => 'Организации',
+            array('label' => 'Организации', 'url' => array('/organization/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/organization/favorite')),
                     array('label' => 'Список организаций', 'icon' => 'icon-list', 'url' => array('/organization/index')),
@@ -157,7 +157,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать организацию', 'icon' => 'icon-plus', 'url' => array('/organization/create')),
                 ),
             ),
-            array('label' => 'Задачи',
+            array('label' => 'Задачи',  'url' => array('/task/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/task/favorite')),
                     array('label' => 'Список задач', 'icon' => 'icon-tasks', 'url' => array('/task/index')),
@@ -167,7 +167,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать задачу', 'icon' => 'icon-plus', 'url' => array('/task/create')),
                 ),
             ),
-            array('label' => 'Сделки',
+            array('label' => 'Сделки', 'url' => array('/deal/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/deal/favorite')),
                     array('label' => 'Список сделок', 'icon' => 'icon-briefcase', 'url' => array('/deal/index')),
@@ -176,7 +176,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать сделку', 'icon' => 'icon-plus', 'url' => array('/deal/create')),
                 ),
             ),
-            array('label' => 'Справочники',
+            array('label' => 'Справочники', 'url' => array('/glossary/index'),
                 'items' => array(
                     array('label' => 'Организации',
                         'items' => array(
@@ -185,7 +185,7 @@ class Menu extends MyActiveRecord
                             array('label' => 'Регионы организаций', 'icon' => 'icon-globe', 'url' => array('/organizationregion/index')),
                         ),
                     ),
-                    array('label' => 'Меню',
+                    array('label' => 'Меню', 'url' => array('/menu/index'),
                         'items' => array(
                             array('label' => 'Меню', 'url' => array('/menu/index')),
                             array('label' => 'Пункты', 'url' => array('/item/index')),

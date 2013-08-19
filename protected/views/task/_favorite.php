@@ -10,11 +10,16 @@
         </div>
     </div>
 <?php
-$buttons['favorite'] = array(
+$controller = 'task';
+$buttons = array();
+if($this->checkAccess($controller, 'favorite')) $buttons['favorite'] = array(
     'icon' => 'icon-star',
-    'url'=>'Yii::app()->createUrl("task/favorite", array("del"=>$data->id))',
+    'url'=>'Yii::app()->createUrl("'.$controller.'/favorite", array("del"=>$data->id))',
     'label' => $this->attributeLabels('favdel'),
 );
+foreach(array('view','update','delete') as $action){
+    $this->addButtonTo($buttons, $controller, $action);
+}
 $columns = array(
         array('name' => 'id', 'header' => $this->attributeLabels('id')),
         array('name' => 'task_type_id', 'header' => $this->attributeLabels('task_type_id'), 'value' => '$data->taskType->value'),
@@ -27,5 +32,6 @@ $columns = array(
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
     'buttons' => $buttons,
+    'buttons_list' => false,
     'columns' => $columns,
 ));

@@ -9,11 +9,16 @@ if($this->checkAccess('organization', 'view')) {
         'label' => $this->attributeLabels('organization'),
     );
 }
-$buttons['favorite'] = array(
+$controller = 'customer';
+$buttons = array();
+if($this->checkAccess($controller, 'favorite')) $buttons['favorite'] = array(
     'icon' => 'icon-star',
-    'url'=>'Yii::app()->createUrl("customer/favorite", array("del"=>$data->id))',
+    'url'=>'Yii::app()->createUrl("'.$controller.'/favorite", array("del"=>$data->id))',
     'label' => $this->attributeLabels('favdel'),
 );
+foreach(array('view','update','delete') as $action){
+    $this->addButtonTo($buttons, $controller, $action);
+}
 
 $columns = array(
     array('name' => 'organization_id', 'header' => $this->attributeLabels('organization_id'), 'value' => '$data->organization->value'),
@@ -25,5 +30,6 @@ $columns = array(
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
     'buttons' => $buttons,
+    'buttons_list' => false,
     'columns' => $columns,
 ));

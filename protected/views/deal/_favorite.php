@@ -18,11 +18,17 @@
     </div>
 
 <?php
-$buttons['favorite'] = array(
+$controller = 'deal';
+$buttons = array();
+if($this->checkAccess($controller, 'favorite')) $buttons['favorite'] = array(
     'icon' => 'icon-star',
-    'url'=>'Yii::app()->createUrl("deal/favorite", array("del"=>$data->id))',
+    'url'=>'Yii::app()->createUrl("'.$controller.'/favorite", array("del"=>$data->id))',
     'label' => $this->attributeLabels('favdel'),
 );
+foreach(array('view','update','delete') as $action){
+    $this->addButtonTo($buttons, $controller, $action);
+}
+
 $columns = array(
     array('name' => 'inner_number', 'header' => $this->attributeLabels('inner_number')),
     array('name' => 'external_number', 'header' => $this->attributeLabels('external_number')),
@@ -38,5 +44,6 @@ $columns = array(
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
     'buttons' => $buttons,
+    'buttons_list' => false,
     'columns' => $columns,
 ));
