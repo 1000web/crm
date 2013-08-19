@@ -83,6 +83,7 @@ class Controller extends RController
             );
             $items[] = '---';
         }
+        $top_button_icon = '';
         foreach ($options as $key => $value) {
             $button = array(
                 'label' => $value,
@@ -90,6 +91,7 @@ class Controller extends RController
             );
             if ($userProfile->getAttribute('filter_' . $param) == $key) {
                 $button['icon'] = 'ok';
+                $top_button_icon = 'ok';
                 $button_title = $value;
             }
             $items[] = $button;
@@ -104,7 +106,7 @@ class Controller extends RController
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
             'type' => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
-                array('label' => $button_title, 'url' => ''),
+                array('label' => $button_title, 'icon' => $top_button_icon, 'url' => ''),
                 array('items' => $items),
             ),
         ));
@@ -292,6 +294,7 @@ class Controller extends RController
     public function buildPageOptions($model = NULL)
     {
         $this->top_menu_items = Menu::model()->get_menu('top_menu');
+
         $this->_model = $model;
 
         $module = $this->getModule();
