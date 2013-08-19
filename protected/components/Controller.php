@@ -75,7 +75,8 @@ class Controller extends RController
     {
         $items = array();
         $userProfile = $this->getUserProfile();
-        $button_title = $this->attributeLabels($param);
+        $top_button_title = $this->attributeLabels($param);
+        $top_button_icon = '';
         if ($userProfile->getAttribute('filter_' . $param)) {
             $items[] = array(
                 'label' => 'Сбросить фильтр',
@@ -90,7 +91,8 @@ class Controller extends RController
             );
             if ($userProfile->getAttribute('filter_' . $param) == $key) {
                 $button['icon'] = 'ok';
-                $button_title = $value;
+                $top_button_icon = 'ok';
+                $top_button_title = $value;
             }
             $items[] = $button;
         }
@@ -104,7 +106,7 @@ class Controller extends RController
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
             'type' => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
-                array('label' => $button_title, 'url' => ''),
+                array('label' => $top_button_title, 'icon' => $top_button_icon, 'url' => ''),
                 array('items' => $items),
             ),
         ));
@@ -292,6 +294,7 @@ class Controller extends RController
     public function buildPageOptions($model = NULL)
     {
         $this->top_menu_items = Menu::model()->get_menu('top_menu');
+
         $this->_model = $model;
 
         $module = $this->getModule();

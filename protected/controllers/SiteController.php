@@ -61,28 +61,6 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        // top menu
-        /*
-        $menu = new CActiveDataProvider('MenuItem', array(
-            'criteria' => array(
-                'condition' => 'menu_id=' . $menu_id,
-                'condition' => 'visible=1',
-                'order' => 'prior ASC',
-                //'with' => array('createUser','updateUser'),
-            ),
-        ));/**/
-
-
-/*
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'menu_id=:menu_id';
-        $criteria->condition = 'parent_id=:parent_id';
-        $criteria->condition = 'visible=1';
-        $criteria->params = array(':menu_id' => $menu_id);
-        $criteria->params = array(':parent_id' => NULL);
-        $menu = Item::model()->find($criteria); // $params не требуется
-        /**/
-
         $this->render('test');
     }
 }
