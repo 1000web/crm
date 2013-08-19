@@ -7,14 +7,14 @@
 /* @var $columns_list array */
 
 if(!isset($buttons)) $buttons = array();
-if(!isset($buttons_list)) $buttons_list = array('view', 'update', 'delete');;
+if(!isset($buttons_list)) $buttons_list = array('view', 'update', 'delete');
 
 if(!isset($columns)) $columns = array();
 if(!isset($columns_list)) $columns_list = array();
 
 $controller = $this->id;
 
-if($buttons_list !== NULL) {
+if(is_array($buttons_list)) {
     foreach($buttons_list as $button){
         $this->addButtonTo($buttons, $controller, $button);
     }

@@ -21,11 +21,23 @@
     </div>
 
 <?php
-$buttons['favorite'] = array(
+$controller = 'organization';
+$buttons = array();
+if($this->checkAccess($controller, 'favorite')) $buttons['favorite'] = array(
     'icon' => 'icon-star',
-    'url'=>'Yii::app()->createUrl("organization/favorite", array("del"=>$data->id))',
+    'url'=>'Yii::app()->createUrl("'.$controller.'/favorite", array("del"=>$data->id))',
     'label' => $this->attributeLabels('favdel'),
 );
+if($this->checkAccess($controller, 'view')) $buttons['view'] = array(
+    'url'=>'Yii::app()->createUrl("'.$controller.'/view", array("id"=>$data->id))',
+);
+if($this->checkAccess($controller, 'update')) $buttons['update'] = array(
+    'url'=>'Yii::app()->createUrl("'.$controller.'/update", array("id"=>$data->id))',
+);
+if($this->checkAccess($controller, 'delete')) $buttons['delete'] = array(
+    'url'=>'Yii::app()->createUrl("'.$controller.'/delete", array("id"=>$data->id))',
+);
+
 $columns = array(
     array('name' => 'id', 'header' => $this->attributeLabels('id')),
     array('name' => 'value', 'header' => $this->attributeLabels('value')),
@@ -37,5 +49,6 @@ $columns = array(
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
     'buttons' => $buttons,
+    'buttons_list' => false,
     'columns' => $columns,
 ));
