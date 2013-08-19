@@ -294,7 +294,6 @@ class Controller extends RController
     public function buildPageOptions($model = NULL)
     {
         $this->top_menu_items = Menu::model()->get_menu('top_menu');
-
         $this->_model = $model;
 
         $module = $this->getModule();
