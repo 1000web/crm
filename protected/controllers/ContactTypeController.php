@@ -94,8 +94,14 @@ class ContacttypeController extends Controller
      */
     public function actionIndex()
     {
+        $profile = $this->getUserProfile();
+        $criteria = new CDbCriteria();
+        $criteria->order = 'value ASC';
+
         $dataProvider = new CActiveDataProvider('ContactType', array(
+            'criteria' => $criteria,
             'pagination' => array(
+                //'pageSize' => $profile->customer_per_page,
                 'pageSize' => 20,
             ),
         ));
@@ -109,17 +115,19 @@ class ContacttypeController extends Controller
     {
         $profile = $this->getUserProfile();
         $criteria = new CDbCriteria();
+
         $criteria->addCondition('id=:id');
         $criteria->params[':id'] = $id;
         $criteria->order = 'log_datetime DESC';
+
         $dataProvider = new CActiveDataProvider('ContacttypeLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $profile->customer_per_page,
+                //'pageSize' => $profile->customer_per_page,
+                'pageSize' => 20,
             ),
         ));
-        $model = $this->loadModel($id);
-        $this->buildPageOptions($model);
+        $this->buildPageOptions($this->loadModel($id));
         $this->render('log', array(
             'dataProvider' => $dataProvider,
         ));

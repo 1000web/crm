@@ -229,7 +229,7 @@ class Controller extends RController
                 'url' => array('update', 'id' => $id)),
             'view' => array(
                 'label' => Yii::t('lang', 'Показать'),
-                'icon' => 'icon-view',
+                'icon' => 'icon-eye-open',
                 'url' => array('view', 'id' => $id)),
             'delete' => array(
                 'label' => Yii::t('lang', 'Удалить'),
