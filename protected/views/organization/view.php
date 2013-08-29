@@ -26,19 +26,19 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
 ));
 
 if($this->checkAccess('organizationcontact', 'view'))
-    echo $this->renderPartial('_contact', array(
+    echo $this->renderPartial('../organizationcontact/index', array(
     'dataProvider' => $contact,
     'model' => $model,
 ));
 
 if($this->checkAccess('customer', 'view'))
-    echo $this->renderPartial('_customer', array(
+    echo $this->renderPartial('../customer/index', array(
     'dataProvider' => $customer,
     'model' => $model,
 ));
 
 if($this->checkAccess('deal', 'view'))
-    echo $this->renderPartial('_deal', array(
+    echo $this->renderPartial('../deal/index', array(
     'dataProvider' => $deal,
     'model' => $model,
 ));

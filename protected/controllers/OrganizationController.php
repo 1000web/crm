@@ -237,7 +237,7 @@ class OrganizationController extends Controller
             else $this->redirect($this->id);
         }
         $this->buildPageOptions();
-        $this->render('favorite', array(
+        $this->render('index', array(
             'dataProvider' => Organization::model()->getFavorite($this->getUserProfile()),
         ));
     }

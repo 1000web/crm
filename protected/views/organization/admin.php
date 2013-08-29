@@ -17,15 +17,17 @@ $('.search-form form').submit(function(){
 
 echo $this->manage_search_form($model);
 
-$columns = array(
-    array('name'=>'organization_type_id', 'header' => $this->attributeLabels('organization_type_id'), 'value' => '$data->organizationType->value'),
-    array('name'=>'organization_group_id', 'header' => $this->attributeLabels('organization_group_id'), 'value' => '$data->organizationGroup->value'),
-    array('name'=>'organization_region_id', 'header' => $this->attributeLabels('organization_group_id'), 'value' => '$data->organizationRegion->value'),
-    array('name'=>'value', 'header' => $this->attributeLabels('value')),
-);
+$this->buttons = $this->columns = array();
+
+$this->addButtons('organization', array('view','update','delete'));
+$this->addColumns(array(
+    'organization_type_id',
+    'organization_group_id',
+    'organization_region_id',
+    'value',
+));
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $model->search(),
-    'columns' => $columns,
 ));
 
 /*
