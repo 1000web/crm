@@ -4,8 +4,6 @@
 
 echo $this->renderPartial('../deal/_filter_buttons');
 
-$controller = 'deal';
-
 $this->buttons = $this->columns = array();
 
 /*
@@ -17,7 +15,7 @@ if($this->checkAccess($controller, 'favorite')) {
     );
 }/**/
 
-$this->addButtons($this->id, array('view', 'update', 'delete'));
+$this->addButtons('deal', array('view', 'update', 'delete','log'));
 $this->addColumns(array('inner_number', 'external_number', 'open_date','organization_id', 'customer_id','deal_source_id', 'deal_stage_id', 'value'));
 
 echo $this->renderPartial('../grid_view', array(

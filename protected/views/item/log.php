@@ -4,9 +4,10 @@
 
 $this->renderPartial('_filter_buttons');
 
-$columns_list = array('id', 'parent_id', 'module', 'controller', 'action', 'icon', 'value', 'title');
+$this->buttons = $this->columns = array();
+$this->addColumns(array('log_datetime', 'log_user_id'));
+$this->addColumns(array('parent_id', 'module', 'controller', 'action', 'icon', 'value', 'title'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
-    'columns_list' => $columns_list,
 ));

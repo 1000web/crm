@@ -183,6 +183,9 @@ class Controller extends RController
                 case 'organization_group_id':
                     $value = '$data->organizationGroup->value';
                     break;
+                case 'product_type_id':
+                    $value = '$data->productType->value';
+                    break;
                 case 'datetime':
                     $value = 'date("Y-m-d H:i:s",$data->datetime)';
                     break;
