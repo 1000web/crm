@@ -66,9 +66,7 @@ class OrganizationController extends Controller
         if (isset($_POST['Organization'])) {
             $model->attributes = $_POST['Organization'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -94,9 +92,7 @@ class OrganizationController extends Controller
         if (isset($_POST['Organization'])) {
             $model->attributes = $_POST['Organization'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -115,9 +111,7 @@ class OrganizationController extends Controller
     {
         $model_log = new OrganizationLog;
         $model = $this->loadModel($id);
-        $model_log->attributes = $model->attributes;
-        $model_log->setAttribute('log_action', $this->getAction()->id);
-        $model_log->save();
+        $model_log->save_log_record($model, $this->getAction()->id);
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

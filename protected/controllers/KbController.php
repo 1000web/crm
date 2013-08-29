@@ -30,9 +30,7 @@ class KbController extends Controller
         if (isset($_POST['Kb'])) {
             $model->attributes = $_POST['Kb'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -52,16 +50,13 @@ class KbController extends Controller
         $model = $this->loadModel($id);
         $model_log = new KbLog;
 
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Kb'])) {
             $model->attributes = $_POST['Kb'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -80,9 +75,7 @@ class KbController extends Controller
     {
         $model_log = new KbLog;
         $model = $this->loadModel($id);
-        $model_log->attributes = $model->attributes;
-        $model_log->setAttribute('log_action', $this->getAction()->id);
-        $model_log->save();
+        $model_log->save_log_record($model, $this->getAction()->id);
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
