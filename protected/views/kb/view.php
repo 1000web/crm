@@ -2,9 +2,6 @@
 /* @var $this KbController */
 /* @var $model Kb */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
     array('name' => 'state', 'label' => 'State'),
     array('name' => 'value', 'label' => 'Значение'),

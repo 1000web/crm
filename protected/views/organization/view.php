@@ -5,9 +5,6 @@
 /* @var $deal Deal */
 /* @var $contact OrganizationContact */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
 //        array('name' => 'id', 'label' => '#'),
         //array('name' => 'organization_type_id', 'label' => 'Тип'),

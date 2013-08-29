@@ -8,8 +8,10 @@ class ContacttypeController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class ContacttypeController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -62,7 +64,7 @@ class ContacttypeController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -97,7 +99,28 @@ class ContacttypeController extends Controller
                 'pageSize' => 20,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
+    public function actionLog($id)
+    {
+        $profile = $this->getUserProfile();
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('id=:id');
+        $criteria->params[':id'] = $id;
+        $criteria->order = 'log_datetime DESC';
+        $dataProvider = new CActiveDataProvider('ContacttypeLog', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $profile->customer_per_page,
+            ),
+        ));
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
+        $this->render('log', array(
             'dataProvider' => $dataProvider,
         ));
     }
@@ -112,6 +135,7 @@ class ContacttypeController extends Controller
         if (isset($_GET['ContactType']))
             $model->attributes = $_GET['ContactType'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));

@@ -8,8 +8,10 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class TaskController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -62,7 +64,7 @@ class TaskController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -110,6 +112,7 @@ class TaskController extends Controller
                 'pageSize' => $userProfile->task_per_page,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -125,6 +128,7 @@ class TaskController extends Controller
         if (isset($_GET['Task']))
             $model->attributes = $_GET['Task'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -194,7 +198,8 @@ class TaskController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
-        $this->render('favorite', array(
+        $this->buildPageOptions();
+        $this->render('index', array(
             'dataProvider' => Task::model()->getFavorite($this->getUserProfile()),
         ));
 

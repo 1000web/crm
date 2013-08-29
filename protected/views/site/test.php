@@ -1,10 +1,6 @@
 <?php
 /* @var $this SiteController */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
-
 $menu_name = 'home_menu';
 $menu = MenuItem::model()->get_menu($menu_name);
 

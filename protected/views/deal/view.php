@@ -2,9 +2,6 @@
 /* @var $this DealController */
 /* @var $model Deal */
 
-if (!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
     /*
         'owner_id',

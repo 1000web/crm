@@ -10,11 +10,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->buildPageOptions();
         $this->render('index');
     }
 
     public function actionAbout()
     {
+        $this->buildPageOptions();
         $this->render('about');
     }
 
@@ -33,8 +35,10 @@ class SiteController extends Controller
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
-            else
+            else {
+                $this->buildPageOptions();
                 $this->render('error', $error);
+            }
         }
     }
 
@@ -50,6 +54,7 @@ class SiteController extends Controller
 
     public function actionFavorite(){
         $userProfile = $this->getUserProfile();
+        $this->buildPageOptions();
         $this->render('favorite', array(
             'customer' =>       Customer::model()->getFavorite($userProfile),
             'organization' =>   Organization::model()->getFavorite($userProfile),
@@ -61,6 +66,7 @@ class SiteController extends Controller
 
     public function actionTest()
     {
+        $this->buildPageOptions();
         $this->render('test');
     }
 }

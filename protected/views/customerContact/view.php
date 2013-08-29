@@ -2,9 +2,6 @@
 /* @var $this CustomerContactController */
 /* @var $model CustomerContact */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
         array('name' => 'customer_id', 'label' => 'Клиент', 'value' => $model->customer->value),
 //        array('name' => 'value', 'label' => 'Значение'),

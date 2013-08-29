@@ -3,9 +3,6 @@
 /* @var $model Customer */
 /* @var $contact CustomerContact */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
     array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $model->organization->value),
     array('name' => 'position', 'label' => $this->attributeLabels('position')),
@@ -22,12 +19,18 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));
-
+/**/
 if($this->checkAccess('customercontact', 'view'))
     echo $this->renderPartial('_contact', array(
     'dataProvider' => $contact,
     'model' => $model,
-));
+));/**/
+/*
+if($this->checkAccess('customercontact', 'view'))
+    echo $this->renderPartial('../customercontact/_index', array(
+    'dataProvider' => $contact,
+    'model' => $model,
+));/**/
 
 if($this->checkAccess('deal', 'view'))
     echo $this->renderPartial('_deal', array(

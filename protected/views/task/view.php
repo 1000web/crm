@@ -2,9 +2,6 @@
 /* @var $this TaskController */
 /* @var $model Task */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
         array('name' => 'task_type_id', 'label' => 'Тип задачи', 'value' => $model->taskType->value),
         array('name' => 'datetime', 'label' => 'Дата/время', 'value' => $model->datetime),

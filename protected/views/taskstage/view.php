@@ -2,9 +2,6 @@
 /* @var $this TaskStageController */
 /* @var $model TaskStage */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
     array('name' => 'prior', 'label' => 'Приоритет'),
     array('name' => 'value', 'label' => 'Значение'),

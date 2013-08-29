@@ -1,9 +1,5 @@
 <?php
 /* @var $this GlossaryController */
-
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 ?>
 
 <ul>

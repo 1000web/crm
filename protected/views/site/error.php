@@ -1,10 +1,6 @@
 <?php
 /* @var $this SiteController */
 /* @var $error array */
-
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 ?>
 
 <h2>Error <?php echo $code; ?></h2>

@@ -8,8 +8,10 @@ class KbController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class KbController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -63,7 +65,7 @@ class KbController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -94,6 +96,7 @@ class KbController extends Controller
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Kb');
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -109,6 +112,7 @@ class KbController extends Controller
         if (isset($_GET['Kb']))
             $model->attributes = $_GET['Kb'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));

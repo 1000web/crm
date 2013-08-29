@@ -8,8 +8,10 @@ class DealController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class DealController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -62,7 +64,7 @@ class DealController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -93,21 +95,16 @@ class DealController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order' => 'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if ($stage = $userProfile->filter_dealstage) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'deal_stage_id=' . $stage;
-            $flag = true;
+        $criteria = new CDbCriteria();
+        $criteria->order = 'value ASC';
+
+        if($stage = $userProfile->filter_dealstage) {
+            $criteria->addCondition('deal_stage_id=:deal_stage_id');
+            $criteria->params[':deal_stage_id'] = $stage;
         }
-        if ($source = $userProfile->filter_dealsource) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'deal_source_id=' . $source;
-            $flag = true;
+        if($source = $userProfile->filter_dealsource) {
+            $criteria->addCondition('deal_source_id=:deal_source_id');
+            $criteria->params[':deal_source_id'] = $source;
         }
         $dataProvider = new CActiveDataProvider('Deal', array(
             'criteria' => $criteria,
@@ -115,7 +112,7 @@ class DealController extends Controller
                 'pageSize' => $userProfile->deal_per_page,
             ),
         ));
-
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -131,6 +128,7 @@ class DealController extends Controller
         if (isset($_GET['Deal']))
             $model->attributes = $_GET['Deal'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -199,7 +197,8 @@ class DealController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
-        $this->render('favorite', array(
+        $this->buildPageOptions();
+        $this->render('index', array(
             'dataProvider' => Deal::model()->getFavorite($this->getUserProfile()),
         ));
 

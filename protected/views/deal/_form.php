@@ -3,8 +3,8 @@
 /* @var $model Deal */
 /* @var $form CActiveForm */
 
-//Yii::app()->bootstrap->registerAssetCss('bootstrap-datepicker.css');
-//Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
+Yii::app()->bootstrap->registerAssetCss('bootstrap-datepicker.css');
+Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
 ?>
 
 <div class="span12">

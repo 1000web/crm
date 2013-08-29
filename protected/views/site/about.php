@@ -1,9 +1,5 @@
 <?php
 /* @var $this SiteController */
-
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 ?>
 
 <h2>Какие первостепенные задачи ставят руководители российских предприятий перед CRM?</h2>

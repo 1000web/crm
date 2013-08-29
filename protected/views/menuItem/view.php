@@ -2,9 +2,6 @@
 /* @var $this MenuItemController */
 /* @var $model MenuItem */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
     array('name' => 'parent_id', 'label' => 'Parent'),
     array('name' => 'menu_id', 'label' => 'Menu'),

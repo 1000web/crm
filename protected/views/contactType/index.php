@@ -2,8 +2,9 @@
 /* @var $this ContacttypeController */
 /* @var $dataProvider CActiveDataProvider */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
+$this->buttons = $this->columns = array();
+$this->addButtons('contacttype', array('view', 'update', 'delete', 'log'));
+$this->addColumns(array('id','value', 'description'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

@@ -8,8 +8,10 @@ class DealstageController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class DealstageController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -62,7 +64,7 @@ class DealstageController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -97,6 +99,7 @@ class DealstageController extends Controller
                 'pageSize' => 20,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -112,6 +115,7 @@ class DealstageController extends Controller
         if (isset($_GET['DealStage']))
             $model->attributes = $_GET['DealStage'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));

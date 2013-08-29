@@ -8,8 +8,10 @@ class CustomercontactController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,7 +36,7 @@ class CustomercontactController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -62,7 +64,7 @@ class CustomercontactController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -93,24 +95,41 @@ class CustomercontactController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order'=>'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
+        $criteria = new CDbCriteria();
+        $criteria->order = 'value ASC';
+
         if($type = $userProfile->filter_contacttype) {
-            if($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'contact_type_id=' . $type;
-            $flag = true;
+            $criteria->addCondition('contact_type_id=:contact_type_id');
+            $criteria->params[':contact_type_id'] = $type;
         }
-        $dataProvider=new CActiveDataProvider('CustomerContact', array(
+        $dataProvider = new CActiveDataProvider('CustomerContact', array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => $userProfile->customercontact_per_page,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
+    public function actionLog($id)
+    {
+        $userProfile = $this->getUserProfile();
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('id=:id');
+        $criteria->params[':id'] = $id;
+        $criteria->order = 'log_datetime DESC';
+        $dataProvider = new CActiveDataProvider('CustomerLog', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->customercontact_per_page,
+            ),
+        ));
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
+        $this->render('log', array(
             'dataProvider' => $dataProvider,
         ));
     }
@@ -125,6 +144,7 @@ class CustomercontactController extends Controller
         if (isset($_GET['CustomerContact']))
             $model->attributes = $_GET['CustomerContact'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));

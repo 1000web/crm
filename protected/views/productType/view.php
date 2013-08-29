@@ -2,9 +2,6 @@
 /* @var $this ProductTypeController */
 /* @var $model ProductType */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
         array('name' => 'value', 'label' => 'Значение'),
         array('name' => 'description', 'label' => 'Описание'),

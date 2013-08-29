@@ -9,11 +9,11 @@ $controller = 'organizationcontact';
 
     <h2>Контакты Организации
         <?php
-        if (true) {
+        if ($this->checkAccess($controller, 'create')) {
             $this->widget('bootstrap.widgets.TbButton', array(
                 'url' => array('/' . $controller . '/create', 'oid' => $model->id),
                 'label' => 'Добавить контакт',
-                'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             ));
         }
         ?>
@@ -21,13 +21,10 @@ $controller = 'organizationcontact';
 
 <?php
 
-$buttons = array();
-$this->addButtonTo($buttons, $controller, 'view');
-$this->addButtonTo($buttons, $controller, 'update');
-$this->addButtonTo($buttons, $controller, 'delete');
+$this->addButtons($controller, array('view', 'update', 'delete'));
 
 $template = '';
-foreach ($buttons as $key => $value) {
+foreach ($this->buttons as $key => $value) {
     $template .= '{' . $key . '} ';
 }
 $columns = array(
@@ -40,7 +37,7 @@ if (!empty($template)) array_push($columns,
     array(
         'class' => 'bootstrap.widgets.TbButtonColumn',
         'template' => $template,
-        'buttons' => $buttons,
+        'buttons' => $this->buttons,
         'htmlOptions' => array(
             'style' => 'text-align:center; width: 50px',
         ),
@@ -49,5 +46,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'template' => "{items}",
-    'columns' => $columns,
+    'columns' => $this->columns,
 ));

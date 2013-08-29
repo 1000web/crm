@@ -31,6 +31,7 @@ class CustomerController extends Controller
             'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
         ),*/
         ));
+        $this->buildPageOptions($model);
         $this->render('view', array(
             'model' => $model,
             'contact' => $contact,
@@ -59,7 +60,7 @@ class CustomerController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model
         ));
@@ -87,7 +88,7 @@ class CustomerController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -123,7 +124,27 @@ class CustomerController extends Controller
                 'pageSize' => $profile->customer_per_page,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
+    public function actionLog($id)
+    {
+        $profile = $this->getUserProfile();
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('id=:id');
+        $criteria->params[':id'] = $id;
+        $criteria->order = 'log_datetime DESC';
+        $dataProvider = new CActiveDataProvider('CustomerLog', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $profile->customer_per_page,
+            ),
+        ));
+        $this->buildPageOptions();
+        $this->render('log', array(
             'dataProvider' => $dataProvider,
         ));
     }
@@ -138,6 +159,7 @@ class CustomerController extends Controller
         if (isset($_GET['Customer']))
             $model->attributes = $_GET['Customer'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -206,7 +228,8 @@ class CustomerController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
-        $this->render('favorite', array(
+        $this->buildPageOptions();
+        $this->render('index', array(
             'dataProvider' => Customer::model()->getFavorite($this->getUserProfile()),
         ));
     }

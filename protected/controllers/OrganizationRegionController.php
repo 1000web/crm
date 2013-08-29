@@ -8,8 +8,10 @@ class OrganizationRegionController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -34,6 +36,7 @@ class OrganizationRegionController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -61,7 +64,7 @@ class OrganizationRegionController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -96,6 +99,7 @@ class OrganizationRegionController extends Controller
                 'pageSize' => 20,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -111,6 +115,7 @@ class OrganizationRegionController extends Controller
         if (isset($_GET['OrganizationRegion']))
             $model->attributes = $_GET['OrganizationRegion'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));

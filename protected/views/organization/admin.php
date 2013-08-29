@@ -2,9 +2,6 @@
 /* @var $this OrganizationController */
 /* @var $model Organization */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

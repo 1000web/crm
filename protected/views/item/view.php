@@ -2,9 +2,6 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 $attr = array(
         array('name' => 'module', 'label' => 'Module'),
         array('name' => 'controller', 'label' => 'Controller'),

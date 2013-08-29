@@ -2,12 +2,11 @@
 /* @var $this DealSourceController */
 /* @var $dataProvider CActiveDataProvider */
 
-if(!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
+$this->buttons = $this->columns = array();
 
-$columns_list = array('prior','value', 'description');
+$this->addButtons('dealsource', array('view','update', 'delete', 'log'));
+$this->addColumns(array('prior','value', 'description'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
-    'columns_list' => $columns_list,
 ));

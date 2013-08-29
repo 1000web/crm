@@ -42,6 +42,7 @@ class OrganizationController extends Controller
             'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
         ),*/
         ));
+        $this->buildPageOptions($model);
         $this->render('view', array(
             'model' => $model,
             'deal' => $deal,
@@ -71,7 +72,7 @@ class OrganizationController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('create', array(
             'model' => $model,
         ));
@@ -99,7 +100,7 @@ class OrganizationController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->buildPageOptions($model);
         $this->render('update', array(
             'model' => $model,
         ));
@@ -150,6 +151,7 @@ class OrganizationController extends Controller
                 'pageSize' => $userProfile->organization_per_page,
             ),
         ));
+        $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -165,6 +167,7 @@ class OrganizationController extends Controller
         if (isset($_GET['Organization']))
             $model->attributes = $_GET['Organization'];
 
+        $this->buildPageOptions($model);
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -233,6 +236,7 @@ class OrganizationController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
+        $this->buildPageOptions();
         $this->render('favorite', array(
             'dataProvider' => Organization::model()->getFavorite($this->getUserProfile()),
         ));

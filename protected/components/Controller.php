@@ -17,7 +17,10 @@ class Controller extends RController
 
     public $favorite_available = false;
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favorite');
+    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favorite', 'log');
+
+    public $buttons = array();
+    public $columns = array();
 
     /**
      * @return array action filters
@@ -121,12 +124,84 @@ class Controller extends RController
         else $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function addButtonTo(&$buttons, $controller, $action, $id = '$data->id')
+    public function addButton($controller, $action, $id = '$data->id')
     {
+        if (!$controller) $controller = $this->id;
         if ($this->checkAccess($controller, $action)) {
-            $buttons[$action] = array(
+            $this->buttons[$action] = array(
                 'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>' . $id . '))',
             );
+            switch($action){
+                case 'log': $this->buttons[$action]['icon'] = 'icon-share-alt';
+                    break;
+            }
+        }
+    }
+
+    public function addButtons($controller, $actions, $id = '$data->id')
+    {
+        foreach ($actions as $action) {
+            $this->addButton($controller, $action, $id);
+        }
+    }
+
+    public function addColumn($col, $value = NULL)
+    {
+        if (!$value) {
+            switch ($col) {
+                case 'organization_id':
+                    $value = '$data->organization->value';
+                    break;
+                case 'user_id':
+                case 'log_user_id':
+                    $value = '$data->user->username';
+                    break;
+                case 'create_user_id':
+                    $value = '$data->create_user->username';
+                    break;
+                case 'update_user_id':
+                    $value = '$data->update_user->username';
+                    break;
+                case 'customer_id':
+                    $value = '$data->customer->value';
+                    break;
+                case 'contact_type_id':
+                    $value = '$data->contactType->value';
+                    break;
+                case 'deal_source_id':
+                    $value = '$data->dealSource->value';
+                    break;
+                case 'deal_stage_id':
+                    $value = '$data->dealStage->value';
+                    break;
+                case 'organization_type_id':
+                    $value = '$data->organizationType->value';
+                    break;
+                case 'organization_region_id':
+                    $value = '$data->organizationRegion->value';
+                    break;
+                case 'organization_group_id':
+                    $value = '$data->organizationGroup->value';
+                    break;
+                case 'datetime':
+                    $value = 'date("Y-m-d H:i:s",$data->datetime)';
+                    break;
+                case 'log_datetime':
+                    $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
+                    break;
+                case 'task_type_id':
+                    $value = '$data->taskType->value';
+                    break;
+            }
+        }
+        if (!$value) $this->columns[$col] = array('name' => $col, 'header' => $this->attributeLabels($col));
+        else $this->columns[$col] = array('name' => $col, 'header' => $this->attributeLabels($col), 'value' => $value);
+    }
+
+    public function addColumns($list)
+    {
+        foreach ($list as $col) {
+            $this->addColumn($col);
         }
     }
 
@@ -162,6 +237,10 @@ class Controller extends RController
                     'confirm' => Yii::t('lang', 'Вы действительно хотите удалить эту запись?')
                 )
             ),
+            'log' => array(
+                'label' => Yii::t('lang', 'История'),
+                'icon' => 'icon-share-alt',
+                'url' => array('log', 'id' => $id)),
             'favorite_add' => array(
                 'label' => 'В Избранное',
                 'icon' => 'icon-star-empty',
@@ -204,6 +283,7 @@ class Controller extends RController
                 //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
                 if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if ($this->checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
                 //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
@@ -215,7 +295,18 @@ class Controller extends RController
                 //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
                 if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if ($this->checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
                 //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                break;
+            case 'favorite':
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                break;
+            case 'log':
+                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
+                if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
+                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
         }
         return;
@@ -398,6 +489,7 @@ class Controller extends RController
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
             'datetime' => 'Дата/время',
+            'log_datetime' => 'Дата/время',
             'deleted' => 'Удалено',
             'description' => 'Описание',
             'email' => 'Email',
@@ -446,6 +538,7 @@ class Controller extends RController
             'task_type_id' => 'Тип задачи',
             'update_time' => 'Дата изменения',
             'update_user_id' => 'Кто изменил',
+            'log_user_id' => 'Пользователь',
             'user_id' => 'Пользователь',
             'username' => 'Имя пользователя',
             'value' => 'Значение',

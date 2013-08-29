@@ -2,9 +2,6 @@
 /* @var $this DealSourceController */
 /* @var $model DealSource */
 
-if (!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

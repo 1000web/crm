@@ -1,9 +1,5 @@
 <?php
 /* @var $this SiteController */
-
-if (!isset($model)) $this->buildPageOptions();
-else $this->buildPageOptions($model);
-
 ?>
 
 <div class="span12">
