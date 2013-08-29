@@ -3,10 +3,8 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->buttons = $this->columns = array();
-
-//$this->addButtons($this->id, array('view', 'update', 'delete'));
-
-$this->addColumns(array('log_datetime', 'log_user_id', 'value', 'description'));
+$this->addColumns(array('log_datetime', 'log_user_id'));
+$this->addColumns(array('value', 'description'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

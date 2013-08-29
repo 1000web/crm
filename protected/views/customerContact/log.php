@@ -13,7 +13,7 @@ if($this->checkAccess('customer', 'view')) {
         'label' => $this->attributeLabels('customer_id'),
     );
 }
-
+$this->addColumns(array('log_datetime', 'log_user_id'));
 $this->addColumns(array('customer_id', 'contact_type_id', 'value', 'description'));
 
 echo $this->renderPartial('../grid_view', array(

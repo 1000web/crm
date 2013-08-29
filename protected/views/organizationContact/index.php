@@ -13,15 +13,8 @@ if($this->checkAccess('organization', 'view')) {
         'label' => $this->attributeLabels('organization'),
     );
 }
-$this->addButtons('organizationcontact', array('view','update','delete'));
-
-$this->addColumns(array(
-    'id',
-    'organization_id',
-    'contact_type_id',
-    'value',
-    'description',
-));
+$this->addButtons('organizationcontact', array('view','update','delete', 'log'));
+$this->addColumns(array('organization_id','contact_type_id','value','description'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

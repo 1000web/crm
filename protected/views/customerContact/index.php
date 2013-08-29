@@ -13,7 +13,7 @@ if($this->checkAccess('customer', 'view')) {
         'label' => $this->attributeLabels('customer_id'),
     );
 }
-$this->addButtons('customercontact', array('view','update','delete'));
+$this->addButtons('customercontact', array('view','update','delete','log'));
 
 $this->addColumns(array('customer_id', 'contact_type_id', 'value', 'description'));
 
