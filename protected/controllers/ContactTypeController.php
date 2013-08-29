@@ -30,9 +30,7 @@ class ContacttypeController extends Controller
         if (isset($_POST['ContactType'])) {
             $model->attributes = $_POST['ContactType'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -58,9 +56,7 @@ class ContacttypeController extends Controller
         if (isset($_POST['ContactType'])) {
             $model->attributes = $_POST['ContactType'];
             if ($model->save()) {
-                $model_log->attributes = $model->attributes;
-                $model_log->setAttribute('log_action', $this->getAction()->id);
-                $model_log->save();
+                $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -79,9 +75,7 @@ class ContacttypeController extends Controller
     {
         $model_log = new ContactTypeLog;
         $model = $this->loadModel($id);
-        $model_log->attributes = $model->attributes;
-        $model_log->setAttribute('log_action', $this->getAction()->id);
-        $model_log->save();
+        $model_log->save_log_record($model, $this->getAction()->id);
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -115,10 +109,10 @@ class ContacttypeController extends Controller
     {
         $profile = $this->getUserProfile();
         $criteria = new CDbCriteria();
+        $criteria->order = 'log_datetime DESC';
 
         $criteria->addCondition('id=:id');
         $criteria->params[':id'] = $id;
-        $criteria->order = 'log_datetime DESC';
 
         $dataProvider = new CActiveDataProvider('ContacttypeLog', array(
             'criteria' => $criteria,
