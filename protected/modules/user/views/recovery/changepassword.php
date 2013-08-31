@@ -3,9 +3,8 @@ $this->breadcrumbs = array(
     UserModule::t("Login") => array('/user/login'),
     UserModule::t("Change Password"),
 );
-?>
 
-<h1><?php echo UserModule::t("Change Password"); ?></h1>
+$this->h1 = UserModule::t("Change Password"); ?>
 
 
 <div class="form">

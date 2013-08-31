@@ -3,17 +3,16 @@ $this->breadcrumbs = array(
     UserModule::t("Users"),
 );
 if (UserModule::isAdmin()) {
-    $this->layout = '//layouts/column2';
+    //$this->layout = '//layouts/column2';
     $this->menu = array(
         array('label' => UserModule::t('Manage Users'), 'url' => array('/user/admin')),
         array('label' => UserModule::t('Manage Profile Field'), 'url' => array('profileField/admin')),
     );
 }
-?>
 
-<h1><?php echo UserModule::t("List User"); ?></h1>
+$this->h1 = UserModule::t("List User");
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dataProvider,
     'columns' => array(
         array(
@@ -24,4 +23,4 @@ if (UserModule::isAdmin()) {
         'create_at',
         'lastvisit_at',
     ),
-)); ?>
+));

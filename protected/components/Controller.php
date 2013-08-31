@@ -9,7 +9,7 @@ class Controller extends RController
     public $menu = array();
     public $top_menu_items = array();
     public $breadcrumbs = array();
-    private $_model = NULL;
+    protected $_model = NULL;
 
     public $header_image = '';
     public $h1 = 'Header H1';

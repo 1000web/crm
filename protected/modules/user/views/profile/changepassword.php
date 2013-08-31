@@ -14,7 +14,7 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo UserModule::t("Change password"); ?></h1>
+<?php $this->h1 = UserModule::t("Change password"); ?>
 
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(

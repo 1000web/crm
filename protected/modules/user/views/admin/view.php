@@ -13,10 +13,8 @@ $this->menu = array(
     array('label' => UserModule::t('Manage Profile Field'), 'url' => array('profileField/admin')),
     array('label' => UserModule::t('List User'), 'url' => array('/user')),
 );
-?>
-<h1><?php echo UserModule::t('View User') . ' "' . $model->username . '"'; ?></h1>
 
-<?php
+$this->h1 = UserModule::t('View User') . ' "' . $model->username . '"';
 
 $attributes = array(
     'id',

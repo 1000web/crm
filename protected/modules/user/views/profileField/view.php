@@ -10,10 +10,10 @@ $this->menu = array(
     array('label' => UserModule::t('Manage Profile Field'), 'url' => array('admin')),
     array('label' => UserModule::t('Manage Users'), 'url' => array('/user/admin')),
 );
-?>
-<h1><?php echo UserModule::t('View Profile Field #') . $model->varname; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+$this->h1 = UserModule::t('View Profile Field #') . $model->varname;
+
+$this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',
@@ -33,4 +33,4 @@ $this->menu = array(
         'position',
         'visible',
     ),
-)); ?>
+));

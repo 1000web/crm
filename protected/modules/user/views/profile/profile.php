@@ -11,7 +11,8 @@ $this->menu = array(
     array('label' => UserModule::t('Change password'), 'url' => array('changepassword')),
     array('label' => UserModule::t('Logout'), 'url' => array('/user/logout')),
 );
-?><h1><?php echo UserModule::t('Your profile'); ?></h1>
+
+$this->h1 = UserModule::t('Your profile'); ?>
 
 <?php if (Yii::app()->user->hasFlash('profileMessage')): ?>
     <div class="success">

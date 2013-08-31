@@ -3,9 +3,8 @@ $this->breadcrumbs = array(
     UserModule::t("Login") => array('/user/login'),
     UserModule::t("Restore"),
 );
-?>
 
-    <h1><?php echo UserModule::t("Restore"); ?></h1>
+$this->h1 = UserModule::t("Restore"); ?>
 
 <?php if (Yii::app()->user->hasFlash('recoveryMessage')): ?>
     <div class="success">

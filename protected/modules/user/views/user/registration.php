@@ -4,7 +4,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-    <h1><?php echo UserModule::t("Registration"); ?></h1>
+    <?php $this->h1 = UserModule::t("Registration"); ?>
 
 <?php if (Yii::app()->user->hasFlash('registration')): ?>
     <div class="success">

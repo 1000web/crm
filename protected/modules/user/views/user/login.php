@@ -3,8 +3,8 @@ $this->pageTitle = Yii::app()->name . ' - ' . UserModule::t("Login");
 $this->breadcrumbs = array(
     UserModule::t("Login"),
 );
-?>
-    <h1><?php echo UserModule::t("Login"); ?></h1>
+
+$this->h1 = UserModule::t("Login"); ?>
 
 <?php if (Yii::app()->user->hasFlash('loginMessage')): ?>
 
@@ -29,14 +29,9 @@ $this->breadcrumbs = array(
             <legend><?php echo UserModule::t("Please fill out the following form with your login credentials:"); ?></legend>
         </div>
 
-        <?php /*echo $form->textFieldRow($model, 'textField', array('class'=>'span3')); ?>
-        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3')); ?>
-        <?php echo $form->checkboxRow($model, 'checkbox'); */?>
-
 <?php /*
         <p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 */?>
-
 
         <div class="row">
             <?php echo $form->textFieldRow($model, 'username', array('class'=>'span3')); ?>
