@@ -57,7 +57,20 @@
     ?>
     </div>
     <div class='span10'>
-    <?php
+        <?php
+        /*
+        $this->beginWidget('bootstrap.widgets.TbHeroUnit', array(
+            'heading' => $this->h1,
+        ));
+        echo "<p>" . $this->description . "</p>";
+        if($this->menu) {
+            $this->widget('bootstrap.widgets.TbMenu', array(
+                'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
+                'stacked' => false, // whether this is a stacked menu
+                'items' => $this->menu,
+            ));
+        }
+        $this->endWidget(); */
     if(isset($this->h1)) echo "<h1>" . $this->h1 . "</h1>\n";
     if(isset($this->description)) echo "<p>" . $this->description . "</p>";
     if(isset($this->menu) AND $this->menu) {
@@ -69,7 +82,10 @@
     }
     ?>
     </div>
-</div><!-- page_header -->
+</div>
+
+
+    <!-- page_header -->
 
     <?php echo $content; ?>
 
