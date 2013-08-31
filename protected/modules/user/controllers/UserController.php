@@ -3,11 +3,6 @@
 class UserController extends Controller
 {
     /**
-     * @var CActiveRecord the currently loaded data model instance.
-     */
-    private $_model;
-
-    /**
      * Displays a particular model.
      */
     public function actionView()

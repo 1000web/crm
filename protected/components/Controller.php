@@ -9,7 +9,7 @@ class Controller extends RController
     public $menu = array();
     public $top_menu_items = array();
     public $breadcrumbs = array();
-    protected $_model = NULL;
+    private $_model = NULL;
 
     public $header_image = '';
     public $h1 = 'Header H1';
@@ -317,24 +317,7 @@ class Controller extends RController
 
     public function buildBreadcrumbs_bak($model = NULL)
     {
-        /*
-        if($model) $value = $model->value;
-        else $value = NULL;/**/
-
         switch ($this->getAction()->getId()) {
-            case 'admin':
-                $this->breadcrumbs = array(
-                    $this->name => array('index'),
-                    'Управление',
-                );
-                break;
-            case
-            'create':
-                $this->breadcrumbs = array(
-                    $this->name => array('index'),
-                    'Создать',
-                );
-                break;
             case 'update':
                 $this->breadcrumbs = array(
                     $this->name => array('index'),
@@ -348,11 +331,6 @@ class Controller extends RController
                     $model->value,
                 );
                 break;
-            case 'index':
-            default:
-                $this->breadcrumbs = array(
-                    $this->name,
-                );
         }
         return;
     }
