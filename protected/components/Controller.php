@@ -559,4 +559,13 @@ class Controller extends RController
         return $arr[$key];
     }
 
+    public function HttpException($code){
+        switch($code){
+            case 404: $error = 'The requested page does not exist.';
+                break;
+            default: $error = 'Error ' . $code;
+        }
+        throw new CHttpException($code, $error);
+    }
+
 }

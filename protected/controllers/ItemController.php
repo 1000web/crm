@@ -163,7 +163,7 @@ class ItemController extends Controller
         $model = Item::model()->findByPk($id);
         //$model = Item::model()->with(array('createUser', 'updateUser'))->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            $this->HttpException(404);
         return $model;
     }
 

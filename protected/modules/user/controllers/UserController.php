@@ -48,7 +48,7 @@ class UserController extends Controller
             if (isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                $this->HttpException(404);
         }
         return $this->_model;
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
             if ($id !== null || isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($id !== null ? $id : $_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                $this->HttpException(404);
         }
         return $this->_model;
     }

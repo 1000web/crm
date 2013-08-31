@@ -126,7 +126,7 @@ class TaskstageController extends Controller
     {
         $model = TaskStage::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            $this->HttpException(404);
         return $model;
     }
 
