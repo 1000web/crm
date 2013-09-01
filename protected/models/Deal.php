@@ -153,7 +153,7 @@ class Deal extends MyActiveRecord
         ));
     }
 
-    public function getAll($userProfile, $select = '')
+    public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
         switch($select) {
@@ -161,6 +161,14 @@ class Deal extends MyActiveRecord
                 $criteria->join = 'LEFT JOIN {{deal_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
                 $criteria->params = array(':userid' => Yii::app()->user->id);
+                break;
+            case 'customer_id':
+                $criteria->condition = 'customer_id=:cid';
+                $criteria->params[':cid'] = $param;
+                break;
+            case 'organization_id':
+                $criteria->condition = 'organization_id=:oid';
+                $criteria->params[':oid'] = $param;
                 break;
         }
         if ($stage = $userProfile->filter_dealstage) {

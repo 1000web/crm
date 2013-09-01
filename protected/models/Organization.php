@@ -142,9 +142,6 @@ class Organization extends MyActiveRecord
                 $criteria->params = array(':userid' => Yii::app()->user->id);
                 break;
         }
-        //$criteria->order = 'value ASC';
-        //$criteria->order = $userProfile->organization_sort;
-        //$criteria->limit = -1;
         if ($type = $userProfile->filter_organizationtype) {
             $criteria->addCondition('organization_type_id=:type');
             $criteria->params[':type'] = $type;

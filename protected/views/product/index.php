@@ -2,7 +2,7 @@
 /* @var $this ProductController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->renderPartial('_filter_buttons');
+$this->renderPartial('../product/_filter_buttons');
 
 $this->buttons = $this->columns = array();
 $this->addButtons('product', array('view', 'update', 'delete', 'log'));

@@ -99,9 +99,15 @@ class CustomerContact extends MyActiveRecord
         ));
     }
 
-    public function getAll($userProfile)
+    public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
+        switch($select) {
+            case 'customer_id':
+                $criteria->condition = 'customer_id=:cid';
+                $criteria->params[':cid'] = $param;
+                break;
+        }
         if ($type = $userProfile->filter_contacttype) {
             $criteria->addCondition('contact_type_id=:type');
             $criteria->params[':type'] = $type;

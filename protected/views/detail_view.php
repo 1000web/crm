@@ -10,12 +10,12 @@ if ($this->checkAccess($this->id, 'log')) {
 }
 
 //if($this->checkAccess($this->id, 'log')) $this->addAttributes(array('create_time', 'update_time'));
-
+/*
 $this->set_attributes_values($dataProvider);
 
 echo '<pre>';
 print_r($this->attributes);
-echo '</pre>';
+echo '</pre>';/**/
 
 $this->widget('bootstrap.widgets.TbDetailView', array(
     'type' => 'striped bordered condensed',

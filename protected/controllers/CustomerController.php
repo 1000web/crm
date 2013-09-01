@@ -10,32 +10,11 @@ class CustomerController extends Controller
     {
         $model = $this->loadModel($id);
         $userProfile = $this->getUserProfile();
-
-        $contact = new CActiveDataProvider('CustomerContact', array(
-            'criteria' => array(
-                'condition' => 'customer_id=' . $id,
-                //'order' => 'create_time DESC',
-                //'with' => array('createUser','updateUser'),
-            ),
-            'pagination' => array(
-                'pageSize' => $userProfile->customercontact_pagesize,
-            ),
-        ));
-        $deal = new CActiveDataProvider('Deal', array(
-            'criteria' => array(
-                'condition' => 'customer_id=' . $id,
-                //'order' => 'create_time DESC',
-                //'with' => array('createUser','updateUser'),
-            ),
-            'pagination' => array(
-                'pageSize' => $userProfile->deal_pagesize,
-            ),
-        ));
         $this->buildPageOptions($model);
         $this->render('view', array(
             'model' => $model,
-            'contact' => $contact,
-            'deal' => $deal,
+            'contact' => CustomerContact::model()->getAll($userProfile, 'customer_id', $id),
+            'deal' => Deal::model()->getAll($userProfile, 'customer_id', $id),
         ));
     }
 
