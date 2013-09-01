@@ -88,14 +88,12 @@ class OrganizationRegionController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('OrganizationRegion', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organizationregion_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => OrganizationRegion::model()->getAll($userProfile),
         ));
     }
 

@@ -88,14 +88,12 @@ class OrganizationgroupController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('OrganizationGroup', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organizationgroup_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => OrganizationGroup::model()->getAll($userProfile),
         ));
     }
 

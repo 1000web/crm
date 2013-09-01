@@ -89,24 +89,14 @@ class CustomercontactController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = new CDbCriteria();
-        $criteria->order = 'value ASC';
-
-        if($type = $userProfile->filter_contacttype) {
-            $criteria->addCondition('contact_type_id=:contact_type_id');
-            $criteria->params[':contact_type_id'] = $type;
-        }
-        $dataProvider = new CActiveDataProvider('CustomerContact', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->customercontact_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customercontact_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => CustomerContact::model()->getAll($userProfile),
         ));
     }
+
 
     public function actionLog($id)
     {
@@ -118,7 +108,7 @@ class CustomercontactController extends Controller
         $dataProvider = new CActiveDataProvider('CustomerLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->customercontact_per_page,
+                'pageSize' => $userProfile->customercontact_pagesize,
             ),
         ));
         $model = $this->loadModel($id);

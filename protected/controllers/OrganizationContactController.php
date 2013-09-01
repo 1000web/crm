@@ -89,26 +89,11 @@ class OrganizationcontactController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order'=>'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if($type = $userProfile->filter_contacttype) {
-            if($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'contact_type_id=' . $type;
-            $flag = true;
-        }
-        $dataProvider=new CActiveDataProvider('OrganizationContact', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organizationcontact_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organizationcontact_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => OrganizationContact::model()->getAll($userProfile),
         ));
     }
 

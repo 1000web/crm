@@ -89,31 +89,11 @@ class MenuitemController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order' => 'prior ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if ($menu = $userProfile->filter_menu) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'menu_id=' . $menu;
-            $flag = true;
-        }
-        if ($parent = $userProfile->filter_parent) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'parent_id=' . $parent;
-            $flag = true;
-        }
-        $dataProvider = new CActiveDataProvider('MenuItem', array(
-            'criteria' => $criteria,
-            'pagination'=>array(
-                'pageSize' => $userProfile->menuitem_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->menuitem_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => MenuItem::model()->getAll($userProfile),
         ));
     }
 

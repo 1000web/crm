@@ -88,14 +88,12 @@ class DealstageController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('DealStage', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->dealstage_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => DealStage::model()->getAll($userProfile),
         ));
     }
 

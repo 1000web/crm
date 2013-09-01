@@ -88,14 +88,12 @@ class TasktypeController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('TaskType', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->tasktype_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => TaskType::model()->getAll($userProfile),
         ));
     }
 
