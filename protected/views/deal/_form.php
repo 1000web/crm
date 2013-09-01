@@ -9,10 +9,16 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
 
 <div class="span12">
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'verticalForm',
+        'htmlOptions' => array('class' => 'well'),
+    ));
+    ?>
+    <?php /* $form = $this->beginWidget('CActiveForm', array(
         'id' => 'deal-form',
         'enableAjaxValidation' => false,
-    )); ?>
+    )); */ ?>
 
     <?php echo $form->errorSummary($model); ?>
 

@@ -6,10 +6,10 @@ echo $this->renderPartial('_filter_buttons');
 
 $this->buttons = $this->columns = array();
 
-if($this->checkAccess('customer', 'view')) {
+if ($this->checkAccess('customer', 'view')) {
     $this->buttons['list'] = array(
         'icon' => 'icon-list',
-        'url'=>'Yii::app()->createUrl("customer/view", array("id"=>$data->customer_id))',
+        'url' => 'Yii::app()->createUrl("customer/view", array("id"=>$data->customer_id))',
         'label' => $this->attributeLabels('customer_id'),
     );
 }

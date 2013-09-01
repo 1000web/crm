@@ -90,4 +90,16 @@ class TaskType extends MyActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        return new CActiveDataProvider('TaskType', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->tasktype_pagesize,
+            ),
+        ));
+    }
+
 }

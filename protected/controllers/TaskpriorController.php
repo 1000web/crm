@@ -88,14 +88,12 @@ class TaskpriorController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('TaskPrior', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->taskprior_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => TaskPrior::model()->getAll($userProfile),
         ));
     }
 

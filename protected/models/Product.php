@@ -94,4 +94,20 @@ class Product extends MyActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        if ($type = $userProfile->filter_producttype) {
+            $criteria->addCondition('product_type_id=:type');
+            $criteria->params[':type'] = $type;
+        }
+        return new CActiveDataProvider('Product', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->product_pagesize,
+            ),
+        ));
+    }
+
 }

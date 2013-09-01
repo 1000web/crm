@@ -9,16 +9,17 @@ class OrganizationController extends Controller
     public function actionView($id)
     {
         $model = $this->loadModel($id);
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = false;
         $contact = new CActiveDataProvider('OrganizationContact', array(
             'criteria' => array(
                 'condition' => 'organization_id=' . $id,
                 'order' => 'contact_type_id ASC',
                 //'with' => array('category'),
             ),
-            /*
-        'pagination' => array(
-            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-        ),*/
+            'pagination' => array(
+                'pageSize' => $userProfile->organizationcontact_pagesize,
+            ),
         ));
         $customer = new CActiveDataProvider('Customer', array(
             'criteria' => array(
@@ -26,10 +27,9 @@ class OrganizationController extends Controller
                 'order' => 'value ASC',
                 //'with' => array('category'),
             ),
-            /*
-        'pagination' => array(
-            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-        ),*/
+            'pagination' => array(
+                'pageSize' => $userProfile->customer_pagesize,
+            ),
         ));
         $deal = new CActiveDataProvider('Deal', array(
             'criteria' => array(
@@ -37,10 +37,9 @@ class OrganizationController extends Controller
                 'order' => 'inner_number DESC',
                 //'with' => array('category'),
             ),
-            /*
-        'pagination' => array(
-            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-        ),*/
+            'pagination' => array(
+                'pageSize' => $userProfile->deal_pagesize,
+            ),
         ));
         $this->buildPageOptions($model);
         $this->render('view', array(
@@ -125,30 +124,13 @@ class OrganizationController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = new CDbCriteria;
-        $criteria->order = 'value';
-        if ($type = $userProfile->filter_organizationtype)      {
-            $criteria->addCondition('organization_type_id=:type');
-            $criteria->params[':type'] = $type;
-        }
-        if ($group = $userProfile->filter_organizationgroup)    {
-            $criteria->addCondition('organization_group_id=:group');
-            $criteria->params[':group'] = $group;
-        }
-        if ($region = $userProfile->filter_organizationregion)  {
-            $criteria->addCondition('organization_region_id=:region');
-            $criteria->params[':region'] = $region;
-        }
-        $dataProvider = new CActiveDataProvider('Organization', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organization_per_page,
-            ),
-        ));
+        $this->_pagesize = $userProfile->organization_pagesize;
+
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Organization::model()->getAll($userProfile),
         ));
+
     }
 
     /**
@@ -196,11 +178,13 @@ class OrganizationController extends Controller
 
     public $favorite_available = true;
 
-    public function checkFavorite($id){
-        if(OrganizationFav::model()->countByAttributes(array(
+    public function checkFavorite($id)
+    {
+        if (OrganizationFav::model()->countByAttributes(array(
             'id' => $id,
             'user_id' => Yii::app()->user->id,
-        ))) return true;
+        ))
+        ) return true;
         else return false;
     }
 
@@ -209,10 +193,10 @@ class OrganizationController extends Controller
      */
     public function actionFavorite($add = NULL, $del = NULL)
     {
-        if($add OR $del) {
+        if ($add OR $del) {
             // добавляем в Избранное
-            if(isset($add)){
-                if(!$this->checkFavorite($add)) {
+            if (isset($add)) {
+                if (!$this->checkFavorite($add)) {
                     $model = new OrganizationFav;
                     $model->setAttribute('id', $add);
                     //$model->setAttribute('datetime', time());
@@ -221,7 +205,7 @@ class OrganizationController extends Controller
                 }
             }
             // удаляем из Избранного
-            if($del){
+            if ($del) {
                 OrganizationFav::model()->findByAttributes(array(
                     'id' => $del,
                     'user_id' => Yii::app()->user->id,
@@ -232,7 +216,7 @@ class OrganizationController extends Controller
         }
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Organization::model()->getFavorite($this->getUserProfile()),
+            'dataProvider' => Organization::model()->getAll($this->getUserProfile(), 'favorite'),
         ));
     }
 

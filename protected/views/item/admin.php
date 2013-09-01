@@ -18,21 +18,21 @@ $('.search-form form').submit(function(){
 echo $this->manage_search_form($model);
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'item-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'parent_id',
-		'module',
-		'controller',
-		'action',
-		'title',
-		'h1',
-		'value',
-		'description',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+    'id' => 'item-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'id',
+        'parent_id',
+        'module',
+        'controller',
+        'action',
+        'title',
+        'h1',
+        'value',
+        'description',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
 ));

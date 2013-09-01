@@ -4,7 +4,7 @@
 
 $this->buttons = $this->columns = array();
 $this->addButtons('product', array('view', 'update', 'delete', 'log'));
-$this->addColumns(array('prior','value','description'));
+$this->addColumns(array('prior', 'value', 'description'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

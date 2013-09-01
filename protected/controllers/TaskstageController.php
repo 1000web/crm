@@ -88,14 +88,12 @@ class TaskstageController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('TaskStage', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->taskstage_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => TaskStage::model()->getAll($userProfile),
         ));
     }
 

@@ -18,24 +18,24 @@ $('.search-form form').submit(function(){
 echo $this->manage_search_form($model);
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'menu-item-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'create_time',
-		'update_time',
-		'create_user_id',
-		'update_user_id',
-		'parent_id',
-		/*
-		'menu_id',
-		'item_id',
-		'prior',
-		'visible',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+    'id' => 'menu-item-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'id',
+        'create_time',
+        'update_time',
+        'create_user_id',
+        'update_user_id',
+        'parent_id',
+        /*
+        'menu_id',
+        'item_id',
+        'prior',
+        'visible',
+        */
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
 ));

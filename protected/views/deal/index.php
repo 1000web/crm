@@ -15,8 +15,8 @@ if($this->checkAccess($controller, 'favorite')) {
     );
 }/**/
 
-$this->addButtons('deal', array('view', 'update', 'delete','log'));
-$this->addColumns(array('inner_number', 'external_number', 'open_date','organization_id', 'customer_id','deal_source_id', 'deal_stage_id', 'value'));
+$this->addButtons('deal', array('view', 'update', 'delete', 'log'));
+$this->addColumns(array('inner_number', 'external_number', 'open_date', 'organization_id', 'customer_id', 'deal_source_id', 'deal_stage_id', 'value'));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

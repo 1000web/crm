@@ -21,12 +21,14 @@ if (!empty($template)) array_push($this->columns,
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
-    'template' => "{items}",
+    //'template' => "{items}",
+    'template' => '{summary}{pager}{items}{pager}',
+    'enablePagination' => true,
     'columns' => $this->columns,
     'pager' => array(
         //'maxButtonCount' => Yii::app()->controller->isMobile?4:10,
         'maxButtonCount' => 10,
-        'class'          => 'bootstrap.widgets.TbPager',
+        'class' => 'bootstrap.widgets.TbPager',
     ),
 ));
 

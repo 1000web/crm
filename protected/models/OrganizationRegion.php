@@ -92,4 +92,16 @@ class OrganizationRegion extends MyActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        return new CActiveDataProvider('OrganizationRegion', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->organizationregion_pagesize,
+            ),
+        ));
+    }
+
 }

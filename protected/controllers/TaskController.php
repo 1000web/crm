@@ -89,28 +89,14 @@ class TaskController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order' => 'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if ($type = $userProfile->filter_tasktype) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'task_type_id=' . $type;
-            $flag = true;
-        }
-        $dataProvider = new CActiveDataProvider('Task', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->task_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Task::model()->getAll($userProfile),
         ));
     }
+
 
     /**
      * Manages all models.
@@ -158,11 +144,13 @@ class TaskController extends Controller
 
     public $favorite_available = true;
 
-    public function checkFavorite($id){
-        if(TaskFav::model()->countByAttributes(array(
+    public function checkFavorite($id)
+    {
+        if (TaskFav::model()->countByAttributes(array(
             'id' => $id,
             'user_id' => Yii::app()->user->id,
-        ))) return true;
+        ))
+        ) return true;
         else return false;
     }
 
@@ -171,10 +159,10 @@ class TaskController extends Controller
      */
     public function actionFavorite($add = NULL, $del = NULL)
     {
-        if($add OR $del) {
+        if ($add OR $del) {
             // добавляем в Избранное
-            if(isset($add)){
-                if(!$this->checkFavorite($add)) {
+            if (isset($add)) {
+                if (!$this->checkFavorite($add)) {
                     $model = new TaskFav();
                     $model->setAttribute('id', $add);
                     $model->setAttribute('datetime', time());
@@ -183,7 +171,7 @@ class TaskController extends Controller
                 }
             }
             // удаляем из Избранного
-            if($del){
+            if ($del) {
                 TaskFav::model()->findByAttributes(array(
                     'id' => $del,
                     'user_id' => Yii::app()->user->id,
@@ -192,13 +180,15 @@ class TaskController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->task_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Task::model()->getFavorite($this->getUserProfile()),
+            'dataProvider' => Task::model()->getAll($userProfile,'favorite'),
         ));
 
     }
-
 
 
 }

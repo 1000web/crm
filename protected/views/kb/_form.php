@@ -6,55 +6,61 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'kb-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'verticalForm',
+        'htmlOptions' => array('class' => 'well'),
+    ));
+    ?>
+    <?php /* $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'kb-form',
+        'enableAjaxValidation' => false,
+    )); */ ?>
 
-	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php
-        echo $form->labelEx($model,'state');
-        echo $form->textField($model,'state');
-        echo $form->error($model,'state');
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'state');
+        echo $form->textField($model, 'state');
+        echo $form->error($model, 'state');
         ?>
-	</div>
+    </div>
 
-	<div class="row">
-		<?php
-        echo $form->labelEx($model,'question');
-        echo $form->textArea($model,'question',array('rows'=>6, 'cols'=>50));
-        echo $form->error($model,'question');
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'question');
+        echo $form->textArea($model, 'question', array('rows' => 6, 'cols' => 50));
+        echo $form->error($model, 'question');
         ?>
-	</div>
+    </div>
 
-	<div class="row">
-		<?php
-        echo $form->labelEx($model,'answer');
-        echo $form->textArea($model,'answer',array('rows'=>6, 'cols'=>50));
-        echo $form->error($model,'answer');
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'answer');
+        echo $form->textArea($model, 'answer', array('rows' => 6, 'cols' => 50));
+        echo $form->error($model, 'answer');
         ?>
-	</div>
+    </div>
 
-	<div class="row">
-		<?php
-        echo $form->labelEx($model,'value');
-        echo $form->textField($model,'value',array('size'=>60,'maxlength'=>255));
-        echo $form->error($model,'value');
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'value');
+        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
+        echo $form->error($model, 'value');
         ?>
-	</div>
+    </div>
 
-	<div class="row">
-		<?php
-        echo $form->labelEx($model,'description');
-        echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50));
-        echo $form->error($model,'description');
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'description');
+        echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50));
+        echo $form->error($model, 'description');
         ?>
-	</div>
+    </div>
 
     <?php echo $this->submit_button($model->isNewRecord); ?>
 
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div><!-- form -->

@@ -2,4 +2,4 @@
 /* @var $this ItemController */
 /* @var $model Item */
 
-echo $this->renderPartial('_form', array('model'=>$model)); ?>
+echo $this->renderPartial('_form', array('model' => $model)); ?>

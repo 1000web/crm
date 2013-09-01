@@ -9,7 +9,7 @@ $attr = array(
     array('name' => 'prior', 'label' => 'Prior'),
     array('name' => 'visible', 'label' => 'visible'),
 );
-if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+if ($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
     $this->created_updated($model),
     $attr
 );

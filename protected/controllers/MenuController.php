@@ -89,14 +89,12 @@ class MenuController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Menu', array(
-            'pagination' => array(
-                'pageSize' => 20,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->menu_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Menu::model()->getAll($userProfile),
         ));
     }
 

@@ -9,16 +9,17 @@ class CustomerController extends Controller
     public function actionView($id)
     {
         $model = $this->loadModel($id);
+        $userProfile = $this->getUserProfile();
+
         $contact = new CActiveDataProvider('CustomerContact', array(
             'criteria' => array(
                 'condition' => 'customer_id=' . $id,
                 //'order' => 'create_time DESC',
                 //'with' => array('createUser','updateUser'),
             ),
-            /*
-        'pagination' => array(
-            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-        ),*/
+            'pagination' => array(
+                'pageSize' => $userProfile->customercontact_pagesize,
+            ),
         ));
         $deal = new CActiveDataProvider('Deal', array(
             'criteria' => array(
@@ -26,10 +27,9 @@ class CustomerController extends Controller
                 //'order' => 'create_time DESC',
                 //'with' => array('createUser','updateUser'),
             ),
-            /*
-        'pagination' => array(
-            'pageSize' => Yii::app()->config->get('NEWS.PER_PAGE'),
-        ),*/
+            'pagination' => array(
+                'pageSize' => $userProfile->deal_pagesize,
+            ),
         ));
         $this->buildPageOptions($model);
         $this->render('view', array(
@@ -112,25 +112,20 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
-        $profile = $this->getUserProfile();
-        $criteria = new CDbCriteria();
-        $criteria->order = 'value ASC';
-
-        $dataProvider = new CActiveDataProvider('Customer', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $profile->customer_per_page,
-            ),
-        ));
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customer_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Customer::model()->getAll($userProfile),
         ));
     }
 
     public function actionLog($id)
     {
-        $profile = $this->getUserProfile();
+        $userProfile = $this->getUserProfile();
+        if (isset($userProfile->customer_pagesize)) $this->_pagesize = $userProfile->customer_pagesize;
+
         $criteria = new CDbCriteria();
         $criteria->addCondition('id=:id');
         $criteria->params[':id'] = $id;
@@ -138,7 +133,7 @@ class CustomerController extends Controller
         $dataProvider = new CActiveDataProvider('CustomerLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $profile->customer_per_page,
+                'pageSize' => $this->_pagesize,
             ),
         ));
         $this->buildPageOptions();
@@ -192,11 +187,13 @@ class CustomerController extends Controller
 
     public $favorite_available = true;
 
-    public function checkFavorite($id){
-        if(CustomerFav::model()->countByAttributes(array(
+    public function checkFavorite($id)
+    {
+        if (CustomerFav::model()->countByAttributes(array(
             'id' => $id,
             'user_id' => Yii::app()->user->id,
-        ))) return true;
+        ))
+        ) return true;
         else return false;
     }
 
@@ -205,10 +202,10 @@ class CustomerController extends Controller
      */
     public function actionFavorite($add = NULL, $del = NULL)
     {
-        if($add OR $del) {
+        if ($add OR $del) {
             // добавляем в Избранное
-            if(isset($add)){
-                if(!$this->checkFavorite($add)) {
+            if (isset($add)) {
+                if (!$this->checkFavorite($add)) {
                     $model = new CustomerFav();
                     $model->setAttribute('id', $add);
                     $model->setAttribute('datetime', time());
@@ -217,7 +214,7 @@ class CustomerController extends Controller
                 }
             }
             // удаляем из Избранного
-            if($del){
+            if ($del) {
                 CustomerFav::model()->findByAttributes(array(
                     'id' => $del,
                     'user_id' => Yii::app()->user->id,
@@ -226,9 +223,13 @@ class CustomerController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
+
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customer_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Customer::model()->getFavorite($this->getUserProfile()),
+            'dataProvider' => Customer::model()->getAll($userProfile, 'favorite'),
         ));
     }
 }

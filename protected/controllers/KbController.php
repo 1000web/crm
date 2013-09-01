@@ -88,10 +88,12 @@ class KbController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Kb');
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->kb_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Kb::model()->getAll($userProfile),
         ));
     }
 

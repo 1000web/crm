@@ -19,7 +19,7 @@ echo $this->manage_search_form($model);
 
 $this->buttons = $this->columns = array();
 
-$this->addButtons('organization', array('view','update','delete'));
+$this->addButtons('organization', array('view', 'update', 'delete'));
 $this->addColumns(array(
     'organization_type_id',
     'organization_group_id',

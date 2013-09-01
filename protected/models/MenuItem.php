@@ -133,7 +133,7 @@ class MenuItem extends MyActiveRecord
         $criteria->addCondition('menu.value=:menu_name');
         $criteria->params[':menu_name'] = $menu_name;
         //$criteria->addCondition('menu_id=3');
-        if(!$parent_id) $criteria->addCondition('t.parent_id IS NULL');
+        if (!$parent_id) $criteria->addCondition('t.parent_id IS NULL');
         else {
             $criteria->addCondition('t.parent_id=:parent_id');
             $criteria->params[':parent_id'] = $parent_id;
@@ -143,4 +143,24 @@ class MenuItem extends MyActiveRecord
         $criteria->limit = -1;
         return MenuItem::model()->findAll($criteria);
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        if ($menu = $userProfile->filter_menu) {
+            $criteria->addCondition('menu_id=:menu');
+            $criteria->params[':menu'] = $menu;
+        }
+        if ($parent = $userProfile->filter_parent) {
+            $criteria->addCondition('parent_id=:parent');
+            $criteria->params[':parent'] = $parent;
+        }
+        return new CActiveDataProvider('MenuItem', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->menuitem_pagesize,
+            ),
+        ));
+    }
+
 }

@@ -98,4 +98,20 @@ class OrganizationContact extends MyActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        if ($type = $userProfile->filter_contacttype) {
+            $criteria->addCondition('contact_type_id=:type');
+            $criteria->params[':type'] = $type;
+        }
+        return new CActiveDataProvider('OrganizationContact', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->organizationcontact_pagesize,
+            ),
+        ));
+    }
+
 }

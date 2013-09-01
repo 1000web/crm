@@ -6,16 +6,22 @@
 
 <div class="form">
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'verticalForm',
+        'htmlOptions' => array('class' => 'well'),
+    ));
+    ?>
+    <?php /* $form = $this->beginWidget('CActiveForm', array(
         'id' => 'customer-contact-form',
         'enableAjaxValidation' => false,
-    )); ?>
+    )); */ ?>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
         <?php
-        if(isset($_GET['cid'])) $values = Customer::model()->getOptions('id','value','value',$_GET['cid']);
+        if (isset($_GET['cid'])) $values = Customer::model()->getOptions('id', 'value', 'value', $_GET['cid']);
         else $values = Customer::model()->getOptions();
 
         echo $form->labelEx($model, 'customer_id');

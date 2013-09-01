@@ -28,4 +28,3 @@ echo $this->renderPartial('../task/index', array(
 echo $this->renderPartial('../deal/index', array(
     'dataProvider' => $deal,
 ));
-/**/

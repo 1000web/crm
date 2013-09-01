@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-    public $actions = array('index', 'about', 'login', 'error', 'test', 'filter', 'favorite');
+    public $actions = array('index', 'about', 'login', 'error', 'test', 'setparam', 'favorite');
 
     /**
      * This is the default 'index' action that is invoked
@@ -23,7 +23,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         //$this->render('login');
-        if(Yii::app()->user->isGuest) $this->redirect('/user/login');
+        if (Yii::app()->user->isGuest) $this->redirect('/user/login');
         else $this->redirect('/');
     }
 
@@ -42,26 +42,20 @@ class SiteController extends Controller
         }
     }
 
-    public function buildMenuOperations($model = NULL) {}
+    public function buildMenuOperations($model = NULL)
+    {
+    }
 
-    /*
-    public function actionTestM(){
-        if($this->getModule()) $module = $this->getModule()->id . '.';
-        else $module = '';
-        $controller = $this->getId() . '.';
-        echo $module . $controller . $this->getAction()->id;
-    }*/
-
-    public function actionFavorite(){
+    public function actionFavorite()
+    {
         $userProfile = $this->getUserProfile();
         $this->buildPageOptions();
         $this->render('favorite', array(
-            'customer' =>       Customer::model()->getFavorite($userProfile),
-            'organization' =>   Organization::model()->getFavorite($userProfile),
-            'task' =>           Task::model()->getFavorite($userProfile),
-            'deal' =>           Deal::model()->getFavorite($userProfile),
+            'customer' => Customer::model()->getAll($userProfile, 'favorite'),
+            'organization' => Organization::model()->getAll($userProfile, 'favorite'),
+            'task' => Task::model()->getAll($userProfile, 'favorite'),
+            'deal' => Deal::model()->getAll($userProfile, 'favorite'),
         ));
-
     }
 
     public function actionTest()

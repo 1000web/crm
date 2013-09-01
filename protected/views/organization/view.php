@@ -1,10 +1,11 @@
 <?php
 /* @var $this OrganizationController */
 /* @var $model Organization */
+/* @var $contact OrganizationContact */
 /* @var $customer Customer */
 /* @var $deal Deal */
-/* @var $contact OrganizationContact */
 
+/*
 $attr = array(
 //        array('name' => 'id', 'label' => '#'),
         //array('name' => 'organization_type_id', 'label' => 'Тип'),
@@ -14,31 +15,36 @@ $attr = array(
         array('name' => 'organization_region_id', 'label' => 'Регион', 'value' => $model->organizationRegion->value),
         //array('name' => 'value', 'label' => 'Название'),
         array('name' => 'description', 'label' => 'Описание'),
-);
-if($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
-    $attr
-);
-$this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
-    'type' => 'striped bordered condensed',
-    'attributes' => $attr,
+);/**/
+$this->addAttributes(array(
+    'organization_type_id',
+    'organization_group_id',
+    'organization_region_id',
+    'description',
 ));
 
-if($this->checkAccess('organizationcontact', 'view'))
+echo $this->renderPartial('../detail_view', array(
+    'dataProvider' => $model,
+));
+
+
+if ($this->checkAccess('organizationcontact', 'view')) {
+    echo '<h2>Контакты Организации</h2>';
     echo $this->renderPartial('../organizationcontact/index', array(
-    'dataProvider' => $contact,
-    'model' => $model,
-));
+        'dataProvider' => $contact,
+    ));
+}
 
-if($this->checkAccess('customer', 'view'))
+if ($this->checkAccess('customer', 'view')) {
+    echo '<h2>Клиенты Организации</h2>';
     echo $this->renderPartial('../customer/index', array(
-    'dataProvider' => $customer,
-    'model' => $model,
-));
+        'dataProvider' => $customer,
+    ));
+}
 
-if($this->checkAccess('deal', 'view'))
+if ($this->checkAccess('deal', 'view')) {
+    echo '<h2>Сделки Организации</h2>';
     echo $this->renderPartial('../deal/index', array(
-    'dataProvider' => $deal,
-    'model' => $model,
-));
+        'dataProvider' => $deal,
+    ));
+}

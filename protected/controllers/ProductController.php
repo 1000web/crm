@@ -89,26 +89,11 @@ class ProductController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = array(
-            'order' => 'value ASC',
-            'condition' => '',
-            //'with'=>array('author'),
-        );
-        $flag = false;
-        if ($type = $userProfile->filter_producttype) {
-            if ($flag) $criteria['condition'] .= ' AND ';
-            $criteria['condition'] .= 'product_type_id=' . $type;
-            $flag = true;
-        }
-        $dataProvider = new CActiveDataProvider('Product', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->product_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->product_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Product::model()->getAll($userProfile),
         ));
     }
 

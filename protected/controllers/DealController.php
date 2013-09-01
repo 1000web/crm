@@ -89,28 +89,14 @@ class DealController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
-        $criteria = new CDbCriteria();
-        $criteria->order = 'value ASC';
-
-        if($stage = $userProfile->filter_dealstage) {
-            $criteria->addCondition('deal_stage_id=:deal_stage_id');
-            $criteria->params[':deal_stage_id'] = $stage;
-        }
-        if($source = $userProfile->filter_dealsource) {
-            $criteria->addCondition('deal_source_id=:deal_source_id');
-            $criteria->params[':deal_source_id'] = $source;
-        }
-        $dataProvider = new CActiveDataProvider('Deal', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->deal_per_page,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->deal_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => Deal::model()->getAll($userProfile),
         ));
     }
+
 
     /**
      * Manages all models.
@@ -157,11 +143,13 @@ class DealController extends Controller
 
     public $favorite_available = true;
 
-    public function checkFavorite($id){
-        if(DealFav::model()->countByAttributes(array(
+    public function checkFavorite($id)
+    {
+        if (DealFav::model()->countByAttributes(array(
             'id' => $id,
             'user_id' => Yii::app()->user->id,
-        ))) return true;
+        ))
+        ) return true;
         else return false;
     }
 
@@ -170,10 +158,10 @@ class DealController extends Controller
      */
     public function actionFavorite($add = NULL, $del = NULL)
     {
-        if($add OR $del) {
+        if ($add OR $del) {
             // добавляем в Избранное
-            if(isset($add)){
-                if(!$this->checkFavorite($add)) {
+            if (isset($add)) {
+                if (!$this->checkFavorite($add)) {
                     $model = new DealFav();
                     $model->setAttribute('id', $add);
                     $model->setAttribute('datetime', time());
@@ -182,7 +170,7 @@ class DealController extends Controller
                 }
             }
             // удаляем из Избранного
-            if($del){
+            if ($del) {
                 DealFav::model()->findByAttributes(array(
                     'id' => $del,
                     'user_id' => Yii::app()->user->id,
@@ -191,9 +179,13 @@ class DealController extends Controller
             if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
             else $this->redirect($this->id);
         }
+
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->contacttype_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Deal::model()->getFavorite($this->getUserProfile()),
+            'dataProvider' => Deal::model()->getAll($userProfile, 'favorite'),
         ));
 
     }

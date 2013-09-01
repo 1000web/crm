@@ -110,7 +110,8 @@ class Menu extends MyActiveRecord
         ));
     }
 
-    function get_menu($menu_name, $parent_id = NULL, $levels = 2){
+    function get_menu($menu_name, $parent_id = NULL, $levels = 2)
+    {
         return $this->static_menu();
     }
 
@@ -157,7 +158,7 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать организацию', 'icon' => 'icon-plus', 'url' => array('/organization/create')),
                 ),
             ),
-            array('label' => 'Задачи',  'url' => array('/task/index'),
+            array('label' => 'Задачи', 'url' => array('/task/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/task/favorite')),
                     array('label' => 'Список задач', 'icon' => 'icon-tasks', 'url' => array('/task/index')),
@@ -213,4 +214,16 @@ class Menu extends MyActiveRecord
         );
         return $items;
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        return new CActiveDataProvider('Menu', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->menu_pagesize,
+            ),
+        ));
+    }
+
 }

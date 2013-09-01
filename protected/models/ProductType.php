@@ -92,4 +92,16 @@ class ProductType extends MyActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile)
+    {
+        $criteria = new CDbCriteria;
+        return new CActiveDataProvider('ProductType', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->producttype_pagesize,
+            ),
+        ));
+    }
+
 }

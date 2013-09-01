@@ -17,10 +17,14 @@ class Controller extends RController
 
     public $favorite_available = false;
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'filter', 'favorite', 'log');
+    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'setparam', 'favorite', 'log');
 
+    public $attributes = array();
     public $buttons = array();
     public $columns = array();
+
+    protected $_pagesize = 20;
+    protected $show_pagesize = false;
 
     /**
      * @return array action filters
@@ -80,19 +84,20 @@ class Controller extends RController
         $userProfile = $this->getUserProfile();
         $top_button_title = $this->attributeLabels($param);
         $top_button_icon = '';
-        if ($userProfile->getAttribute('filter_' . $param)) {
+        $filterparam = 'filter_' . $param;
+        if ($userProfile->getAttribute($filterparam)) {
             $items[] = array(
                 'label' => 'Сбросить фильтр',
-                'url' => array('filter', 'param' => $param, 'value' => 0),
+                'url' => array('setparam', 'param' => $filterparam, 'value' => 0),
             );
             $items[] = '---';
         }
         foreach ($options as $key => $value) {
             $button = array(
                 'label' => $value,
-                'url' => array('filter', 'param' => $param, 'value' => $key),
+                'url' => array('setparam', 'param' => $filterparam, 'value' => $key),
             );
-            if ($userProfile->getAttribute('filter_' . $param) == $key) {
+            if ($userProfile->getAttribute($filterparam) == $key) {
                 $button['icon'] = 'ok';
                 $top_button_icon = 'ok';
                 $top_button_title = $value;
@@ -115,15 +120,97 @@ class Controller extends RController
         ));
     }
 
-    public function actionFilter($param, $value)
+    public function actionSetparam($param, $value)
     {
         $userProfile = $this->getUserProfile();
-        $userProfile->setAttribute('filter_' . $param, $value);
-        $userProfile->save();
+        if($userProfile->getAttribute($param) !== NULL)
+        {
+            $userProfile->setAttribute($param, $value);
+            $userProfile->save();
+        }
         if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
         else $this->redirect(Yii::app()->homeUrl);
     }
 
+    public function addAttribute($item, $value = NULL)
+    {
+        //$value = $this->column_value($value);
+        if (!$value) $this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item));
+        else $this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item), 'value' => $value);
+    }
+
+    public function addAttributes($list) {
+        foreach ($list as $item) {
+            $this->addAttribute($item);
+            //$this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item));
+        }
+    }
+    
+    public function attribute_value($item, $data){
+        $value = NULL;
+        switch ($item) {
+            case 'organization_id':
+                $value = $data->organization->value;
+                break;
+            case 'user_id':
+            case 'log_user_id':
+                $value = $data->user->username;
+                break;
+            case 'create_user_id':
+                $value = $data->createUser->username;
+                break;
+            case 'update_user_id':
+                $value = $data->updateUser->username;
+                break;
+            case 'customer_id':
+                $value = $data->customer->value;
+                break;
+            case 'contact_type_id':
+                $value = $data->contactType->value;
+                break;
+            case 'deal_source_id':
+                $value = $data->dealSource->value;
+                break;
+            case 'deal_stage_id':
+                $value = $data->dealStage->value;
+                break;
+            case 'organization_type_id':
+                $value = $data->organizationType->value;
+                break;
+            case 'organization_region_id':
+                $value = $data->organizationRegion->value;
+                break;
+            case 'organization_group_id':
+                $value = $data->organizationGroup->value;
+                break;
+            case 'product_type_id':
+                $value = $data->productType->value;
+                break;
+            case 'create_time':
+                $value = date("Y-m-d H:i:s",$data->create_time);
+                break;
+            case 'update_time':
+                $value = date("Y-m-d H:i:s",$data->update_time);
+                break;
+            case 'datetime':
+                $value = date("Y-m-d H:i:s",$data->datetime);
+                break;
+            case 'log_datetime':
+                $value = date("Y-m-d H:i:s",$data->log_datetime);
+                break;
+            case 'task_type_id':
+                $value = $data->taskType->value;
+                break;
+        }
+        return $value;
+
+    }
+    public function set_attributes_values($data){
+        foreach($this->attributes as $item => $attr) {
+            if($value = $this->attribute_value($item, $data)) echo $value;
+                //$this->attributes[$key]['value'] = $value;
+        }
+    }
     public function addButton($controller, $action, $id = '$data->id')
     {
         if (!$controller) $controller = $this->id;
@@ -145,60 +232,62 @@ class Controller extends RController
         }
     }
 
-    public function addColumn($col, $value = NULL)
-    {
-        if (!$value) {
-            switch ($col) {
-                case 'organization_id':
-                    $value = '$data->organization->value';
-                    break;
-                case 'user_id':
-                case 'log_user_id':
-                    $value = '$data->user->username';
-                    break;
-                case 'create_user_id':
-                    $value = '$data->create_user->username';
-                    break;
-                case 'update_user_id':
-                    $value = '$data->update_user->username';
-                    break;
-                case 'customer_id':
-                    $value = '$data->customer->value';
-                    break;
-                case 'contact_type_id':
-                    $value = '$data->contactType->value';
-                    break;
-                case 'deal_source_id':
-                    $value = '$data->dealSource->value';
-                    break;
-                case 'deal_stage_id':
-                    $value = '$data->dealStage->value';
-                    break;
-                case 'organization_type_id':
-                    $value = '$data->organizationType->value';
-                    break;
-                case 'organization_region_id':
-                    $value = '$data->organizationRegion->value';
-                    break;
-                case 'organization_group_id':
-                    $value = '$data->organizationGroup->value';
-                    break;
-                case 'product_type_id':
-                    $value = '$data->productType->value';
-                    break;
-                case 'datetime':
-                    $value = 'date("Y-m-d H:i:s",$data->datetime)';
-                    break;
-                case 'log_datetime':
-                    $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
-                    break;
-                case 'task_type_id':
-                    $value = '$data->taskType->value';
-                    break;
-            }
+    public function column_value($item, $value) {
+        switch ($item) {
+            case 'organization_id':
+                $value = '$data->organization->value';
+                break;
+            case 'user_id':
+            case 'log_user_id':
+                $value = '$data->user->username';
+                break;
+            case 'create_user_id':
+                $value = '$data->create_user->username';
+                break;
+            case 'update_user_id':
+                $value = '$data->update_user->username';
+                break;
+            case 'customer_id':
+                $value = '$data->customer->value';
+                break;
+            case 'contact_type_id':
+                $value = '$data->contactType->value';
+                break;
+            case 'deal_source_id':
+                $value = '$data->dealSource->value';
+                break;
+            case 'deal_stage_id':
+                $value = '$data->dealStage->value';
+                break;
+            case 'organization_type_id':
+                $value = '$data->organizationType->value';
+                break;
+            case 'organization_region_id':
+                $value = '$data->organizationRegion->value';
+                break;
+            case 'organization_group_id':
+                $value = '$data->organizationGroup->value';
+                break;
+            case 'product_type_id':
+                $value = '$data->productType->value';
+                break;
+            case 'datetime':
+                $value = 'date("Y-m-d H:i:s",$data->datetime)';
+                break;
+            case 'log_datetime':
+                $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
+                break;
+            case 'task_type_id':
+                $value = '$data->taskType->value';
+                break;
         }
-        if (!$value) $this->columns[$col] = array('name' => $col, 'header' => $this->attributeLabels($col));
-        else $this->columns[$col] = array('name' => $col, 'header' => $this->attributeLabels($col), 'value' => $value);
+        return $value;
+    }
+    public function addColumn($item, $value = NULL)
+    {
+        $value = $this->column_value($item, $value);
+        if (!$value) $this->columns[$item] = array('name' => $item, 'header' => $this->attributeLabels($item));
+        else $this->columns[$item] = array('name' => $item, 'header' => $this->attributeLabels($item), 'value' => $value);
     }
 
     public function addColumns($list)
@@ -419,10 +508,10 @@ class Controller extends RController
         $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name . ' (' . $model->updateUser->username . ')';
 
         return array(
-            array('name' => 'create_time', 'label' => $this->attributeLabels('create_time'), 'value' => $create_time),
-            array('name' => 'create_user_id', 'label' => $this->attributeLabels('create_user_id'), 'value' => $create_user),
-            array('name' => 'update_time', 'label' => $this->attributeLabels('update_time'), 'value' => $update_time),
-            array('name' => 'update_user_id', 'label' => $this->attributeLabels('update_user_id'), 'value' => $update_user),
+            'create_time' => array('name' => 'create_time', 'label' => $this->attributeLabels('create_time'), 'value' => $create_time),
+            'create_user_id' => array('name' => 'create_user_id', 'label' => $this->attributeLabels('create_user_id'), 'value' => $create_user),
+            'update_time' => array('name' => 'update_time', 'label' => $this->attributeLabels('update_time'), 'value' => $update_time),
+            'update_user_id' => array('name' => 'update_user_id', 'label' => $this->attributeLabels('update_user_id'), 'value' => $update_user),
         );
     }
 
@@ -544,6 +633,25 @@ class Controller extends RController
             default: $error = 'Error ' . $code;
         }
         throw new CHttpException($code, $error);
+    }
+
+    public function pagesize($controller = NULL) {
+        if($controller == NULL) $controller = $this->id;
+        $available_pagesize = array(5, 10, 20, 50, 100);
+        $buttons = array(
+            array('label' => 'На странице', 'disabled' => true)
+        );
+        foreach($available_pagesize as $pagesize) {
+            $button = array(
+                'label' => $pagesize,
+                'url' => array('setparam', 'param' => $controller . '_pagesize', 'value' => $pagesize)
+            );
+            if($pagesize == $this->_pagesize) $button['active'] = true;
+            $buttons[] = $button;
+        }
+        $this->widget('bootstrap.widgets.TbButtonGroup', array(
+            'buttons' => $buttons
+        ));
     }
 
 }
