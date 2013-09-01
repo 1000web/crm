@@ -124,8 +124,8 @@ class OrganizationController extends Controller
     public function actionIndex()
     {
         $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organization_pagesize;
-
         $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => Organization::model()->getAll($userProfile),
