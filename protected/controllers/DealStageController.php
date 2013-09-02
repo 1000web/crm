@@ -97,6 +97,17 @@ class DealstageController extends Controller
         ));
     }
 
+    public function actionLog($id)
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->dealstage_pagesize;
+        $this->buildPageOptions($this->loadModel($id));
+        $this->render('log', array(
+            'dataProvider' => DealStageLog::model()->getAll($userProfile, $id),
+        ));
+    }
+
     /**
      * Manages all models.
      */

@@ -100,23 +100,11 @@ class ContacttypeController extends Controller
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();
-        if (isset($userProfile->contacttype_pagesize)) $this->_pagesize = $userProfile->contacttype_pagesize;
-
-        $criteria = new CDbCriteria();
-        $criteria->order = 'log_datetime DESC';
-
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        $dataProvider = new CActiveDataProvider('ContacttypeLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $this->_pagesize,
-            ),
-        ));
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->contacttype_pagesize;
         $this->buildPageOptions($this->loadModel($id));
         $this->render('log', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => ContactTypeLog::model()->getAll($userProfile, $id),
         ));
     }
 

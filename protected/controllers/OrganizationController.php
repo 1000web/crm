@@ -102,6 +102,18 @@ class OrganizationController extends Controller
 
     }
 
+    public function actionLog($id)
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organization_pagesize;
+        $this->buildPageOptions($this->loadModel($id));
+        $this->render('log', array(
+            'dataProvider' => OrganizationLog::model()->getAll($userProfile, $id),
+        ));
+
+    }
+
     /**
      * Manages all models.
      */

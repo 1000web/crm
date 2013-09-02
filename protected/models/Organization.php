@@ -97,11 +97,11 @@ class Organization extends MyActiveRecord
             'update_time' => 'Update Time',
             'create_user_id' => 'Create User',
             'update_user_id' => 'Update User',
-            'organization_type_id' => 'Organization Type',
-            'organization_group_id' => 'Organization Group',
-            'organization_region_id' => 'Organization Region',
-            'value' => 'Value',
-            'description' => 'Description',
+            'organization_type_id' => 'Тип',
+            'organization_group_id' => 'Группа',
+            'organization_region_id' => 'Регион',
+            'value' => 'Название организации',
+            'description' => 'Примечание',
         );
     }
 

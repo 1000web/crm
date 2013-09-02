@@ -59,7 +59,9 @@ class OrganizationContactLog extends LogActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array();
+        return array(
+            'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+        );
     }
 
     /**
@@ -105,4 +107,21 @@ class OrganizationContactLog extends LogActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    public function getAll($userProfile, $id)
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->order = 'log_datetime DESC';
+        $criteria->addCondition('id=:id');
+        $criteria->params[':id'] = $id;
+
+        return new CActiveDataProvider('OrganizationContactLog', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $userProfile->organizationcontact_pagesize,
+            ),
+        ));
+    }
+
 }

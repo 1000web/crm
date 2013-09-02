@@ -153,8 +153,10 @@ class Controller extends RController
                 $value = $data->organization->value;
                 break;
             case 'user_id':
-            case 'log_user_id':
                 $value = $data->user->username;
+                break;
+            case 'log_user_id':
+                $value = $data->logUser->username;
                 break;
             case 'create_user_id':
                 $value = $data->createUser->username;
@@ -238,8 +240,10 @@ class Controller extends RController
                 $value = '$data->organization->value';
                 break;
             case 'user_id':
-            case 'log_user_id':
                 $value = '$data->user->username';
+                break;
+            case 'log_user_id':
+                $value = '$data->logUser->username';
                 break;
             case 'create_user_id':
                 $value = '$data->create_user->username';
@@ -517,12 +521,20 @@ class Controller extends RController
 
     public function submit_button($isNewRecord)
     {
-        echo "\n<div class='row buttons'>\n";
+        echo "\n<div class='row buttons text-center'>\n";
         //$ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
         $this->widget('bootstrap.widgets.TbButton', array(
             'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
+            //    'size' => 'large', // null, 'large', 'small' or 'mini'
+        ));
+        echo "&nbsp; &nbsp; &nbsp;";
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Отменить',
+            'url' => Yii::app()->request->getUrlReferrer(),
+            'type' => 'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            //'buttonType' => 'submit',
             //    'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         echo "\n</div>\n";

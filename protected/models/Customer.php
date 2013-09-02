@@ -141,6 +141,7 @@ class Customer extends MyActiveRecord
             ),
         ));
     }
+
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;

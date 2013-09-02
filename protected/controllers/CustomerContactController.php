@@ -97,24 +97,14 @@ class CustomercontactController extends Controller
         ));
     }
 
-
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-        $criteria->order = 'log_datetime DESC';
-        $dataProvider = new CActiveDataProvider('CustomerLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->customercontact_pagesize,
-            ),
-        ));
-        $model = $this->loadModel($id);
-        $this->buildPageOptions($model);
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customercontact_pagesize;
+        $this->buildPageOptions($this->loadModel($id));
         $this->render('log', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => CustomerContactLog::model()->getAll($userProfile, $id),
         ));
     }
 

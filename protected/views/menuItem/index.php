@@ -2,7 +2,7 @@
 /* @var $this MenuItemController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->renderPartial('_filter_buttons');
+$this->renderPartial('../menuitem/_filter_buttons');
 
 $this->buttons = $this->columns = array();
 $this->addButtons('menuitem', array('view', 'update', 'delete', 'log'));

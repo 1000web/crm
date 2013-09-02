@@ -103,21 +103,11 @@ class CustomerController extends Controller
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();
-        if (isset($userProfile->customer_pagesize)) $this->_pagesize = $userProfile->customer_pagesize;
-
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-        $criteria->order = 'log_datetime DESC';
-        $dataProvider = new CActiveDataProvider('CustomerLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $this->_pagesize,
-            ),
-        ));
-        $this->buildPageOptions();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customer_pagesize;
+        $this->buildPageOptions($this->loadModel($id));
         $this->render('log', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => CustomerLog::model()->getAll($userProfile, $id),
         ));
     }
 

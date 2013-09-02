@@ -97,6 +97,16 @@ class DealController extends Controller
         ));
     }
 
+    public function actionLog($id)
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->deal_pagesize;
+        $this->buildPageOptions($this->loadModel($id));
+        $this->render('log', array(
+            'dataProvider' => DealLog::model()->getAll($userProfile, $id),
+        ));
+    }
 
     /**
      * Manages all models.

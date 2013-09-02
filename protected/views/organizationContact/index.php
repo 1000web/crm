@@ -2,7 +2,7 @@
 /* @var $this OrganizationContactController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->renderPartial('_filter_buttons');
+$this->renderPartial('../organizationcontact/_filter_buttons');
 
 $this->buttons = $this->columns = array();
 
