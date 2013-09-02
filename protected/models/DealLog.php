@@ -71,6 +71,11 @@ class DealLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
+            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
+            'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
+            'dealSource' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
+            'dealStage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
         );
     }
 

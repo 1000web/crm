@@ -63,9 +63,9 @@ class OrganizationGroup extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'organizations' => array(self::HAS_MANY, 'Organization', 'organization_group_id'),
             'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'organizations' => array(self::HAS_MANY, 'Organization', 'organization_group_id'),
         );
     }
 

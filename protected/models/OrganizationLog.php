@@ -62,6 +62,9 @@ class OrganizationLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'organizationType' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
+            'organizationGroup' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
+            'organizationRegion' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
         );
     }
 

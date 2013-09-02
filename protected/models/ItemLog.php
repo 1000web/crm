@@ -67,6 +67,7 @@ class ItemLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'parent' => array(self::BELONGS_TO, 'Item', 'parent_id'),
         );
     }
 

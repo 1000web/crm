@@ -62,6 +62,8 @@ class TaskLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'taskType' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
         );
     }
 

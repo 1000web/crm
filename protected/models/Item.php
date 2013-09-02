@@ -73,10 +73,10 @@ class Item extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'parent' => array(self::BELONGS_TO, 'Item', 'parent_id'),
-            'childs' => array(self::HAS_MANY, 'Item', 'parent_id'),
             'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'parent' => array(self::BELONGS_TO, 'Item', 'parent_id'),
+            'childs' => array(self::HAS_MANY, 'Item', 'parent_id'),
             'menuItems' => array(self::HAS_MANY, 'MenuItem', 'item_id'),
             'menus' => array(self::HAS_MANY, 'Menu', 'menu_id', 'through' => 'menuItems'),
         );

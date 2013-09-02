@@ -66,10 +66,10 @@ class OrganizationContact extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'contactType' => array(self::BELONGS_TO, 'ContactType', 'contact_type_id'),
-            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'contactType' => array(self::BELONGS_TO, 'ContactType', 'contact_type_id'),
+            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
         );
     }
 
