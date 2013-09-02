@@ -1,7 +1,7 @@
-<div class="row">
-    <div class="btn-toolbar span2">
-        <?php
-        $this->buildFilterButton(TaskType::model()->getOptions(), 'tasktype');
-        ?>
-    </div>
+<div class="span11">
+    <h3>Фильтры
+    <?php
+    $this->buildFilterButton(TaskType::model()->getOptions(), 'tasktype');
+    ?>
+    </h3>
 </div>
