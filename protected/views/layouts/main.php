@@ -73,7 +73,7 @@
             }
             $this->endWidget(); */
             if (isset($this->h1)) echo "<h1>" . $this->h1 . "</h1>\n";
-            if (isset($this->description)) echo "<p>" . $this->description . "</p>";
+            if (isset($this->description)) echo "<p class='lead'>" . $this->description . "</p>";
             if (isset($this->menu) AND $this->menu) {
                 $this->widget('bootstrap.widgets.TbMenu', array(
                     'type' => 'pills', // '', 'tabs', 'pills' (or 'list')

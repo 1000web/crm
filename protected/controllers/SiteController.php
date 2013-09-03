@@ -58,9 +58,4 @@ class SiteController extends Controller
         ));
     }
 
-    public function actionTest()
-    {
-        $this->buildPageOptions();
-        $this->render('test');
-    }
 }

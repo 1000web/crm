@@ -70,9 +70,10 @@ class MenuItem extends MyActiveRecord
             'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             //'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id'),
+            //'parent' => array(self::BELONGS_TO, 'Item', 'parent_id'),
             //'childs' => array(self::HAS_MANY, 'MenuItem', 'parent_id'),
-            //'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-            //'item' => array(self::BELONGS_TO, 'Item', 'item_id'),
+            'm' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'i' => array(self::BELONGS_TO, 'Item', 'item_id'),
         );
     }
 
@@ -127,11 +128,14 @@ class MenuItem extends MyActiveRecord
         //return $this->static_menu();
 
         $criteria = new CDbCriteria;
-        $criteria->select = '*';
-        $criteria->join = 'LEFT JOIN {{menu}} menu ON menu.id=menu_id';
-        //$criteria->join = ' LEFT JOIN {{item}} item ON item.id=item_id';
-        $criteria->addCondition('menu.value=:menu_name');
+//        $criteria->select = '*';
+
+        //$criteria->join = 'LEFT JOIN {{menu}} m ON m.id=t.menu_id';
+        $criteria->addCondition('m.value=:menu_name');
         $criteria->params[':menu_name'] = $menu_name;
+
+        //$criteria->join = ' LEFT JOIN {{item}} item ON item.id=item_id';
+
         //$criteria->addCondition('menu_id=3');
         if (!$parent_id) $criteria->addCondition('t.parent_id IS NULL');
         else {
@@ -141,7 +145,7 @@ class MenuItem extends MyActiveRecord
         $criteria->addCondition('t.visible=1');
         $criteria->order = 't.prior';
         $criteria->limit = -1;
-        return MenuItem::model()->findAll($criteria);
+        return MenuItem::model()->with('m','i')->findAll($criteria);
     }
 
     public function getAll($userProfile)

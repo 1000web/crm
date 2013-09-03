@@ -64,7 +64,7 @@ class MyActiveRecord extends CActiveRecord
             'log_id' => 'Log #',
             'organization_id' => 'Организация',
             'organization_type_id' => 'Тип организации',
-            'organization_group_id' => 'Группа огранизаций',
+            'organization_group_id' => 'Группа организаций',
             'organization_region_id' => 'Регион',
             'password' => 'Пароль',
             'position' => 'Должность',

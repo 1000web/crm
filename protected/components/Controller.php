@@ -123,8 +123,7 @@ class Controller extends RController
     public function actionSetparam($param, $value)
     {
         $userProfile = $this->getUserProfile();
-        if($userProfile->getAttribute($param) !== NULL)
-        {
+        if ($userProfile->getAttribute($param) !== NULL) {
             $userProfile->setAttribute($param, $value);
             $userProfile->save();
         }
@@ -139,14 +138,16 @@ class Controller extends RController
         else $this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item), 'value' => $value);
     }
 
-    public function addAttributes($list) {
+    public function addAttributes($list)
+    {
         foreach ($list as $item) {
             $this->addAttribute($item);
             //$this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item));
         }
     }
-    
-    public function attribute_value($item, $data){
+
+    public function attribute_value($item, $data)
+    {
         $value = NULL;
         switch ($item) {
             case 'organization_id':
@@ -189,16 +190,16 @@ class Controller extends RController
                 $value = $data->productType->value;
                 break;
             case 'create_time':
-                $value = date("Y-m-d H:i:s",$data->create_time);
+                $value = date("Y-m-d H:i:s", $data->create_time);
                 break;
             case 'update_time':
-                $value = date("Y-m-d H:i:s",$data->update_time);
+                $value = date("Y-m-d H:i:s", $data->update_time);
                 break;
             case 'datetime':
-                $value = date("Y-m-d H:i:s",$data->datetime);
+                $value = date("Y-m-d H:i:s", $data->datetime);
                 break;
             case 'log_datetime':
-                $value = date("Y-m-d H:i:s",$data->log_datetime);
+                $value = date("Y-m-d H:i:s", $data->log_datetime);
                 break;
             case 'task_type_id':
                 $value = $data->taskType->value;
@@ -207,12 +208,15 @@ class Controller extends RController
         return $value;
 
     }
-    public function set_attributes_values($data){
-        foreach($this->attributes as $item => $attr) {
-            if($value = $this->attribute_value($item, $data)) echo $value;
-                //$this->attributes[$key]['value'] = $value;
+
+    public function set_attributes_values($data)
+    {
+        foreach ($this->attributes as $item => $attr) {
+            if ($value = $this->attribute_value($item, $data)) echo $value;
+            //$this->attributes[$key]['value'] = $value;
         }
     }
+
     public function addButton($controller, $action, $id = '$data->id')
     {
         if (!$controller) $controller = $this->id;
@@ -220,8 +224,9 @@ class Controller extends RController
             $this->buttons[$action] = array(
                 'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>' . $id . '))',
             );
-            switch($action){
-                case 'log': $this->buttons[$action]['icon'] = 'icon-share-alt';
+            switch ($action) {
+                case 'log':
+                    $this->buttons[$action]['icon'] = 'icon-share-alt';
                     break;
             }
         }
@@ -234,7 +239,8 @@ class Controller extends RController
         }
     }
 
-    public function column_value($item, $value) {
+    public function column_value($item, $value)
+    {
         switch ($item) {
             case 'organization_id':
                 $value = '$data->organization->value';
@@ -287,6 +293,7 @@ class Controller extends RController
         }
         return $value;
     }
+
     public function addColumn($item, $value = NULL)
     {
         $value = $this->column_value($item, $value);
@@ -301,63 +308,68 @@ class Controller extends RController
         }
     }
 
+    public function action_icon($action)
+    {
+        $icons = array(
+            'create' => 'icon-plus',
+            'index' => 'icon-list',
+            'admin' => 'icon-wrench',
+            'update' => 'icon-pencil',
+            'view' => 'icon-eye-open',
+            'delete' => 'icon-trash',
+            'log' => 'icon-share-alt',
+            'favorite_add' => 'icon-star-empty',
+            'favorite_del' => 'icon-star',
+            'favorite' => 'icon-star',
+        );
+        return $icons[$action];
+    }
+
     public function buildMenuOperations($id = NULL)
     {
         $items = array(
             'create' => array(
                 'label' => Yii::t('lang', 'Создать'),
-                'icon' => 'icon-plus',
+                'icon' => $this->action_icon('create'),
                 'url' => array('create')),
             'index' => array(
                 'label' => Yii::t('lang', 'Список'),
-                'icon' => 'icon-list',
+                'icon' => $this->action_icon('index'),
                 'url' => array('index')),
             'admin' => array(
                 'label' => Yii::t('lang', 'Управление'),
-                'icon' => 'icon-wrench',
+                'icon' => $this->action_icon('admin'),
                 'url' => array('admin')),
             'update' => array(
                 'label' => Yii::t('lang', 'Редактировать'),
-                'icon' => 'icon-pencil',
+                'icon' => $this->action_icon('update'),
                 'url' => array('update', 'id' => $id)),
             'view' => array(
                 'label' => Yii::t('lang', 'Показать'),
-                'icon' => 'icon-eye-open',
+                'icon' => $this->action_icon('view'),
                 'url' => array('view', 'id' => $id)),
+            'log' => array(
+                'label' => Yii::t('lang', 'История'),
+                'icon' => $this->action_icon('log'),
+                'url' => array('log', 'id' => $id)),
+            'favorite_add' => array(
+                'label' => 'В Избранное',
+                'icon' => $this->action_icon('favorite_add'),
+                'url' => array('favorite', 'add' => $id),
+            ),
+            'favorite_del' => array(
+                'label' => 'Уже в Избранном',
+                'icon' => $this->action_icon('favorite_del'),
+                'url' => array('favorite', 'del' => $id),
+            ),
             'delete' => array(
                 'label' => Yii::t('lang', 'Удалить'),
-                'icon' => 'icon-trash',
+                'icon' => $this->action_icon('delete'),
                 'url' => '#',
                 'linkOptions' => array(
                     'submit' => array('delete', 'id' => $id),
                     'confirm' => Yii::t('lang', 'Вы действительно хотите удалить эту запись?')
                 )
-            ),
-            'log' => array(
-                'label' => Yii::t('lang', 'История'),
-                'icon' => 'icon-share-alt',
-                'url' => array('log', 'id' => $id)),
-            'favorite_add' => array(
-                'label' => 'В Избранное',
-                'icon' => 'icon-star-empty',
-                'url' => array('favorite', 'add' => $id),
-                /*
-                'url' => '#',
-                'linkOptions' => array(
-                    'submit' => array('favorite', 'add' => $id),
-                    'confirm' => 'Добавить в Избранное?'
-                )/**/
-            ),
-            'favorite_del' => array(
-                'label' => 'Уже в Избранном',
-                'icon' => 'icon-star',
-                'url' => array('favorite', 'del' => $id),
-                /*
-                'url' => '#',
-                'linkOptions' => array(
-                    'submit' => array('favorite', 'del' => $id),
-                    'confirm' => 'Удалить из Избранного?'
-                )/**/
             ),
         );
         $this->menu = array();
@@ -581,6 +593,7 @@ class Controller extends RController
             'first_name' => 'Имя',
             'id' => '#',
 
+            'item_id' => 'item',
             'itemparent' => 'Parent',
             'itemmodule' => 'Module',
             'itemcontroller' => 'Controller',
@@ -598,8 +611,8 @@ class Controller extends RController
             'organization_id' => 'Организация',
             'organizationtype' => 'Тип организации',
             'organization_type_id' => 'Тип организации',
-            'organizationgroup' => 'Группа огранизаций',
-            'organization_group_id' => 'Группа огранизаций',
+            'organizationgroup' => 'Группа организаций',
+            'organization_group_id' => 'Группа организаций',
             'organizationregion' => 'Регион',
             'organization_region_id' => 'Регион',
             'owner_id' => 'Владелец',
@@ -638,27 +651,31 @@ class Controller extends RController
         return $arr[$key];
     }
 
-    public function HttpException($code){
-        switch($code){
-            case 404: $error = 'The requested page does not exist.';
+    public function HttpException($code)
+    {
+        switch ($code) {
+            case 404:
+                $error = 'The requested page does not exist.';
                 break;
-            default: $error = 'Error ' . $code;
+            default:
+                $error = 'Error ' . $code;
         }
         throw new CHttpException($code, $error);
     }
 
-    public function pagesize($controller = NULL) {
-        if($controller == NULL) $controller = $this->id;
+    public function pagesize($controller = NULL)
+    {
+        if ($controller == NULL) $controller = $this->id;
         $available_pagesize = array(5, 10, 20, 50, 100);
         $buttons = array(
             array('label' => 'На странице', 'disabled' => true)
         );
-        foreach($available_pagesize as $pagesize) {
+        foreach ($available_pagesize as $pagesize) {
             $button = array(
                 'label' => $pagesize,
                 'url' => array('setparam', 'param' => $controller . '_pagesize', 'value' => $pagesize)
             );
-            if($pagesize == $this->_pagesize) $button['active'] = true;
+            if ($pagesize == $this->_pagesize) $button['active'] = true;
             $buttons[] = $button;
         }
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
