@@ -15,19 +15,19 @@ echo $this->renderPartial('../detail_view', array(
     'dataProvider' => $model,
 ));
 
-if ($this->checkAccess('organizationcontact', 'view')) {
+if (MyHelper::checkAccess('organizationcontact', 'view')) {
     echo '<h2>Контакты Организации</h2>';
     echo $this->renderPartial('../organizationcontact/index', array(
         'dataProvider' => $contact,
     ));
 }
-if ($this->checkAccess('customer', 'view')) {
+if (MyHelper::checkAccess('customer', 'view')) {
     echo '<h2>Клиенты Организации</h2>';
     echo $this->renderPartial('../customer/index', array(
         'dataProvider' => $customer,
     ));
 }
-if ($this->checkAccess('deal', 'view')) {
+if (MyHelper::checkAccess('deal', 'view')) {
     echo '<h2>Сделки Организации</h2>';
     echo $this->renderPartial('../deal/index', array(
         'dataProvider' => $deal,

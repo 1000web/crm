@@ -22,8 +22,8 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'parent_id');
-        echo $form->dropDownList($model, 'parent_id', MenuItem::model()->getOptions('parent_id', 'parent_id'));
-        //echo $form->textField($model,'parent_id');
+        //echo $form->dropDownList($model, 'parent_id', MenuItem::model()->getOptions('id', 'parent_id'));
+        echo $form->dropDownList($model, 'parent_id', MenuItem::model()->getOptions('id', array('key'=>'i', 'val'=>'title')));
         echo $form->error($model, 'parent_id');
         ?>
     </div>
@@ -32,7 +32,6 @@
         <?php
         echo $form->labelEx($model, 'menu_id');
         echo $form->dropDownList($model, 'menu_id', Menu::model()->getOptions());
-        //echo $form->textField($model,'menu_id');
         echo $form->error($model, 'menu_id');
         ?>
     </div>
@@ -40,8 +39,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'item_id');
-        echo $form->dropDownList($model, 'item_id', Item::model()->getOptions());
-        //echo $form->textField($model,'item_id');
+        echo $form->dropDownList($model, 'item_id', Item::model()->getOptions('id','title'));
         echo $form->error($model, 'item_id');
         ?>
     </div>

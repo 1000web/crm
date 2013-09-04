@@ -30,18 +30,16 @@
 
 <div class="container" id="page">
     <?php
-    if(isset($this->top_menu_items)) {
-        $this->widget('bootstrap.widgets.TbNavbar', array(
-            //'htmlOptions' => array('class'=>'nav-collapse collapse'),
-            'items' => array(
-                array(
-                    'class' => 'bootstrap.widgets.TbMenu',
-                    'encodeLabel' => false,
-                    'items' => $this->top_menu_items,
-                ),
+    $this->widget('bootstrap.widgets.TbNavbar', array(
+        //'htmlOptions' => array('class'=>'nav-collapse collapse'),
+        'items' => array(
+            array(
+                'class' => 'bootstrap.widgets.TbMenu',
+                'encodeLabel' => false,
+                'items' => MenuItem::model()->getItemsArray('top_menu'),
             ),
-        ));
-    }
+        ),
+    ));
     // если непусто, то показываем крошки
     if($this->breadcrumbs) {
 		$this->widget('bootstrap.widgets.TbBreadcrumbs', array(

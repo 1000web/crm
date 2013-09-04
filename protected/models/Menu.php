@@ -117,31 +117,7 @@ class Menu extends MyActiveRecord
 
     function static_menu()
     {
-        /*
-        $menu = $this->with('menuItems', 'items')->findByAttributes(array(
-            'value' => $menu_name,
-        ));
-        $items = array();
-        $keys_menuItems = array(
-            'parent_id', 'prior', 'visible',
-        );
-        foreach($menu->menuItems as $item) {
-            foreach($keys_menuItems as $key) {
-                $items[$item['item_id']][$key] = $item[$key];
-            }
-        }
-
-        $keys_items = array(
-            'title', 'h1', 'module', 'controller', 'action', 'value', 'description',
-        );
-        foreach($menu->items as $item) {
-            foreach($keys_items as $key) {
-                //$items[$item['id']][$key] = $item[$key];
-                $items[$item['id']][$key] = $item[$key];
-            }
-        }/**/
         $items = array(
-            array('label' => 'Избранное', 'url' => array('/site/favorite')),
             array('label' => 'Клиенты', 'url' => array('/customer/index'),
                 'items' => array(
                     array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/customer/favorite')),
@@ -150,56 +126,6 @@ class Menu extends MyActiveRecord
                     array('label' => 'Создать клиента', 'icon' => 'icon-plus', 'url' => array('/customer/create')),
                 ),
             ),
-            array('label' => 'Организации', 'url' => array('/organization/index'),
-                'items' => array(
-                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/organization/favorite')),
-                    array('label' => 'Список организаций', 'icon' => 'icon-list', 'url' => array('/organization/index')),
-                    array('label' => 'Контакты организаций', 'icon' => 'icon-envelope', 'url' => array('/organizationcontact/index')),
-                    array('label' => 'Создать организацию', 'icon' => 'icon-plus', 'url' => array('/organization/create')),
-                ),
-            ),
-            array('label' => 'Задачи', 'url' => array('/task/index'),
-                'items' => array(
-                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/task/favorite')),
-                    array('label' => 'Список задач', 'icon' => 'icon-tasks', 'url' => array('/task/index')),
-                    array('label' => 'Типы задач', 'icon' => 'icon-tags', 'url' => array('/tasktype/index')),
-                    array('label' => 'Этапы задач', 'icon' => 'icon-signal', 'url' => array('/taskstage/index')),
-                    array('label' => 'Приоритеты задач', 'icon' => 'icon-signal', 'url' => array('/taskprior/index')),
-                    array('label' => 'Создать задачу', 'icon' => 'icon-plus', 'url' => array('/task/create')),
-                ),
-            ),
-            array('label' => 'Сделки', 'url' => array('/deal/index'),
-                'items' => array(
-                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/deal/favorite')),
-                    array('label' => 'Список сделок', 'icon' => 'icon-briefcase', 'url' => array('/deal/index')),
-                    array('label' => 'Этапы сделок', 'icon' => 'icon-signal', 'url' => array('/dealstage/index')),
-                    array('label' => 'Источники сделок', 'icon' => 'icon-list', 'url' => array('/dealsource/index')),
-                    array('label' => 'Создать сделку', 'icon' => 'icon-plus', 'url' => array('/deal/create')),
-                ),
-            ),
-            array('label' => 'Справочники', 'url' => array('/glossary/index'),
-                'items' => array(
-                    array('label' => 'Организации',
-                        'items' => array(
-                            array('label' => 'Типы организаций', 'icon' => 'icon-tags', 'url' => array('/organizationtype/index')),
-                            array('label' => 'Группы организаций', 'icon' => 'icon-tags', 'url' => array('/organizationgroup/index')),
-                            array('label' => 'Регионы организаций', 'icon' => 'icon-globe', 'url' => array('/organizationregion/index')),
-                        ),
-                    ),
-                    array('label' => 'Меню', 'url' => array('/menu/index'),
-                        'items' => array(
-                            array('label' => 'Меню', 'url' => array('/menu/index')),
-                            array('label' => 'Пункты', 'url' => array('/item/index')),
-                            array('label' => 'Пункты меню', 'url' => array('/menuitem/index')),
-                        ),
-                    ),
-                    array('label' => 'Типы контактов', 'icon' => 'icon-tags', 'url' => array('/contacttype/index')),
-                    array('label' => 'Продукция', 'icon' => 'icon-wrench', 'url' => array('/product/index')),
-                    array('label' => 'Типы продукции', 'icon' => 'icon-tags', 'url' => array('/producttype/index')),
-                    array('label' => 'База знаний', 'icon' => 'icon-book', 'url' => array('/kb/index')),
-                ),
-            ),
-            //array('label' => 'База знаний', 'url' => array('/kb/index')),
             array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
             array('label' => 'Профиль', 'visible' => !Yii::app()->user->isGuest,
                 'items' => array(

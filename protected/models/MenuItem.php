@@ -96,6 +96,12 @@ class MenuItem extends MyActiveRecord
         );
     }
 
+    public function defaultScope(){
+        return array(
+            'with'=> array('i', 'm')
+        );
+    }
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -123,29 +129,40 @@ class MenuItem extends MyActiveRecord
         ));
     }
 
-    function get_menu($menu_name, $parent_id = NULL, $levels = 2)
+    function getItems($menu_name, $parent_id = NULL, $levels = 2)
     {
-        //return $this->static_menu();
-
         $criteria = new CDbCriteria;
-//        $criteria->select = '*';
 
-        //$criteria->join = 'LEFT JOIN {{menu}} m ON m.id=t.menu_id';
         $criteria->addCondition('m.value=:menu_name');
         $criteria->params[':menu_name'] = $menu_name;
+        $criteria->addCondition('t.visible=1');
+        $criteria->order = 't.prior';
 
-        //$criteria->join = ' LEFT JOIN {{item}} item ON item.id=item_id';
-
-        //$criteria->addCondition('menu_id=3');
-        if (!$parent_id) $criteria->addCondition('t.parent_id IS NULL');
+        if ($parent_id === NULL) $criteria->addCondition('t.parent_id IS NULL');
         else {
             $criteria->addCondition('t.parent_id=:parent_id');
             $criteria->params[':parent_id'] = $parent_id;
         }
-        $criteria->addCondition('t.visible=1');
-        $criteria->order = 't.prior';
-        $criteria->limit = -1;
         return MenuItem::model()->with('m','i')->findAll($criteria);
+    }
+
+    function getItemsArray($menu_name, $parent_id = NULL, $levels = 2)
+    {
+        $levels--;
+        $menu_items = $this->getItems($menu_name, $parent_id, $levels);
+        $items = array();
+        foreach ($menu_items as $item) {
+            if (MyHelper::checkAccess($item['i']['module'], $item['i']['controller'], $item['i']['action'])) {
+                $newItem = array(
+                    'url' => MyHelper::createURL($item['i']['module'], $item['i']['controller'], $item['i']['action']),
+                    'icon' => $item['i']['icon'],
+                    'label' => $item['i']['value'],
+                );
+                if($levels AND $subItems = $this->getItemsArray($menu_name, $item['id'], $levels)) $newItem['items'] = $subItems;
+                $items[] = $newItem;
+            }
+        }
+        return $items;
     }
 
     public function getAll($userProfile)

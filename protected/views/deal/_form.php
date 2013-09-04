@@ -7,7 +7,8 @@ Yii::app()->bootstrap->registerAssetCss('bootstrap-datepicker.css');
 Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
 ?>
 
-<div class="span12">
+<div class="row">
+<div class="span11">
 
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -147,4 +148,6 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
     <?php $this->endWidget(); ?>
 
 </div>
+</div>
+
 <!-- form -->

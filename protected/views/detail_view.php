@@ -2,14 +2,14 @@
 /* @var $this Controller */
 /* @var $dataProvider dataProvider */
 
-if ($this->checkAccess($this->id, 'log')) {
+if (MyHelper::checkAccess($this->id, 'log')) {
     $this->attributes = CMap::mergeArray(
         $this->created_updated($dataProvider),
         $this->attributes
     );
 }
 
-//if($this->checkAccess($this->id, 'log')) $this->addAttributes(array('create_time', 'update_time'));
+//if(MyHelper::checkAccess($this->id, 'log')) $this->addAttributes(array('create_time', 'update_time'));
 /*
 $this->set_attributes_values($dataProvider);
 

@@ -7,7 +7,6 @@ class Controller extends RController
 {
     public $layout = '//layouts/column1';
     public $menu = array();
-    public $top_menu_items = array();
     public $breadcrumbs = array();
     protected $_model = NULL;
 
@@ -59,18 +58,6 @@ class Controller extends RController
             return $rules;
         }/**/
 
-    public function checkAccess($param1, $param2, $param3 = NULL)
-    {
-        if ($param3) {
-            // param1 = module, $param2 = controller, param3 = action
-            $param = $param1 . '.' . $param2 . '.' . $param3;
-        } else {
-            // $param1 = controller, param2 = action
-            $param = $param1 . '.' . $param2;
-        }
-        return Yii::app()->user->checkAccess($param);
-    }
-
     public function getUserProfile()
     {
         if (Yii::app()->user->id) $model = Yii::app()->user->user();
@@ -104,7 +91,7 @@ class Controller extends RController
             }
             $items[] = $button;
         }
-        if ($this->checkAccess($param, 'index')) {
+        if (MyHelper::checkAccess($param, 'index')) {
             $items[] = array(
                 'label' => 'Список',
                 'icon' => 'list',
@@ -220,7 +207,7 @@ class Controller extends RController
     public function addButton($controller, $action, $id = '$data->id')
     {
         if (!$controller) $controller = $this->id;
-        if ($this->checkAccess($controller, $action)) {
+        if (MyHelper::checkAccess($controller, $action)) {
             $this->buttons[$action] = array(
                 'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>' . $id . '))',
             );
@@ -358,46 +345,46 @@ class Controller extends RController
         $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'index':
-                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'admin':
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
                 break;
             case 'update':
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
-                if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if ($this->checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
-                //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                //if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if (MyHelper::checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
+                if (MyHelper::checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if (MyHelper::checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
+                //if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'view':
                 if ($this->favorite_available) {
                     if ($this->checkFavorite($id)) array_push($this->menu, $items['favorite_del']);
                     else array_push($this->menu, $items['favorite_add']);
                 }
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                //if ($this->checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
-                if ($this->checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if ($this->checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
-                //if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                //if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if (MyHelper::checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
+                if (MyHelper::checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
+                if (MyHelper::checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
+                //if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'favorite':
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
             case 'log':
-                if ($this->checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if ($this->checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
-                if ($this->checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
-                if ($this->checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
+                if (MyHelper::checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
+                if (MyHelper::checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
+                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
                 break;
         }
         return;
@@ -453,9 +440,7 @@ class Controller extends RController
 
     public function buildPageOptions($model = NULL)
     {
-        $this->top_menu_items = Menu::model()->get_menu('top_menu');
         $this->_model = $model;
-
         $module = $this->getModule();
         if (!$module) $module = '';
         $item = Item::model()->findByAttributes(array(

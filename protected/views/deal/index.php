@@ -7,7 +7,7 @@ echo $this->renderPartial('../deal/_filter_buttons');
 $this->buttons = $this->columns = array();
 
 /*
-if($this->checkAccess($controller, 'favorite')) {
+if(MyHelper::checkAccess($controller, 'favorite')) {
     $this->buttons['favorite'] = array(
         'icon' => 'icon-star',
         'url'=>'Yii::app()->createUrl("'.$controller.'/favorite", array("del"=>$data->id))',

@@ -27,7 +27,7 @@ $attr = array(
     array('name' => 'close_date', 'label' => $this->attributeLabels('close_date'), 'value' => $model->close_date),
     array('name' => 'description', 'label' => $this->attributeLabels('description')),
 );
-if ($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
     $this->created_updated($model),
     $attr
 );

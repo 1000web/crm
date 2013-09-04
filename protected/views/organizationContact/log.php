@@ -6,7 +6,7 @@ $this->renderPartial('_filter_buttons');
 
 $this->buttons = $this->columns = array();
 
-if ($this->checkAccess('organization', 'view')) {
+if (MyHelper::checkAccess('organization', 'view')) {
     $this->buttons['list'] = array(
         'icon' => 'icon-list',
         'url' => 'Yii::app()->createUrl("organization/view", array("id"=>$data->organization_id))',

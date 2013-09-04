@@ -6,7 +6,7 @@ $attr = array(
 //        array('name' => 'value', 'label' => 'Значение'),
     array('name' => 'description', 'label' => 'Описание'),
 );
-if ($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
     $this->created_updated($model),
     $attr
 );

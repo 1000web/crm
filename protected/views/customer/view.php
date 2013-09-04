@@ -12,7 +12,7 @@ $attr = array(
     array('name' => 'description', 'label' => $this->attributeLabels('description')),
 );
 
-if ($this->checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
+if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
     $this->created_updated($model),
     $attr
 );
@@ -22,15 +22,15 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'attributes' => $attr,
 ));
 /*
-if($this->checkAccess('customercontact', 'view'))
+if(MyHelper::checkAccess('customercontact', 'view'))
     echo $this->renderPartial('_contact', array(
     'dataProvider' => $contact,
     'model' => $model,
 ));/**/
 $controller = 'customercontact';
-if ($this->checkAccess($controller, 'view')) {
+if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Контакты Клиента ';
-    if ($this->checkAccess($controller, 'create')) {
+    if (MyHelper::checkAccess($controller, 'create')) {
         $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'cid' => $model->id),
             'label' => 'Добавить контакт',
@@ -44,9 +44,9 @@ if ($this->checkAccess($controller, 'view')) {
 }
 
 $controller = 'deal';
-if ($this->checkAccess($controller, 'view')) {
+if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Сделки ';
-    if ($this->checkAccess($controller, 'create')) {
+    if (MyHelper::checkAccess($controller, 'create')) {
         $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'cid' => $model->id, 'oid' => $model->organization_id),
             'label' => 'Добавить сделку',

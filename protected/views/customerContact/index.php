@@ -6,7 +6,7 @@ echo $this->renderPartial('../customercontact/_filter_buttons');
 
 $this->buttons = $this->columns = array();
 
-if ($this->checkAccess('customer', 'view')) {
+if (MyHelper::checkAccess('customer', 'view')) {
     $this->buttons['list'] = array(
         'icon' => 'icon-list',
         'url' => 'Yii::app()->createUrl("customer/view", array("id"=>$data->customer_id))',
