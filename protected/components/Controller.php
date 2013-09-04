@@ -308,63 +308,46 @@ class Controller extends RController
         }
     }
 
-    public function action_icon($action)
-    {
-        $icons = array(
-            'create' => 'icon-plus',
-            'index' => 'icon-list',
-            'admin' => 'icon-wrench',
-            'update' => 'icon-pencil',
-            'view' => 'icon-eye-open',
-            'delete' => 'icon-trash',
-            'log' => 'icon-share-alt',
-            'favorite_add' => 'icon-star-empty',
-            'favorite_del' => 'icon-star',
-            'favorite' => 'icon-star',
-        );
-        return $icons[$action];
-    }
-
     public function buildMenuOperations($id = NULL)
     {
         $items = array(
             'create' => array(
                 'label' => Yii::t('lang', 'Создать'),
-                'icon' => $this->action_icon('create'),
+                'icon' => MyHelper::action_icon('create'),
                 'url' => array('create')),
             'index' => array(
                 'label' => Yii::t('lang', 'Список'),
-                'icon' => $this->action_icon('index'),
+                'icon' => MyHelper::action_icon('index'),
                 'url' => array('index')),
             'admin' => array(
                 'label' => Yii::t('lang', 'Управление'),
-                'icon' => $this->action_icon('admin'),
+                'icon' => MyHelper::action_icon('admin'),
                 'url' => array('admin')),
             'update' => array(
                 'label' => Yii::t('lang', 'Редактировать'),
-                'icon' => $this->action_icon('update'),
+                'icon' => MyHelper::action_icon('update'),
                 'url' => array('update', 'id' => $id)),
             'view' => array(
                 'label' => Yii::t('lang', 'Показать'),
-                'icon' => $this->action_icon('view'),
+                'icon' => MyHelper::action_icon('view'),
                 'url' => array('view', 'id' => $id)),
             'log' => array(
                 'label' => Yii::t('lang', 'История'),
-                'icon' => $this->action_icon('log'),
+                'icon' => MyHelper::action_icon('log'),
                 'url' => array('log', 'id' => $id)),
             'favorite_add' => array(
                 'label' => 'В Избранное',
-                'icon' => $this->action_icon('favorite_add'),
+                'icon' => MyHelper::action_icon('favorite_add'),
                 'url' => array('favorite', 'add' => $id),
             ),
             'favorite_del' => array(
                 'label' => 'Уже в Избранном',
-                'icon' => $this->action_icon('favorite_del'),
+                'icon' => MyHelper::action_icon('favorite_del'),
                 'url' => array('favorite', 'del' => $id),
             ),
             'delete' => array(
                 'label' => Yii::t('lang', 'Удалить'),
-                'icon' => $this->action_icon('delete'),
+                'icon' => MyHelper::action_icon('delete'),
                 'url' => '#',
                 'linkOptions' => array(
                     'submit' => array('delete', 'id' => $id),
