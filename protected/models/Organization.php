@@ -23,7 +23,7 @@
  * @property OrganizationType $organization_type
  * @property OrganizationGroup $organization_group
  * @property OrganizationRegion $organization_region
- * @property OrganizationContact[] $organizationContacts
+ * @property OrganizationContact[] $organization_contacts
  * @property Users[] $tblUsers
  * @property Users[] $fav_users
  */
@@ -80,7 +80,7 @@ class Organization extends MyActiveRecord
             'organization_type' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
             'organization_group' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
             'organization_region' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
-            'organizationContacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
+            'organization_contacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
             'tblUsers' => array(self::MANY_MANY, 'Users', '{{organization_fav}}(organization_id, user_id)'),
             'fav_users' => array(self::HAS_MANY, 'OrganizationFav', 'id'),
         );

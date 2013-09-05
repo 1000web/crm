@@ -16,7 +16,7 @@
  * @property Users $create_user
  * @property Users $update_user
  * @property CustomerContact[] $customer_contacts
- * @property OrganizationContact[] $organizationContacts
+ * @property OrganizationContact[] $organization_contacts
  */
 class ContactType extends MyActiveRecord
 {
@@ -67,7 +67,7 @@ class ContactType extends MyActiveRecord
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'customer_contacts' => array(self::HAS_MANY, 'CustomerContact', 'contact_type_id'),
-            'organizationContacts' => array(self::HAS_MANY, 'OrganizationContact', 'contact_type_id'),
+            'organization_contacts' => array(self::HAS_MANY, 'OrganizationContact', 'contact_type_id'),
         );
     }
 
