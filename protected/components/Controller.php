@@ -430,7 +430,7 @@ class Controller extends RController
             $val = $item['value'];
             $url = MyHelper::createURL($item->module, $item->controller, $item->action);
             if(isset($this->_model->id) AND $item->action == 'view') {
-                $val = $this->_model->value;
+                if(!empty($this->_model->value)) $val = $this->_model->value;
                 $url['id'] = $this->_model->id;
             }
             $this->breadcrumbs = CMap::mergeArray(
