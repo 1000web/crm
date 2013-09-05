@@ -25,7 +25,7 @@
         else $values = Organization::model()->getOptions();
 
         echo $form->labelEx($model, 'organization_id');
-        echo $form->dropDownList($model, 'organization_id', $values);
+        echo $form->dropDownList($model, 'organization_id', $values, array('class' => 'input-block-level'));
         echo $form->error($model, 'organization_id');
         ?>
     </div>
@@ -33,7 +33,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'contact_type_id');
-        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions());
+        echo $form->dropDownList($model, 'contact_type_id', ContactType::model()->getOptions(), array('class' => 'input-block-level'));
         echo $form->error($model, 'contact_type_id');
         ?>
     </div>
@@ -41,7 +41,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
+        echo $form->textField($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
         echo $form->error($model, 'value');
         ?>
     </div>
@@ -49,7 +49,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 4, 'cols' => 50));
+        echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
         echo $form->error($model, 'description');
         ?>
     </div>
