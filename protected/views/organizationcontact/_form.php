@@ -49,7 +49,7 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50));
+        echo $form->textArea($model, 'description', array('rows' => 4, 'cols' => 50));
         echo $form->error($model, 'description');
         ?>
     </div>

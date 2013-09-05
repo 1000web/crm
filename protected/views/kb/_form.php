@@ -29,8 +29,16 @@
 
     <div class="row">
         <?php
+        echo $form->labelEx($model, 'value');
+        echo $form->textField($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
+        echo $form->error($model, 'value');
+        ?>
+    </div>
+
+    <div class="row">
+        <?php
         echo $form->labelEx($model, 'question');
-        echo $form->textArea($model, 'question', array('rows' => 6, 'cols' => 50));
+        echo $form->textArea($model, 'question', array('rows' => 4, 'class' => 'input-block-level'));
         echo $form->error($model, 'question');
         ?>
     </div>
@@ -38,23 +46,15 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'answer');
-        echo $form->textArea($model, 'answer', array('rows' => 6, 'cols' => 50));
+        echo $form->textArea($model, 'answer', array('rows' => 4, 'class' => 'input-block-level'));
         echo $form->error($model, 'answer');
         ?>
     </div>
 
     <div class="row">
         <?php
-        echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'value');
-        ?>
-    </div>
-
-    <div class="row">
-        <?php
         echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50));
+        echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
         echo $form->error($model, 'description');
         ?>
     </div>

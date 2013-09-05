@@ -27,7 +27,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'inner_number');
-            echo $form->textField($model, 'inner_number', array('size' => 60, 'maxlength' => 255));
+            echo $form->textField($model, 'inner_number', array('maxlength' => 255, 'class' => 'input-block-level'));
             echo $form->error($model, 'inner_number');
             ?>
         </div>
@@ -44,7 +44,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'external_number');
-            echo $form->textField($model, 'external_number', array('size' => 60, 'maxlength' => 255));
+            echo $form->textField($model, 'external_number', array('maxlength' => 255, 'class' => 'input-block-level'));
             echo $form->error($model, 'external_number');
             ?>
         </div>
@@ -61,7 +61,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'owner_id');
-            echo $form->dropDownList($model, 'owner_id', Users::model()->getOptions('id', 'username'));
+            echo $form->dropDownList($model, 'owner_id', Users::model()->getOptions('id', 'username'), array('class' => 'input-block-level'));
             echo $form->error($model, 'owner_id');
             ?>
         </div>
@@ -69,7 +69,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'probability');
-            echo $form->textField($model, 'probability');
+            echo $form->textField($model, 'probability', array('class' => 'input-block-level'));
             echo $form->error($model, 'probability');
             ?>
         </div>
@@ -82,14 +82,14 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
             else $values = Customer::model()->getOptions();
 
             echo $form->labelEx($model, 'customer_id');
-            echo $form->dropDownList($model, 'customer_id', $values);
+            echo $form->dropDownList($model, 'customer_id', $values, array('class' => 'input-block-level'));
             echo $form->error($model, 'customer_id');
             ?>
         </div>
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'deal_source_id');
-            echo $form->dropDownList($model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'));
+            echo $form->dropDownList($model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
             echo $form->error($model, 'deal_source_id');
             ?>
         </div>
@@ -99,7 +99,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'deal_stage_id');
-            echo $form->dropDownList($model, 'deal_stage_id', DealStage::model()->getOptions('id', 'value', 'prior'));
+            echo $form->dropDownList($model, 'deal_stage_id', DealStage::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
             echo $form->error($model, 'deal_stage_id');
             ?>
         </div>
@@ -119,7 +119,7 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
             else $values = Organization::model()->getOptions();
 
             echo $form->labelEx($model, 'organization_id');
-            echo $form->dropDownList($model, 'organization_id', $values);
+            echo $form->dropDownList($model, 'organization_id', $values, array('class' => 'input-block-level'));
             echo $form->error($model, 'organization_id');
             ?>
         </div>
@@ -129,15 +129,14 @@ Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'value');
-            //echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
-            echo $form->textArea($model, 'value', array('rows' => 6, 'cols' => 150));
+            echo $form->textArea($model, 'value', array('rows' => 4, 'class' => 'input-block-level'));
             echo $form->error($model, 'value');
             ?>
         </div>
         <div class="span6">
             <?php
             echo $form->labelEx($model, 'description');
-            echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 150));
+            echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
             echo $form->error($model, 'description');
             ?>
         </div>
