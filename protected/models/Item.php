@@ -13,6 +13,7 @@
  * @property string $module
  * @property string $controller
  * @property string $action
+ * @property string $url
  * @property string $icon
  * @property string $title
  * @property string $h1
@@ -57,11 +58,11 @@ class Item extends MyActiveRecord
             array('value', 'required'),
             array('parent_id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('module, controller, action, icon', 'length', 'max' => 64),
-            array('title, h1, value', 'length', 'max' => 255),
+            array('url, title, h1, value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, create_time, update_time, create_user_id, update_user_id, module, controller, action, icon, title, h1, value, description', 'safe', 'on' => 'search'),
+            array('id, parent_id, create_time, update_time, create_user_id, update_user_id, module, controller, action, url, icon, title, h1, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -98,6 +99,7 @@ class Item extends MyActiveRecord
             'controller' => 'Controller',
             'action' => 'Action',
             'icon' => 'Icon',
+            'utl' => 'Url',
             'title' => 'Title',
             'h1' => 'H1',
             'value' => 'Value',
@@ -125,6 +127,7 @@ class Item extends MyActiveRecord
         $criteria->compare('module', $this->module, true);
         $criteria->compare('controller', $this->controller, true);
         $criteria->compare('action', $this->action, true);
+        $criteria->compare('url', $this->url, true);
         $criteria->compare('icon', $this->icon, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('h1', $this->h1, true);

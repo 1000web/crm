@@ -614,6 +614,8 @@ class Controller extends RController
             'module' => 'Module',
             'controller' => 'Controller',
             'action' => 'Action',
+            'url' => 'Url',
+            'guest_only' => 'Только гость',
 
         );
         return $arr[$key];

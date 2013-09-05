@@ -148,17 +148,20 @@ class MenuItem extends MyActiveRecord
 
     function getItemsArray($menu_name, $parent_id = NULL, $levels = 2)
     {
-        $levels--;
         $menu_items = $this->getItems($menu_name, $parent_id, $levels);
         $items = array();
+        $levels--;
         foreach ($menu_items as $item) {
-            if (MyHelper::checkAccess($item['i']['module'], $item['i']['controller'], $item['i']['action'])) {
+            if (MyHelper::checkAccess($item['i']['module'], $item['i']['controller'], $item['i']['action']))
+            {
+                if(!Yii::app()->user->isGuest AND $item['guest_only']) continue;
+                if(empty($item['i']['url'])) $item['i']['url'] = MyHelper::createURL($item['i']['module'], $item['i']['controller'], $item['i']['action']);
                 $newItem = array(
-                    'url' => MyHelper::createURL($item['i']['module'], $item['i']['controller'], $item['i']['action']),
+                    'url' => $item['i']['url'],
                     'icon' => $item['i']['icon'],
                     'label' => $item['i']['value'],
                 );
-                if($levels AND $subItems = $this->getItemsArray($menu_name, $item['id'], $levels)) $newItem['items'] = $subItems;
+                if($levels>0 AND $subItems = $this->getItemsArray($menu_name, $item['id'], $levels)) $newItem['items'] = $subItems;
                 $items[] = $newItem;
             }
         }
@@ -173,8 +176,8 @@ class MenuItem extends MyActiveRecord
             $criteria->params[':menu'] = $menu;
         }
         if ($parent = $userProfile->filter_parent) {
-            $criteria->addCondition('parent_id=:parent');
-            $criteria->params[':parent'] = $parent;
+            $criteria->addCondition('t.parent_id=:parent_id');
+            $criteria->params[':parent_id'] = $parent;
         }
         return new CActiveDataProvider('MenuItem', array(
             'criteria' => $criteria,

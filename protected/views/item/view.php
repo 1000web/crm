@@ -6,6 +6,7 @@ $attr = array(
     array('name' => 'module', 'label' => 'Module'),
     array('name' => 'controller', 'label' => 'Controller'),
     array('name' => 'action', 'label' => 'Action'),
+    array('name' => 'url', 'label' => 'Url'),
     array('name' => 'title', 'label' => 'Title'),
     array('name' => 'h1', 'label' => 'H1'),
     array('name' => 'value', 'label' => 'Значение'),

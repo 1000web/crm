@@ -53,6 +53,14 @@
 
     <div class="row">
         <?php
+        echo $form->labelEx($model, 'url');
+        echo $form->textField($model, 'url', array('size' => 60, 'maxlength' => 255));
+        echo $form->error($model, 'url');
+        ?>
+    </div>
+
+    <div class="row">
+        <?php
         echo $form->labelEx($model, 'icon');
         echo $form->textField($model, 'icon', array('size' => 60, 'maxlength' => 64));
         echo $form->error($model, 'icon');

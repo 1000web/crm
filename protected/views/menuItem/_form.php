@@ -61,6 +61,14 @@
         ?>
     </div>
 
+    <div class="row">
+        <?php
+        echo $form->labelEx($model, 'guest_only');
+        echo $form->dropDownList($model, 'guest_only', array(0 => 'Нет', 1 => 'Да'));
+        echo $form->error($model, 'guest_only');
+        ?>
+    </div>
+
     <?php echo $this->submit_button($model->isNewRecord); ?>
 
     <?php $this->endWidget(); ?>

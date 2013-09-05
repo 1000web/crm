@@ -52,7 +52,7 @@ class MyHelper {
             // $param1 = controller, param2 = action
             $url = '/' . $param1 . '/' . $param2;
         }
-        return $url;
+        return array($url);
     }
 
 }
