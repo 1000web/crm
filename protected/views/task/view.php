@@ -3,7 +3,7 @@
 /* @var $model Task */
 
 $attr = array(
-    array('name' => 'task_type_id', 'label' => 'Тип задачи', 'value' => $model->taskType->value),
+    array('name' => 'task_type_id', 'label' => 'Тип задачи', 'value' => $model->task_type->value),
     array('name' => 'datetime', 'label' => 'Дата/время', 'value' => $model->datetime),
     array('name' => 'user_id', 'label' => 'Пользователь', 'value' => $model->user->username),
     array('name' => 'value', 'label' => 'Значение'),

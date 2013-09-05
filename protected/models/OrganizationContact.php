@@ -15,10 +15,10 @@
  * @property string $description
  *
  * The followings are the available model relations:
- * @property ContactType $contactType
+ * @property ContactType $contact_type
  * @property Organization $organization
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Users $create_user
+ * @property Users $update_user
  */
 class OrganizationContact extends MyActiveRecord
 {
@@ -66,9 +66,9 @@ class OrganizationContact extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-            'contactType' => array(self::BELONGS_TO, 'ContactType', 'contact_type_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'contact_type' => array(self::BELONGS_TO, 'ContactType', 'contact_type_id'),
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
         );
     }

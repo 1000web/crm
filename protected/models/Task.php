@@ -16,11 +16,11 @@
  * @property string $description
  *
  * The followings are the available model relations:
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Users $create_user
+ * @property Users $update_user
  * @property Users $user
- * @property TaskType $taskType
- * @property Users[] $favUsers
+ * @property TaskType $task_type
+ * @property Users[] $fav_users
  */
 class Task extends MyActiveRecord
 {
@@ -68,11 +68,11 @@ class Task extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-            'taskType' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
-            'favUsers' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
+            'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
+            'fav_users' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
         );
     }
 

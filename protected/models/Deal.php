@@ -24,14 +24,14 @@
  * @property string $close_date
  *
  * The followings are the available model relations:
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Users $create_user
+ * @property Users $update_user
  * @property Users $owner
  * @property Organization $organization
  * @property Customer $customer
- * @property DealSource $dealSource
- * @property DealStage $dealStage
- * @property Users[] $favUsers
+ * @property DealSource $deal_source
+ * @property DealStage $deal_stage
+ * @property Users[] $fav_users
  */
 class Deal extends MyActiveRecord
 {
@@ -80,14 +80,14 @@ class Deal extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
-            'dealSource' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
-            'dealStage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
-            'favUsers' => array(self::MANY_MANY, 'Users', '{{deal_fav}}(id, user_id)'),
+            'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
+            'deal_stage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
+            'fav_users' => array(self::MANY_MANY, 'Users', '{{deal_fav}}(id, user_id)'),
         );
     }
 

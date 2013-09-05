@@ -18,14 +18,14 @@
  * The followings are the available model relations:
  * @property Customer[] $customers
  * @property Deal[] $deals
- * @property Users $createUser
- * @property Users $updateUser
- * @property OrganizationType $organizationType
- * @property OrganizationGroup $organizationGroup
- * @property OrganizationRegion $organizationRegion
+ * @property Users $create_user
+ * @property Users $update_user
+ * @property OrganizationType $organization_type
+ * @property OrganizationGroup $organization_group
+ * @property OrganizationRegion $organization_region
  * @property OrganizationContact[] $organizationContacts
  * @property Users[] $tblUsers
- * @property Users[] $favUsers
+ * @property Users[] $fav_users
  */
 class Organization extends MyActiveRecord
 {
@@ -75,14 +75,14 @@ class Organization extends MyActiveRecord
         return array(
             'customers' => array(self::HAS_MANY, 'Customer', 'organization_id'),
             'deals' => array(self::HAS_MANY, 'Deal', 'organization_id'),
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-            'organizationType' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
-            'organizationGroup' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
-            'organizationRegion' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'organization_type' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
+            'organization_group' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
+            'organization_region' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
             'organizationContacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
             'tblUsers' => array(self::MANY_MANY, 'Users', '{{organization_fav}}(organization_id, user_id)'),
-            'favUsers' => array(self::HAS_MANY, 'OrganizationFav', 'id'),
+            'fav_users' => array(self::HAS_MANY, 'OrganizationFav', 'id'),
         );
     }
 

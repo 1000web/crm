@@ -134,7 +134,7 @@ class ItemController extends Controller
     public function loadModel($id)
     {
         $model = Item::model()->findByPk($id);
-        //$model = Item::model()->with(array('createUser', 'updateUser'))->findByPk($id);
+        //$model = Item::model()->with(array('create_user', 'update_user'))->findByPk($id);
         if ($model === null)
             $this->HttpException(404);
         return $model;

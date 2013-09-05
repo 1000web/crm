@@ -16,8 +16,8 @@
  * @property string $description
  *
  * The followings are the available model relations:
- * @property Users $updateUser
- * @property Users $createUser
+ * @property Users $update_user
+ * @property Users $create_user
  */
 class Kb extends MyActiveRecord
 {
@@ -65,8 +65,8 @@ class Kb extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
     }
 

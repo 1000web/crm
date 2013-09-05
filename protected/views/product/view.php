@@ -3,7 +3,7 @@
 /* @var $model Product */
 
 $attr = array(
-    array('name' => 'product_type_id', 'label' => 'Тип Продукции', 'value' => $model->productType->value),
+    array('name' => 'product_type_id', 'label' => 'Тип Продукции', 'value' => $model->product_type->value),
     array('name' => 'value', 'label' => 'Значение'),
     array('name' => 'description', 'label' => 'Описание'),
 );

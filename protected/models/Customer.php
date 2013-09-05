@@ -17,11 +17,11 @@
  *
  * The followings are the available model relations:
  * @property Organization $organization
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Users $create_user
+ * @property Users $update_user
  * @property Users $user
- * @property CustomerContact[] $customerContacts
- * @property Users[] $favUsers
+ * @property CustomerContact[] $customer_contacts
+ * @property Users[] $fav_users
  * @property Deal[] $deals
  */
 class Customer extends MyActiveRecord
@@ -71,11 +71,11 @@ class Customer extends MyActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-            'customerContacts' => array(self::HAS_MANY, 'CustomerContact', 'customer_id'),
-            'favUsers' => array(self::MANY_MANY, 'Users', '{{customer_fav}}(id, user_id)'),
+            'customer_contacts' => array(self::HAS_MANY, 'CustomerContact', 'customer_id'),
+            'fav_users' => array(self::MANY_MANY, 'Users', '{{customer_fav}}(id, user_id)'),
             'deals' => array(self::HAS_MANY, 'Deal', 'customer_id'),
         );
     }

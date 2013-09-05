@@ -62,7 +62,7 @@ class CustomerLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
-            'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
         );
     }
 

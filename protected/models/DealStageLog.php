@@ -59,7 +59,7 @@ class DealStageLog extends LogActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
         );
     }
 

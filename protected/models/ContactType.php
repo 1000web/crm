@@ -13,9 +13,9 @@
  * @property string $description
  *
  * The followings are the available model relations:
- * @property Users $createUser
- * @property Users $updateUser
- * @property CustomerContact[] $customerContacts
+ * @property Users $create_user
+ * @property Users $update_user
+ * @property CustomerContact[] $customer_contacts
  * @property OrganizationContact[] $organizationContacts
  */
 class ContactType extends MyActiveRecord
@@ -64,9 +64,9 @@ class ContactType extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-            'customerContacts' => array(self::HAS_MANY, 'CustomerContact', 'contact_type_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'customer_contacts' => array(self::HAS_MANY, 'CustomerContact', 'contact_type_id'),
             'organizationContacts' => array(self::HAS_MANY, 'OrganizationContact', 'contact_type_id'),
         );
     }

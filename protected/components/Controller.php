@@ -144,37 +144,37 @@ class Controller extends RController
                 $value = $data->user->username;
                 break;
             case 'log_user_id':
-                $value = $data->logUser->username;
+                $value = $data->log_user->username;
                 break;
             case 'create_user_id':
-                $value = $data->createUser->username;
+                $value = $data->create_user->username;
                 break;
             case 'update_user_id':
-                $value = $data->updateUser->username;
+                $value = $data->update_user->username;
                 break;
             case 'customer_id':
                 $value = $data->customer->value;
                 break;
             case 'contact_type_id':
-                $value = $data->contactType->value;
+                $value = $data->contact_type->value;
                 break;
             case 'deal_source_id':
-                $value = $data->dealSource->value;
+                $value = $data->deal_source->value;
                 break;
             case 'deal_stage_id':
-                $value = $data->dealStage->value;
+                $value = $data->deal_stage->value;
                 break;
             case 'organization_type_id':
-                $value = $data->organizationType->value;
+                $value = $data->organization_type->value;
                 break;
             case 'organization_region_id':
-                $value = $data->organizationRegion->value;
+                $value = $data->organization_region->value;
                 break;
             case 'organization_group_id':
-                $value = $data->organizationGroup->value;
+                $value = $data->organization_group->value;
                 break;
             case 'product_type_id':
-                $value = $data->productType->value;
+                $value = $data->product_type->value;
                 break;
             case 'create_time':
                 $value = date("Y-m-d H:i:s", $data->create_time);
@@ -189,7 +189,7 @@ class Controller extends RController
                 $value = date("Y-m-d H:i:s", $data->log_datetime);
                 break;
             case 'task_type_id':
-                $value = $data->taskType->value;
+                $value = $data->task_type->value;
                 break;
         }
         return $value;
@@ -236,7 +236,7 @@ class Controller extends RController
                 $value = '$data->user->username';
                 break;
             case 'log_user_id':
-                $value = '$data->logUser->username';
+                $value = '$data->log_user->username';
                 break;
             case 'create_user_id':
                 $value = '$data->create_user->username';
@@ -248,25 +248,25 @@ class Controller extends RController
                 $value = '$data->customer->value';
                 break;
             case 'contact_type_id':
-                $value = '$data->contactType->value';
+                $value = '$data->contact_type->value';
                 break;
             case 'deal_source_id':
-                $value = '$data->dealSource->value';
+                $value = '$data->deal_source->value';
                 break;
             case 'deal_stage_id':
-                $value = '$data->dealStage->value';
+                $value = '$data->deal_stage->value';
                 break;
             case 'organization_type_id':
-                $value = '$data->organizationType->value';
+                $value = '$data->organization_type->value';
                 break;
             case 'organization_region_id':
-                $value = '$data->organizationRegion->value';
+                $value = '$data->organization_region->value';
                 break;
             case 'organization_group_id':
-                $value = '$data->organizationGroup->value';
+                $value = '$data->organization_group->value';
                 break;
             case 'product_type_id':
-                $value = '$data->productType->value';
+                $value = '$data->product_type->value';
                 break;
             case 'datetime':
                 $value = 'date("Y-m-d H:i:s",$data->datetime)';
@@ -275,7 +275,7 @@ class Controller extends RController
                 $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
                 break;
             case 'task_type_id':
-                $value = '$data->taskType->value';
+                $value = '$data->task_type->value';
                 break;
         }
         return $value;
@@ -485,11 +485,11 @@ class Controller extends RController
     {
         $create_time = date('Y-m-d H:i:s', $model->create_time);
         //$create_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->create_time);
-        $create_user = $model->createUser->profiles->last_name . ' ' . $model->createUser->profiles->first_name . ' (' . $model->createUser->username . ')';
+        $create_user = $model->create_user->profiles->last_name . ' ' . $model->create_user->profiles->first_name . ' (' . $model->create_user->username . ')';
 
         $update_time = date('Y-m-d H:i:s', $model->update_time);
         //$update_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->update_time);
-        $update_user = $model->updateUser->profiles->last_name . ' ' . $model->updateUser->profiles->first_name . ' (' . $model->updateUser->username . ')';
+        $update_user = $model->update_user->profiles->last_name . ' ' . $model->update_user->profiles->first_name . ' (' . $model->update_user->username . ')';
 
         return array(
             'create_time' => array('name' => 'create_time', 'label' => $this->attributeLabels('create_time'), 'value' => $create_time),

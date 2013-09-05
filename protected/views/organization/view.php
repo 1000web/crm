@@ -5,9 +5,9 @@
 /* @var $customer Customer */
 /* @var $deal Deal */
 
-$this->addAttribute('organization_type_id',$model->organizationType->value);
-$this->addAttribute('organization_group_id',$model->organizationGroup->value);
-$this->addAttribute('organization_region_id',$model->organizationRegion->value);
+$this->addAttribute('organization_type_id',$model->organization_type->value);
+$this->addAttribute('organization_group_id',$model->organization_group->value);
+$this->addAttribute('organization_region_id',$model->organization_region->value);
 $this->addAttribute('description');
 
 

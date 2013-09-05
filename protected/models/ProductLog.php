@@ -59,8 +59,8 @@ class ProductLog extends LogActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'logUser' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
-            'productType' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
+            'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'product_type' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
         );
     }
 

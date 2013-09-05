@@ -23,8 +23,8 @@
  * The followings are the available model relations:
  * @property Item $parent
  * @property Item[] $items
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Users $create_user
+ * @property Users $update_user
  * @property MenuItem[] $menuItems
  */
 class Item extends MyActiveRecord
@@ -74,8 +74,8 @@ class Item extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'createUser' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'parent' => array(self::BELONGS_TO, 'Item', 'parent_id'),
             'childs' => array(self::HAS_MANY, 'Item', 'parent_id'),
             'menuItems' => array(self::HAS_MANY, 'MenuItem', 'item_id'),
