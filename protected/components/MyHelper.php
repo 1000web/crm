@@ -1,7 +1,7 @@
 <?php
 
 class MyHelper {
-    static function action_icon($action)
+    public static function action_icon($action)
     {
         $icons = array(
             'create' => 'icon-plus',
@@ -18,7 +18,7 @@ class MyHelper {
         return $icons[$action];
     }
 
-    static function checkAccess($param1, $param2, $param3 = NULL)
+    public static function checkAccess($param1, $param2, $param3 = NULL)
     {
         $param = '';
         if ($param3 !== NULL) {
@@ -36,8 +36,7 @@ class MyHelper {
         return Yii::app()->user->checkAccess($param);
     }
 
-
-    static function createURL($param1, $param2, $param3 = NULL)
+    public static function createURL($param1, $param2, $param3 = NULL)
     {
         $url = '';
         if ($param3 !== NULL) {
