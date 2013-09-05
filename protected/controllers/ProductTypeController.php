@@ -1,4 +1,5 @@
 <?php
+// lowercase
 
 class ProducttypeController extends Controller
 {
