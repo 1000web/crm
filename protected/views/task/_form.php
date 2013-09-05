@@ -2,65 +2,24 @@
 /* @var $this TaskController */
 /* @var $model Task */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'verticalForm',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'verticalForm',
-        'htmlOptions' => array('class' => 'well'),
-    ));
-    ?>
-    <?php /* $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'task-form',
-        'enableAjaxValidation' => false,
-    )); */ ?>
+echo $form->errorSummary($model);
 
-    <?php echo $form->errorSummary($model); ?>
+echo $form->dropDownListRow($model, 'task_type_id', TaskType::model()->getOptions(), array('class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'task_type_id');
-        echo $form->dropDownList($model, 'task_type_id', TaskType::model()->getOptions(), array('class' => 'input-block-level'));
-        echo $form->error($model, 'task_type_id');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'datetime');
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'datetime');
-        echo $form->textField($model, 'datetime');
-        echo $form->error($model, 'datetime');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'user_id', array('class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'user_id');
-        echo $form->textField($model, 'user_id', array('class' => 'input-block-level'));
-        echo $form->error($model, 'user_id');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
-        echo $form->error($model, 'value');
-        ?>
-    </div>
+echo $form->textAreaRow($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
-        echo $form->error($model, 'description');
-        ?>
-    </div>
+echo $this->submit_button($model->isNewRecord);
 
-    <?php echo $this->submit_button($model->isNewRecord); ?>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+$this->endWidget();

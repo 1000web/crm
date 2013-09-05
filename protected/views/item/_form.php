@@ -2,105 +2,34 @@
 /* @var $this ItemController */
 /* @var $model Item */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'verticalForm',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'verticalForm',
-        'htmlOptions' => array('class' => 'well'),
-    ));
-    ?>
-    <?php /* $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'item-form',
-        'enableAjaxValidation' => false,
-    )); */ ?>
+echo $form->errorSummary($model);
 
-    <?php echo $form->errorSummary($model); ?>
+echo $form->dropDownListRow($model, 'parent_id', $model->getOptions('id', 'title'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'parent_id');
-        echo $form->dropDownList($model, 'parent_id', $model->getOptions('id', 'title'));
-        echo $form->error($model, 'parent_id');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'module', array('size' => 60, 'maxlength' => 64));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'module');
-        echo $form->textField($model, 'module', array('size' => 60, 'maxlength' => 64));
-        echo $form->error($model, 'module');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'controller', array('size' => 60, 'maxlength' => 64));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'controller');
-        echo $form->textField($model, 'controller', array('size' => 60, 'maxlength' => 64));
-        echo $form->error($model, 'controller');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'action', array('size' => 60, 'maxlength' => 64));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'action');
-        echo $form->textField($model, 'action', array('size' => 60, 'maxlength' => 64));
-        echo $form->error($model, 'action');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'url', array('size' => 60, 'maxlength' => 255));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'url');
-        echo $form->textField($model, 'url', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'url');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'icon', array('size' => 60, 'maxlength' => 64));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'icon');
-        echo $form->textField($model, 'icon', array('size' => 60, 'maxlength' => 64));
-        echo $form->error($model, 'icon');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'title', array('size' => 60, 'maxlength' => 255));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'title');
-        echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'title');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'h1', array('size' => 60, 'maxlength' => 255));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'h1');
-        echo $form->textField($model, 'h1', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'h1');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'value', array('size' => 60, 'maxlength' => 255));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('size' => 60, 'maxlength' => 255));
-        echo $form->error($model, 'value');
-        ?>
-    </div>
+echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50));
-        echo $form->error($model, 'description');
-        ?>
-    </div>
+echo $this->submit_button($model->isNewRecord);
 
-    <?php echo $this->submit_button($model->isNewRecord); ?>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+$this->endWidget();

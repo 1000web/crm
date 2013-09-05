@@ -2,49 +2,20 @@
 /* @var $this ProductController */
 /* @var $model Product */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'verticalForm',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'verticalForm',
-        'htmlOptions' => array('class' => 'well'),
-    ));
-    ?>
-    <?php /* $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'product-form',
-        'enableAjaxValidation' => false,
-    )); */ ?>
+echo $form->errorSummary($model);
 
-    <?php echo $form->errorSummary($model); ?>
+echo $form->dropDownListRow($model, 'product_type_id', ProductType::model()->getOptions(), array('class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'product_type_id');
-        echo $form->dropDownList($model, 'product_type_id', ProductType::model()->getOptions(), array('class' => 'input-block-level'));
-        echo $form->error($model, 'product_type_id');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
-        echo $form->error($model, 'value');
-        ?>
-    </div>
+echo $form->textAreaRow($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
-        echo $form->error($model, 'description');
-        ?>
-    </div>
+echo $this->submit_button($model->isNewRecord);
 
-    <?php echo $this->submit_button($model->isNewRecord); ?>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+$this->endWidget();

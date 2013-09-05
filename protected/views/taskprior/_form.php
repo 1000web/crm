@@ -2,49 +2,20 @@
 /* @var $this TaskPriorController */
 /* @var $model TaskPrior */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'verticalForm',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'verticalForm',
-        'htmlOptions' => array('class' => 'well'),
-    ));
-    ?>
-    <?php /* $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'task-prior-form',
-        'enableAjaxValidation' => false,
-    )); */ ?>
+echo $form->errorSummary($model);
 
-    <?php echo $form->errorSummary($model); ?>
+echo $form->textFieldRow($model, 'prior', array('class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'prior');
-        echo $form->textField($model, 'prior', array('class' => 'input-block-level'));
-        echo $form->error($model, 'prior');
-        ?>
-    </div>
+echo $form->textFieldRow($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'value');
-        echo $form->textField($model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
-        echo $form->error($model, 'value');
-        ?>
-    </div>
+echo $form->textAreaRow($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-    <div class="row">
-        <?php
-        echo $form->labelEx($model, 'description');
-        echo $form->textArea($model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
-        echo $form->error($model, 'description');
-        ?>
-    </div>
+echo $this->submit_button($model->isNewRecord);
 
-    <?php echo $this->submit_button($model->isNewRecord); ?>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+$this->endWidget();
