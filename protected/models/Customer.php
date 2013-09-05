@@ -81,25 +81,6 @@ class Customer extends MyActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'organization_id' => 'Organization',
-            'user_id' => 'User',
-            'position' => 'Position',
-            'value' => 'Value',
-            'description' => 'Description',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
@@ -162,6 +143,21 @@ class Customer extends MyActiveRecord
                 'pageSize' => $userProfile->customer_pagesize,
             ),
         ));
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => '#',
+            'organization_id' => 'Организация',
+            'user_id' => 'Пользователь',
+            'position' => 'Должность',
+            'value' => 'Фамилия Имя',
+            'description' => 'Описание',
+        );
     }
 
 }

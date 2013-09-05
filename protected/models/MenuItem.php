@@ -83,16 +83,12 @@ class MenuItem extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'parent_id' => 'Parent',
-            'menu_id' => 'Menu',
-            'item_id' => 'Item',
-            'prior' => 'Prior',
-            'visible' => 'Visible',
+            'id' => '#',
+            'parent_id' => 'Родитель',
+            'menu_id' => 'Меню',
+            'item_id' => 'Пункт',
+            'prior' => 'Приоритет',
+            'visible' => 'Видимость',
         );
     }
 

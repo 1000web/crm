@@ -80,33 +80,6 @@ class DealLog extends LogActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'log_id' => 'Log',
-            'log_action' => 'Log Action',
-            'log_datetime' => 'Log Datetime',
-            'log_user_id' => 'Log User',
-            'id' => 'ID',
-            'inner_number' => 'Inner Number',
-            'external_number' => 'External Number',
-            'value' => 'Value',
-            'description' => 'Description',
-            'owner_id' => 'Owner',
-            'organization_id' => 'Organization',
-            'customer_id' => 'Customer',
-            'deal_source_id' => 'Deal Source',
-            'deal_stage_id' => 'Deal Stage',
-            'amount' => 'Amount',
-            'probability' => 'Probability',
-            'open_date' => 'Open Date',
-            'close_date' => 'Close Date',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

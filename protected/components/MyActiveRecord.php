@@ -74,41 +74,4 @@ class MyActiveRecord extends CActiveRecord
         return $ret;
     }
 
-    public function attributeLabels()
-    {
-        return array(
-            'activkey' => 'Activkey',
-            'create_at' => 'Дата создания',
-            'create_time' => 'Дата создания',
-            'create_user_id' => 'Кто создал',
-            'contact_type_id' => 'Тип контакта',
-            'customer_id' => 'Клиент',
-            'datetime' => 'Дата/время',
-            'deleted' => 'Удалено',
-            'description' => 'Описание',
-            'email' => 'Email',
-            'first_name' => 'Имя',
-            'id' => '#',
-            'last_name' => 'Фамилия',
-            'lastvisit_at' => 'Lastvisit At',
-            'log_id' => 'Log #',
-            'organization_id' => 'Организация',
-            'organization_type_id' => 'Тип организации',
-            'organization_group_id' => 'Группа организаций',
-            'organization_region_id' => 'Регион',
-            'password' => 'Пароль',
-            'position' => 'Должность',
-            'product_type_id' => 'Тип продукта',
-            'status' => 'Статус',
-            'superuser' => 'Суперпользователь',
-            'task_type_id' => 'Тип задачи',
-            'update_time' => 'Дата изменения',
-            'update_user_id' => 'Кто изменил',
-            'user_id' => 'Пользователь',
-            'username' => 'Имя пользователя',
-            'value' => 'Значение',
-        );
-    }
-
-
 }

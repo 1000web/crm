@@ -106,4 +106,16 @@ class ContactType extends MyActiveRecord
         ));
     }
 
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => '#',
+            'value' => 'Название',
+            'description' => 'Описание',
+        );
+    }
+
 }

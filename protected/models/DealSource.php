@@ -74,14 +74,10 @@ class DealSource extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'prior' => 'Prior',
-            'value' => 'Value',
-            'description' => 'Description',
+            'id' => '#',
+            'prior' => 'Приоритет',
+            'value' => 'Название',
+            'description' => 'Описание',
         );
     }
 

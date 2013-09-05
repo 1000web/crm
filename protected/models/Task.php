@@ -82,16 +82,12 @@ class Task extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'task_type_id' => 'Task Type',
-            'datetime' => 'Datetime',
-            'user_id' => 'User',
-            'value' => 'Value',
-            'description' => 'Description',
+            'id' => '#',
+            'task_type_id' => 'Тип задачи',
+            'datetime' => 'Дата/время',
+            'user_id' => 'Пользователь',
+            'value' => 'Название',
+            'description' => 'Описание',
         );
     }
 

@@ -76,13 +76,9 @@ class Menu extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'value' => 'Value',
-            'description' => 'Description',
+            'id' => '#',
+            'value' => 'Название',
+            'description' => 'Описание',
         );
     }
 

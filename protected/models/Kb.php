@@ -76,16 +76,12 @@ class Kb extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'state' => 'State',
-            'question' => 'Question',
-            'answer' => 'Answer',
-            'value' => 'Value',
-            'description' => 'Description',
+            'id' => '#',
+            'state' => 'Статус',
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
+            'value' => 'Краткое описание',
+            'description' => 'Описание',
         );
     }
 

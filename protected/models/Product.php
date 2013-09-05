@@ -71,6 +71,19 @@ class Product extends MyActiveRecord
     }
 
     /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => '#',
+            'product_type_id' => 'Тип продукции',
+            'value' => 'Название',
+            'description' => 'Описание',
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

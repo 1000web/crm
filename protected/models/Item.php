@@ -89,21 +89,17 @@ class Item extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'parent_id' => 'Parent',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'module' => 'Module',
-            'controller' => 'Controller',
-            'action' => 'Action',
-            'icon' => 'Icon',
+            'id' => '#',
+            'parent_id' => 'Родитель',
+            'module' => 'Модуль',
+            'controller' => 'Контроллер',
+            'action' => 'Действие',
+            'icon' => 'Иконка',
             'utl' => 'Url',
-            'title' => 'Title',
+            'title' => 'Заголовок',
             'h1' => 'H1',
-            'value' => 'Value',
-            'description' => 'Description',
+            'value' => 'Название',
+            'description' => 'Описание',
         );
     }
 

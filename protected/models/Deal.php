@@ -97,24 +97,20 @@ class Deal extends MyActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
-            'create_user_id' => 'Create User',
-            'update_user_id' => 'Update User',
-            'inner_number' => 'Inner Number',
-            'external_number' => 'External Number',
-            'value' => 'Value',
-            'description' => 'Description',
-            'owner_id' => 'Owner',
-            'organization_id' => 'Organization',
-            'customer_id' => 'Customer',
-            'deal_source_id' => 'Deal Source',
-            'deal_stage_id' => 'Deal Stage',
-            'amount' => 'Amount',
-            'probability' => 'Probability',
-            'open_date' => 'Open Date',
-            'close_date' => 'Close Date',
+            'id' => '#',
+            'inner_number' => 'Внутренний номер',
+            'external_number' => 'Номер договора',
+            'value' => 'Название сделки',
+            'description' => 'Описание',
+            'owner_id' => 'Владелец',
+            'organization_id' => 'Организация',
+            'customer_id' => 'Клиент',
+            'deal_source_id' => 'Источник',
+            'deal_stage_id' => 'Этап',
+            'amount' => 'Сумма по договору',
+            'probability' => 'Вероятность, %',
+            'open_date' => 'Дата подписания',
+            'close_date' => 'Дата закрытия',
         );
     }
 

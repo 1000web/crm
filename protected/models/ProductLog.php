@@ -65,23 +65,6 @@ class ProductLog extends LogActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'log_id' => 'Log',
-            'log_action' => 'Log Action',
-            'log_datetime' => 'Log Datetime',
-            'log_user_id' => 'Log User',
-            'id' => 'ID',
-            'product_type_id' => 'Product Type',
-            'value' => 'Value',
-            'description' => 'Description',
-        );
-    }
-
-    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
