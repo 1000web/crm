@@ -1,11 +1,9 @@
 <?php
 /* @var $this SiteController */
-
-$menu_name = 'home_menu';
-$menu_items = MenuItem::model()->getItems($menu_name);
+/* @var $menu Menu */
 
 echo '<div class="container">';
-FOREACH ($menu_items as $item) :
+FOREACH ($menu as $item) :
     ?>
     <div class="row">
     <div class="span1"><img src="/images/75x75/<?php echo $item['i']['controller']; ?>/index.jpg"/></div>
@@ -15,7 +13,7 @@ FOREACH ($menu_items as $item) :
     <p><?php echo $item['i']['description']; ?></p>
 
     <?php
-    if ($items = MenuItem::model()->getItemsArray($menu_name, $item['id'])) {
+    if ($items = MenuItem::model()->getItemsArray($item['m']['value'], $item['id'])) {
         $this->widget('bootstrap.widgets.TbMenu', array(
             'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
             'stacked' => false, // whether this is a stacked menu

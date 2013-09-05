@@ -11,7 +11,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->buildPageOptions();
-        $this->render('index');
+        $this->render('index', array(
+            'menu' => MenuItem::model()->getItems('home_menu'),
+        ));
     }
 
     public function actionAbout()

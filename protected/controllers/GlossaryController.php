@@ -7,6 +7,9 @@ class GlossaryController extends Controller
     public function actionIndex()
     {
         $this->buildPageOptions();
-        $this->render('index');
+        $this->render('index', array(
+            'menu' => MenuItem::model()->getItems('glossary_menu'),
+            //'menu' => MenuItem::model()->getItems('top_menu',5),
+        ));
     }
 }
