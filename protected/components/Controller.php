@@ -507,18 +507,18 @@ class Controller extends RController
             'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-            //    'size' => 'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions' => array('class' => 'span3 offset1'),
+            'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
-        echo "&nbsp; &nbsp; &nbsp;";
         $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Отменить',
             'url' => Yii::app()->request->getUrlReferrer(),
             'type' => 'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'htmlOptions' => array('class' => 'span3 offset1'),
             //'buttonType' => 'submit',
-            //    'size' => 'large', // null, 'large', 'small' or 'mini'
+            'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         echo "\n</div>\n";
-        //return $ret;
     }
 
     public function manage_search_form($model)
