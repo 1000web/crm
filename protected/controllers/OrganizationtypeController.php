@@ -1,5 +1,5 @@
 <?php
-// lowercase
+
 
 class OrganizationtypeController extends Controller
 {

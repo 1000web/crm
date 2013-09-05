@@ -195,7 +195,7 @@ class TaskController extends Controller
         $this->_pagesize = $userProfile->task_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Task::model()->getAll($userProfile,'favorite'),
+            'dataProvider' => Task::model()->getAll($userProfile, 'favorite'),
         ));
 
     }

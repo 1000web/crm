@@ -201,4 +201,5 @@ class CustomerController extends Controller
             'dataProvider' => Customer::model()->getAll($userProfile, 'favorite'),
         ));
     }
+
 }

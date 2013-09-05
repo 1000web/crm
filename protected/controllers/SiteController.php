@@ -44,7 +44,9 @@ class SiteController extends Controller
         }
     }
 
-    public function buildMenuOperations($model = NULL) {}
+    public function buildMenuOperations($model = NULL)
+    {
+    }
 
     public function actionFavorite()
     {
