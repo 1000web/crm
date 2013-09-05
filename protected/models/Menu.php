@@ -110,37 +110,6 @@ class Menu extends MyActiveRecord
         ));
     }
 
-    function get_menu($menu_name, $parent_id = NULL, $levels = 2)
-    {
-        return $this->static_menu();
-    }
-
-    function static_menu()
-    {
-        $items = array(
-            array('label' => 'Клиенты', 'url' => array('/customer/index'),
-                'items' => array(
-                    array('label' => 'Избранные', 'icon' => 'icon-star', 'url' => array('/customer/favorite')),
-                    array('label' => 'Список клиентов', 'icon' => 'icon-list', 'url' => array('/customer/index')),
-                    array('label' => 'Контакты клиентов', 'icon' => 'icon-envelope', 'url' => array('/customercontact/index')),
-                    array('label' => 'Создать клиента', 'icon' => 'icon-plus', 'url' => array('/customer/create')),
-                ),
-            ),
-            array('label' => 'Войти', 'url' => array('/user/login'), 'visible' => Yii::app()->user->isGuest),
-            array('label' => 'Профиль', 'visible' => !Yii::app()->user->isGuest,
-                'items' => array(
-                    array('label' => 'Rights', 'url' => array('/rights/assignment/view')),
-                    array('label' => 'Gii', 'url' => array('/gii/')),
-                    array('label' => 'DB Dump', 'url' => array('/sxd/')),
-                    array('label' => 'Профиль', 'icon' => 'icon-user', 'url' => array('/user/profile/profile')),
-                    array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'icon' => 'icon-off', 'url' => array('/user/logout')),
-                ),
-            ),
-
-        );
-        return $items;
-    }
-
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
