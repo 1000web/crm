@@ -49,42 +49,31 @@
     }
     ?><!-- breadcrumbs -->
 
-    <div class='row'>
-        <div class='span2'>
+    <div class="media">
+        <div class="pull-left">
             <?php
-            if (isset($this->header_image)) echo "<img src='" . $this->header_image . "' />";
+            if (isset($this->header_image)) echo "<img class='media-object' src='" . $this->header_image . "' />";
             ?>
         </div>
-        <div class='span10'>
+        <div class="media-body">
             <?php
-            /*
-            $this->beginWidget('bootstrap.widgets.TbHeroUnit', array(
-                'heading' => $this->h1,
-            ));
-            echo "<p>" . $this->description . "</p>";
-            if($this->menu) {
-                $this->widget('bootstrap.widgets.TbMenu', array(
-                    'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
-                    'stacked' => false, // whether this is a stacked menu
-                    'items' => $this->menu,
-                ));
-            }
-            $this->endWidget(); */
-            if (isset($this->h1)) echo "<h1>" . $this->h1 . "</h1>\n";
-            if (isset($this->description)) echo "<p class='lead'>" . $this->description . "</p>";
-            if (isset($this->menu) AND $this->menu) {
-                $this->widget('bootstrap.widgets.TbMenu', array(
-                    'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
-                    'stacked' => false, // whether this is a stacked menu
-                    'items' => $this->menu,
-                ));
-            }
-            if (isset($this->show_pagesize) AND $this->show_pagesize) $this->pagesize();
+            if (isset($this->h1)) echo "<h1 class='media-heading'>" . $this->h1 . "</h1>\n";
             ?>
+            <div class="media">
+                <?php
+                if (isset($this->description) AND !empty($this->description)) echo "<p class='lead'>" . $this->description . "</p>";
+                if (isset($this->menu) AND $this->menu) {
+                    $this->widget('bootstrap.widgets.TbMenu', array(
+                        'type' => 'pills', // '', 'tabs', 'pills' (or 'list')
+                        'stacked' => false, // whether this is a stacked menu
+                        'items' => $this->menu,
+                    ));
+                }
+                if (isset($this->show_pagesize) AND $this->show_pagesize) $this->pagesize();
+                ?>
+            </div>
         </div>
     </div>
-
-
     <!-- page_header -->
 
     <?php echo $content; ?>

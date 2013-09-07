@@ -418,6 +418,25 @@ class TbActiveForm extends CActiveForm
 	}
 
 	/**
+	 *### .sliderRow()
+	 *
+	 * Renders a slider field row.
+	 *
+	 * @param CModel $model the data model
+	 * @param string $attribute the attribute
+	 * @param array $htmlOptions additional HTML attributes. 'events' and 'options' key specify the events
+	 * and configuration options of slider respectively.
+	 *
+	 * @return string the generated row
+	 *
+	 * @since 1.0.2 Booster
+	 */
+	public function sliderRow($model, $attribute, $htmlOptions = array())
+	{
+		return $this->inputRow(TbInput::TYPE_SLIDER, $model, $attribute, null, $htmlOptions);
+	}
+
+	/**
 	 *### .datepickerRow()
 	 *
 	 * Renders a datepicker field row.

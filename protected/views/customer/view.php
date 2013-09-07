@@ -21,12 +21,7 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));
-/*
-if(MyHelper::checkAccess('customercontact', 'view'))
-    echo $this->renderPartial('_contact', array(
-    'dataProvider' => $contact,
-    'model' => $model,
-));/**/
+
 $controller = 'customercontact';
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Контакты Клиента ';
@@ -38,7 +33,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../customercontact/index', array(
+    echo $this->renderPartial('../'.$controller.'/index', array(
         'dataProvider' => $contact,
     ));
 }

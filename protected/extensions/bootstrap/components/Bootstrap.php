@@ -560,6 +560,7 @@ class Bootstrap extends CApplicationComponent
 	const PLUGIN_TOOLTIP = 'tooltip';
 	const PLUGIN_TRANSITION = 'transition';
 	const PLUGIN_TYPEAHEAD = 'typeahead';
+	const PLUGIN_SLIDER = 'bslider';
 	const PLUGIN_DATEPICKER = 'bdatepicker';
 	const PLUGIN_REDACTOR = 'redactor';
 	const PLUGIN_MARKDOWNEDITOR = 'markdowneditor';
@@ -705,6 +706,19 @@ class Bootstrap extends CApplicationComponent
 	public function registerTypeahead($selector = null, $options = array())
 	{
 		$this->registerPlugin(self::PLUGIN_TYPEAHEAD, $selector, $options);
+	}
+
+	/**
+	 * Register the Bootstrap slider plugin.
+	 * IMPORTANT: if you register a selector via this method you wont be able to attach events to the plugin.
+	 *
+	 * @param string $selector the CSS selector
+	 * @param array $options the plugin options
+	 *
+	 */
+	public function registerSlider($selector = null, $options = array())
+	{
+		$this->registerPlugin(self::PLUGIN_SLIDER, $selector, $options);
 	}
 
 	/**

@@ -16,8 +16,6 @@ class Controller extends RController
 
     public $favorite_available = false;
 
-    public $actions = array('create', 'index', 'admin', 'update', 'view', 'delete', 'setparam', 'favorite', 'log');
-
     public $attributes = array();
     public $buttons = array();
     public $columns = array();
@@ -142,6 +140,7 @@ class Controller extends RController
                 break;
             case 'user_id':
                 $value = $data->user->username;
+                //$value = $data->user->profile->lastname . ' ' . $data->user->firstname . '(' . $data->user->username .')';
                 break;
             case 'log_user_id':
                 $value = $data->log_user->username;
@@ -230,10 +229,12 @@ class Controller extends RController
     {
         switch ($item) {
             case 'organization_id':
-                $value = '$data->organization->value';
+                if(! MyHelper::checkAccess('organization', 'view')) $value = '$data->organization->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization->value),array("/organization/view","id"=>$data->organization_id))';
                 break;
             case 'user_id':
                 $value = '$data->user->username';
+//                $value = '$data->user->profile->lastname $data->user->firstname ($data->user->username)';
                 break;
             case 'log_user_id':
                 $value = '$data->log_user->username';
@@ -245,7 +246,8 @@ class Controller extends RController
                 $value = '$data->update_user->username';
                 break;
             case 'customer_id':
-                $value = '$data->customer->value';
+                if(! MyHelper::checkAccess('customer', 'view')) $value = '$data->customer->value';
+                else $value = 'CHtml::link(CHtml::encode($data->customer->value),array("/customer/view","id"=>$data->customer_id))';
                 break;
             case 'contact_type_id':
                 $value = '$data->contact_type->value';
@@ -269,7 +271,8 @@ class Controller extends RController
                 $value = '$data->product_type->value';
                 break;
             case 'datetime':
-                $value = 'date("Y-m-d H:i:s",$data->datetime)';
+                //$value = 'date("Y-m-d H:i:s",$data->datetime)';
+                $value = '$data->datetime';
                 break;
             case 'log_datetime':
                 $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
@@ -281,11 +284,13 @@ class Controller extends RController
         return $value;
     }
 
-    public function addColumn($item, $value = NULL)
+    public function addColumn($item, $param = NULL)
     {
-        $value = $this->column_value($item, $value);
-        if (!$value) $this->columns[$item] = array('name' => $item, 'header' => $this->attributeLabels($item));
-        else $this->columns[$item] = array('name' => $item, 'header' => $this->attributeLabels($item), 'value' => $value);
+        $value = $this->column_value($item, $param);
+        $column = array('name' => $item, 'header' => $this->attributeLabels($item));
+        if ($value !== NULL) $column['value'] = $value;
+        if($param != $value) $column['type'] = 'raw';
+        $this->columns[$item] = $column;
     }
 
     public function addColumns($list)
@@ -385,26 +390,6 @@ class Controller extends RController
                 if (MyHelper::checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
                 if (MyHelper::checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
                 if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
-                break;
-        }
-        return;
-    }
-
-    public function buildBreadcrumbs_bak($model = NULL)
-    {
-        switch ($this->getAction()->getId()) {
-            case 'update':
-                $this->breadcrumbs = array(
-                    $this->name => array('index'),
-                    $model->value => array('view', 'id' => $model->id),
-                    'Редактировать',
-                );
-                break;
-            case 'view':
-                $this->breadcrumbs = array(
-                    $this->name => array('index'),
-                    $model->value,
-                );
                 break;
         }
         return;
@@ -510,7 +495,7 @@ class Controller extends RController
             'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-            'htmlOptions' => array('class' => 'span3 offset1'),
+            'htmlOptions' => array('class' => 'span3 offset2'),
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         $this->widget('bootstrap.widgets.TbButton', array(

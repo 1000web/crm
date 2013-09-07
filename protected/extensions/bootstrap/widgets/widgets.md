@@ -79,6 +79,7 @@
 
 ## Inputs
 
+ Slider
  DatePicker
  ColorPicker
  Typeahead

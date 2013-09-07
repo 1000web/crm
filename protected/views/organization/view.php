@@ -15,21 +15,48 @@ echo $this->renderPartial('../detail_view', array(
     'dataProvider' => $model,
 ));
 
-if (MyHelper::checkAccess('organizationcontact', 'view')) {
-    echo '<h2>Контакты Организации</h2>';
-    echo $this->renderPartial('../organizationcontact/index', array(
+$controller = 'organizationcontact';
+if (MyHelper::checkAccess($controller, 'view')) {
+    echo '<h2>Контакты ';
+    if (MyHelper::checkAccess($controller, 'create')) {
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+            'label' => 'Добавить контакт',
+            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        ));
+    }
+    echo '</h2>';
+    echo $this->renderPartial('../'.$controller.'/index', array(
         'dataProvider' => $contact,
     ));
 }
-if (MyHelper::checkAccess('customer', 'view')) {
-    echo '<h2>Клиенты Организации</h2>';
-    echo $this->renderPartial('../customer/index', array(
+$controller = 'customer';
+if (MyHelper::checkAccess($controller, 'view')) {
+    echo '<h2>Клиенты  ';
+    if (MyHelper::checkAccess($controller, 'create')) {
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+            'label' => 'Добавить клиента',
+            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        ));
+    }
+    echo '</h2>';
+    echo $this->renderPartial('../'.$controller.'/index', array(
         'dataProvider' => $customer,
     ));
 }
-if (MyHelper::checkAccess('deal', 'view')) {
-    echo '<h2>Сделки Организации</h2>';
-    echo $this->renderPartial('../deal/index', array(
+$controller = 'deal';
+if (MyHelper::checkAccess($controller, 'view')) {
+    echo '<h2>Сделки ';
+    if (MyHelper::checkAccess($controller, 'create')) {
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'url' => array('/' . $controller . '/create', 'oid' => $model->id),
+            'label' => 'Добавить сделку',
+            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        ));
+    }
+    echo '</h2>';
+    echo $this->renderPartial('../'.$controller.'/index', array(
         'dataProvider' => $deal,
     ));
 }

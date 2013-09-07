@@ -33,6 +33,7 @@ abstract class TbInput extends CInputWidget
 	const TYPE_MASKEDTEXT = 'maskedtextfield';
 	const TYPE_CAPTCHA = 'captcha';
 	const TYPE_UNEDITABLE = 'uneditable';
+	const TYPE_SLIDER = 'slider';
 	const TYPE_DATEPICKER = 'datepicker';
 	const TYPE_REDACTOR = 'redactor';
 	const TYPE_MARKDOWNEDITOR = 'markdowneditor';
@@ -59,7 +60,7 @@ abstract class TbInput extends CInputWidget
 	/**
 	 * @var string the input type.
 	 *
-	 * Following types are supported: checkbox, checkboxlist, dropdownlist, filefield, password,
+	 * Following types are supported: checkbox, checkboxlist, dropdownlist, filefield, password, slider,
 	 * radiobutton, radiobuttonlist, textarea, textfield, captcha and uneditable.
 	 */
 	public $type;
@@ -301,7 +302,11 @@ abstract class TbInput extends CInputWidget
 				$this->uneditableField();
 				break;
 
-			case self::TYPE_DATEPICKER:
+            case self::TYPE_SLIDER:
+                $this->sliderField();
+                break;
+
+            case self::TYPE_DATEPICKER:
 				$this->datepickerField();
 				break;
 
@@ -712,6 +717,16 @@ abstract class TbInput extends CInputWidget
 	 * @abstract
 	 */
 	abstract protected function uneditableField();
+
+	/**
+	 *### .sliderField()
+	 *
+	 * Renders a slider field.
+	 *
+	 * @return string the rendered content
+	 * @abstract
+	 */
+	abstract protected function sliderField();
 
 	/**
 	 *### .datepicketField()

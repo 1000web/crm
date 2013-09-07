@@ -74,4 +74,9 @@ class MyActiveRecord extends CActiveRecord
         return $ret;
     }
 
+    function getLabel($name){
+        $labels = $this->attributeLabels();
+        return $labels[$name];
+    }
+
 }

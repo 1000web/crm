@@ -43,6 +43,7 @@ class TbFormInputElement extends CFormInputElement
 		'email' => 'textFieldRow',
 		'number' => 'textFieldRow',
 		//'range'=>'activeRangeField', not supported yet
+		'slider' => 'sliderRow',
 		'date' => 'datepickerRow',
 		//new YiiBooster types
 		'captcha' => 'captchaRow',

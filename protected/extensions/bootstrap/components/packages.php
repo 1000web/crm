@@ -44,6 +44,13 @@ return array(
 	),
 
 	//widgets start
+	'slider' => array(
+		'depends' => array('jquery'),
+		//'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/' : $this->getAssetsUrl(),
+		'baseUrl' => $this->getAssetsUrl(),
+		'css' => array($this->minifyCss ? 'css/bootstrap-slider.min.css' : 'css/bootstrap-slider.css'),
+		'js' => array($this->minifyCss ? 'js/bootstrap-slider.min.js' : 'js/bootstrap-slider.js')
+	),
 	'datepicker' => array(
 		'depends' => array('jquery'),
 		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/' : $this->getAssetsUrl(),
