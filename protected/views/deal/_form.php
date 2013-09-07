@@ -13,10 +13,24 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($model);
 
-echo $form->datePickerRow($model, 'open_date');
-
-echo $form->datePickerRow($model, 'close_date');
-
+//echo $form->datePickerRow($model, 'open_date');
+echo $form->datepickerRow($model, 'open_date', array(
+    'class' => 'span3',
+    'options' => array(
+        'format' => 'dd-mm-yyyy',
+        'weekStart' => 1,
+        'viewMode' => 1,
+    )
+));
+//echo $form->datePickerRow($model, 'close_date');
+echo $form->datepickerRow($model, 'close_date', array(
+    'class' => 'span3',
+    'options' => array(
+        'format' => 'dd-mm-yyyy',
+        'weekStart' => 1,
+        'viewMode' => 1,
+    )
+));
 echo $form->textFieldRow($model, 'external_number', array('maxlength' => 255, 'class' => 'input-block-level'));
 
 echo $form->textFieldRow($model, 'inner_number', array('maxlength' => 255, 'class' => 'input-block-level'));

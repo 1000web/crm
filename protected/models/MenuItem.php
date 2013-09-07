@@ -77,6 +77,12 @@ class MenuItem extends MyActiveRecord
         );
     }
 
+    public function defaultScope(){
+        return array(
+            'with'=> array('i', 'm')
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -89,12 +95,6 @@ class MenuItem extends MyActiveRecord
             'item_id' => 'Пункт',
             'prior' => 'Приоритет',
             'visible' => 'Видимость',
-        );
-    }
-
-    public function defaultScope(){
-        return array(
-            'with'=> array('i', 'm')
         );
     }
 

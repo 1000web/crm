@@ -51,7 +51,7 @@ class Task extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('task_type_id, datetime, user_id, value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, task_type_id, datetime, user_id', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, task_type_id, user_id', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
@@ -84,7 +84,7 @@ class Task extends MyActiveRecord
         return array(
             'id' => '#',
             'task_type_id' => 'Тип задачи',
-            'datetime' => 'Дата/время',
+            'datetime' => 'Дата в формате дд-мм-гггг',
             'user_id' => 'Пользователь',
             'value' => 'Название',
             'description' => 'Описание',

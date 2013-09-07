@@ -142,6 +142,7 @@ class Controller extends RController
                 break;
             case 'user_id':
                 $value = $data->user->username;
+                //$value = $data->user->profile->lastname . ' ' . $data->user->firstname . '(' . $data->user->username .')';
                 break;
             case 'log_user_id':
                 $value = $data->log_user->username;
@@ -234,6 +235,7 @@ class Controller extends RController
                 break;
             case 'user_id':
                 $value = '$data->user->username';
+//                $value = '$data->user->profile->lastname $data->user->firstname ($data->user->username)';
                 break;
             case 'log_user_id':
                 $value = '$data->log_user->username';
@@ -269,7 +271,8 @@ class Controller extends RController
                 $value = '$data->product_type->value';
                 break;
             case 'datetime':
-                $value = 'date("Y-m-d H:i:s",$data->datetime)';
+                //$value = 'date("Y-m-d H:i:s",$data->datetime)';
+                $value = '$data->datetime';
                 break;
             case 'log_datetime':
                 $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
@@ -510,7 +513,7 @@ class Controller extends RController
             'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-            'htmlOptions' => array('class' => 'span3 offset1'),
+            'htmlOptions' => array('class' => 'span3 offset2'),
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         $this->widget('bootstrap.widgets.TbButton', array(

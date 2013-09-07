@@ -54,6 +54,7 @@ class TaskController extends Controller
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Task'])) {
+            //print_r($_POST['Task']); exit;
             $model->attributes = $_POST['Task'];
             if ($model->save()) {
                 $model_log->save_log_record($model, $this->getAction()->id);
@@ -134,8 +135,9 @@ class TaskController extends Controller
     public function loadModel($id)
     {
         $model = Task::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
+        if ($model === null) $this->HttpException(404);
+        $model->setAttribute('date', date('d-m-Y', $model->datetime));
+        $model->setAttribute('time', date('H:i', $model->datetime));
         return $model;
     }
 
