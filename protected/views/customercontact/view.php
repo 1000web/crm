@@ -1,6 +1,6 @@
 <?php
 /* @var $this CustomerContactController */
-/* @var $model CustomerContact */
+/* @var $this->_model CustomerContact */
 
 $attr = array(
     array('name' => 'customer_id', 'label' => 'Клиент', 'value' => $model->customer->value),
@@ -8,11 +8,11 @@ $attr = array(
     array('name' => 'description', 'label' => 'Описание'),
 );
 if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
+    $this->created_updated($this->_model),
     $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data' => $this->_model,
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));

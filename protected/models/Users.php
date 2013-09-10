@@ -126,6 +126,9 @@ class Users extends MyActiveRecord
             if(is_array($value)) $ret[$item[$id]] = $item[$value['key']][$value['val']];
             else {
                 if($value = 'username') {
+                    /*if(Yii::app()->user->id == $item->id) $ret[$item[$id]] = 'Я';
+                    else */
+                    //$ret[$item[$id]] = $item->profiles->last_name . ' ' . $item->profiles->first_name . ' (' . $item->username . ')';
                     $ret[$item[$id]] = $item->profiles->last_name . ' ' . $item->profiles->first_name . ' (' . $item->username . ')';
                 } else $ret[$item[$id]] = $item[$value];
             }

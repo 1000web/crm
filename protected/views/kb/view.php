@@ -1,6 +1,6 @@
 <?php
 /* @var $this KbController */
-/* @var $model Kb */
+/* @var $this->_model Kb */
 
 $attr = array(
     array('name' => 'state', 'label' => 'State'),
@@ -10,11 +10,11 @@ $attr = array(
     array('name' => 'description', 'label' => 'Описание'),
 );
 if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
+    $this->created_updated($this->_model),
     $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data' => $this->_model,
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));

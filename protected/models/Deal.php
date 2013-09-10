@@ -175,6 +175,11 @@ class Deal extends MyActiveRecord
             $criteria->addCondition('deal_source_id=:source');
             $criteria->params[':source'] = $source;
         }
+        if ($finished = $userProfile->filter_dealfinished) {
+            $criteria->addCondition('deal_stage.finished=:finished');
+            $criteria->params[':finished'] = $finished;
+        }
+        $criteria->with = array('deal_stage');
         return new CActiveDataProvider('Deal', array(
             'criteria' => $criteria,
             'pagination' => array(

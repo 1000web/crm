@@ -1,21 +1,7 @@
 <?php
 
-
 class OrganizationtypeController extends Controller
 {
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $model = $this->loadModel($id);
-        $this->buildPageOptions($model);
-        $this->render('view', array(
-            'model' => $model,
-        ));
-    }
-
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -35,10 +21,9 @@ class OrganizationtypeController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -61,10 +46,9 @@ class OrganizationtypeController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -103,9 +87,18 @@ class OrganizationtypeController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organizationtype_pagesize;
-        $this->buildPageOptions($this->loadModel($id));
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => OrganizationTypeLog::model()->getAll($userProfile, $id),
+        ));
+    }
+
+    public function actionColumn()
+    {
+        $this->buildPageOptions();
+        $this->render('../column', array(
+            'model' => new OrganizationType,
         ));
     }
 
@@ -119,10 +112,9 @@ class OrganizationtypeController extends Controller
         if (isset($_GET['OrganizationType']))
             $model->attributes = $_GET['OrganizationType'];
 
-        $this->buildPageOptions($model);
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('../admin');
     }
 
     /**

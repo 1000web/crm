@@ -8,7 +8,6 @@ class Controller extends RController
     public $layout = '//layouts/column1';
     public $menu = array();
     public $breadcrumbs = array();
-    protected $_model = NULL;
 
     public $header_image = '';
     public $h1 = 'Header H1';
@@ -20,6 +19,7 @@ class Controller extends RController
     public $buttons = array();
     public $columns = array();
 
+    protected $_model = NULL;
     protected $_pagesize = 20;
     protected $show_pagesize = false;
 
@@ -56,11 +56,33 @@ class Controller extends RController
             return $rules;
         }/**/
 
-    public function getUserProfile()
+    public function getUserProfile($param = NULL)
     {
         if (Yii::app()->user->id) $model = Yii::app()->user->user();
-        if ($model === null) $this->redirect(Yii::app()->user->loginUrl);
-        return $model->profile;
+        if ($model === NULL) return NULL;
+        else if ($param === NULL) return $model->profile;
+        else return $model->profile->getAttribute($param);
+    }
+
+    public function getColumns($param, $avail_cols)
+    {
+        if (Yii::app()->user->id) $model = Yii::app()->user->user();
+        // незалогинен пользователь, показываем все
+        if ($model === NULL) return $avail_cols;
+        // доставем значение этого параметра
+        $val = $model->profile->getAttribute($param);
+        // нет такого параметра
+        if($val === NULL) $cols = $avail_cols;
+        else {
+            // что-то есть, показываем те столбцы, что пользователь себе выбрал
+            if($val) $cols = explode(',', $val);
+            else {
+                // если ничего нет, то сохраняем показываем все столбцы и сохраняем параметр
+                $this->setparam($param, implode(',', $avail_cols));
+                $cols = $avail_cols;
+            }
+        }
+        return $cols;
     }
 
     public function buildFilterButton($options, $param)
@@ -105,13 +127,18 @@ class Controller extends RController
         ));
     }
 
-    public function actionSetparam($param, $value)
+    public function setparam($param, $value)
     {
         $userProfile = $this->getUserProfile();
         if ($userProfile->getAttribute($param) !== NULL) {
             $userProfile->setAttribute($param, $value);
             $userProfile->save();
         }
+    }
+
+    public function actionSetparam($param, $value)
+    {
+        $this->setparam($param, $value);
         if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
         else $this->redirect(Yii::app()->homeUrl);
     }
@@ -140,7 +167,13 @@ class Controller extends RController
                 break;
             case 'user_id':
                 $value = $data->user->username;
-                //$value = $data->user->profile->lastname . ' ' . $data->user->firstname . '(' . $data->user->username .')';
+                //$value = ($data->user_id == Yii::app()->user->id)?'Я':$data->user->username;
+                $value = $data->user->profiles->last_name . ' ' . $data->user->firstname . '(' . $data->user->username .')';
+                break;
+            case 'owner_id':
+                $value = $data->owner->username;
+                //$value = ($data->owner_id == Yii::app()->user->id)?'Я':$data->owner->username;
+                $value = $data->owner->profiles->last_name . ' ' . $data->owner->profiles->firstname . '(' . $data->owner->username .')';
                 break;
             case 'log_user_id':
                 $value = $data->log_user->username;
@@ -190,6 +223,15 @@ class Controller extends RController
             case 'task_type_id':
                 $value = $data->task_type->value;
                 break;
+            case 'task_stage_id':
+                $value = $data->task_stage->value;
+                break;
+            case 'task_prior_id':
+                $value = $data->task_prior->value;
+                break;
+            case 'finished':
+                $value = ($data->finished==1?"Неактивна":"Активна");
+                break;
         }
         return $value;
 
@@ -233,8 +275,13 @@ class Controller extends RController
                 else $value = 'CHtml::link(CHtml::encode($data->organization->value),array("/organization/view","id"=>$data->organization_id))';
                 break;
             case 'user_id':
-                $value = '$data->user->username';
-//                $value = '$data->user->profile->lastname $data->user->firstname ($data->user->username)';
+                $value = '$data->user?$data->user->username:""';
+                //$value = '($data->user_id == Yii::app()->user->id)?"Я":$data->user->username';
+                //$value = '$data->user->profiles->last_name $data->user->profiles->first_name ($data->user->username)';
+                break;
+            case 'owner_id':
+                $value = '$data->owner->username';
+                //$value = '($data->owner_id == Yii::app()->user->id)?"Я":$data->owner->username';
                 break;
             case 'log_user_id':
                 $value = '$data->log_user->username';
@@ -279,6 +326,15 @@ class Controller extends RController
                 break;
             case 'task_type_id':
                 $value = '$data->task_type->value';
+                break;
+            case 'task_stage_id':
+                $value = '$data->task_stage->value';
+                break;
+            case 'task_prior_id':
+                $value = '$data->task_prior->value';
+                break;
+            case 'finished':
+                $value = '($data->finished==1?"Неактивна":"Активна")';
                 break;
         }
         return $value;
@@ -327,6 +383,15 @@ class Controller extends RController
                 'label' => Yii::t('lang', 'История'),
                 'icon' => MyHelper::action_icon('log'),
                 'url' => array('log', 'id' => $id)),
+            'column' => array(
+                'label' => Yii::t('lang', 'Столбцы'),
+                'icon' => MyHelper::action_icon('column'),
+                'url' => array('column')),
+            'favorite' => array(
+                'label' => 'Избранное',
+                'icon' => MyHelper::action_icon('favorite'),
+                'url' => array('favorite'),
+            ),
             'favorite_add' => array(
                 'label' => 'В Избранное',
                 'icon' => MyHelper::action_icon('favorite_add'),
@@ -350,46 +415,47 @@ class Controller extends RController
         $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
                 break;
             case 'index':
-                if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] =   $items['create'];
+                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] =   $items['column'];
+                if ($this->favorite_available) {
+                    if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] =   $items['favorite'];
+                }
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
                 break;
             case 'admin':
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] =   $items['create'];
                 break;
             case 'update':
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                //if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if (MyHelper::checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
-                if (MyHelper::checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if (MyHelper::checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
-                //if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] =   $items['view'];
+                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] =   $items['delete'];
+                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] =   $items['log'];
                 break;
             case 'view':
                 if ($this->favorite_available) {
-                    if ($this->checkFavorite($id)) array_push($this->menu, $items['favorite_del']);
-                    else array_push($this->menu, $items['favorite_add']);
+                    if ($this->checkFavorite($id)) $this->menu[] =   $items['favorite_del'];
+                    else $this->menu[] =   $items['favorite_add'];
                 }
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                //if (MyHelper::checkAccess($this->id, 'create')) array_push($this->menu, $items['create']);
-                if (MyHelper::checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
-                if (MyHelper::checkAccess($this->id, 'delete')) array_push($this->menu, $items['delete']);
-                if (MyHelper::checkAccess($this->id, 'log')) array_push($this->menu, $items['log']);
-                //if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] =   $items['update'];
+                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] =   $items['delete'];
+                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] =   $items['log'];
                 break;
             case 'favorite':
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] =   $items['column'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
                 break;
             case 'log':
-                if (MyHelper::checkAccess($this->id, 'index')) array_push($this->menu, $items['index']);
-                if (MyHelper::checkAccess($this->id, 'view')) array_push($this->menu, $items['view']);
-                if (MyHelper::checkAccess($this->id, 'update')) array_push($this->menu, $items['update']);
-                if (MyHelper::checkAccess($this->id, 'admin')) array_push($this->menu, $items['admin']);
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
+                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] =   $items['view'];
+                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] =   $items['update'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
                 break;
         }
         return;
@@ -426,9 +492,8 @@ class Controller extends RController
         $this->buildBreadcrumbs($item->parent_id);
     }
 
-    public function buildPageOptions($model = NULL)
+    public function buildPageOptions()
     {
-        $this->_model = $model;
         $module = $this->getModule();
         if (!$module) $module = '';
         $item = Item::model()->findByAttributes(array(
@@ -509,16 +574,6 @@ class Controller extends RController
         echo "\n</div>\n";
     }
 
-    public function manage_search_form($model)
-    {
-        $ret = "\n<p>\nМожно использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> или <b>=</b>) в начале параметра поиска.\n</p>\n";
-        $ret .= CHtml::link('Расширенный поиск', '#', array('class' => 'search-button'));
-        $ret .= '<div class="search-form" style="display:none">';
-        $ret .= $this->renderPartial('_search', array('model' => $model), true);
-        $ret .= "</div><!-- search-form -->\n\n";
-        return $ret;
-    }
-
     public function attributeLabels($key)
     {
         $arr = array(
@@ -534,12 +589,18 @@ class Controller extends RController
             'contact_type_id' => 'Тип контакта',
             'customer' => 'Клиент',
             'customer_id' => 'Клиент',
+
+            'date' => 'Дата',
+            'time' => 'Время',
+
             'dealsource' => 'Источник',
             'dealstage' => 'Стадия',
+            'dealfinished' => 'Активность',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
             'datetime' => 'Дата/время',
             'log_datetime' => 'Дата/время',
+
             'deleted' => 'Удалено',
             'description' => 'Описание',
             'email' => 'Email',
@@ -547,6 +608,7 @@ class Controller extends RController
             'favadd' => 'Добавить в Избранное',
             'favdel' => 'Удалить из Избранного',
             'first_name' => 'Имя',
+            'finished' => 'Активность',
             'id' => '#',
 
             'item_id' => 'item',
@@ -578,15 +640,25 @@ class Controller extends RController
             'parent' => 'Родитель',
             'parent_id' => 'Родитель',
             'password' => 'Пароль',
-            'probability' => 'Вероятность %',
+            'probability' => 'Вероятность, %',
             'position' => 'Должность',
             'producttype' => 'Тип продукта',
             'product_type_id' => 'Тип продукта',
             'state' => 'Статус',
             'status' => 'Статус',
             'superuser' => 'Суперпользователь',
+
             'tasktype' => 'Тип задачи',
+            'taskstage' => 'Этап',
+            'taskprior' => 'Приоритет',
+            'taskowner' => 'Владелец',
+            'taskuser' => 'Исполнитель',
+            'taskfinished' => 'Активность',
+
             'task_type_id' => 'Тип задачи',
+            'task_stage_id' => 'Этап',
+            'task_prior_id' => 'Приоритет',
+
             'update_time' => 'Дата изменения',
             'update_user_id' => 'Кто изменил',
             'log_user_id' => 'Пользователь',
@@ -639,6 +711,17 @@ class Controller extends RController
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
             'buttons' => $buttons
         ));
+    }
+
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id)
+    {
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
+        $this->render('view');
     }
 
 }

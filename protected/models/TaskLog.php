@@ -10,8 +10,13 @@
  * @property integer $log_user_id
  * @property integer $id
  * @property integer $task_type_id
+ * @property integer $task_stage_id
+ * @property integer $task_prior_id
  * @property integer $datetime
+ * @property integer $date
+ * @property integer $time
  * @property integer $user_id
+ * @property integer $owner_id
  * @property string $value
  * @property string $description
  */
@@ -43,13 +48,13 @@ class TaskLog extends LogActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('log_datetime, log_user_id, id, task_type_id, datetime, user_id', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -64,6 +69,8 @@ class TaskLog extends LogActiveRecord
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
+            'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
+            'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),
         );
     }
 
@@ -84,6 +91,8 @@ class TaskLog extends LogActiveRecord
         $criteria->compare('log_user_id', $this->log_user_id);
         $criteria->compare('id', $this->id);
         $criteria->compare('task_type_id', $this->task_type_id);
+        $criteria->compare('task_stage_id', $this->task_stage_id);
+        $criteria->compare('task_prior_id', $this->task_prior_id);
         $criteria->compare('datetime', $this->datetime);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('value', $this->value, true);

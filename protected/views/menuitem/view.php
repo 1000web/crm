@@ -1,6 +1,6 @@
 <?php
 /* @var $this MenuItemController */
-/* @var $model MenuItem */
+/* @var $this->_model MenuItem */
 
 $attr = array(
     array('name' => 'parent_id', 'label' => 'Parent'),
@@ -11,11 +11,11 @@ $attr = array(
     array('name' => 'guest_only', 'label' => 'guest_only'),
 );
 if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
+    $this->created_updated($this->_model),
     $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data' => $this->_model,
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));

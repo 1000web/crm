@@ -4,19 +4,6 @@
 class DealstageController extends Controller
 {
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $model = $this->loadModel($id);
-        $this->buildPageOptions($model);
-        $this->render('view', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
@@ -35,10 +22,9 @@ class DealstageController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -61,10 +47,9 @@ class DealstageController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -103,9 +88,18 @@ class DealstageController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->dealstage_pagesize;
-        $this->buildPageOptions($this->loadModel($id));
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => DealStageLog::model()->getAll($userProfile, $id),
+        ));
+    }
+
+    public function actionColumn()
+    {
+        $this->buildPageOptions();
+        $this->render('../column', array(
+            'model' => new DealStage,
         ));
     }
 
@@ -119,10 +113,9 @@ class DealstageController extends Controller
         if (isset($_GET['DealStage']))
             $model->attributes = $_GET['DealStage'];
 
-        $this->buildPageOptions($model);
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('../admin');
     }
 
     /**

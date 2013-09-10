@@ -9,9 +9,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->buildPageOptions();
-        $profile = $this->getUserProfile();
-        $user = $profile->last_name . ' ' . $profile->first_name . ' ('. Yii::app()->user->username . ')';
-        $this->description = 'Вы вошли как <strong>'. $user . '</strong>.';
+        if (Yii::app()->user->id) {
+            $profile = $this->getUserProfile();
+            $user = $profile->last_name . ' ' . $profile->first_name . ' (' . Yii::app()->user->username . ')';
+            $this->description = 'Вы вошли как <strong>' . $user . '</strong>.';
+        }
         $this->render('index', array(
             'menu' => MenuItem::model()->getItems('home_menu'),
         ));

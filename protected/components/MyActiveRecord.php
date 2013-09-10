@@ -79,4 +79,13 @@ class MyActiveRecord extends CActiveRecord
         return $labels[$name];
     }
 
+    public function getAvailableColumns(){
+        $attributes = $this->attributeLabels();
+        $ret = array();
+        foreach($attributes as $key => $val) {
+            $ret[] = $key;
+        }
+        return $ret;
+    }
+
 }

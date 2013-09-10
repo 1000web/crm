@@ -8,11 +8,11 @@ class CustomerController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->loadModel($id);
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
+
         $userProfile = $this->getUserProfile();
-        $this->buildPageOptions($model);
         $this->render('view', array(
-            'model' => $model,
             'contact' => CustomerContact::model()->getAll($userProfile, 'customer_id', $id),
             'deal' => Deal::model()->getAll($userProfile, 'customer_id', $id),
         ));
@@ -37,10 +37,9 @@ class CustomerController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('create', array(
-            'model' => $model
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -63,10 +62,9 @@ class CustomerController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -105,9 +103,18 @@ class CustomerController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->customer_pagesize;
-        $this->buildPageOptions($this->loadModel($id));
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => CustomerLog::model()->getAll($userProfile, $id),
+        ));
+    }
+
+    public function actionColumn()
+    {
+        $this->buildPageOptions();
+        $this->render('../column', array(
+            'model' => new Customer,
         ));
     }
 
@@ -121,10 +128,9 @@ class CustomerController extends Controller
         if (isset($_GET['Customer']))
             $model->attributes = $_GET['Customer'];
 
-        $this->buildPageOptions($model);
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('../admin');
     }
 
     /**

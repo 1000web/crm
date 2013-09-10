@@ -1,6 +1,6 @@
 <?php
 /* @var $this DealSourceController */
-/* @var $model DealSource */
+/* @var $this->_model DealSource */
 
 $attr = array(
     array('name' => 'prior', 'label' => 'Приоритет'),
@@ -8,11 +8,11 @@ $attr = array(
     array('name' => 'description', 'label' => 'Описание'),
 );
 if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
+    $this->created_updated($this->_model),
     $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data' => $this->_model,
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));

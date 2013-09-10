@@ -5,7 +5,7 @@
 $this->buttons = $this->columns = array();
 
 $this->addColumns(array('log_datetime', 'log_user_id'));
-$this->addColumns(array('organization_id', 'value', 'position', 'description'));
+$this->addColumns($this->getColumns('customer_columns',Customer::model()->getAvailableColumns()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

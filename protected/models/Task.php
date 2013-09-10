@@ -10,6 +10,8 @@
  * @property integer $create_user_id
  * @property integer $update_user_id
  * @property integer $task_type_id
+ * @property integer $task_stage_id
+ * @property integer $task_prior_id
  * @property integer $datetime
  * @property integer $user_id
  * @property string $value
@@ -24,6 +26,19 @@
  */
 class Task extends MyActiveRecord
 {
+    public function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            if ($this->isNewRecord) {
+                // владелец задачи
+                $this->owner_id = Yii::app()->user->id;
+                // задача не начата
+                $this->task_stage_id = 1;
+            }
+            return true;
+        } else return false;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -50,13 +65,13 @@ class Task extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('datetime, value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, task_type_id, user_id', 'numerical', 'integerOnly' => true),
+            array('value', 'required'),
+            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -70,9 +85,12 @@ class Task extends MyActiveRecord
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
-            'fav_users' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
+            'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
+            'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),
+            //'fav_users' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
         );
     }
 
@@ -84,10 +102,13 @@ class Task extends MyActiveRecord
         return array(
             'id' => '#',
             'task_type_id' => 'Тип задачи',
-            'datetime' => 'Дата в формате дд-мм-гггг',
-            'date' => 'Дата в формате дд-мм-гггг',
+            'task_stage_id' => 'Этап',
+            'task_prior_id' => 'Приоритет',
+            'datetime' => 'Дата/время',
+            'date' => 'Дата',
             'time' => 'Время',
-            'user_id' => 'Кому поручить задачу',
+            'owner_id' => 'Владелец',
+            'user_id' => 'Исполнитель',
             'value' => 'Название задачи',
             'description' => 'Описание',
         );
@@ -110,7 +131,10 @@ class Task extends MyActiveRecord
         $criteria->compare('create_user_id', $this->create_user_id);
         $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('task_type_id', $this->task_type_id);
+        $criteria->compare('task_stage_id', $this->task_stage_id);
+        $criteria->compare('task_prior_id', $this->task_prior_id);
         $criteria->compare('datetime', $this->datetime);
+        $criteria->compare('owner_id', $this->owner_id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
@@ -143,13 +167,34 @@ class Task extends MyActiveRecord
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
-                $criteria->params = array(':userid' => Yii::app()->user->id);
+                $criteria->params[':userid'] = Yii::app()->user->id;
                 break;
         }
         if ($type = $userProfile->filter_tasktype) {
             $criteria->addCondition('task_type_id=:type');
             $criteria->params[':type'] = $type;
         }
+        if ($stage = $userProfile->filter_taskstage) {
+            $criteria->addCondition('task_stage_id=:stage');
+            $criteria->params[':stage'] = $stage;
+        }
+        if ($prior = $userProfile->filter_taskprior) {
+            $criteria->addCondition('task_prior_id=:prior');
+            $criteria->params[':prior'] = $prior;
+        }
+        if ($owner = $userProfile->filter_taskowner) {
+            $criteria->addCondition('owner_id=:owner');
+            $criteria->params[':owner'] = $owner;
+        }
+        if ($user_id = $userProfile->filter_taskuser) {
+            $criteria->addCondition('t.user_id=:user_id');
+            $criteria->params[':user_id'] = $user_id;
+        }
+        if ($finished = $userProfile->filter_taskfinished) {
+            $criteria->addCondition('task_stage.finished=:finished');
+            $criteria->params[':finished'] = $finished;
+        }
+        $criteria->with = array('task_stage');
         return new CActiveDataProvider('Task', array(
             'criteria' => $criteria,
             'pagination' => array(

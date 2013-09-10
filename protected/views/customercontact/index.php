@@ -8,8 +8,7 @@ $this->buttons = $this->columns = array();
 
 $this->addButtons('customercontact', array('view', 'update', 'delete', 'log'));
 
-if($this->id != 'customer') $this->addColumn('customer_id');
-$this->addColumns(array('contact_type_id', 'value', 'description'));
+$this->addColumns($this->getColumns('customercontact_columns',CustomerContact::model()->getAvailableColumns()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

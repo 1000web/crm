@@ -1,10 +1,10 @@
 <?php
 /* @var $this Controller */
-/* @var $dataProvider dataProvider */
+/* @var $data dataProvider */
 
 if (MyHelper::checkAccess($this->id, 'log')) {
     $this->attributes = CMap::mergeArray(
-        $this->created_updated($dataProvider),
+        $this->created_updated($data),
         $this->attributes
     );
 }
@@ -20,5 +20,5 @@ echo '</pre>';/**/
 $this->widget('bootstrap.widgets.TbDetailView', array(
     'type' => 'striped bordered condensed',
     'attributes' => $this->attributes,
-    'data' => $dataProvider,
+    'data' => $data,
 ));

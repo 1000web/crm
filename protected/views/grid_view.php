@@ -21,7 +21,6 @@ if (!empty($template)) array_push($this->columns,
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
-    //'template' => "{items}",
     'template' => '{summary}{pager}{items}{pager}',
     'enablePagination' => true,
     'columns' => $this->columns,

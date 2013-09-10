@@ -11,6 +11,7 @@ class MyHelper {
             'view' => 'icon-eye-open',
             'delete' => 'icon-trash',
             'log' => 'icon-share-alt',
+            'column' => 'icon-list',
             'favorite_add' => 'icon-star-empty',
             'favorite_del' => 'icon-star',
             'favorite' => 'icon-star',
@@ -52,6 +53,10 @@ class MyHelper {
             $url = '/' . $param1 . '/' . $param2;
         }
         return array($url);
+    }
+
+    function del_array() {
+
     }
 
 }

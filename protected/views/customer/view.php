@@ -1,23 +1,23 @@
 <?php
 /* @var $this CustomerController */
-/* @var $model Customer */
+/* @var $this->_model Customer */
 /* @var $contact CustomerContact */
 
 $this->show_pagesize = false;
 
 $attr = array(
-    array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $model->organization->value),
+    array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $this->_model->organization->value),
     array('name' => 'position', 'label' => $this->attributeLabels('position')),
     array('name' => 'value', 'label' => $this->attributeLabels('value')),
     array('name' => 'description', 'label' => $this->attributeLabels('description')),
 );
 
 if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($model),
+    $this->created_updated($this->_model),
     $attr
 );
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data' => $this->_model,
     'type' => 'striped bordered condensed',
     'attributes' => $attr,
 ));

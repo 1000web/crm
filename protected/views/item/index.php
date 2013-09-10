@@ -5,8 +5,9 @@
 $this->renderPartial('../item/_filter_buttons');
 
 $this->buttons = $this->columns = array();
+
 $this->addButtons('item', array('view', 'update', 'delete', 'log'));
-$this->addColumns(array('id', 'parent_id', 'module', 'controller', 'action', 'url', 'icon', 'value', 'title'));
+$this->addColumns($this->getColumns('item_columns',Item::model()->getAvailableColumns()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

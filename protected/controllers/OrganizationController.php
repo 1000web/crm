@@ -8,11 +8,10 @@ class OrganizationController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->loadModel($id);
         $userProfile = $this->getUserProfile();
-        $this->buildPageOptions($model);
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
         $this->render('view', array(
-            'model' => $model,
             'deal' => Deal::model()->getAll($userProfile, 'organization_id', $id),
             'contact' => OrganizationContact::model()->getAll($userProfile, 'organization_id', $id),
             'customer' => Customer::model()->getAll($userProfile, 'organization_id', $id),
@@ -38,10 +37,9 @@ class OrganizationController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -64,10 +62,9 @@ class OrganizationController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->buildPageOptions($model);
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('_form');
     }
 
     /**
@@ -107,11 +104,20 @@ class OrganizationController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organization_pagesize;
-        $this->buildPageOptions($this->loadModel($id));
+        $this->_model = $this->loadModel($id);
+        $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => OrganizationLog::model()->getAll($userProfile, $id),
         ));
 
+    }
+
+    public function actionColumn()
+    {
+        $this->buildPageOptions();
+        $this->render('../column', array(
+            'model' => new Organization,
+        ));
     }
 
     /**
@@ -124,10 +130,9 @@ class OrganizationController extends Controller
         if (isset($_GET['Organization']))
             $model->attributes = $_GET['Organization'];
 
-        $this->buildPageOptions($model);
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->_model = $model;
+        $this->buildPageOptions();
+        $this->render('../admin');
     }
 
     /**
