@@ -1,38 +1,22 @@
 <?php
 
-class OrganizationController extends Controller
-{
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $userProfile = $this->getUserProfile();
-        $this->_model = $this->loadModel($id);
-        $this->buildPageOptions();
-        $this->render('view', array(
-            'account' => Account::model()->getAll($userProfile, 'organization_id', $id),
-            'deal' => Deal::model()->getAll($userProfile, 'organization_id', $id),
-            'contact' => OrganizationContact::model()->getAll($userProfile, 'organization_id', $id),
-            'customer' => Customer::model()->getAll($userProfile, 'organization_id', $id),
-        ));
-    }
 
+class AccountController extends Controller
+{
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate()
     {
-        $model = new Organization;
-        $model_log = new OrganizationLog;
+        $model = new Account;
+        $model_log = new AccountLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Organization'])) {
-            $model->attributes = $_POST['Organization'];
+        if (isset($_POST['Account'])) {
+            $model->attributes = $_POST['Account'];
             if ($model->save()) {
                 $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
@@ -51,13 +35,13 @@ class OrganizationController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        $model_log = new OrganizationLog;
+        $model_log = new AccountLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Organization'])) {
-            $model->attributes = $_POST['Organization'];
+        if (isset($_POST['Account'])) {
+            $model->attributes = $_POST['Account'];
             if ($model->save()) {
                 $model_log->save_log_record($model, $this->getAction()->id);
                 $this->redirect(array('view', 'id' => $model->id));
@@ -75,7 +59,7 @@ class OrganizationController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new OrganizationLog;
+        $model_log = new AccountLog;
         $model = $this->loadModel($id);
         $model_log->save_log_record($model, $this->getAction()->id);
         $model->delete();
@@ -92,32 +76,30 @@ class OrganizationController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->organization_pagesize;
+        $this->_pagesize = $userProfile->account_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Organization::model()->getAll($userProfile),
+            'dataProvider' => Account::model()->getAll($userProfile),
         ));
-
     }
 
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->organization_pagesize;
+        $this->_pagesize = $userProfile->account_pagesize;
         $this->_model = $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationLog::model()->getAll($userProfile, $id),
+            'dataProvider' => AccountLog::model()->getAll($userProfile, $id),
         ));
-
     }
 
     public function actionColumn()
     {
         $this->buildPageOptions();
         $this->render('../column', array(
-            'model' => new Organization,
+            'model' => new Account,
         ));
     }
 
@@ -126,10 +108,10 @@ class OrganizationController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new Organization('search');
+        $model = new Account('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Organization']))
-            $model->attributes = $_GET['Organization'];
+        if (isset($_GET['Account']))
+            $model->attributes = $_GET['Account'];
 
         $this->_model = $model;
         $this->buildPageOptions();
@@ -140,12 +122,12 @@ class OrganizationController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Organization the loaded model
+     * @return Account the loaded model
      * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = Organization::model()->findByPk($id);
+        $model = Account::model()->findByPk($id);
         if ($model === null)
             $this->HttpException(404);
         return $model;
@@ -153,58 +135,13 @@ class OrganizationController extends Controller
 
     /**
      * Performs the AJAX validation.
-     * @param Organization $model the model to be validated
+     * @param Account $model the model to be validated
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'organization-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'my-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
-
-    public $favorite_available = true;
-
-    public function checkFavorite($id)
-    {
-        if (OrganizationFav::model()->countByAttributes(array(
-            'id' => $id,
-            'user_id' => Yii::app()->user->id,
-        ))
-        ) return true;
-        else return false;
-    }
-
-    /**
-     * Lists favorite models.
-     */
-    public function actionFavorite($add = NULL, $del = NULL)
-    {
-        if ($add OR $del) {
-            // добавляем в Избранное
-            if (isset($add)) {
-                if (!$this->checkFavorite($add)) {
-                    $model = new OrganizationFav;
-                    $model->setAttribute('id', $add);
-                    //$model->setAttribute('datetime', time());
-                    $model->setAttribute('user_id', Yii::app()->user->id);
-                    $model->save();
-                }
-            }
-            // удаляем из Избранного
-            if ($del) {
-                OrganizationFav::model()->findByAttributes(array(
-                    'id' => $del,
-                    'user_id' => Yii::app()->user->id,
-                ))->delete();
-            }
-            if ($url = Yii::app()->request->getUrlReferrer()) $this->redirect($url);
-            else $this->redirect($this->id);
-        }
-        $this->buildPageOptions();
-        $this->render('index', array(
-            'dataProvider' => Organization::model()->getAll($this->getUserProfile(), 'favorite'),
-        ));
-    }
-
 }

@@ -73,16 +73,23 @@ class Organization extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'contacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
             'customers' => array(self::HAS_MANY, 'Customer', 'organization_id'),
             'deals' => array(self::HAS_MANY, 'Deal', 'organization_id'),
+
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'organization_type' => array(self::BELONGS_TO, 'OrganizationType', 'organization_type_id'),
             'organization_group' => array(self::BELONGS_TO, 'OrganizationGroup', 'organization_group_id'),
             'organization_region' => array(self::BELONGS_TO, 'OrganizationRegion', 'organization_region_id'),
-            'organization_contacts' => array(self::HAS_MANY, 'OrganizationContact', 'organization_id'),
             'tblUsers' => array(self::MANY_MANY, 'Users', '{{organization_fav}}(organization_id, user_id)'),
             'fav_users' => array(self::HAS_MANY, 'OrganizationFav', 'id'),
+        );
+    }
+
+    public function defaultScope(){
+        return array(
+            //'with'=> array('contacts', 'customers', 'deals')
         );
     }
 
@@ -93,10 +100,10 @@ class Organization extends MyActiveRecord
     {
         return array(
             'id' => '#',
+            'value' => 'Название',
             'organization_type_id' => 'Тип',
             'organization_group_id' => 'Группа',
             'organization_region_id' => 'Регион',
-            'value' => 'Название',
             'description' => 'Описание',
         );
     }

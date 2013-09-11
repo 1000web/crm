@@ -4,6 +4,7 @@
 /* @var $contact OrganizationContact */
 /* @var $customer Customer */
 /* @var $deal Deal */
+/* @var $account Account */
 
 $this->addAttribute('organization_type_id',$this->_model->organization_type->value);
 $this->addAttribute('organization_group_id',$this->_model->organization_group->value);
@@ -30,6 +31,21 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $contact,
     ));
 }
+$controller = 'account';
+if (MyHelper::checkAccess($controller, 'view')) {
+    echo '<h2>Счета ';
+    if (MyHelper::checkAccess($controller, 'create')) {
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'url' => array('/' . $controller . '/create', 'oid' => $this->_model->id),
+            'label' => 'Добавить счет',
+            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        ));
+    }
+    echo '</h2>';
+    echo $this->renderPartial('../'.$controller.'/index', array(
+        'dataProvider' => $account,
+    ));
+}
 $controller = 'customer';
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Клиенты  ';
@@ -43,6 +59,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
     echo '</h2>';
     echo $this->renderPartial('../'.$controller.'/index', array(
         'dataProvider' => $customer,
+        //'dataProvider' => $this->_model->customers,
     ));
 }
 $controller = 'deal';

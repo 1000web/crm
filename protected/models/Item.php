@@ -95,7 +95,7 @@ class Item extends MyActiveRecord
             'controller' => 'Контроллер',
             'action' => 'Действие',
             'icon' => 'Иконка',
-            'utl' => 'Url',
+            'url' => 'Url',
             'title' => 'Заголовок',
             'h1' => 'H1',
             'value' => 'Название',

@@ -580,6 +580,14 @@ class Controller extends RController
             'activkey' => 'Activkey',
             'answer' => 'Ответ',
             'amount' => 'Стоимость',
+
+            'bank' => 'Название банка',
+            'bik' => 'БИК',
+            'inn' => 'ИНН',
+            'kpp' => 'КПП',
+            'korr' => 'Корр.счет',
+            'schet' => 'Счет',
+
             'create_at' => 'Дата создания',
             'create_time' => 'Дата создания',
             'create_user_id' => 'Кто создал',
@@ -717,11 +725,12 @@ class Controller extends RController
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
+    /**/
     public function actionView($id)
     {
         $this->_model = $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('view');
-    }
+    }/**/
 
 }

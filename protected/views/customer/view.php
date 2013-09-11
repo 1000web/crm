@@ -27,7 +27,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Контакты Клиента ';
     if (MyHelper::checkAccess($controller, 'create')) {
         $this->widget('bootstrap.widgets.TbButton', array(
-            'url' => array('/' . $controller . '/create', 'cid' => $model->id),
+            'url' => array('/' . $controller . '/create', 'cid' => $this->_model->id),
             'label' => 'Добавить контакт',
             'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ));
@@ -43,7 +43,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Сделки ';
     if (MyHelper::checkAccess($controller, 'create')) {
         $this->widget('bootstrap.widgets.TbButton', array(
-            'url' => array('/' . $controller . '/create', 'cid' => $model->id, 'oid' => $model->organization_id),
+            'url' => array('/' . $controller . '/create', 'cid' => $this->_model->id, 'oid' => $this->_model->organization_id),
             'label' => 'Добавить сделку',
             'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ));
@@ -51,7 +51,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
     echo '</h2>';
     echo $this->renderPartial('../deal/index', array(
         'dataProvider' => $deal,
-        //'model' => $model,
+        //'model' => $this->_model,
     ));
 }
 

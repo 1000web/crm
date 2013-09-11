@@ -12,7 +12,7 @@ class ProfileFieldController extends Controller
     /**
      * Displays a particular model.
      */
-    public function actionView()
+    public function actionView($id = NULL)
     {
         $this->render('view', array(
             'model' => $this->loadModel(),
