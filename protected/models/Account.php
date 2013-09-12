@@ -84,13 +84,13 @@ class Account extends MyActiveRecord
 		return array(
 			'id' => '#',
 			'organization_id' => 'Организация',
-			'bank' => 'Название банка',
+            'value' => 'Название счета',
+			'bank' => 'Банк',
 			'bik' => 'БИК',
 			'inn' => 'ИНН',
 			'kpp' => 'КПП',
 			'korr' => 'Корр.счет',
 			'schet' => 'Счет',
-			'value' => 'Название счета',
 			'description' => 'Описание',
 		);
 	}

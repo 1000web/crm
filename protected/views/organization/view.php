@@ -6,11 +6,7 @@
 /* @var $deal Deal */
 /* @var $account Account */
 
-$this->addAttribute('organization_type_id',$this->_model->organization_type->value);
-$this->addAttribute('organization_group_id',$this->_model->organization_group->value);
-$this->addAttribute('organization_region_id',$this->_model->organization_region->value);
-$this->addAttribute('description');
-
+$this->addAttributes(array('organization_type_id','organization_group_id','organization_region_id'));
 
 echo $this->renderPartial('../detail_view', array(
     'data' => $this->_model,

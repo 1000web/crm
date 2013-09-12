@@ -122,7 +122,7 @@ class CustomerContact extends MyActiveRecord
                 $criteria->params[':cid'] = $param;
                 break;
         }
-        if ($type = $userProfile->filter_contacttype) {
+        if ($type = $userProfile->filter_contact_type_id) {
             $criteria->addCondition('contact_type_id=:type');
             $criteria->params[':type'] = $type;
         }

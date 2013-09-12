@@ -185,7 +185,7 @@ class DealController extends Controller
 
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->contacttype_pagesize;
+        $this->_pagesize = $userProfile->contact_type_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => Deal::model()->getAll($userProfile, 'favorite'),

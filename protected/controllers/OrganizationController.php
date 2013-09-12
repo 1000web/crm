@@ -206,5 +206,10 @@ class OrganizationController extends Controller
             'dataProvider' => Organization::model()->getAll($this->getUserProfile(), 'favorite'),
         ));
     }
+    public function labels() {
+        $labels = MyHelper::labels();
+        $labels['value'] = 'Название организации';
+        return $labels;
+    }
 
 }

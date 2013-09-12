@@ -170,23 +170,23 @@ class Task extends MyActiveRecord
                 $criteria->params[':userid'] = Yii::app()->user->id;
                 break;
         }
-        if ($type = $userProfile->filter_tasktype) {
+        if ($type = $userProfile->filter_task_type_id) {
             $criteria->addCondition('task_type_id=:type');
             $criteria->params[':type'] = $type;
         }
-        if ($stage = $userProfile->filter_taskstage) {
+        if ($stage = $userProfile->filter_task_stage_id) {
             $criteria->addCondition('task_stage_id=:stage');
             $criteria->params[':stage'] = $stage;
         }
-        if ($prior = $userProfile->filter_taskprior) {
+        if ($prior = $userProfile->filter_task_prior_id) {
             $criteria->addCondition('task_prior_id=:prior');
             $criteria->params[':prior'] = $prior;
         }
-        if ($owner = $userProfile->filter_taskowner) {
+        if ($owner = $userProfile->filter_task_owner_id) {
             $criteria->addCondition('owner_id=:owner');
             $criteria->params[':owner'] = $owner;
         }
-        if ($user_id = $userProfile->filter_taskuser) {
+        if ($user_id = $userProfile->filter_task_user_id) {
             $criteria->addCondition('t.user_id=:user_id');
             $criteria->params[':user_id'] = $user_id;
         }

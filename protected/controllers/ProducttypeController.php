@@ -75,7 +75,7 @@ class ProducttypeController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->producttype_pagesize;
+        $this->_pagesize = $userProfile->product_type_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
             'dataProvider' => ProductType::model()->getAll($userProfile),
@@ -86,7 +86,7 @@ class ProducttypeController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->producttype_pagesize;
+        $this->_pagesize = $userProfile->product_type_pagesize;
         $this->_model = $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(

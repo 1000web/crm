@@ -18,8 +18,7 @@ foreach($cols as $key => $col) {
     echo '<tr>';
     echo '<td>' . (++$i) . '</td>';
     echo '<td>';
-    //echo '<strong>' . Task::model()->getLabel($col) . '</strong>';
-    echo '<strong>' . $model->getLabel($col) . '</strong>';
+    echo '<strong>' . $model->getAttributeLabel($col) . '</strong>';
     echo '</td>';
     // не показывать столбец
     $del = $cols;
@@ -56,8 +55,7 @@ foreach($avail_cols as $col) {
     echo '<tr>';
     echo '<td>' . (++$i) . '</td>';
     echo '<td>';
-    //echo Task::model()->getLabel($col);
-    echo $model->getLabel($col);
+    echo $model->getAttributeLabel($col);
     echo '</td>';
     // показывать столбец
     $add = $cols;

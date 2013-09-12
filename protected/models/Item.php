@@ -138,19 +138,19 @@ class Item extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        if ($controller = $userProfile->filter_itemcontroller) {
+        if ($controller = $userProfile->filter_item_controller) {
             $criteria->addCondition('controller=:controller');
             $criteria->params[':controller'] = $controller;
         }
-        if ($module = $userProfile->filter_itemmodule) {
+        if ($module = $userProfile->filter_item_module) {
             $criteria->addCondition('module=:module');
             $criteria->params[':module'] = $module;
         }
-        if ($action = $userProfile->filter_itemaction) {
+        if ($action = $userProfile->filter_item_action) {
             $criteria->addCondition('action=:action');
             $criteria->params[':action'] = $action;
         }
-        if ($parent = $userProfile->filter_itemparent) {
+        if ($parent = $userProfile->filter_item_parent_id) {
             $criteria->addCondition('parent_id=:parent');
             $criteria->params[':parent'] = $parent;
         }

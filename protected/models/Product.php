@@ -111,7 +111,7 @@ class Product extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        if ($type = $userProfile->filter_producttype) {
+        if ($type = $userProfile->filter_product_type_id) {
             $criteria->addCondition('product_type_id=:type');
             $criteria->params[':type'] = $type;
         }

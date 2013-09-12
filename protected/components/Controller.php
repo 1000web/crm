@@ -85,11 +85,21 @@ class Controller extends RController
         return $cols;
     }
 
+    public function labels() {
+        return MyHelper::labels();
+    }
+
+    public function getLabel($item){
+        $array = $this->labels();
+        if(isset($array[$item])) return $array[$item];
+        return 'НЕИЗВЕСТНО';
+    }
+
     public function buildFilterButton($options, $param)
     {
         $items = array();
         $userProfile = $this->getUserProfile();
-        $top_button_title = $this->attributeLabels($param);
+        $top_button_title = $this->getLabel($param);
         $top_button_icon = '';
         $filterparam = 'filter_' . $param;
         if ($userProfile->getAttribute($filterparam)) {
@@ -144,105 +154,17 @@ class Controller extends RController
         else $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function addAttribute($item, $value = NULL)
+    public function addAttribute($name)
     {
-        //$value = $this->column_value($value);
-        if (!$value) $this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item));
-        else $this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item), 'value' => $value);
+        $item = array('name' => $name, 'label' => $this->getLabel($name));
+        if ($value = $this->_model->getAttributeValue($name)) $item['value'] = $value;
+        $this->attributes[$name] = $item;
     }
 
     public function addAttributes($list)
     {
         foreach ($list as $item) {
             $this->addAttribute($item);
-            //$this->attributes[$item] = array('name' => $item, 'label' => $this->attributeLabels($item));
-        }
-    }
-
-    public function attribute_value($item, $data)
-    {
-        $value = NULL;
-        switch ($item) {
-            case 'organization_id':
-                $value = $data->organization->value;
-                break;
-            case 'user_id':
-                $value = $data->user->username;
-                //$value = ($data->user_id == Yii::app()->user->id)?'Я':$data->user->username;
-                $value = $data->user->profiles->last_name . ' ' . $data->user->firstname . '(' . $data->user->username .')';
-                break;
-            case 'owner_id':
-                $value = $data->owner->username;
-                //$value = ($data->owner_id == Yii::app()->user->id)?'Я':$data->owner->username;
-                $value = $data->owner->profiles->last_name . ' ' . $data->owner->profiles->firstname . '(' . $data->owner->username .')';
-                break;
-            case 'log_user_id':
-                $value = $data->log_user->username;
-                break;
-            case 'create_user_id':
-                $value = $data->create_user->username;
-                break;
-            case 'update_user_id':
-                $value = $data->update_user->username;
-                break;
-            case 'customer_id':
-                $value = $data->customer->value;
-                break;
-            case 'contact_type_id':
-                $value = $data->contact_type->value;
-                break;
-            case 'deal_source_id':
-                $value = $data->deal_source->value;
-                break;
-            case 'deal_stage_id':
-                $value = $data->deal_stage->value;
-                break;
-            case 'organization_type_id':
-                $value = $data->organization_type->value;
-                break;
-            case 'organization_region_id':
-                $value = $data->organization_region->value;
-                break;
-            case 'organization_group_id':
-                $value = $data->organization_group->value;
-                break;
-            case 'product_type_id':
-                $value = $data->product_type->value;
-                break;
-            case 'create_time':
-                $value = date("Y-m-d H:i:s", $data->create_time);
-                break;
-            case 'update_time':
-                $value = date("Y-m-d H:i:s", $data->update_time);
-                break;
-            case 'datetime':
-                $value = date("Y-m-d H:i:s", $data->datetime);
-                break;
-            case 'log_datetime':
-                $value = date("Y-m-d H:i:s", $data->log_datetime);
-                break;
-            case 'task_type_id':
-                $value = $data->task_type->value;
-                break;
-            case 'task_stage_id':
-                $value = $data->task_stage->value;
-                break;
-            case 'task_prior_id':
-                $value = $data->task_prior->value;
-                break;
-            case 'state':
-                $value = $data->getStateName($data->state);
-                break;
-        }
-        return $value;
-
-    }
-
-    public function set_attributes_values($data)
-    {
-        foreach ($this->attributes as $item => $attr) {
-            if ($value = $this->attribute_value($item, $data)) echo $value;
-            //$this->attributes[$key]['value'] = $value;
         }
     }
 
@@ -343,8 +265,9 @@ class Controller extends RController
 
     public function addColumn($item, $param = NULL)
     {
+        $column = array('name' => $item, 'header' => $this->getLabel($item));
+
         $value = $this->column_value($item, $param);
-        $column = array('name' => $item, 'header' => $this->attributeLabels($item));
         if ($value !== NULL) $column['value'] = $value;
         if($param != $value) $column['type'] = 'raw';
         $this->columns[$item] = $column;
@@ -352,8 +275,8 @@ class Controller extends RController
 
     public function addColumns($list)
     {
-        foreach ($list as $col) {
-            $this->addColumn($col);
+        foreach ($list as $item) {
+            $this->addColumn($item);
         }
     }
 
@@ -546,10 +469,10 @@ class Controller extends RController
         $update_user = $model->update_user->profiles->last_name . ' ' . $model->update_user->profiles->first_name . ' (' . $model->update_user->username . ')';
 
         return array(
-            'create_time' => array('name' => 'create_time', 'label' => $this->attributeLabels('create_time'), 'value' => $create_time),
-            'create_user_id' => array('name' => 'create_user_id', 'label' => $this->attributeLabels('create_user_id'), 'value' => $create_user),
-            'update_time' => array('name' => 'update_time', 'label' => $this->attributeLabels('update_time'), 'value' => $update_time),
-            'update_user_id' => array('name' => 'update_user_id', 'label' => $this->attributeLabels('update_user_id'), 'value' => $update_user),
+            'create_time' => array('name' => 'create_time', 'label' => $this->getLabel('create_time'), 'value' => $create_time),
+            'create_user_id' => array('name' => 'create_user_id', 'label' => $this->getLabel('create_user_id'), 'value' => $create_user),
+            'update_time' => array('name' => 'update_time', 'label' => $this->getLabel('update_time'), 'value' => $update_time),
+            'update_user_id' => array('name' => 'update_user_id', 'label' => $this->getLabel('update_user_id'), 'value' => $update_user),
         );
     }
 
@@ -573,121 +496,6 @@ class Controller extends RController
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
         echo "\n</div>\n";
-    }
-
-    public function attributeLabels($key)
-    {
-        $arr = array(
-            'activkey' => 'Activkey',
-            'answer' => 'Ответ',
-            'amount' => 'Стоимость',
-
-            'bank' => 'Название банка',
-            'bik' => 'БИК',
-            'inn' => 'ИНН',
-            'kpp' => 'КПП',
-            'korr' => 'Корр.счет',
-            'schet' => 'Счет',
-
-            'create_at' => 'Дата создания',
-            'create_time' => 'Дата создания',
-            'create_user_id' => 'Кто создал',
-            'close_date' => 'Дата закрытия',
-            'contacttype' => 'Тип контакта',
-            'contact_type' => 'Тип контакта',
-            'contact_type_id' => 'Тип контакта',
-            'customer' => 'Клиент',
-            'customer_id' => 'Клиент',
-
-            'date' => 'Дата',
-            'time' => 'Время',
-
-            'dealsource' => 'Источник',
-            'dealstage' => 'Стадия',
-            'deal_status' => 'Активность',
-            'deal_source_id' => 'Источник',
-            'deal_stage_id' => 'Стадия',
-            'datetime' => 'Дата/время',
-            'log_datetime' => 'Дата/время',
-
-            'deleted' => 'Удалено',
-            'description' => 'Описание',
-            'email' => 'Email',
-            'external_number' => 'Номер договора',
-            'favadd' => 'Добавить в Избранное',
-            'favdel' => 'Удалить из Избранного',
-            'first_name' => 'Имя',
-            'state' => 'Статус',
-            'id' => '#',
-
-            'item_id' => 'item',
-            'itemparent' => 'Parent',
-            'itemmodule' => 'Module',
-            'itemcontroller' => 'Controller',
-            'itemaction' => 'Action',
-
-            'icon' => 'Icon',
-            'inner_number' => 'Внутр.номер',
-            'last_name' => 'Фамилия',
-            'lastvisit_at' => 'Lastvisit At',
-            'log_id' => 'Log #',
-            'menu' => 'Menu #',
-            'menu_id' => 'Menu #',
-            'open_date' => 'Дата договора',
-            'organization' => 'Организация',
-            'organization_id' => 'Организация',
-            'organizationtype' => 'Тип организации',
-            'organization_type_id' => 'Тип организации',
-            'organizationgroup' => 'Группа организаций',
-            'organization_group_id' => 'Группа организаций',
-            'organizationregion' => 'Регион',
-            'organization_region_id' => 'Регион',
-            'owner_id' => 'Владелец',
-            'type' => 'Тип',
-            'group' => 'Группа',
-            'region' => 'Регион',
-            'parent' => 'Родитель',
-            'parent_id' => 'Родитель',
-            'password' => 'Пароль',
-            'probability' => 'Вероятность, %',
-            'position' => 'Должность',
-            'producttype' => 'Тип продукта',
-            'product_type_id' => 'Тип продукта',
-            'state' => 'Статус',
-            'status' => 'Статус',
-            'superuser' => 'Суперпользователь',
-
-            'tasktype' => 'Тип задачи',
-            'taskstage' => 'Этап',
-            'taskprior' => 'Приоритет',
-            'taskowner' => 'Владелец',
-            'taskuser' => 'Исполнитель',
-            'task_status' => 'Активность',
-
-            'task_type_id' => 'Тип задачи',
-            'task_stage_id' => 'Этап',
-            'task_prior_id' => 'Приоритет',
-
-            'update_time' => 'Дата изменения',
-            'update_user_id' => 'Кто изменил',
-            'log_user_id' => 'Пользователь',
-            'user_id' => 'Пользователь',
-            'username' => 'Имя пользователя',
-            'value' => 'Значение',
-            'question' => 'Вопрос',
-
-            'prior' => 'Приоритет',
-            'visible' => 'Видимость',
-            'title' => 'Title',
-            'h1' => 'H1',
-            'module' => 'Module',
-            'controller' => 'Controller',
-            'action' => 'Action',
-            'url' => 'Url',
-            'guest_only' => 'Только гость',
-
-        );
-        return $arr[$key];
     }
 
     public function HttpException($code)

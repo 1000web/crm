@@ -111,7 +111,7 @@ class ProductType extends MyActiveRecord
         return new CActiveDataProvider('ProductType', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->producttype_pagesize,
+                'pageSize' => $userProfile->product_type_pagesize,
             ),
         ));
     }

@@ -167,11 +167,11 @@ class Deal extends MyActiveRecord
                 $criteria->params[':oid'] = $param;
                 break;
         }
-        if ($stage = $userProfile->filter_dealstage) {
+        if ($stage = $userProfile->filter_deal_stage_id) {
             $criteria->addCondition('deal_stage_id=:stage');
             $criteria->params[':stage'] = $stage;
         }
-        if ($source = $userProfile->filter_dealsource) {
+        if ($source = $userProfile->filter_deal_source_id) {
             $criteria->addCondition('deal_source_id=:source');
             $criteria->params[':source'] = $source;
         }

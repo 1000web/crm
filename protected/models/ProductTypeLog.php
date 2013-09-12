@@ -97,7 +97,7 @@ class ProductTypeLog extends LogActiveRecord
         return new CActiveDataProvider('ProductTypeLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->producttype_pagesize,
+                'pageSize' => $userProfile->product_type_pagesize,
             ),
         ));
     }

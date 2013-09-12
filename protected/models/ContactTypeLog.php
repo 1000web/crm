@@ -96,7 +96,7 @@ class ContactTypeLog extends LogActiveRecord
         return new CActiveDataProvider('ContacttypeLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->contacttype_pagesize,
+                'pageSize' => $userProfile->contact_type_pagesize,
             ),
         ));
 

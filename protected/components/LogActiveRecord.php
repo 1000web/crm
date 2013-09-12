@@ -3,11 +3,16 @@
 class LogActiveRecord extends CActiveRecord
 {
     public function save_log_record($model, $action) {
-        $model->unsetAttributes(array('create_time', 'update_time', 'create_user_id', 'update_user_id'));
-        $this->attributes = $model->attributes;
-        $this->log_action = $action;
-        $this->log_datetime = time();
-        $this->log_user_id = Yii::app()->user->id;
+        // список атрибутов таблицы с логами
+        $list = $this->attributeNames();
+        // не копируем атрибут log_id, он присвоится автоматически
+        unset($list[array_search('log_id', $list)]);
+        $this->setAttributes($model->getAttributes($list));
+        $this->setAttributes(array(
+            'log_action' => $action,
+            'log_datetime' => time(),
+            'log_user_id' => Yii::app()->user->id,
+        ));
         $this->save();
     }
 }
