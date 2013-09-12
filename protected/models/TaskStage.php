@@ -10,6 +10,7 @@
  * @property integer $create_user_id
  * @property integer $update_user_id
  * @property integer $prior
+ * @property integer $state
  * @property string $value
  * @property string $description
  *
@@ -46,12 +47,12 @@ class TaskStage extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, prior, finished', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, prior, state', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, prior, finished, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, prior, state, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,7 +77,7 @@ class TaskStage extends MyActiveRecord
         return array(
             'id' => '#',
             'prior' => 'Приоритет',
-            'finished' => 'Завершена',
+            'state' => 'Статус',
             'value' => 'Название',
             'description' => 'Описание',
         );
@@ -99,7 +100,7 @@ class TaskStage extends MyActiveRecord
         $criteria->compare('create_user_id', $this->create_user_id);
         $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('prior', $this->prior);
-        $criteria->compare('finished', $this->finished);
+        $criteria->compare('state', $this->state);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 

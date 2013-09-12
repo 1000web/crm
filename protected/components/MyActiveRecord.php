@@ -88,4 +88,29 @@ class MyActiveRecord extends CActiveRecord
         return $ret;
     }
 
+
+    public function getStateOptions()
+    {
+        return array(
+            2 => $this->getStateName(2),
+            1 => $this->getStateName(1),
+        );
+    }
+
+    public function getStateName($state)
+    {
+        switch($state) {
+            case 1: return 'Неактивна';
+                break;
+            case 2: return 'Активна';
+                break;
+        }
+        return 'Неизвестно';
+    }
+
+    public function getAllowedState()
+    {
+        return array(1, 2);
+    }
+
 }

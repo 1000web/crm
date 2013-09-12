@@ -5,6 +5,6 @@
     $this->buildFilterButton(TaskPrior::model()->getOptions(), 'taskprior');
     $this->buildFilterButton(Users::model()->getOptions('id','username'), 'taskuser');
     $this->buildFilterButton(Users::model()->getOptions('id','username'), 'taskowner');
-    $this->buildFilterButton(array('1'=>'Неактивные','2'=>'Активные'), 'taskfinished');
+    $this->buildFilterButton(TaskStage::model()->getStateOptions(), 'task_status');
     ?>
 </div>

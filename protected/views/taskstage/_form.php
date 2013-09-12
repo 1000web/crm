@@ -12,7 +12,7 @@ echo $form->errorSummary($this->_model);
 
 echo $form->textFieldRow($this->_model, 'prior', array('class' => 'input-block-level'));
 
-echo $form->dropDownListRow($this->_model, 'finished', array(1 => 'Неактивна', 2 => 'Активна'));
+echo $form->dropDownListRow($this->_model, 'state', $this->_model->getStateOptions());
 
 echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 

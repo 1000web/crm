@@ -190,9 +190,9 @@ class Task extends MyActiveRecord
             $criteria->addCondition('t.user_id=:user_id');
             $criteria->params[':user_id'] = $user_id;
         }
-        if ($finished = $userProfile->filter_taskfinished) {
-            $criteria->addCondition('task_stage.finished=:finished');
-            $criteria->params[':finished'] = $finished;
+        if ($state = $userProfile->filter_task_status) {
+            $criteria->addCondition('task_stage.state=:state');
+            $criteria->params[':state'] = $state;
         }
         $criteria->with = array('task_stage');
         return new CActiveDataProvider('Task', array(

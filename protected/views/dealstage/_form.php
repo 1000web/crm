@@ -11,7 +11,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 echo $form->errorSummary($this->_model);
 
 echo $form->textFieldRow($this->_model, 'prior', array('class' => 'input-block-level'));
+
+echo $form->dropDownListRow($this->_model, 'state', $this->_model->getStateOptions());
+
 echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
+
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
 echo $this->submit_button($this->_model->isNewRecord);

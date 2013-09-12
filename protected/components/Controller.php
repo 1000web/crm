@@ -111,13 +111,14 @@ class Controller extends RController
             }
             $items[] = $button;
         }
+        /*
         if (MyHelper::checkAccess($param, 'index')) {
             $items[] = array(
                 'label' => 'Список',
                 'icon' => 'list',
                 'url' => '/' . $param . '/index',
             );
-        }
+        }/**/
         $this->widget('bootstrap.widgets.TbButtonGroup', array(
             'type' => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttons' => array(
@@ -229,8 +230,8 @@ class Controller extends RController
             case 'task_prior_id':
                 $value = $data->task_prior->value;
                 break;
-            case 'finished':
-                $value = ($data->finished==1?"Неактивна":"Активна");
+            case 'state':
+                $value = $data->getStateName($data->state);
                 break;
         }
         return $value;
@@ -333,8 +334,8 @@ class Controller extends RController
             case 'task_prior_id':
                 $value = '$data->task_prior->value';
                 break;
-            case 'finished':
-                $value = '($data->finished==1?"Неактивна":"Активна")';
+            case 'state':
+                $value = '$data->getStateName($data->state)';
                 break;
         }
         return $value;
@@ -603,7 +604,7 @@ class Controller extends RController
 
             'dealsource' => 'Источник',
             'dealstage' => 'Стадия',
-            'dealfinished' => 'Активность',
+            'deal_status' => 'Активность',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
             'datetime' => 'Дата/время',
@@ -616,7 +617,7 @@ class Controller extends RController
             'favadd' => 'Добавить в Избранное',
             'favdel' => 'Удалить из Избранного',
             'first_name' => 'Имя',
-            'finished' => 'Активность',
+            'state' => 'Статус',
             'id' => '#',
 
             'item_id' => 'item',
@@ -661,7 +662,7 @@ class Controller extends RController
             'taskprior' => 'Приоритет',
             'taskowner' => 'Владелец',
             'taskuser' => 'Исполнитель',
-            'taskfinished' => 'Активность',
+            'task_status' => 'Активность',
 
             'task_type_id' => 'Тип задачи',
             'task_stage_id' => 'Этап',
