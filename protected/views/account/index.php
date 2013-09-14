@@ -2,10 +2,10 @@
 /* @var $this AccountController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->buttons = $this->columns = array();
 
-$this->addButtons('account', array('view', 'update', 'delete', 'log'));
-$this->addColumns($this->getColumns('account_columns', Account::model()->getAvailableColumns()));
+$controller = 'account';
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, Account::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

@@ -8,20 +8,20 @@ class ProducttypeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ProductType;
-        $model_log = new ProductTypeLog;
+        $this->_model = new ProductType;
+        $log = new ProductTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['ProductType'])) {
-            $model->attributes = $_POST['ProductType'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['ProductType'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -33,20 +33,20 @@ class ProducttypeController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new ProductTypeLog;
+        $this->loadModel($id);
+        $log = new ProductTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['ProductType'])) {
-            $model->attributes = $_POST['ProductType'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['ProductType'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -58,10 +58,10 @@ class ProducttypeController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new ProductTypeLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new ProductTypeLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -107,12 +107,12 @@ class ProducttypeController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new ProductType('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new ProductType('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['ProductType']))
-            $model->attributes = $_GET['ProductType'];
+            $this->_model->attributes = $_GET['ProductType'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -124,12 +124,14 @@ class ProducttypeController extends Controller
      * @return ProductType the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = ProductType::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = ProductType::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

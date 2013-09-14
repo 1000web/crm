@@ -1,6 +1,6 @@
 <?php
 /* @var $this ItemController */
-/* @var $this->_model Item */
+/* @var $this ->_model Item */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -30,6 +30,6 @@ echo $form->textFieldRow($this->_model, 'value', array('size' => 60, 'maxlength'
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 6, 'cols' => 50));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

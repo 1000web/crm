@@ -69,18 +69,9 @@ class TaskStage extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'prior' => 'Приоритет',
-            'state' => 'Статус',
-            'value' => 'Название',
-            'description' => 'Описание',
-        );
+        return array('id', 'prior', 'state', 'value', 'description');
     }
 
     /**

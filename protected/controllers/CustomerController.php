@@ -8,9 +8,12 @@ class CustomerController extends Controller
      */
     public function actionView($id)
     {
-        $this->_model = $this->loadModel($id);
-        $this->buildPageOptions();
+        //$this->_model = $this->loadModel($id);
 
+        $this->_model = Customer::model()->with('contacts')->findByPk($id);
+        if ($this->_model === null) $this->HttpException(404);
+
+        $this->buildPageOptions();
         $userProfile = $this->getUserProfile();
         $this->render('view', array(
             'contact' => CustomerContact::model()->getAll($userProfile, 'customer_id', $id),
@@ -24,20 +27,20 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Customer;
-        $model_log = new CustomerLog;
+        $this->_model = new Customer;
+        $log = new CustomerLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Customer'])) {
-            $model->attributes = $_POST['Customer'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Customer'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -49,20 +52,20 @@ class CustomerController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new CustomerLog;
+        $this->loadModel($id);
+        $log = new CustomerLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Customer'])) {
-            $model->attributes = $_POST['Customer'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Customer'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -74,10 +77,10 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new CustomerLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new CustomerLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -123,12 +126,12 @@ class CustomerController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new Customer('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new Customer('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['Customer']))
-            $model->attributes = $_GET['Customer'];
+            $this->_model->attributes = $_GET['Customer'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -140,12 +143,14 @@ class CustomerController extends Controller
      * @return Customer the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = Customer::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = Customer::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

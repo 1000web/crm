@@ -9,20 +9,20 @@ class MenuitemController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MenuItem;
-        $model_log = new MenuItemLog;
+        $this->_model = new MenuItem;
+        $log = new MenuItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['MenuItem'])) {
-            $model->attributes = $_POST['MenuItem'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['MenuItem'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -34,20 +34,20 @@ class MenuitemController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new MenuItemLog;
+        $this->loadModel($id);
+        $log = new MenuItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['MenuItem'])) {
-            $model->attributes = $_POST['MenuItem'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['MenuItem'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -59,10 +59,10 @@ class MenuitemController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new MenuItemLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new MenuItemLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -108,12 +108,12 @@ class MenuitemController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new MenuItem('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new MenuItem('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['MenuItem']))
-            $model->attributes = $_GET['MenuItem'];
+            $this->_model->attributes = $_GET['MenuItem'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -125,12 +125,14 @@ class MenuitemController extends Controller
      * @return MenuItem the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = MenuItem::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = MenuItem::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

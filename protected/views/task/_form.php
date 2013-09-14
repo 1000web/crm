@@ -1,6 +1,6 @@
 <?php
 /* @var $this TaskController */
-/* @var $this->_model Task */
+/* @var $this ->_model Task */
 /* @var $form CActiveForm */
 
 //Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datepicker.ru.js');
@@ -32,7 +32,7 @@ echo $form->timepickerRow($this->_model, 'time', array(
         'minuteStep' => 1,
         'showSeconds' => true,
     ),
-    ));
+));
 //$this->widget('bootstrap.widgets.TbButton', array('icon'=>'icon-time', 'disabled' => true));
 
 echo $form->dropDownListRow($this->_model, 'user_id', Users::model()->getOptions('id', 'username'), array('class' => 'input-block-level'));
@@ -42,8 +42,8 @@ echo $form->timepickerRow($this->_model, 'datetime', array('class' => 'inline'))
 /**/
 
 echo $form->dropDownListRow($this->_model, 'task_type_id', TaskType::model()->getOptions(), array('class' => 'input-block-level'));
-if(!$this->_model->isNewRecord) echo $form->dropDownListRow($this->_model, 'task_stage_id', TaskStage::model()->getOptions('id','value','prior'), array('class' => 'input-block-level'));
-echo $form->dropDownListRow($this->_model, 'task_prior_id', TaskPrior::model()->getOptions('id','value','prior'), array('class' => 'input-block-level'));
+if (!$this->_model->isNewRecord) echo $form->dropDownListRow($this->_model, 'task_stage_id', TaskStage::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
+echo $form->dropDownListRow($this->_model, 'task_prior_id', TaskPrior::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 
 echo $form->textField($this->_model, 'value', array(
     'maxlength' => 255,
@@ -55,6 +55,6 @@ echo $form->textArea($this->_model, 'description', array('rows' => 4,
     'placeholder' => $this->_model->getLabel('description'),
 ));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

@@ -70,19 +70,9 @@ class Kb extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'state' => 'Статус',
-            'question' => 'Вопрос',
-            'answer' => 'Ответ',
-            'value' => 'Краткое описание',
-            'description' => 'Описание',
-        );
+        return array('id', 'state', 'question', 'answer', 'value', 'description');
     }
 
     /**

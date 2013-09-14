@@ -1,6 +1,6 @@
 <?php
 /* @var $this MenuItemController */
-/* @var $this->_model MenuItem */
+/* @var $this ->_model MenuItem */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -22,6 +22,6 @@ echo $form->dropDownListRow($this->_model, 'visible', array(0 => 'Скрыто',
 
 echo $form->dropDownListRow($this->_model, 'guest_only', array(0 => 'Нет', 1 => 'Да'), array('class' => 'input-block-level'));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

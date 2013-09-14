@@ -1,26 +1,12 @@
 <?php
 /* @var $this CustomerController */
-/* @var $this->_model Customer */
+/* @var $this ->_model Customer */
 /* @var $contact CustomerContact */
 
 $this->show_pagesize = false;
 
-$attr = array(
-    array('name' => 'organization_id', 'label' => $this->attributeLabels('organization_id'), 'value' => $this->_model->organization->value),
-    array('name' => 'position', 'label' => $this->attributeLabels('position')),
-    array('name' => 'value', 'label' => $this->attributeLabels('value')),
-    array('name' => 'description', 'label' => $this->attributeLabels('description')),
-);
+echo $this->renderPartial('../detail_view');
 
-if (MyHelper::checkAccess($this->id, 'log')) $attr = CMap::mergeArray(
-    $this->created_updated($this->_model),
-    $attr
-);
-$this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $this->_model,
-    'type' => 'striped bordered condensed',
-    'attributes' => $attr,
-));
 
 $controller = 'customercontact';
 if (MyHelper::checkAccess($controller, 'view')) {
@@ -33,8 +19,9 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../'.$controller.'/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $contact,
+        //'dataProvider' => $this->_model->contacts,
     ));
 }
 
@@ -49,9 +36,8 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../deal/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $deal,
-        //'model' => $this->_model,
     ));
 }
 

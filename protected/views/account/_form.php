@@ -11,7 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 echo $form->errorSummary($this->_model);
 
-if (isset($_GET['oid'])) $values = Organization::model()->getOptions('id', 'value', 'value', $_GET['oid']);
+if (isset($_GET['oid'])) $values = Organization::model()->getOptions('id', 'value', 'value', array('id' => $_GET['oid']));
 else $values = Organization::model()->getOptions();
 echo $form->dropDownListRow($this->_model, 'organization_id', $values, array('class' => 'input-block-level'));
 
@@ -28,7 +28,7 @@ echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'clas
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();
 

@@ -8,20 +8,20 @@ class TasktypeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TaskType;
-        $model_log = new TaskTypeLog;
+        $this->_model = new TaskType;
+        $log = new TaskTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['TaskType'])) {
-            $model->attributes = $_POST['TaskType'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['TaskType'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -33,20 +33,20 @@ class TasktypeController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new TaskTypeLog;
+        $this->loadModel($id);
+        $log = new TaskTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['TaskType'])) {
-            $model->attributes = $_POST['TaskType'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['TaskType'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -58,10 +58,10 @@ class TasktypeController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new TaskTypeLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new TaskTypeLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -107,12 +107,12 @@ class TasktypeController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new TaskType('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new TaskType('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['TaskType']))
-            $model->attributes = $_GET['TaskType'];
+            $this->_model->attributes = $_GET['TaskType'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -124,12 +124,14 @@ class TasktypeController extends Controller
      * @return TaskType the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = TaskType::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = TaskType::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

@@ -1,6 +1,5 @@
 <?php
 
-
 class DealsourceController extends Controller
 {
     /**
@@ -9,20 +8,20 @@ class DealsourceController extends Controller
      */
     public function actionCreate()
     {
-        $model = new DealSource;
-        $model_log = new DealSourceLog;
+        $this->_model = new DealSource;
+        $log = new DealSourceLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['DealSource'])) {
-            $model->attributes = $_POST['DealSource'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['DealSource'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -34,20 +33,20 @@ class DealsourceController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new DealSourceLog;
+        $this->loadModel($id);
+        $log = new DealSourceLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['DealSource'])) {
-            $model->attributes = $_POST['DealSource'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['DealSource'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -59,10 +58,10 @@ class DealsourceController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new DealSourceLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new DealSourceLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -108,12 +107,12 @@ class DealsourceController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new DealSource('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new DealSource('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['DealSource']))
-            $model->attributes = $_GET['DealSource'];
+            $this->_model->attributes = $_GET['DealSource'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -125,12 +124,14 @@ class DealsourceController extends Controller
      * @return DealSource the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = DealSource::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = DealSource::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

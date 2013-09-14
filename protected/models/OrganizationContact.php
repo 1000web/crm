@@ -73,18 +73,9 @@ class OrganizationContact extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'organization_id' => 'Организация',
-            'contact_type_id' => 'Тип Контакта',
-            'value' => 'Данные: адрес, телефон и т.п.',
-            'description' => 'Описание',
-        );
+        return array('id', 'organization_id', 'contact_type_id', 'value', 'description');
     }
 
     /**
@@ -116,15 +107,15 @@ class OrganizationContact extends MyActiveRecord
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'organization_id':
                 $criteria->condition = 'organization_id=:oid';
                 $criteria->params[':oid'] = $param;
                 break;
         }
-        if ($type = $userProfile->filter_contact_type_id) {
+        if ($userProfile->filter_contact_type_id) {
             $criteria->addCondition('contact_type_id=:type');
-            $criteria->params[':type'] = $type;
+            $criteria->params[':type'] = $userProfile->filter_contact_type_id;
         }
         return new CActiveDataProvider('OrganizationContact', array(
             'criteria' => $criteria,

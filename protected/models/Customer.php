@@ -70,12 +70,12 @@ class Customer extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-            'customer_contacts' => array(self::HAS_MANY, 'CustomerContact', 'customer_id'),
-            'fav_users' => array(self::MANY_MANY, 'Users', '{{customer_fav}}(id, user_id)'),
+            //'fav_users' => array(self::MANY_MANY, 'Users', '{{customer_fav}}(id, user_id)'),
+            'contacts' => array(self::HAS_MANY, 'CustomerContact', 'customer_id'),
             'deals' => array(self::HAS_MANY, 'Deal', 'customer_id'),
         );
     }
@@ -126,7 +126,7 @@ class Customer extends MyActiveRecord
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
@@ -145,19 +145,9 @@ class Customer extends MyActiveRecord
         ));
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'organization_id' => 'Организация',
-            'user_id' => 'Пользователь',
-            'position' => 'Должность',
-            'value' => 'Фамилия Имя',
-            'description' => 'Описание',
-        );
+        return array('id', 'organization_id', 'position', 'value', 'description', 'user_id');
     }
 
 }

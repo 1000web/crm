@@ -8,20 +8,20 @@ class ItemController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Item;
-        $model_log = new ItemLog;
+        $this->_model = new Item;
+        $log = new ItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
-            $model->attributes = $_POST['Item'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Item'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -33,20 +33,20 @@ class ItemController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new ItemLog;
+        $this->loadModel($id);
+        $log = new ItemLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
-            $model->attributes = $_POST['Item'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Item'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -58,10 +58,10 @@ class ItemController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new ItemLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new ItemLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -107,12 +107,12 @@ class ItemController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new Item('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new Item('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['Item']))
-            $model->attributes = $_GET['Item'];
+            $this->_model->attributes = $_GET['Item'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -124,13 +124,14 @@ class ItemController extends Controller
      * @return Item the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = Item::model()->findByPk($id);
-        //$model = Item::model()->with(array('create_user', 'update_user'))->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = Item::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

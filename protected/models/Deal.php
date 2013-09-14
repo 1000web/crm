@@ -91,26 +91,28 @@ class Deal extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
     public function attributeLabels()
     {
+        return MyHelper::labels('deal');
+    }
+
+    public function getAvailableAttributes()
+    {
         return array(
-            'id' => '#',
-            'inner_number' => 'Внутренний номер',
-            'external_number' => 'Номер договора',
-            'value' => 'Название сделки',
-            'description' => 'Описание',
-            'owner_id' => 'Менеджер сделки',
-            'organization_id' => 'Организация',
-            'customer_id' => 'Клиент',
-            'deal_source_id' => 'Источник',
-            'deal_stage_id' => 'Этап',
-            'amount' => 'Сумма по договору',
-            'probability' => 'Вероятность, %',
-            'open_date' => 'Дата подписания',
-            'close_date' => 'Дата закрытия',
+            'id',
+            'inner_number',
+            'external_number',
+            'value',
+            'description',
+            'owner_id',
+            'organization_id',
+            'customer_id',
+            'deal_source_id',
+            'deal_stage_id',
+            'amount',
+            'probability',
+            'open_date',
+            'close_date',
         );
     }
 
@@ -152,7 +154,7 @@ class Deal extends MyActiveRecord
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{deal_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
@@ -167,17 +169,21 @@ class Deal extends MyActiveRecord
                 $criteria->params[':oid'] = $param;
                 break;
         }
-        if ($stage = $userProfile->filter_deal_stage_id) {
+        if ($userProfile->filter_deal_stage_id) {
             $criteria->addCondition('deal_stage_id=:stage');
-            $criteria->params[':stage'] = $stage;
+            $criteria->params[':stage'] = $userProfile->filter_deal_stage_id;
         }
-        if ($source = $userProfile->filter_deal_source_id) {
+        if ($userProfile->filter_deal_source_id) {
             $criteria->addCondition('deal_source_id=:source');
-            $criteria->params[':source'] = $source;
+            $criteria->params[':source'] = $userProfile->filter_deal_source_id;
         }
-        if ($state = $userProfile->filter_deal_status) {
+        if ($userProfile->filter_deal_status) {
             $criteria->addCondition('deal_stage.state=:state');
-            $criteria->params[':state'] = $state;
+            $criteria->params[':state'] = $userProfile->filter_deal_status;
+        }
+        if ($userProfile->filter_deal_probability) {
+            $criteria->addCondition('probability=:probability');
+            $criteria->params[':probability'] = $userProfile->filter_deal_probability;
         }
         $criteria->with = array('deal_stage');
         return new CActiveDataProvider('Deal', array(

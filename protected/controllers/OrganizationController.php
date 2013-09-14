@@ -25,20 +25,20 @@ class OrganizationController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Organization;
-        $model_log = new OrganizationLog;
+        $this->_model = new Organization;
+        $log = new OrganizationLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Organization'])) {
-            $model->attributes = $_POST['Organization'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Organization'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -50,20 +50,20 @@ class OrganizationController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new OrganizationLog;
+        $this->loadModel($id);
+        $log = new OrganizationLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Organization'])) {
-            $model->attributes = $_POST['Organization'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['Organization'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -75,10 +75,10 @@ class OrganizationController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new OrganizationLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new OrganizationLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -126,12 +126,12 @@ class OrganizationController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new Organization('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new Organization('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['Organization']))
-            $model->attributes = $_GET['Organization'];
+            $this->_model->attributes = $_GET['Organization'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -143,12 +143,14 @@ class OrganizationController extends Controller
      * @return Organization the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = Organization::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = Organization::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**
@@ -205,11 +207,6 @@ class OrganizationController extends Controller
         $this->render('index', array(
             'dataProvider' => Organization::model()->getAll($this->getUserProfile(), 'favorite'),
         ));
-    }
-    public function labels() {
-        $labels = MyHelper::labels();
-        $labels['value'] = 'Название организации';
-        return $labels;
     }
 
 }

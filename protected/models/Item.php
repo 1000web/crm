@@ -83,24 +83,9 @@ class Item extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'parent_id' => 'Родитель',
-            'module' => 'Модуль',
-            'controller' => 'Контроллер',
-            'action' => 'Действие',
-            'icon' => 'Иконка',
-            'url' => 'Url',
-            'title' => 'Заголовок',
-            'h1' => 'H1',
-            'value' => 'Название',
-            'description' => 'Описание',
-        );
+        return array('id', 'parent_id', 'module', 'controller', 'action', 'icon', 'url', 'title', 'h1', 'value', 'description');
     }
 
     /**
@@ -138,21 +123,21 @@ class Item extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        if ($controller = $userProfile->filter_item_controller) {
+        if ($userProfile->filter_item_controller) {
             $criteria->addCondition('controller=:controller');
-            $criteria->params[':controller'] = $controller;
+            $criteria->params[':controller'] = $userProfile->filter_item_controller;
         }
-        if ($module = $userProfile->filter_item_module) {
+        if ($userProfile->filter_item_module) {
             $criteria->addCondition('module=:module');
-            $criteria->params[':module'] = $module;
+            $criteria->params[':module'] = $userProfile->filter_item_module;
         }
-        if ($action = $userProfile->filter_item_action) {
+        if ($userProfile->filter_item_action) {
             $criteria->addCondition('action=:action');
-            $criteria->params[':action'] = $action;
+            $criteria->params[':action'] = $userProfile->filter_item_action;
         }
-        if ($parent = $userProfile->filter_item_parent_id) {
-            $criteria->addCondition('parent_id=:parent');
-            $criteria->params[':parent'] = $parent;
+        if ($userProfile->filter_item_parent_id) {
+            $criteria->addCondition('parent_id=:parent_id');
+            $criteria->params[':parent_id'] = $userProfile->filter_item_parent_id;
         }
         return new CActiveDataProvider('Item', array(
             'criteria' => $criteria,

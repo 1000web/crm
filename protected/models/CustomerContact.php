@@ -73,17 +73,14 @@ class CustomerContact extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
         return array(
-            'id' => '#',
-            'customer_id' => 'Клиент',
-            'contact_type_id' => 'Тип Контакта',
-            'value' => 'Данные: адрес, телефон и т.п.',
-            'description' => 'Описание',
+            'id',
+            'customer_id',
+            'contact_type_id',
+            'value',
+            'description',
         );
     }
 
@@ -116,15 +113,15 @@ class CustomerContact extends MyActiveRecord
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'customer_id':
                 $criteria->condition = 'customer_id=:cid';
                 $criteria->params[':cid'] = $param;
                 break;
         }
-        if ($type = $userProfile->filter_contact_type_id) {
+        if ($userProfile->filter_contact_type_id) {
             $criteria->addCondition('contact_type_id=:type');
-            $criteria->params[':type'] = $type;
+            $criteria->params[':type'] = $userProfile->filter_contact_type_id;
         }
         return new CActiveDataProvider('CustomerContact', array(
             'criteria' => $criteria,

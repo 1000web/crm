@@ -71,13 +71,14 @@ class Users extends MyActiveRecord
             'tasks' => array(self::HAS_MANY, 'Task', 'user_id'),
         );
     }
-/*
-    public function defaultScope(){
-        return array(
-            'with'=> array('profiles')
-        );
-    }
-/**/
+
+    /*
+        public function defaultScope(){
+            return array(
+                'with'=> array('profiles')
+            );
+        }
+    /**/
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -108,14 +109,14 @@ class Users extends MyActiveRecord
     {
         $criteria = new CDbCriteria;
 
-        if($order === NULL) {
-            if(!is_array($value)) $order = $value;
+        if ($order === NULL) {
+            if (!is_array($value)) $order = $value;
             else $order = $id;
         }
         $criteria->order = 't.' . $order;
         $criteria->distinct = true;
 
-        if($param AND in_array($param, $this->getAllowedRange($id))) {
+        if ($param AND in_array($param, $this->getAllowedRange($id))) {
             $criteria->addCondition($id . '=:param');
             $criteria->params[':param'] = $param;
         }
@@ -123,9 +124,9 @@ class Users extends MyActiveRecord
 
         $ret = array();
         foreach ($items as $item) {
-            if(is_array($value)) $ret[$item[$id]] = $item[$value['key']][$value['val']];
+            if (is_array($value)) $ret[$item[$id]] = $item[$value['key']][$value['val']];
             else {
-                if($value = 'username') {
+                if ($value = 'username') {
                     /*if(Yii::app()->user->id == $item->id) $ret[$item[$id]] = 'Я';
                     else */
                     //$ret[$item[$id]] = $item->profiles->last_name . ' ' . $item->profiles->first_name . ' (' . $item->username . ')';

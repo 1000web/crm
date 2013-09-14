@@ -1,6 +1,6 @@
 <?php
 /* @var $this DealController */
-/* @var $this->_model Deal */
+/* @var $this ->_model Deal */
 /* @var $form CActiveForm */
 
 Yii::app()->bootstrap->registerAssetCss('bootstrap-slider.css');
@@ -37,7 +37,7 @@ echo $form->datepickerRow($this->_model, 'close_date', array(
     )
 ));
 ?>
-<div class="clear"></div>
+    <div class="clear"></div>
 <?php
 echo $form->textField($this->_model, 'external_number', array(
     'maxlength' => 255,
@@ -55,18 +55,31 @@ echo $form->dropDownListRow($this->_model, 'owner_id', Users::model()->getOption
 
 echo $form->sliderRow($this->_model, 'probability', array(
     'class' => 'span11',
-    'options'=>array(
+    'options' => array(
         'value' => intval($this->_model->probability),
         'min' => 0,
         'max' => 100,
+        'step' => 25,
         'range' => false,
-        //'values' => array(0, 100)
     )
 ));
 
-if (isset($_GET['cid'])) $values = Customer::model()->getOptions('id', 'value', 'value', $_GET['cid']);
-else $values = Customer::model()->getOptions();
-echo $form->dropDownListRow($this->_model, 'customer_id', $values, array('class' => 'input-block-level'));
+$organization_param = array();
+$customer_param = array();
+if (isset($_GET['oid'])) {
+    $organization_param['id'] = $_GET['oid'];
+    $customer_param['organization_id'] = $_GET['oid'];
+}
+echo $form->dropDownListRow($this->_model, 'organization_id',
+    Organization::model()->getOptions('id', 'value', 'value', $organization_param),
+    array('class' => 'input-block-level'));
+
+if (isset($_GET['cid'])) {
+    $customer_param['id'] = $_GET['cid'];
+}
+echo $form->dropDownListRow($this->_model, 'customer_id',
+    Customer::model()->getOptions('id', 'value', 'value', $customer_param),
+    array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 
@@ -74,13 +87,9 @@ echo $form->dropDownListRow($this->_model, 'deal_stage_id', DealStage::model()->
 
 echo $form->textFieldRow($this->_model, 'amount', array(
     'class' => 'span2 text-center',
-    'maxlength' => 12,
+    'maxlength' => 15,
     'append' => 'Руб.',
 ));
-
-if (isset($_GET['oid'])) $values = Organization::model()->getOptions('id', 'value', 'value', $_GET['oid']);
-else $values = Organization::model()->getOptions();
-echo $form->dropDownListRow($this->_model, 'organization_id', $values, array('class' => 'input-block-level'));
 
 echo $form->textArea($this->_model, 'value', array('rows' => 4,
     'class' => 'input-block-level',
@@ -91,6 +100,6 @@ echo $form->textArea($this->_model, 'description', array('rows' => 4,
     'placeholder' => $this->_model->getLabel('description'),
 ));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

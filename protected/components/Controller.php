@@ -19,6 +19,8 @@ class Controller extends RController
     public $buttons = array();
     public $columns = array();
 
+    public $labels = array();
+
     protected $_model = NULL;
     protected $_pagesize = 20;
     protected $show_pagesize = false;
@@ -66,16 +68,17 @@ class Controller extends RController
 
     public function getColumns($param, $avail_cols)
     {
-        if (Yii::app()->user->id) $model = Yii::app()->user->user();
+        $param .= '_columns';
+        if (Yii::app()->user->id) $user = Yii::app()->user->user();
         // незалогинен пользователь, показываем все
-        if ($model === NULL) return $avail_cols;
+        if ($user === NULL) return $avail_cols;
         // доставем значение этого параметра
-        $val = $model->profile->getAttribute($param);
+        $val = $user->profile->getAttribute($param);
         // нет такого параметра
-        if($val === NULL) $cols = $avail_cols;
+        if ($val === NULL) $cols = $avail_cols;
         else {
             // что-то есть, показываем те столбцы, что пользователь себе выбрал
-            if($val) $cols = explode(',', $val);
+            if ($val) $cols = explode(',', $val);
             else {
                 // если ничего нет, то сохраняем показываем все столбцы и сохраняем параметр
                 $this->setparam($param, implode(',', $avail_cols));
@@ -83,16 +86,6 @@ class Controller extends RController
             }
         }
         return $cols;
-    }
-
-    public function labels() {
-        return MyHelper::labels();
-    }
-
-    public function getLabel($item){
-        $array = $this->labels();
-        if(isset($array[$item])) return $array[$item];
-        return 'НЕИЗВЕСТНО';
     }
 
     public function buildFilterButton($options, $param)
@@ -154,10 +147,15 @@ class Controller extends RController
         else $this->redirect(Yii::app()->homeUrl);
     }
 
+    // атрибуты используются в отношении Моделей,
     public function addAttribute($name)
     {
-        $item = array('name' => $name, 'label' => $this->getLabel($name));
-        if ($value = $this->_model->getAttributeValue($name)) $item['value'] = $value;
+        $item = array('name' => $name, 'label' => $this->_model->getLabel($name));
+        $value = $value = $this->_model->getAttributeValue($name);
+        if ($value !== NULL) {
+            $item['value'] = $value;
+            $item['type'] = 'raw';
+        }
         $this->attributes[$name] = $item;
     }
 
@@ -168,12 +166,12 @@ class Controller extends RController
         }
     }
 
-    public function addButton($controller, $action, $id = '$data->id')
+    public function addButton($controller, $action)
     {
         if (!$controller) $controller = $this->id;
         if (MyHelper::checkAccess($controller, $action)) {
             $this->buttons[$action] = array(
-                'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>' . $id . '))',
+                'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>$data->id))',
             );
             switch ($action) {
                 case 'log':
@@ -183,101 +181,52 @@ class Controller extends RController
         }
     }
 
-    public function addButtons($controller, $actions, $id = '$data->id')
+    public function addButtons($controller, $actions, $preserve = FALSE)
     {
+        if($preserve === FALSE) $this->buttons = array();
         foreach ($actions as $action) {
-            $this->addButton($controller, $action, $id);
+            $this->addButton($controller, $action);
         }
     }
 
-    public function column_value($item, $value)
+    public function addColumn($name)
     {
-        switch ($item) {
-            case 'organization_id':
-                if(! MyHelper::checkAccess('organization', 'view')) $value = '$data->organization->value';
-                else $value = 'CHtml::link(CHtml::encode($data->organization->value),array("/organization/view","id"=>$data->organization_id))';
-                break;
-            case 'user_id':
-                $value = '$data->user?$data->user->username:""';
-                //$value = '($data->user_id == Yii::app()->user->id)?"Я":$data->user->username';
-                //$value = '$data->user->profiles->last_name $data->user->profiles->first_name ($data->user->username)';
-                break;
-            case 'owner_id':
-                $value = '$data->owner->username';
-                //$value = '($data->owner_id == Yii::app()->user->id)?"Я":$data->owner->username';
-                break;
-            case 'log_user_id':
-                $value = '$data->log_user->username';
-                break;
-            case 'create_user_id':
-                $value = '$data->create_user->username';
-                break;
-            case 'update_user_id':
-                $value = '$data->update_user->username';
-                break;
-            case 'customer_id':
-                if(! MyHelper::checkAccess('customer', 'view')) $value = '$data->customer->value';
-                else $value = 'CHtml::link(CHtml::encode($data->customer->value),array("/customer/view","id"=>$data->customer_id))';
-                break;
-            case 'contact_type_id':
-                $value = '$data->contact_type->value';
-                break;
-            case 'deal_source_id':
-                $value = '$data->deal_source->value';
-                break;
-            case 'deal_stage_id':
-                $value = '$data->deal_stage->value';
-                break;
-            case 'organization_type_id':
-                $value = '$data->organization_type->value';
-                break;
-            case 'organization_region_id':
-                $value = '$data->organization_region->value';
-                break;
-            case 'organization_group_id':
-                $value = '$data->organization_group->value';
-                break;
-            case 'product_type_id':
-                $value = '$data->product_type->value';
-                break;
-            case 'datetime':
-                //$value = 'date("Y-m-d H:i:s",$data->datetime)';
-                $value = '$data->datetime';
-                break;
-            case 'log_datetime':
-                $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
-                break;
-            case 'task_type_id':
-                $value = '$data->task_type->value';
-                break;
-            case 'task_stage_id':
-                $value = '$data->task_stage->value';
-                break;
-            case 'task_prior_id':
-                $value = '$data->task_prior->value';
-                break;
-            case 'state':
-                $value = '$data->getStateName($data->state)';
-                break;
+        $item = array('name' => $name, 'header' => $this->getLabel($name));
+        $value = $this->getColumnValue($name);
+        if ($value !== NULL) {
+            $item['value'] = $value;
+            $item['type'] = 'raw';
         }
-        return $value;
+        $this->columns[$name] = $item;
     }
 
-    public function addColumn($item, $param = NULL)
+    public function addColumns($list, $preserve = FALSE)
     {
-        $column = array('name' => $item, 'header' => $this->getLabel($item));
-
-        $value = $this->column_value($item, $param);
-        if ($value !== NULL) $column['value'] = $value;
-        if($param != $value) $column['type'] = 'raw';
-        $this->columns[$item] = $column;
-    }
-
-    public function addColumns($list)
-    {
+        if($preserve === FALSE) $this->columns = array();
         foreach ($list as $item) {
-            $this->addColumn($item);
+            // for example: controller = organization, item = organization_id
+            if ($item != $this->id . '_id') $this->addColumn($item);
         }
+    }
+
+    public function columnLabels($controller = NULL)
+    {
+        if($controller === NULL) $controller = $this->getId();
+        $this->labels = MyHelper::labels($controller);
+    }
+
+    public function getLabel($item)
+    {
+        // если массив с метками пустой. то загружаем массив для текущего контроллера
+        if (! $this->labels) $this->columnLabels();
+        // если такая метка есть, то возвращаем ее
+        if (isset($this->labels[$item])) return $this->labels[$item];
+        return 'НЕИЗВЕСТНО';
+    }
+
+    public function getColumnValue($name)
+    {
+        return MyHelper::getValue($name, '$data');
     }
 
     public function buildMenuOperations($id = NULL)
@@ -339,47 +288,47 @@ class Controller extends RController
         $this->menu = array();
         switch ($this->getAction()->getId()) {
             case 'create':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'index':
-                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] =   $items['create'];
-                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] =   $items['column'];
+                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
+                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] = $items['column'];
                 if ($this->favorite_available) {
-                    if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] =   $items['favorite'];
+                    if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] = $items['favorite'];
                 }
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'admin':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] =   $items['create'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
                 break;
             case 'update':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] =   $items['view'];
-                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] =   $items['delete'];
-                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] =   $items['log'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] = $items['view'];
+                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] = $items['delete'];
+                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] = $items['log'];
                 break;
             case 'view':
                 if ($this->favorite_available) {
-                    if ($this->checkFavorite($id)) $this->menu[] =   $items['favorite_del'];
-                    else $this->menu[] =   $items['favorite_add'];
+                    if ($this->checkFavorite($id)) $this->menu[] = $items['favorite_del'];
+                    else $this->menu[] = $items['favorite_add'];
                 }
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] =   $items['update'];
-                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] =   $items['delete'];
-                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] =   $items['log'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] = $items['update'];
+                if (MyHelper::checkAccess($this->id, 'delete')) $this->menu[] = $items['delete'];
+                if (MyHelper::checkAccess($this->id, 'log')) $this->menu[] = $items['log'];
                 break;
             case 'favorite':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] =   $items['column'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] = $items['column'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'log':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] =   $items['index'];
-                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] =   $items['view'];
-                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] =   $items['update'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] =   $items['admin'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] = $items['view'];
+                if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] = $items['update'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
         }
         return;
@@ -404,8 +353,8 @@ class Controller extends RController
             // не первая крошка
             $val = $item['value'];
             $url = MyHelper::createURL($item->module, $item->controller, $item->action);
-            if(isset($this->_model->id) AND $item->action == 'view') {
-                if(!empty($this->_model->value)) $val = $this->_model->value;
+            if (isset($this->_model->id) AND $item->action == 'view') {
+                if (!empty($this->_model->value)) $val = $this->_model->value;
                 $url['id'] = $this->_model->id;
             }
             $this->breadcrumbs = CMap::mergeArray(
@@ -476,22 +425,35 @@ class Controller extends RController
         );
     }
 
-    public function submit_button($isNewRecord)
+    public function submit_button()
     {
         echo "\n<div class='row buttons text-center'>\n";
-        //$ret .= CHtml::submitButton($isNewRecord ? 'Создать' : 'Сохранить');
+        if($this->_model->isNewRecord or TRUE) {
+            $class_save = 'span2 offset1';
+            $class_cancel = 'span2 offset1';
+        } else {
+            $class_save = 'span3 offset2';
+            $class_cancel = 'span3 offset1';
+        }
         $this->widget('bootstrap.widgets.TbButton', array(
-            'label' => ($isNewRecord ? 'Создать' : 'Сохранить'),
+            'label' => 'Сохранить',
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-            'htmlOptions' => array('class' => 'span3 offset2'),
-            'size' => 'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions' => array('class' => $class_save),
+            'size' => 'large',
+        ));
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Сохранить и создать еще',
+            'type' => 'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'htmlOptions' => array('class' => 'span3 offset1', 'name' => 'create_new', 'id' => 'create_new', 'value' => 1),
+            'buttonType' => 'submit',
+            'size' => 'large',
         ));
         $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Отменить',
             'url' => Yii::app()->request->getUrlReferrer(),
             'type' => 'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'htmlOptions' => array('class' => 'span3 offset1'),
+            'htmlOptions' => array('class' => $class_cancel),
             //'buttonType' => 'submit',
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
@@ -530,16 +492,11 @@ class Controller extends RController
         ));
     }
 
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    /**/
     public function actionView($id)
     {
         $this->_model = $this->loadModel($id);
         $this->buildPageOptions();
-        $this->render('view');
-    }/**/
+        echo $this->render('../detail_view');
+    }
 
 }

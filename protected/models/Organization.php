@@ -19,7 +19,6 @@
  * @property Customer[] $customers
  * @property Deal[] $deals
  * @property OrganizationContact[] $contacts
-
  * @property Users $create_user
  * @property Users $update_user
  * @property OrganizationType $organization_type
@@ -89,9 +88,9 @@ class Organization extends MyActiveRecord
         );
     }
 
-    public function defaultScope(){
-        return array(
-            //'with'=> array('contacts', 'customers', 'deals')
+    public function defaultScope()
+    {
+        return array(//'with'=> array('contacts', 'customers', 'deals')
         );
     }
 
@@ -122,33 +121,37 @@ class Organization extends MyActiveRecord
         ));
     }
 
-    public function attributeLabels(){
-        $labels = MyHelper::labels();
-        $labels['value'] = 'Название организации';
-        return $labels;
+    public function attributeLabels()
+    {
+        return MyHelper::labels('organization');
+    }
+
+    public function getAvailableAttributes()
+    {
+        return array('id', 'value', 'organization_type_id', 'organization_group_id', 'organization_region_id', 'description');
     }
 
     public function getAll($userProfile, $select = '')
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{organization_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
                 $criteria->params = array(':userid' => Yii::app()->user->id);
                 break;
         }
-        if ($type = $userProfile->filter_organization_type_id) {
+        if ($userProfile->filter_organization_type_id) {
             $criteria->addCondition('organization_type_id=:type');
-            $criteria->params[':type'] = $type;
+            $criteria->params[':type'] = $userProfile->filter_organization_type_id;
         }
-        if ($group = $userProfile->filter_organization_group_id) {
+        if ($userProfile->filter_organization_group_id) {
             $criteria->addCondition('organization_group_id=:group');
-            $criteria->params[':group'] = $group;
+            $criteria->params[':group'] = $userProfile->filter_organization_group_id;
         }
-        if ($region = $userProfile->filter_organization_region_id) {
+        if ($userProfile->filter_organization_region_id) {
             $criteria->addCondition('organization_region_id=:region');
-            $criteria->params[':region'] = $region;
+            $criteria->params[':region'] = $userProfile->filter_organization_region_id;
         }
         return new CActiveDataProvider('Organization', array(
             'criteria' => $criteria,

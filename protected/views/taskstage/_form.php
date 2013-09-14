@@ -1,6 +1,6 @@
 <?php
 /* @var $this TaskStageController */
-/* @var $this->_model TaskStage */
+/* @var $this ->_model TaskStage */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -18,6 +18,6 @@ echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'clas
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

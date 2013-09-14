@@ -2,12 +2,10 @@
 /* @var $this OrganizationController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->renderPartial('../organization/_filter_buttons');
-
-$this->buttons = $this->columns = array();
-
-$this->addButtons('organization', array('view', 'update', 'delete', 'log'));
-$this->addColumns($this->getColumns('organization_columns',Organization::model()->getAvailableColumns()));
+$controller = 'organization';
+$this->renderPartial('../' . $controller . '/_filter_buttons');
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, Organization::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

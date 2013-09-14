@@ -2,11 +2,9 @@
 /* @var $this TaskTypeController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->buttons = $this->columns = array();
-
-$this->addButtons('tasktype', array('view', 'update', 'delete', 'log'));
-
-$this->addColumns($this->getColumns('tasktype_columns',TaskType::model()->getAvailableColumns()));
+$controller = 'tasktype';
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, TaskType::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

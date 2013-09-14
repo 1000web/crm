@@ -70,17 +70,9 @@ class Product extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'product_type_id' => 'Тип продукции',
-            'value' => 'Название',
-            'description' => 'Описание',
-        );
+        return array('id', 'product_type_id', 'value', 'description');
     }
 
     /**
@@ -111,9 +103,9 @@ class Product extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        if ($type = $userProfile->filter_product_type_id) {
+        if ($userProfile->filter_product_type_id) {
             $criteria->addCondition('product_type_id=:type');
-            $criteria->params[':type'] = $type;
+            $criteria->params[':type'] = $userProfile->filter_product_type_id;
         }
         return new CActiveDataProvider('Product', array(
             'criteria' => $criteria,

@@ -86,7 +86,8 @@ class ContactTypeLog extends LogActiveRecord
         ));
     }
 
-    public function getAll($userProfile, $id){
+    public function getAll($userProfile, $id)
+    {
         $criteria = new CDbCriteria();
 
         $criteria->order = 'log_datetime DESC';

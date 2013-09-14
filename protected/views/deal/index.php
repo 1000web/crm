@@ -2,13 +2,10 @@
 /* @var $this DealController */
 /* @var $dataProvider CActiveDataProvider */
 
-echo $this->renderPartial('../deal/_filter_buttons');
-
-$this->buttons = $this->columns = array();
-
-$this->addButtons('deal', array('view', 'update', 'delete', 'log'));
-
-$this->addColumns($this->getColumns('deal_columns',Deal::model()->getAvailableColumns()));
+$controller = 'deal';
+echo $this->renderPartial('../' . $controller . '/_filter_buttons');
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, Deal::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

@@ -2,10 +2,9 @@
 /* @var $this ContacttypeController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->buttons = $this->columns = array();
-
+$this->buttons = array();
 $this->addColumns(array('log_datetime', 'log_user_id'));
-$this->addColumns($this->getColumns('contacttype_columns',ContactType::model()->getAvailableColumns()));
+$this->addColumns($this->getColumns('contacttype', ContactType::model()->getAvailableAttributes()), true);
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

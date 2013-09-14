@@ -14,6 +14,7 @@
  * @property integer $task_prior_id
  * @property integer $datetime
  * @property integer $user_id
+ * @property integer $owner_id
  * @property string $value
  * @property string $description
  *
@@ -30,10 +31,12 @@ class Task extends MyActiveRecord
     {
         if (parent::beforeSave()) {
             if ($this->isNewRecord) {
-                // владелец задачи
-                $this->owner_id = Yii::app()->user->id;
-                // задача не начата
-                $this->task_stage_id = 1;
+                $this->setAttributes(array(
+                    // владелец задачи
+                    'owner_id' => Yii::app()->user->id,
+                    // задача не начата
+                    'task_stage_id' => 1,
+                ));
             }
             return true;
         } else return false;
@@ -66,12 +69,12 @@ class Task extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id, owner_id', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, owner_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -94,24 +97,9 @@ class Task extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'task_type_id' => 'Тип задачи',
-            'task_stage_id' => 'Этап',
-            'task_prior_id' => 'Приоритет',
-            'datetime' => 'Дата/время',
-            'date' => 'Дата',
-            'time' => 'Время',
-            'owner_id' => 'Владелец',
-            'user_id' => 'Исполнитель',
-            'value' => 'Название задачи',
-            'description' => 'Описание',
-        );
+        return array('id', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'date', 'time', 'owner_id', 'user_id', 'value', 'description');
     }
 
     /**
@@ -163,36 +151,36 @@ class Task extends MyActiveRecord
     public function getAll($userProfile, $select = '')
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
                 $criteria->params[':userid'] = Yii::app()->user->id;
                 break;
         }
-        if ($type = $userProfile->filter_task_type_id) {
+        if ($userProfile->filter_task_type_id) {
             $criteria->addCondition('task_type_id=:type');
-            $criteria->params[':type'] = $type;
+            $criteria->params[':type'] = $userProfile->filter_task_type_id;
         }
-        if ($stage = $userProfile->filter_task_stage_id) {
+        if ($userProfile->filter_task_stage_id) {
             $criteria->addCondition('task_stage_id=:stage');
-            $criteria->params[':stage'] = $stage;
+            $criteria->params[':stage'] = $userProfile->filter_task_stage_id;
         }
-        if ($prior = $userProfile->filter_task_prior_id) {
+        if ($userProfile->filter_task_prior_id) {
             $criteria->addCondition('task_prior_id=:prior');
-            $criteria->params[':prior'] = $prior;
+            $criteria->params[':prior'] = $userProfile->filter_task_prior_id;
         }
-        if ($owner = $userProfile->filter_task_owner_id) {
+        if ($userProfile->filter_task_owner_id) {
             $criteria->addCondition('owner_id=:owner');
-            $criteria->params[':owner'] = $owner;
+            $criteria->params[':owner'] = $userProfile->filter_task_owner_id;
         }
-        if ($user_id = $userProfile->filter_task_user_id) {
+        if ($userProfile->filter_task_user_id) {
             $criteria->addCondition('t.user_id=:user_id');
-            $criteria->params[':user_id'] = $user_id;
+            $criteria->params[':user_id'] = $userProfile->filter_task_user_id;
         }
-        if ($state = $userProfile->filter_task_status) {
+        if ($userProfile->filter_task_status) {
             $criteria->addCondition('task_stage.state=:state');
-            $criteria->params[':state'] = $state;
+            $criteria->params[':state'] = $userProfile->filter_task_status;
         }
         $criteria->with = array('task_stage');
         return new CActiveDataProvider('Task', array(

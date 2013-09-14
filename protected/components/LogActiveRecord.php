@@ -2,7 +2,8 @@
 
 class LogActiveRecord extends CActiveRecord
 {
-    public function save_log_record($model, $action) {
+    public function save_log_record($model, $action)
+    {
         // список атрибутов таблицы с логами
         $list = $this->attributeNames();
         // не копируем атрибут log_id, он присвоится автоматически

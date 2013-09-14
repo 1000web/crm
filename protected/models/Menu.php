@@ -70,16 +70,9 @@ class Menu extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'value' => 'Название',
-            'description' => 'Описание',
-        );
+        return array('id', 'value', 'description');
     }
 
     /**

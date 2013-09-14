@@ -1,6 +1,6 @@
 <?php
 /* @var $this AccountController */
-/* @var $this->_model Account */
+/* @var $this ->_model Account */
 /* @var $form CActiveForm */
 ?>
 

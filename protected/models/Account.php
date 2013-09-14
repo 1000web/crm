@@ -26,110 +26,96 @@
  */
 class Account extends MyActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Account the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return Account the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{account}}';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return '{{account}}';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('value', 'required'),
-			array('create_time, update_time, create_user_id, update_user_id, organization_id, bik, inn, kpp', 'numerical', 'integerOnly'=>true),
-			array('bank, korr, schet, value', 'length', 'max'=>255),
-			array('description', 'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, create_time, update_time, create_user_id, update_user_id, organization_id, bank, bik, inn, kpp, korr, schet, value, description', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('value', 'required'),
+            array('create_time, update_time, create_user_id, update_user_id, organization_id, bik, inn, kpp', 'numerical', 'integerOnly' => true),
+            array('bank, korr, schet, value', 'length', 'max' => 255),
+            array('description', 'safe'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, create_time, update_time, create_user_id, update_user_id, organization_id, bank, bik, inn, kpp, korr, schet, value, description', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
-			'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
-			'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => '#',
-			'organization_id' => 'Организация',
-            'value' => 'Название счета',
-			'bank' => 'Банк',
-			'bik' => 'БИК',
-			'inn' => 'ИНН',
-			'kpp' => 'КПП',
-			'korr' => 'Корр.счет',
-			'schet' => 'Счет',
-			'description' => 'Описание',
-		);
-	}
+    public function getAvailableAttributes()
+    {
+        return array('id', 'organization_id', 'value', 'bank', 'bik', 'inn', 'kpp', 'korr', 'schet', 'description');
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('create_time',$this->create_time);
-		$criteria->compare('update_time',$this->update_time);
-		$criteria->compare('create_user_id',$this->create_user_id);
-		$criteria->compare('update_user_id',$this->update_user_id);
-		$criteria->compare('organization_id',$this->organization_id);
-		$criteria->compare('bank',$this->bank,true);
-		$criteria->compare('bik',$this->bik);
-		$criteria->compare('inn',$this->inn);
-		$criteria->compare('kpp',$this->kpp);
-		$criteria->compare('korr',$this->korr,true);
-		$criteria->compare('schet',$this->schet,true);
-		$criteria->compare('value',$this->value,true);
-		$criteria->compare('description',$this->description,true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('create_time', $this->create_time);
+        $criteria->compare('update_time', $this->update_time);
+        $criteria->compare('create_user_id', $this->create_user_id);
+        $criteria->compare('update_user_id', $this->update_user_id);
+        $criteria->compare('organization_id', $this->organization_id);
+        $criteria->compare('bank', $this->bank, true);
+        $criteria->compare('bik', $this->bik);
+        $criteria->compare('inn', $this->inn);
+        $criteria->compare('kpp', $this->kpp);
+        $criteria->compare('korr', $this->korr, true);
+        $criteria->compare('schet', $this->schet, true);
+        $criteria->compare('value', $this->value, true);
+        $criteria->compare('description', $this->description, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        switch($select) {
+        switch ($select) {
             case 'organization_id':
                 $criteria->condition = 'organization_id=:oid';
                 $criteria->params[':oid'] = $param;

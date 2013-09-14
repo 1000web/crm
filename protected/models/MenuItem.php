@@ -77,25 +77,16 @@ class MenuItem extends MyActiveRecord
         );
     }
 
-    public function defaultScope(){
+    public function defaultScope()
+    {
         return array(
-            'with'=> array('i', 'm')
+            'with' => array('i', 'm')
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'parent_id' => 'Родитель',
-            'menu_id' => 'Меню',
-            'item_id' => 'Пункт',
-            'prior' => 'Приоритет',
-            'visible' => 'Видимость',
-        );
+        return array('id', 'parent_id', 'menu_id', 'item_id', 'prior', 'visible', 'guest_only', 'value', 'controller', 'action');
     }
 
     /**
@@ -139,7 +130,7 @@ class MenuItem extends MyActiveRecord
             $criteria->addCondition('t.parent_id=:parent_id');
             $criteria->params[':parent_id'] = $parent_id;
         }
-        return MenuItem::model()->with('m','i')->findAll($criteria);
+        return MenuItem::model()->with('m', 'i')->findAll($criteria);
     }
 
     function getItemsArray($menu_name, $parent_id = NULL, $levels = 2)
@@ -148,16 +139,15 @@ class MenuItem extends MyActiveRecord
         $items = array();
         $levels--;
         foreach ($menu_items as $item) {
-            if (MyHelper::checkAccess($item['i']['module'], $item['i']['controller'], $item['i']['action']))
-            {
-                if(!Yii::app()->user->isGuest AND $item['guest_only']) continue;
-                if(empty($item['i']['url'])) $item['i']['url'] = MyHelper::createURL($item['i']['module'], $item['i']['controller'], $item['i']['action']);
+            if (MyHelper::checkAccess($item['i']['module'], $item['i']['controller'], $item['i']['action'])) {
+                if (!Yii::app()->user->isGuest AND $item['guest_only']) continue;
+                if (empty($item['i']['url'])) $item['i']['url'] = MyHelper::createURL($item['i']['module'], $item['i']['controller'], $item['i']['action']);
                 $newItem = array(
                     'url' => $item['i']['url'],
                     'icon' => $item['i']['icon'],
                     'label' => $item['i']['value'],
                 );
-                if($levels>0 AND $subItems = $this->getItemsArray($menu_name, $item['id'], $levels)) $newItem['items'] = $subItems;
+                if ($levels > 0 AND $subItems = $this->getItemsArray($menu_name, $item['id'], $levels)) $newItem['items'] = $subItems;
                 $items[] = $newItem;
             }
         }
@@ -167,13 +157,13 @@ class MenuItem extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        if ($menu = $userProfile->filter_menu) {
+        if ($userProfile->filter_menu) {
             $criteria->addCondition('menu_id=:menu');
-            $criteria->params[':menu'] = $menu;
+            $criteria->params[':menu'] = $userProfile->filter_menu;
         }
-        if ($parent = $userProfile->filter_parent) {
+        if ($userProfile->filter_menu_parent_id) {
             $criteria->addCondition('t.parent_id=:parent_id');
-            $criteria->params[':parent_id'] = $parent;
+            $criteria->params[':parent_id'] = $userProfile->filter_menu_parent_id;
         }
         return new CActiveDataProvider('MenuItem', array(
             'criteria' => $criteria,

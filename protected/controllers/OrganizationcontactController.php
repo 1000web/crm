@@ -9,20 +9,20 @@ class OrganizationcontactController extends Controller
      */
     public function actionCreate()
     {
-        $model = new OrganizationContact;
-        $model_log = new OrganizationContactLog;
+        $this->_model = new OrganizationContact;
+        $log = new OrganizationContactLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['OrganizationContact'])) {
-            $model->attributes = $_POST['OrganizationContact'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['OrganizationContact'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -34,20 +34,20 @@ class OrganizationcontactController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-        $model_log = new OrganizationContactLog;
+        $this->loadModel($id);
+        $log = new OrganizationContactLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['OrganizationContact'])) {
-            $model->attributes = $_POST['OrganizationContact'];
-            if ($model->save()) {
-                $model_log->save_log_record($model, $this->getAction()->id);
-                $this->redirect(array('view', 'id' => $model->id));
+            $this->_model->attributes = $_POST['OrganizationContact'];
+            if ($this->_model->save()) {
+                $log->save_log_record($this->_model, $this->getAction()->id);
+                if (isset($_POST['create_new'])) $this->redirect(array('create'));
+                else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model = $model;
         $this->buildPageOptions();
         $this->render('_form');
     }
@@ -59,10 +59,10 @@ class OrganizationcontactController extends Controller
      */
     public function actionDelete($id)
     {
-        $model_log = new OrganizationContactLog;
-        $model = $this->loadModel($id);
-        $model_log->save_log_record($model, $this->getAction()->id);
-        $model->delete();
+        $log = new OrganizationContactLog;
+        $this->loadModel($id);
+        $log->save_log_record($this->_model, $this->getAction()->id);
+        $this->_model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -108,12 +108,12 @@ class OrganizationcontactController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new OrganizationContact('search');
-        $model->unsetAttributes(); // clear any default values
+        $this->_model = new OrganizationContact('search');
+        $this->_model->unsetAttributes(); // clear any default values
         if (isset($_GET['OrganizationContact']))
-            $model->attributes = $_GET['OrganizationContact'];
+            $this->_model->attributes = $_GET['OrganizationContact'];
 
-        $this->_model = $model;
+
         $this->buildPageOptions();
         $this->render('../admin');
     }
@@ -125,12 +125,14 @@ class OrganizationcontactController extends Controller
      * @return OrganizationContact the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
+    public function loadModel($id = NULL)
     {
-        $model = OrganizationContact::model()->findByPk($id);
-        if ($model === null)
-            $this->HttpException(404);
-        return $model;
+        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if ($this->_model === NULL) {
+            $this->_model = OrganizationContact::model()->findbyPk($id);
+            if ($this->_model === NULL) $this->HttpException(404);
+        }
+        return $this->_model;
     }
 
     /**

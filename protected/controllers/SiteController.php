@@ -63,4 +63,10 @@ class SiteController extends Controller
         ));
     }
 
+    public function actionTest()
+    {
+        $value = 'date("Y-m-d H:i:s",time())';
+        echo $value . '<br>';
+        eval('echo ' . $value . ';');
+    }
 }

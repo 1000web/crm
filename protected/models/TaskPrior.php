@@ -68,17 +68,9 @@ class TaskPrior extends MyActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
+    public function getAvailableAttributes()
     {
-        return array(
-            'id' => '#',
-            'prior' => 'Приоритет',
-            'value' => 'Название',
-            'description' => 'Описание',
-        );
+        return array('id', 'prior', 'value', 'description');
     }
 
     /**

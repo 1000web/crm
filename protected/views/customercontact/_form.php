@@ -1,6 +1,6 @@
 <?php
 /* @var $this CustomerContactController */
-/* @var $this->_model CustomerContact */
+/* @var $this ->_model CustomerContact */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -10,7 +10,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-if (isset($_GET['cid'])) $values = Customer::model()->getOptions('id', 'value', 'value', $_GET['cid']);
+if (isset($_GET['cid'])) $values = Customer::model()->getOptions('id', 'value', 'value', array('id' => $_GET['cid']));
 else $values = Customer::model()->getOptions();
 echo $form->dropDownListRow($this->_model, 'customer_id', $values, array('class' => 'input-block-level'));
 
@@ -20,6 +20,6 @@ echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'clas
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-echo $this->submit_button($this->_model->isNewRecord);
+$this->submit_button();
 
 $this->endWidget();

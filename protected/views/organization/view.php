@@ -1,18 +1,15 @@
 <?php
 /* @var $this OrganizationController */
-/* @var $this->_model Organization */
+/* @var $this ->_model Organization */
 /* @var $contact OrganizationContact */
 /* @var $customer Customer */
 /* @var $deal Deal */
 /* @var $account Account */
 
-$this->addAttributes(array('organization_type_id','organization_group_id','organization_region_id'));
-
-echo $this->renderPartial('../detail_view', array(
-    'data' => $this->_model,
-));
+echo $this->renderPartial('../detail_view');
 
 $controller = 'organizationcontact';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Контакты ';
     if (MyHelper::checkAccess($controller, 'create')) {
@@ -23,11 +20,12 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../'.$controller.'/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $contact,
     ));
 }
 $controller = 'account';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Счета ';
     if (MyHelper::checkAccess($controller, 'create')) {
@@ -38,11 +36,12 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../'.$controller.'/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $account,
     ));
 }
 $controller = 'customer';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Клиенты  ';
     if (MyHelper::checkAccess($controller, 'create')) {
@@ -53,12 +52,13 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../'.$controller.'/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $customer,
         //'dataProvider' => $this->_model->customers,
     ));
 }
 $controller = 'deal';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Сделки ';
     if (MyHelper::checkAccess($controller, 'create')) {
@@ -69,7 +69,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         ));
     }
     echo '</h2>';
-    echo $this->renderPartial('../'.$controller.'/index', array(
+    echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $deal,
     ));
 }

@@ -2,12 +2,10 @@
 /* @var $this ItemController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->renderPartial('../item/_filter_buttons');
-
-$this->buttons = $this->columns = array();
-
-$this->addButtons('item', array('view', 'update', 'delete', 'log'));
-$this->addColumns($this->getColumns('item_columns',Item::model()->getAvailableColumns()));
+$controller = 'item';
+$this->renderPartial('../' . $controller . '/_filter_buttons');
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, Item::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

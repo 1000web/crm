@@ -2,10 +2,9 @@
 /* @var $this OrganizationGroupController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->buttons = $this->columns = array();
-
-$this->addButtons('organizationgroup', array('view', 'update', 'delete', 'log'));
-$this->addColumns($this->getColumns('organizationgroup_columns',OrganizationGroup::model()->getAvailableColumns()));
+$controller = 'organizationgroup';
+$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addColumns($this->getColumns($controller, OrganizationGroup::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
