@@ -140,7 +140,7 @@ class PaymentController extends Controller
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'deal-source-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'verticalForm') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

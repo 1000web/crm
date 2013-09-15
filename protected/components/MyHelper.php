@@ -56,6 +56,12 @@ class MyHelper
         return array($url);
     }
 
+    public static function number_format($amount){
+        if($amount == 0) return '&ndash;';
+        if($amount == floor($amount)) $dec = 0; else $dec = 2;
+        return number_format($amount , $dec, ',', ' ');
+    }
+
     public static function labels($param = NULL)
     {
         $array = array(
@@ -68,7 +74,7 @@ class MyHelper
 
             'activkey' => 'Activkey',
             'answer' => 'Ответ',
-            'amount' => 'Стоимость',
+            'amount' => 'Сумма, руб.',
 
             'bank' => 'Название банка',
             'bik' => 'БИК',
@@ -88,6 +94,7 @@ class MyHelper
             'date' => 'Дата',
             'time' => 'Время',
 
+            'deal_id' => 'Сделка',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
             'deal_status' => 'Активность',
@@ -129,6 +136,7 @@ class MyHelper
             'probability' => 'Вероятность, %',
             'position' => 'Должность',
             'product_type_id' => 'Тип продукта',
+            'payment_type_id' => 'Тип платежа',
             'status' => 'Статус',
             'superuser' => 'Суперпользователь',
 
@@ -172,6 +180,9 @@ class MyHelper
                 $array['value'] = 'Предмет договора';
                 $array['customer_id'] = 'Исполнитель от клиента';
                 break;
+            case 'payment':
+                $array['value'] = 'Назначение платежа';
+                break;
             case 'organization':
                 $array['value'] = 'Название организации';
                 break;
@@ -208,8 +219,15 @@ class MyHelper
                 if (!self::checkAccess('customer', 'view')) $value = '$data->customer->value';
                 else $value = 'CHtml::link(CHtml::encode($data->customer->value),array("/customer/view","id"=>$data->customer_id))';
                 break;
+            case 'amount':
+                $value = 'MyHelper::number_format($data->amount)';
+                break;
             case 'contact_type_id':
                 $value = '$data->contact_type->value';
+                break;
+            case 'deal_id':
+                if (!self::checkAccess('deal', 'view')) $value = '$data->deal->value';
+                else $value = 'CHtml::link(CHtml::encode($data->deal->value),array("/deal/view","id"=>$data->deal_id))';
                 break;
             case 'deal_source_id':
                 $value = '$data->deal_source->value';
@@ -225,6 +243,9 @@ class MyHelper
                 break;
             case 'organization_group_id':
                 $value = '$data->organization_group->value';
+                break;
+            case 'payment_type_id':
+                $value = '$data->payment_type->value';
                 break;
             case 'product_type_id':
                 $value = '$data->product_type->value';

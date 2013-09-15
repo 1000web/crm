@@ -1,6 +1,5 @@
 <?php
 
-
 class CustomercontactController extends Controller
 {
     /**
