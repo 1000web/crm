@@ -192,6 +192,7 @@ class MyHelper
 
     public static function getValue($name, $myvar = '$data')
     {
+        $datetime_format = 'Y-m-d H:i:s';
         switch ($name) {
             case 'organization_id':
                 if (!self::checkAccess('organization', 'view')) $value = '$data->organization->value';
@@ -211,6 +212,7 @@ class MyHelper
                 break;
             case 'create_user_id':
                 $value = '$data->create_user->username';
+                //$value = '$data->create_user->profiles->last_name $data->user->create_user->first_name ($data->create_user->username)';
                 break;
             case 'update_user_id':
                 $value = '$data->update_user->username';
@@ -251,11 +253,17 @@ class MyHelper
                 $value = '$data->product_type->value';
                 break;
             case 'datetime':
-                //$value = 'date("Y-m-d H:i:s",$data->datetime)';
+                //$value = 'date("'.$datetime_format.'",$data->datetime)';
                 $value = '$data->datetime';
                 break;
+            case 'create_time':
+                $value = 'date("'.$datetime_format.'",$data->create_time)';
+                break;
+            case 'update_time':
+                $value = 'date("'.$datetime_format.'",$data->update_time)';
+                break;
             case 'log_datetime':
-                $value = 'date("Y-m-d H:i:s",$data->log_datetime)';
+                $value = 'date("'.$datetime_format.'",$data->log_datetime)';
                 break;
             case 'task_type_id':
                 $value = '$data->task_type->value';

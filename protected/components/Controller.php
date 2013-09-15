@@ -151,7 +151,7 @@ class Controller extends RController
     public function addAttribute($name)
     {
         $item = array('name' => $name, 'label' => $this->_model->getLabel($name));
-        $value = $value = $this->_model->getAttributeValue($name);
+        $value = $this->_model->getAttributeValue($name);
         if ($value !== NULL) {
             $item['value'] = $value;
             $item['type'] = 'raw';
@@ -407,39 +407,14 @@ class Controller extends RController
         return $img;
     }
 
-    public function created_updated($model)
-    {
-        $create_time = date('Y-m-d H:i:s', $model->create_time);
-        //$create_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->create_time);
-        $create_user = $model->create_user->profiles->last_name . ' ' . $model->create_user->profiles->first_name . ' (' . $model->create_user->username . ')';
-
-        $update_time = date('Y-m-d H:i:s', $model->update_time);
-        //$update_time = Yii::app()->datetimeFormatter->format('d MMMM yyyy H:i:s', $model->update_time);
-        $update_user = $model->update_user->profiles->last_name . ' ' . $model->update_user->profiles->first_name . ' (' . $model->update_user->username . ')';
-
-        return array(
-            'create_time' => array('name' => 'create_time', 'label' => $this->getLabel('create_time'), 'value' => $create_time),
-            'create_user_id' => array('name' => 'create_user_id', 'label' => $this->getLabel('create_user_id'), 'value' => $create_user),
-            'update_time' => array('name' => 'update_time', 'label' => $this->getLabel('update_time'), 'value' => $update_time),
-            'update_user_id' => array('name' => 'update_user_id', 'label' => $this->getLabel('update_user_id'), 'value' => $update_user),
-        );
-    }
-
     public function submit_button()
     {
         echo "\n<div class='row buttons text-center'>\n";
-        if($this->_model->isNewRecord or TRUE) {
-            $class_save = 'span2 offset1';
-            $class_cancel = 'span2 offset1';
-        } else {
-            $class_save = 'span3 offset2';
-            $class_cancel = 'span3 offset1';
-        }
         $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Сохранить',
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
-            'htmlOptions' => array('class' => $class_save),
+            'htmlOptions' => array('class' => 'span2 offset1'),
             'size' => 'large',
         ));
         $this->widget('bootstrap.widgets.TbButton', array(
@@ -453,7 +428,7 @@ class Controller extends RController
             'label' => 'Отменить',
             'url' => Yii::app()->request->getUrlReferrer(),
             'type' => 'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-            'htmlOptions' => array('class' => $class_cancel),
+            'htmlOptions' => array('class' => 'span2 offset1'),
             //'buttonType' => 'submit',
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
