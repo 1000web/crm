@@ -1,6 +1,6 @@
 <?php
 /* @var $this PaymentTypeController */
-/* @var $this ->_model ProductType */
+/* @var $this ->_model PaymentType */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(

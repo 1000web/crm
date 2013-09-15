@@ -12,7 +12,7 @@ class TaskpriorController extends Controller
         $log = new TaskPriorLog;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        // $this->performAjaxValidation($this->_model);
 
         if (isset($_POST['TaskPrior'])) {
             $this->_model->attributes = $_POST['TaskPrior'];
@@ -37,7 +37,7 @@ class TaskpriorController extends Controller
         $log = new TaskPriorLog;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        // $this->performAjaxValidation($this->_model);
 
         if (isset($_POST['TaskPrior'])) {
             $this->_model->attributes = $_POST['TaskPrior'];
@@ -140,7 +140,7 @@ class TaskpriorController extends Controller
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'task-prior-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'verticalForm') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
