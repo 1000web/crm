@@ -8,9 +8,8 @@ class CustomerController extends Controller
      */
     public function actionView($id)
     {
-        //$this->_model = $this->loadModel($id);
-
-        $this->_model = Customer::model()->with('contacts')->findByPk($id);
+        //$this->_model = Customer::model()->with('contacts')->findByPk($id);
+        $this->_model = Customer::model()->findByPk($id);
         if ($this->_model === null) $this->HttpException(404);
 
         $this->buildPageOptions();

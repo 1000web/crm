@@ -194,6 +194,9 @@ class MyHelper
                 $array['value'] = 'Суть задачи';
                 $array['user_id'] = 'Исполнитель';
                 break;
+            case 'taskstage':
+                $array['value'] = 'Название этапа';
+                break;
         }
         return $array;
     }

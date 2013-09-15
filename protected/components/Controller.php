@@ -299,6 +299,10 @@ class Controller extends RController
                 }
                 if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
+            case 'column':
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
+                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
+                break;
             case 'admin':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
                 if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];

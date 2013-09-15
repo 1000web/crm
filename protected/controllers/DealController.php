@@ -3,6 +3,23 @@
 class DealController extends Controller
 {
     /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id)
+    {
+        //$this->_model = Deal::model()->with('payments')->findByPk($id);
+        $this->_model = Deal::model()->findByPk($id);
+        if ($this->_model === null) $this->HttpException(404);
+
+        $this->buildPageOptions();
+        $userProfile = $this->getUserProfile();
+        $this->render('view', array(
+            'payment' => Payment::model()->getAll($userProfile, 'deal_id', $id),
+        ));
+    }
+
+    /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */

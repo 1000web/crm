@@ -87,6 +87,8 @@ class Deal extends MyActiveRecord
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
             'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
             'deal_stage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
+
+            'payments' => array(self::HAS_MANY, 'Payment', 'deal_id'),
             //'fav_users' => array(self::MANY_MANY, 'Users', '{{deal_fav}}(id, user_id)'),
         );
     }

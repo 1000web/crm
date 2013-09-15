@@ -27,18 +27,18 @@
         case TaskStage::$STAGE_NEW: // задача не начата
             echo $task_active;
             echo $task_frozen;
-            echo $task_done;
             echo $task_failed;
+            echo $task_done;
             break;
         case TaskStage::$STAGE_FROZEN: // отложена
             echo $task_active;
-            echo $task_done;
             echo $task_failed;
+            echo $task_done;
             break;
         case TaskStage::$STAGE_ACTIVE: // в работе
             echo $task_frozen;
-            echo $task_done;
             echo $task_failed;
+            echo $task_done;
             break;
         case TaskStage::$STAGE_DONE: // завершена
             echo $task_active;
