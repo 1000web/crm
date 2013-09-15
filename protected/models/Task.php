@@ -27,21 +27,6 @@
  */
 class Task extends MyActiveRecord
 {
-    public function beforeSave()
-    {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
-                $this->setAttributes(array(
-                    // владелец задачи
-                    'owner_id' => Yii::app()->user->id,
-                    // задача не начата
-                    'task_stage_id' => 1,
-                ));
-            }
-            return true;
-        } else return false;
-    }
-
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -100,6 +85,11 @@ class Task extends MyActiveRecord
     public function getAvailableAttributes()
     {
         return array('id', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'date', 'time', 'owner_id', 'user_id', 'value', 'description');
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('task');
     }
 
     /**

@@ -190,6 +190,10 @@ class MyHelper
             case 'organization':
                 $array['value'] = 'Название организации';
                 break;
+            case 'task':
+                $array['value'] = 'Суть задачи';
+                $array['user_id'] = 'Исполнитель';
+                break;
         }
         return $array;
     }

@@ -48,13 +48,13 @@ class TaskLog extends LogActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, user_id', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, owner_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, date, time, owner_id, user_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -68,6 +68,7 @@ class TaskLog extends LogActiveRecord
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
             'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
             'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),

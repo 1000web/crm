@@ -33,6 +33,10 @@ class TaskController extends Controller
 
         if (isset($_POST['Task'])) {
             $this->_model->attributes = $_POST['Task'];
+            $this->_model->setAttributes(array(
+                'owner_id' => Yii::app()->user->id,
+                'task_stage_id' => TaskStage::$STAGE_NEW,
+            ));
             if ($this->_model->save()) {
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
