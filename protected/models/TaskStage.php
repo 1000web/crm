@@ -20,6 +20,12 @@
  */
 class TaskStage extends MyActiveRecord
 {
+    public static $STAGE_NEW = 1;
+    public static $STAGE_FROZEN = 2;
+    public static $STAGE_ACTIVE = 3;
+    public static $STAGE_DONE = 4;
+    public static $STAGE_FAILED = 5;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

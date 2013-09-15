@@ -2,6 +2,23 @@
 
 class TaskController extends Controller
 {
+    public function actionView($id)
+    {
+        $this->_model = $this->loadModel($id);
+        if (isset($_GET['stage'])) {
+            if (in_array($stage = intval($_GET['stage']), TaskStage::model()->getAllowedRange())) {
+                $log = new TaskLog;
+                $this->_model->setAttribute('task_stage_id', $stage);
+                if ($this->_model->save()) {
+                    $log->save_log_record($this->_model, 'stage');
+                    $this->redirect(array('view', 'id' => $this->_model->id));
+                }
+            }
+        }
+        $this->buildPageOptions();
+        $this->render('view');
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -127,7 +144,7 @@ class TaskController extends Controller
      */
     public function loadModel($id = NULL)
     {
-        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if (isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
         if ($this->_model === NULL) {
             $this->_model = Task::model()->findbyPk($id);
             if ($this->_model === NULL) $this->HttpException(404);

@@ -180,6 +180,10 @@ class MyHelper
                 $array['value'] = 'Предмет договора';
                 $array['customer_id'] = 'Исполнитель от клиента';
                 break;
+            case 'kb':
+                $array['value'] = 'Краткое описание';
+                $array['description'] = 'Полное описание';
+                break;
             case 'payment':
                 $array['value'] = 'Назначение платежа';
                 break;

@@ -409,7 +409,7 @@ class Controller extends RController
 
     public function submit_button()
     {
-        echo "\n<div class='row buttons text-center'>\n";
+        echo "\n\n<div class='row buttons text-center'>\n";
         $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Сохранить',
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -432,7 +432,7 @@ class Controller extends RController
             //'buttonType' => 'submit',
             'size' => 'large', // null, 'large', 'small' or 'mini'
         ));
-        echo "\n</div>\n";
+        echo "</div>\n\n";
     }
 
     public function HttpException($code)
@@ -471,7 +471,7 @@ class Controller extends RController
     {
         $this->_model = $this->loadModel($id);
         $this->buildPageOptions();
-        echo $this->render('../detail_view');
+        $this->render('../detail_view');
     }
 
 }
