@@ -8,14 +8,23 @@ class DealController extends Controller
      */
     public function actionView($id)
     {
-        //$this->_model = Deal::model()->with('payments')->findByPk($id);
-        $this->_model = Deal::model()->findByPk($id);
+        $this->_model = Deal::model()->with('payments')->findByPk($id);
+        //$this->_model = Deal::model()->findByPk($id);
         if ($this->_model === null) $this->HttpException(404);
 
         $this->buildPageOptions();
         $userProfile = $this->getUserProfile();
+        $payment = Payment::model()->getAll($userProfile, 'deal_id', $id);
+        $total_paid = 0;
+        $awaiting = 0;
+        foreach($this->_model->payments as $pay) {
+            if($pay->payment_type->id == 4) $awaiting += $pay->amount;
+            else $total_paid += $pay['amount'];
+        }
         $this->render('view', array(
-            'payment' => Payment::model()->getAll($userProfile, 'deal_id', $id),
+            'payment' => $payment,
+            'awaiting' => $awaiting,
+            'total_paid' => $total_paid,
         ));
     }
 
