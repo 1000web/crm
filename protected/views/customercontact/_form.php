@@ -10,9 +10,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-if (isset($_GET['cid'])) $values = Customer::model()->getOptions('id', 'value', 'value', array('id' => $_GET['cid']));
-else $values = Customer::model()->getOptions();
-echo $form->dropDownListRow($this->_model, 'customer_id', $values, array('class' => 'input-block-level'));
+// если есть параметр cid, то выбираем соответствующего сотрудника
+if (isset($_GET['cid'])) $this->_model->setAttribute('customer_id', $_GET['cid']);
+
+echo $form->dropDownListRow($this->_model, 'customer_id', Customer::model()->getOptions(), array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'contact_type_id', ContactType::model()->getOptions(), array('class' => 'input-block-level'));
 

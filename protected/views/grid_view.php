@@ -8,7 +8,6 @@ foreach ($this->buttons as $key => $value) {
     $template .= '{' . $key . '} ';
     $width += 15;
 }
-
 if (!empty($template)) array_push($this->columns,
     array(
         'class' => 'bootstrap.widgets.TbButtonColumn',

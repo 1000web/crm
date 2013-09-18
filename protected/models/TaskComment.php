@@ -1,29 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "{{product_type}}".
+ * This is the model class for table "{{task_comment}}".
  *
- * The followings are the available columns in table '{{product_type}}':
+ * The followings are the available columns in table '{{task_comment}}':
  * @property integer $id
  * @property integer $create_time
- * @property integer $update_time
  * @property integer $create_user_id
+ * @property integer $update_time
  * @property integer $update_user_id
- * @property string $prior
- * @property string $value
- * @property string $description
+ * @property integer $task_id
+ * @property integer $user_id
+ * @property string $comment
  *
  * The followings are the available model relations:
- * @property Product[] $products
- * @property Users $create_user
- * @property Users $update_user
+ * @property Users $user
+ * @property Users $updateUser
+ * @property Task $task
+ * @property Users $createUser
  */
-class ProductType extends MyActiveRecord
+class TaskComment extends MyActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ProductType the static model class
+     * @return TaskComment the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -35,7 +36,7 @@ class ProductType extends MyActiveRecord
      */
     public function tableName()
     {
-        return '{{product_type}}';
+        return '{{task_comment}}';
     }
 
     /**
@@ -46,13 +47,11 @@ class ProductType extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, prior', 'numerical', 'integerOnly' => true),
-            array('value', 'length', 'max' => 255),
-            array('description', 'safe'),
+            array('task_id, user_id, comment', 'required'),
+            array('task_id, user_id', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, prior, value, description', 'safe', 'on' => 'search'),
+            array('id, task_id, user_id, comment', 'safe', 'on' => 'search'),
         );
     }
 
@@ -64,15 +63,16 @@ class ProductType extends MyActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'products' => array(self::HAS_MANY, 'Product', 'product_type_id'),
-            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'task' => array(self::BELONGS_TO, 'Task', 'task_id'),
         );
     }
 
     public function getAvailableAttributes()
     {
-        return array('id', 'prior', 'value', 'description');
+        return array('id', 'task_id', 'user_id', 'comment');
     }
 
     /**
@@ -88,27 +88,26 @@ class ProductType extends MyActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
         $criteria->compare('create_user_id', $this->create_user_id);
+        $criteria->compare('update_time', $this->update_time);
         $criteria->compare('update_user_id', $this->update_user_id);
-        $criteria->compare('prior', $this->prior, true);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('task_id', $this->task_id);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('comment', $this->comment, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function getAll($userProfile)
+    public function getAll($userProfile, $select = '')
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('ProductType', array(
+        return new CActiveDataProvider('TaskComment', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->product_type_pagesize,
+                'pageSize' => $userProfile->task_pagesize,
             ),
         ));
     }
-
 }

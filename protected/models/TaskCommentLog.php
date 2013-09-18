@@ -1,25 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "{{product_log}}".
+ * This is the model class for table "{{task_comment_log}}".
  *
- * The followings are the available columns in table '{{product_log}}':
+ * The followings are the available columns in table '{{task_comment_log}}':
  * @property integer $log_id
  * @property string $log_action
  * @property integer $log_datetime
  * @property integer $log_user_id
  * @property integer $id
- * @property integer $parent_id
- * @property integer $product_type_id
- * @property string $value
- * @property string $description
+ * @property integer $task_id
+ * @property integer $user_id
+ * @property string $comment
  */
-class ProductLog extends LogActiveRecord
+class TaskCommentLog extends LogActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ProductLog the static model class
+     * @return TaskCommentLog the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -31,7 +30,7 @@ class ProductLog extends LogActiveRecord
      */
     public function tableName()
     {
-        return '{{product_log}}';
+        return '{{task_comment_log}}';
     }
 
     /**
@@ -42,13 +41,13 @@ class ProductLog extends LogActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('log_datetime, log_user_id, id, parent_id, product_type_id', 'numerical', 'integerOnly' => true),
+            array('log_action, log_datetime, log_user_id', 'required'),
+            array('log_datetime, log_user_id, id, task_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
-            array('value', 'length', 'max' => 255),
-            array('description', 'safe'),
+            array('comment', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, parent_id, product_type_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, task_id, user_id, comment', 'safe', 'on' => 'search'),
         );
     }
 
@@ -59,10 +58,7 @@ class ProductLog extends LogActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
-            'product_type' => array(self::BELONGS_TO, 'ProductType', 'product_type_id'),
-        );
+        return array();
     }
 
     /**
@@ -81,30 +77,12 @@ class ProductLog extends LogActiveRecord
         $criteria->compare('log_datetime', $this->log_datetime);
         $criteria->compare('log_user_id', $this->log_user_id);
         $criteria->compare('id', $this->id);
-        $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('product_type_id', $this->product_type_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('task_id', $this->task_id);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('comment', $this->comment, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider('ProductLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->product_pagesize,
-            ),
-        ));
-    }
-
 }

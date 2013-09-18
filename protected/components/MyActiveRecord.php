@@ -17,7 +17,7 @@ class MyActiveRecord extends CActiveRecord
         } else return false;
     }
 
-    public function getOptions($id = 'id', $value = 'value', $order = NULL, $params = NULL)
+    public function getOptions($id = 'id', $value = 'value', $order = NULL, $params = NULL, $optional = false)
     {
         $criteria = new CDbCriteria;
 
@@ -42,11 +42,18 @@ class MyActiveRecord extends CActiveRecord
         $items = $this->findAll($criteria);
 
         $ret = array();
+        if($optional) $ret[] = '- = Пусто = -';
         foreach ($items as $item) {
             if (is_array($value)) $ret[$item[$id]] = $item[$value['key']][$value['val']];
             else $ret[$item[$id]] = $item[$value];
         }
         return $ret;
+    }
+
+    public function getValue($id)
+    {
+        $item = $this->findByPk($id);
+        return $item->value;
     }
 
     public function getAllowedRange($id = 'id')

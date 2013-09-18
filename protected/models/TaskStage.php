@@ -25,6 +25,8 @@ class TaskStage extends MyActiveRecord
     public static $STAGE_ACTIVE = 3;
     public static $STAGE_DONE = 4;
     public static $STAGE_FAILED = 5;
+    public static $STAGE_CONFIRMED = 6;
+    public static $STAGE_CANCELLED = 7;
 
     /**
      * Returns the static model of the specified AR class.

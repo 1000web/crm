@@ -1,6 +1,6 @@
 <div class="span11">
     <?php
-    echo '<strong>ЗАДАЧА ' . $this->_model->task_stage->value . '</strong>: ';
+    echo '<strong>ЗАДАЧА ' . $this->_model->task_stage->value . '</strong> ';
 
     $task_active = $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Принять в работу',
@@ -23,31 +23,74 @@
             'url' => array('view', 'id' => $this->_model->id, 'stage' => TaskStage::$STAGE_DONE),
         ), true) . ' ';
 
-    switch ($this->_model->task_stage_id) {
-        case TaskStage::$STAGE_NEW: // задача не начата
-            echo $task_active;
-            echo $task_frozen;
-            echo $task_failed;
-            echo $task_done;
-            break;
-        case TaskStage::$STAGE_FROZEN: // отложена
-            echo $task_active;
-            echo $task_failed;
-            echo $task_done;
-            break;
-        case TaskStage::$STAGE_ACTIVE: // в работе
-            echo $task_frozen;
-            echo $task_failed;
-            echo $task_done;
-            break;
-        case TaskStage::$STAGE_DONE: // завершена
-            echo $task_active;
-            break;
-        case TaskStage::$STAGE_FAILED: // провалена
-            echo $task_active;
-            echo $task_frozen;
-            echo $task_done;
-            break;
+    $task_cancel = $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Отменить',
+            'type' => 'inverse', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'url' => array('view', 'id' => $this->_model->id, 'stage' => TaskStage::$STAGE_CANCELLED),
+        ), true) . ' ';
+    $task_refuse = $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Отказать',
+            'type' => 'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'url' => array('view', 'id' => $this->_model->id, 'stage' => TaskStage::$STAGE_ACTIVE),
+        ), true) . ' ';
+    $task_confirm = $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Подтвердить',
+            'type' => 'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'url' => array('view', 'id' => $this->_model->id, 'stage' => TaskStage::$STAGE_CONFIRMED),
+        ), true) . ' ';
+
+    if ($this->_model->owner_id == Yii::app()->user->id) {
+        // я - владелец и исполнитель задачи
+        if ($this->_model->user_id == Yii::app()->user->id) {
+            switch ($this->_model->task_stage_id) {
+                case TaskStage::$STAGE_ACTIVE: // в работе
+                    echo $task_cancel;
+                    echo $task_failed;
+                    echo $task_confirm;
+                    break;
+                case TaskStage::$STAGE_FAILED: // провалена
+                    echo $task_active;
+                    break;
+            }
+        } else {
+            // я - владелец, но не исполнитель
+            switch ($this->_model->task_stage_id) {
+                case TaskStage::$STAGE_NEW:     // задача не начата
+                case TaskStage::$STAGE_FROZEN:  // отложена
+                case TaskStage::$STAGE_ACTIVE:  // в работе
+                    echo $task_cancel;
+                    break;
+                case TaskStage::$STAGE_DONE:    // завершена
+                    echo $task_confirm;
+                    echo $task_refuse;
+                    break;
+                case TaskStage::$STAGE_FAILED:  // провалена
+                    echo $task_cancel;
+                    echo $task_active;
+                    break;
+            }
+        }
+    } else if ($this->_model->user_id == Yii::app()->user->id) {
+        // я - только исполнитель задачи
+        switch ($this->_model->task_stage_id) {
+            case TaskStage::$STAGE_NEW: // задача не начата
+                echo $task_active;
+                break;
+            case TaskStage::$STAGE_FROZEN: // отложена
+                echo $task_active;
+                break;
+            case TaskStage::$STAGE_ACTIVE: // в работе
+                echo $task_frozen;
+                echo $task_failed;
+                echo $task_done;
+                break;
+            case TaskStage::$STAGE_DONE: // завершена
+                echo $task_active;
+                break;
+            case TaskStage::$STAGE_FAILED: // провалена
+                echo $task_active;
+                break;
+        }
     }
     ?>
 </div>

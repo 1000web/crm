@@ -32,7 +32,7 @@ class AdminController extends Controller
     /**
      * Displays a particular model.
      */
-    public function actionView()
+    public function actionView($id = NULL)
     {
         $model = $this->loadModel();
         $this->render('view', array(

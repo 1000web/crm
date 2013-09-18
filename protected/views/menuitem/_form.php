@@ -10,7 +10,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-echo $form->dropDownListRow($this->_model, 'parent_id', MenuItem::model()->getOptions('id', array('key' => 'i', 'val' => 'title')), array('class' => 'input-block-level'));
+echo $form->dropDownListRow($this->_model, 'parent_id', MenuItem::model()->getOptions('id', array('key' => 'i', 'val' => 'title'), NULL, NULL, TRUE), array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'menu_id', Menu::model()->getOptions(), array('class' => 'input-block-level'));
 

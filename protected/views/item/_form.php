@@ -10,7 +10,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-echo $form->dropDownListRow($this->_model, 'parent_id', $this->_model->getOptions('id', 'title'));
+echo $form->dropDownListRow($this->_model, 'parent_id', $this->_model->getOptions('id', 'title', 'title', NULL, TRUE));
 
 echo $form->textFieldRow($this->_model, 'module', array('size' => 60, 'maxlength' => 64));
 

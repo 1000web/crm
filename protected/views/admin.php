@@ -24,12 +24,20 @@ $('.search-form form').submit(function(){
     </div><!-- search-form -->
 
 <?php
-$cols = $this->_model->getAvailableAttributes();
-$cols[] = array('class' => 'CButtonColumn');
+$columns = $this->_model->getAvailableAttributes();
+$columns[] = array('class' => 'bootstrap.widgets.TbButtonColumn');
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'admin-grid',
     'dataProvider' => $this->_model->search(),
     'filter' => $this->_model,
-    'columns' => $cols,
+    'type' => 'striped bordered condensed',
+    'template' => '{summary}{items}{pager}',
+    'enablePagination' => true,
+    'columns' => $columns,
+    'pager' => array(
+        //'maxButtonCount' => Yii::app()->controller->isMobile?4:10,
+        'maxButtonCount' => 10,
+        'class' => 'bootstrap.widgets.TbPager',
+    ),
 ));

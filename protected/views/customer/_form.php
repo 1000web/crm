@@ -10,9 +10,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-if (isset($_GET['oid'])) $values = Organization::model()->getOptions('id', 'value', 'value', array('id' => $_GET['oid']));
-else $values = Organization::model()->getOptions();
-echo $form->dropDownListRow($this->_model, 'organization_id', $values, array('class' => 'input-block-level'));
+// если есть параметр oid, то выбираем эту организацию
+if (isset($_GET['oid'])) $this->_model->setAttribute('organization_id', $_GET['oid']);
+
+echo $form->dropDownListRow($this->_model, 'organization_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
 
 echo $form->textFieldRow($this->_model, 'position', array('maxlength' => 255, 'class' => 'input-block-level'));
 

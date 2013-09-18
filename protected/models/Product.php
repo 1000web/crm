@@ -9,6 +9,7 @@
  * @property integer $update_time
  * @property integer $create_user_id
  * @property integer $update_user_id
+ * @property integer $parent_id
  * @property integer $product_type_id
  * @property string $value
  * @property string $description
@@ -47,12 +48,12 @@ class Product extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('product_type_id, value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, product_type_id', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, parent_id, product_type_id', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, product_type_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, parent_id, product_type_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,7 +73,7 @@ class Product extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'product_type_id', 'value', 'description');
+        return array('id', 'parent_id', 'product_type_id', 'value', 'description');
     }
 
     /**
@@ -91,6 +92,7 @@ class Product extends MyActiveRecord
         $criteria->compare('update_time', $this->update_time);
         $criteria->compare('create_user_id', $this->create_user_id);
         $criteria->compare('update_user_id', $this->update_user_id);
+        $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('product_type_id', $this->product_type_id);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
@@ -106,6 +108,10 @@ class Product extends MyActiveRecord
         if ($userProfile->filter_product_type_id) {
             $criteria->addCondition('product_type_id=:type');
             $criteria->params[':type'] = $userProfile->filter_product_type_id;
+        }
+        if ($userProfile->filter_product_parent_id) {
+            $criteria->addCondition('parent_id=:type');
+            $criteria->params[':type'] = $userProfile->filter_product_parent_id;
         }
         return new CActiveDataProvider('Product', array(
             'criteria' => $criteria,

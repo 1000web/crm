@@ -75,6 +75,7 @@ class Task extends MyActiveRecord
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'comments' => array(self::HAS_MANY, 'TaskComment', 'task_id'),
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
             'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
             'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),

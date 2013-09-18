@@ -62,11 +62,45 @@ class MyHelper
         return number_format($amount , $dec, ',', ' ');
     }
 
+    public static function datetime_format($timestamp){
+
+        $cur_time = time();
+        $date = '';
+        if(($cur_time - $timestamp) < 60) $time = ' менее минуты назад';
+        else {
+            if(($cur_time - $timestamp) < (60 * 60)) {
+                $n = floor(($cur_time - $timestamp)/60);
+                $v = 'минут';
+                if($n < 5 OR $n > 20) {
+                    $i = $n%10;
+                    /*if($i == 0) $v = 'минут';
+                    else /**/ if($i == 1) $v = 'минуту';
+                    else if($i >= 2 AND $i <= 4) $v = 'минуты';
+                    //else if($i >= 5 AND $i <= 9) $v = 'минут';
+                }
+                $time = $n . ' ' . $v . ' назад';
+            }
+            else {
+                $time = 'в ' . date('H:i', $timestamp);
+                if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time)) $date = 'сегодня';
+                else {
+                    if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time - (24 * 60 * 60))) $date = 'вчера';
+                    else {
+                        if(date('Y', $timestamp) == date('Y', $cur_time)) $date = date('d-m', $timestamp);
+                        else $date = date('d-m-Y', $timestamp);
+                    }
+                }
+            }
+        }
+        return $date . ' ' . $time;
+    }
+
     public static function labels($param = NULL)
     {
         $array = array(
             'id' => '#',
             'value' => 'Значение',
+            'comment' => 'Комментарий',
             'organization_type_id' => 'Тип',
             'organization_group_id' => 'Группа',
             'organization_region_id' => 'Регион',
@@ -126,7 +160,10 @@ class MyHelper
             'open_date' => 'Дата договора',
             'organization' => 'Организация',
             'organization_id' => 'Организация',
-            'owner_id' => 'Владелец',
+
+            'owner_id' => 'Менеджер',
+            'performer_id' => 'Исполнитель',
+
             'type' => 'Тип',
             'group' => 'Группа',
             'region' => 'Регион',
@@ -217,6 +254,10 @@ class MyHelper
             case 'owner_id':
                 $value = '$data->owner->username';
                 //$value = '($data->owner_id == Yii::app()->user->id)?"Я":$data->owner->username';
+                break;
+            case 'performer_id':
+                $value = '$data->performer?$data->performer->username:""';
+                //$value = '($data->performer_id == Yii::app()->user->id)?"Я":$data->performer->username';
                 break;
             case 'log_user_id':
                 $value = '$data->log_user->username';

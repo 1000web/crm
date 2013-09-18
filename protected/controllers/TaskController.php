@@ -4,19 +4,43 @@ class TaskController extends Controller
 {
     public function actionView($id)
     {
-        $this->_model = $this->loadModel($id);
+        $this->_model = Task::model()->findByPk($id);
+        if ($this->_model === null) $this->HttpException(404);
+
+        // прилетел параметр для смены статуса задачи
         if (isset($_GET['stage'])) {
             if (in_array($stage = intval($_GET['stage']), TaskStage::model()->getAllowedRange())) {
-                $log = new TaskLog;
                 $this->_model->setAttribute('task_stage_id', $stage);
+                // сохраняем
                 if ($this->_model->save()) {
+                    // записываем событие в лог
+                    $log = new TaskLog;
                     $log->save_log_record($this->_model, 'stage');
                     $this->redirect(array('view', 'id' => $this->_model->id));
                 }
             }
         }
+        $comment = new TaskComment;
+        if (isset($_POST['TaskComment'])) {
+            // проверяем права на отправку комментариев к задаче
+            if($this->_model->owner_id == Yii::app()->user->id OR $this->_model->user_id == Yii::app()->user->id)
+            {
+                $comment->attributes = $_POST['TaskComment'];
+                $comment->save();
+            }
+            $this->redirect(array('view', 'id' => $this->_model->id));
+        }
+        //$userProfile = $this->getUserProfile();
+        //$comment->unsetAttributes(); // clear any default values
+        $comment->setAttributes(array(
+            'task_id' => $this->_model->id,
+            'user_id' => Yii::app()->user->id,
+        ));
         $this->buildPageOptions();
-        $this->render('view');
+        $this->render('view', array(
+            //'comment' => TaskComment::model()->getAll($userProfile, 'task_id', $id),
+            'comment' => $comment,
+        ));
     }
 
     /**
@@ -33,16 +57,23 @@ class TaskController extends Controller
 
         if (isset($_POST['Task'])) {
             $this->_model->attributes = $_POST['Task'];
+            // если задача назначена самому себе, то статус ставится В работе
+            if($this->_model->getAttribute('user_id') == Yii::app()->user->id) $stage = TaskStage::$STAGE_ACTIVE;
+            // иначе задача новая, Не принята
+            else $stage = TaskStage::$STAGE_NEW;
+
             $this->_model->setAttributes(array(
                 'owner_id' => Yii::app()->user->id,
-                'task_stage_id' => TaskStage::$STAGE_NEW,
+                'task_stage_id' => $stage,
             ));
             if ($this->_model->save()) {
                 $log->save_log_record($this->_model, $this->getAction()->id);
+
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
+        $this->_model->setAttribute('user_id', Yii::app()->user->id);
         $this->buildPageOptions();
         $this->render('_form');
     }

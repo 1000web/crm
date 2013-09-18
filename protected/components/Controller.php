@@ -177,6 +177,10 @@ class Controller extends RController
                 case 'log':
                     $this->buttons[$action]['icon'] = 'icon-share-alt';
                     break;
+                case 'create':
+                    $this->buttons[$action]['url'] = 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("parent_id"=>$data->id))';
+                    $this->buttons[$action]['icon'] = 'icon-plus';
+                    break;
             }
         }
     }
@@ -439,14 +443,26 @@ class Controller extends RController
         echo "</div>\n\n";
     }
 
+    public function submit_comment()
+    {
+        echo "\n\n<div class='row buttons text-center'>\n";
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label' => 'Отправить',
+            'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'buttonType' => 'submit',
+            'htmlOptions' => array('class' => 'span3'),
+        ));
+        echo "</div>\n\n";
+    }
+
     public function HttpException($code)
     {
         switch ($code) {
             case 404:
-                $error = 'The requested page does not exist.';
+                $error = 'Запрашиваемая страница не существует.';
                 break;
             default:
-                $error = 'Error ' . $code;
+                $error = 'Ошибка ' . $code;
         }
         throw new CHttpException($code, $error);
     }

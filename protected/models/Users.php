@@ -105,7 +105,7 @@ class Users extends MyActiveRecord
         ));
     }
 
-    public function getOptions($id = 'id', $value = 'value', $order = NULL, $param = NULL)
+    public function getOptions($id = 'id', $value = 'value', $order = NULL, $param = NULL, $optional = false)
     {
         $criteria = new CDbCriteria;
 
@@ -123,6 +123,7 @@ class Users extends MyActiveRecord
         $items = $this->findAll($criteria);
 
         $ret = array();
+        if($optional) $ret[0] = '- = Пусто = -';
         foreach ($items as $item) {
             if (is_array($value)) $ret[$item[$id]] = $item[$value['key']][$value['val']];
             else {

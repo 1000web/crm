@@ -42,7 +42,10 @@ echo $form->timepickerRow($this->_model, 'datetime', array('class' => 'inline'))
 /**/
 
 echo $form->dropDownListRow($this->_model, 'task_type_id', TaskType::model()->getOptions(), array('class' => 'input-block-level'));
+/*
+// Нельзя менять этапы через форму
 if (!$this->_model->isNewRecord) echo $form->dropDownListRow($this->_model, 'task_stage_id', TaskStage::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
+/**/
 echo $form->dropDownListRow($this->_model, 'task_prior_id', TaskPrior::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 
 echo $form->textField($this->_model, 'value', array(

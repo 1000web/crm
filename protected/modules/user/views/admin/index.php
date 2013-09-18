@@ -37,40 +37,53 @@ $this->h1 = UserModule::t("Manage Users");
     )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+
+$columns = array(
+    array(
+        'name' => 'id',
+        'type' => 'raw',
+        'value' => 'CHtml::link(CHtml::encode($data->id),array("admin/update","id"=>$data->id))',
+    ),
+    array(
+        'name' => 'username',
+        'type' => 'raw',
+        'value' => 'CHtml::link(UHtml::markSearch($data,"username"),array("admin/view","id"=>$data->id))',
+    ),
+    array(
+        'name' => 'email',
+        'type' => 'raw',
+        'value' => 'CHtml::link(UHtml::markSearch($data,"email"), "mailto:".$data->email)',
+    ),
+    'create_at',
+    'lastvisit_at',
+    array(
+        'name' => 'superuser',
+        'value' => 'User::itemAlias("AdminStatus",$data->superuser)',
+        'filter' => User::itemAlias("AdminStatus"),
+    ),
+    array(
+        'name' => 'status',
+        'value' => 'User::itemAlias("UserStatus",$data->status)',
+        'filter' => User::itemAlias("UserStatus"),
+    ),
+    array(
+        'class' => 'bootstrap.widgets.TbButtonColumn',
+    ),
+);
+
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'user-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
-    'columns' => array(
-        array(
-            'name' => 'id',
-            'type' => 'raw',
-            'value' => 'CHtml::link(CHtml::encode($data->id),array("admin/update","id"=>$data->id))',
-        ),
-        array(
-            'name' => 'username',
-            'type' => 'raw',
-            'value' => 'CHtml::link(UHtml::markSearch($data,"username"),array("admin/view","id"=>$data->id))',
-        ),
-        array(
-            'name' => 'email',
-            'type' => 'raw',
-            'value' => 'CHtml::link(UHtml::markSearch($data,"email"), "mailto:".$data->email)',
-        ),
-        'create_at',
-        'lastvisit_at',
-        array(
-            'name' => 'superuser',
-            'value' => 'User::itemAlias("AdminStatus",$data->superuser)',
-            'filter' => User::itemAlias("AdminStatus"),
-        ),
-        array(
-            'name' => 'status',
-            'value' => 'User::itemAlias("UserStatus",$data->status)',
-            'filter' => User::itemAlias("UserStatus"),
-        ),
-        array(
-            'class' => 'CButtonColumn',
-        ),
+    'type' => 'striped bordered condensed',
+    'template' => '{summary}{items}{pager}',
+    'enablePagination' => true,
+    'columns' => $columns,
+    'pager' => array(
+        //'maxButtonCount' => Yii::app()->controller->isMobile?4:10,
+        'maxButtonCount' => 10,
+        'class' => 'bootstrap.widgets.TbPager',
     ),
-)); ?>
+));
+

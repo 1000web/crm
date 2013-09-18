@@ -14,6 +14,7 @@
  * @property string $value
  * @property string $description
  * @property integer $owner_id
+ * @property integer $performer_id
  * @property integer $organization_id
  * @property integer $customer_id
  * @property integer $deal_source_id
@@ -51,14 +52,14 @@ class DealLog extends LogActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('log_datetime, log_user_id, id, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, owner_id, performer_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('inner_number, external_number, value', 'length', 'max' => 255),
             array('amount', 'length', 'max' => 12),
             array('description, open_date, close_date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, value, description, owner_id, performer_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,6 +73,7 @@ class DealLog extends LogActiveRecord
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
+            'performer' => array(self::BELONGS_TO, 'Users', 'performer_id'),
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
             'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
@@ -100,6 +102,7 @@ class DealLog extends LogActiveRecord
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('owner_id', $this->owner_id);
+        $criteria->compare('performer_id', $this->performer_id);
         $criteria->compare('organization_id', $this->organization_id);
         $criteria->compare('customer_id', $this->customer_id);
         $criteria->compare('deal_source_id', $this->deal_source_id);

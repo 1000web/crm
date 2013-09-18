@@ -48,6 +48,7 @@ class DealController extends Controller
                 else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
+        $this->_model->setAttribute('owner_id', Yii::app()->user->id);
         $this->buildPageOptions();
         $this->render('_form');
     }

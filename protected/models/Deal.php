@@ -14,6 +14,7 @@
  * @property string $value
  * @property string $description
  * @property integer $owner_id
+ * @property integer $performer_id
  * @property integer $organization_id
  * @property integer $customer_id
  * @property integer $deal_source_id
@@ -62,13 +63,13 @@ class Deal extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, owner_id, performer_id, organization_id, customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
             array('inner_number, external_number, value', 'length', 'max' => 255),
             array('amount', 'length', 'max' => 12),
             array('description, open_date, close_date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id, performer_id, organization_id, customer_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -83,6 +84,7 @@ class Deal extends MyActiveRecord
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
+            'performer' => array(self::BELONGS_TO, 'Customer', 'performer_id'),
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
             'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
@@ -107,6 +109,7 @@ class Deal extends MyActiveRecord
             'value',
             'description',
             'owner_id',
+            'performer_id',
             'organization_id',
             'customer_id',
             'deal_source_id',
@@ -139,6 +142,7 @@ class Deal extends MyActiveRecord
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('owner_id', $this->owner_id);
+        $criteria->compare('permormer_id', $this->performer_id);
         $criteria->compare('organization_id', $this->organization_id);
         $criteria->compare('customer_id', $this->customer_id);
         $criteria->compare('deal_source_id', $this->deal_source_id);

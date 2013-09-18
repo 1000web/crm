@@ -28,14 +28,9 @@ if (MyHelper::checkAccess($controller, 'view')) {
         echo MyHelper::number_format($total_paid).' рублей.</h4>';
     }
     if ($awaiting > 0) echo '<h4 class="text-info">Ожидаются платежи на сумму ' . MyHelper::number_format($awaiting) . ' рублей.</h4>';
-
     $summa = $total_paid + $awaiting;
-    if ($this->_model->amount > $summa) {
-        echo '<h4 class="text-warning">Нужно доплатить: ' . MyHelper::number_format($this->_model->amount - $summa) . ' рублей.</h4>';
-    }
-    if ($this->_model->amount < $summa) {
-        echo '<h4 class="text-error">Переплата: ' . MyHelper::number_format($summa - $this->_model->amount) . ' рублей.</h4>';
-    }
+    if ($this->_model->amount > $summa) echo '<h4 class="text-warning">Нужно доплатить ' . MyHelper::number_format($this->_model->amount - $summa) . ' рублей.</h4>';
+    if ($this->_model->amount < $summa) echo '<h4 class="text-error">Переплата ' . MyHelper::number_format($summa - $this->_model->amount) . ' рублей.</h4>';
 
     echo $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $payment,

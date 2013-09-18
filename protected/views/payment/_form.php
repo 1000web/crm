@@ -10,9 +10,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 echo $form->errorSummary($this->_model);
 
-if (isset($_GET['did'])) $values = Deal::model()->getOptions('id', 'value', 'value', array('id' => $_GET['did']));
-else $values = Deal::model()->getOptions();
-echo $form->dropDownListRow($this->_model, 'deal_id', $values, array('class' => 'input-block-level'));
+// если есть параметр did, то выбираем эту сделку
+if (isset($_GET['did'])) $this->_model->setAttribute('deal_id', $_GET['did']);
+
+echo $form->dropDownListRow($this->_model, 'deal_id', Deal::model()->getOptions(), array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'payment_type_id', PaymentType::model()->getOptions(), array('class' => 'input-block-level'));
 

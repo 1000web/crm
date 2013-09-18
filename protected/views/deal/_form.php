@@ -53,6 +53,11 @@ echo $form->textField($this->_model, 'inner_number', array(
 
 echo $form->dropDownListRow($this->_model, 'owner_id', Users::model()->getOptions('id', 'username'), array('class' => 'input-block-level'));
 
+// Наша организация №1 в списке
+$values = Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => 1), true);
+echo $form->dropDownListRow($this->_model, 'performer_id', $values, array('class' => 'input-block-level'));
+
+
 echo $form->sliderRow($this->_model, 'probability', array(
     'class' => 'span11',
     'options' => array(
@@ -64,22 +69,19 @@ echo $form->sliderRow($this->_model, 'probability', array(
     )
 ));
 
-$organization_param = array();
-$customer_param = array();
-if (isset($_GET['oid'])) {
-    $organization_param['id'] = $_GET['oid'];
-    $customer_param['organization_id'] = $_GET['oid'];
-}
-echo $form->dropDownListRow($this->_model, 'organization_id',
-    Organization::model()->getOptions('id', 'value', 'value', $organization_param),
-    array('class' => 'input-block-level'));
+// если есть параметр oid, то выбираем эту организацию
+if (isset($_GET['oid'])) $this->_model->setAttribute('organization_id', $_GET['oid']);
+echo $form->dropDownListRow($this->_model, 'organization_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
 
-if (isset($_GET['cid'])) {
-    $customer_param['id'] = $_GET['cid'];
-}
-echo $form->dropDownListRow($this->_model, 'customer_id',
-    Customer::model()->getOptions('id', 'value', 'value', $customer_param),
-    array('class' => 'input-block-level'));
+// если есть параметр oid, то показываем только сотрудников этой организации
+if (isset($_GET['oid'])) $values = Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $_GET['oid']));
+// иначе показываем всех сотрудников
+else  $values = Customer::model()->getOptions();
+
+// если есть параметр cid, то выбираем соответствующего сотрудника
+if (isset($_GET['cid'])) $this->_model->setAttribute('customer_id', $_GET['cid']);
+
+echo $form->dropDownListRow($this->_model, 'customer_id', $values, array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 
@@ -91,7 +93,7 @@ echo $form->textFieldRow($this->_model, 'amount', array(
     'append' => 'Руб.',
 ));
 
-echo $form->textArea($this->_model, 'value', array('rows' => 4,
+echo $form->textAreaRow($this->_model, 'value', array('rows' => 4,
     'class' => 'input-block-level',
     'placeholder' => $this->_model->getLabel('value'),
 ));
