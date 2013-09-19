@@ -120,6 +120,7 @@ class Task extends MyActiveRecord
     public function getAll($userProfile, $select = '')
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('task_stage');
         switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
@@ -151,13 +152,7 @@ class Task extends MyActiveRecord
             $criteria->addCondition('task_stage.state=:state');
             $criteria->params[':state'] = $userProfile->filter_task_status;
         }
-        $criteria->with = array('task_stage');
-        return new CActiveDataProvider('Task', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->task_pagesize);
     }
 
 }

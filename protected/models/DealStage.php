@@ -97,12 +97,7 @@ class DealStage extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('DealStage', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->dealstage_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->dealstage_pagesize);
     }
 
 }

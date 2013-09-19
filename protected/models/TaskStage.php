@@ -105,12 +105,7 @@ class TaskStage extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('TaskStage', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->taskstage_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->taskstage_pagesize);
     }
 
 }

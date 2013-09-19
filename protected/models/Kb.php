@@ -99,12 +99,7 @@ class Kb extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('Kb', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->kb_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->kb_pagesize);
     }
 
 }

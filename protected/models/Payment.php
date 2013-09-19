@@ -112,12 +112,7 @@ class Payment extends MyActiveRecord
             $criteria->addCondition('payment_type_id=:type');
             $criteria->params[':type'] = $userProfile->filter_payment_type_id;
         }
-        return new CActiveDataProvider('Payment', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->payment_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->payment_pagesize);
     }
 
 }

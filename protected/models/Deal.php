@@ -142,6 +142,7 @@ class Deal extends MyActiveRecord
     public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('deal_stage');
         switch ($select) {
             case 'favorite':
                 $criteria->join = 'LEFT JOIN {{deal_fav}} j ON j.id=t.id';
@@ -173,13 +174,7 @@ class Deal extends MyActiveRecord
             $criteria->addCondition('probability=:probability');
             $criteria->params[':probability'] = $userProfile->filter_deal_probability;
         }
-        $criteria->with = array('deal_stage');
-        return new CActiveDataProvider('Deal', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->deal_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->deal_pagesize);
     }
 
 }

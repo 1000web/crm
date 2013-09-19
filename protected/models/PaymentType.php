@@ -99,12 +99,7 @@ class PaymentType extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('PaymentType', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->payment_type_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->payment_type_pagesize);
     }
 
 }

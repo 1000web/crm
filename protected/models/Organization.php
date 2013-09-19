@@ -147,12 +147,7 @@ class Organization extends MyActiveRecord
             $criteria->addCondition('organization_region_id=:region');
             $criteria->params[':region'] = $userProfile->filter_organization_region_id;
         }
-        return new CActiveDataProvider('Organization', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organization_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->organization_pagesize);
     }
 
 }

@@ -133,12 +133,7 @@ class Item extends MyActiveRecord
             $criteria->addCondition('parent_id=:parent_id');
             $criteria->params[':parent_id'] = $userProfile->filter_item_parent_id;
         }
-        return new CActiveDataProvider('Item', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->item_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->item_pagesize);
     }
 
 }

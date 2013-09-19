@@ -97,12 +97,7 @@ class ContactType extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('ContactType', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->contact_type_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->contact_type_pagesize);
     }
 
 }

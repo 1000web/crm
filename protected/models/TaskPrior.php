@@ -95,12 +95,7 @@ class TaskPrior extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('TaskPrior', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->taskprior_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->taskprior_pagesize);
     }
 
 }

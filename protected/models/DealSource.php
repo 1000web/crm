@@ -95,12 +95,7 @@ class DealSource extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('DealSource', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->dealsource_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->dealsource_pagesize);
     }
 
 }

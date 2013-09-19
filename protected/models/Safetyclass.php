@@ -95,12 +95,7 @@ class Safetyclass extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('Safetyclass', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->safetyclass_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->safetyclass_pagesize);
     }
 
 }

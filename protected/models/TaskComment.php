@@ -94,14 +94,9 @@ class TaskComment extends MyActiveRecord
         return $this->getByCriteria($criteria);
     }
 
-    public function getAll($userProfile, $select = '')
+    public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('TaskComment', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->task_pagesize);
     }
 }

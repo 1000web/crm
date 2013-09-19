@@ -111,12 +111,7 @@ class OrganizationContact extends MyActiveRecord
             $criteria->addCondition('contact_type_id=:type');
             $criteria->params[':type'] = $userProfile->filter_contact_type_id;
         }
-        return new CActiveDataProvider('OrganizationContact', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organizationcontact_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->organizationcontact_pagesize);
     }
 
 }

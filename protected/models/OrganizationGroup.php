@@ -95,12 +95,7 @@ class OrganizationGroup extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('OrganizationGroup', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->organizationgroup_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->organizationgroup_pagesize);
     }
 
 }

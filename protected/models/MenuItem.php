@@ -159,12 +159,7 @@ class MenuItem extends MyActiveRecord
             $criteria->addCondition('t.parent_id=:parent_id');
             $criteria->params[':parent_id'] = $userProfile->filter_menu_parent_id;
         }
-        return new CActiveDataProvider('MenuItem', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->menuitem_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->menuitem_pagesize);
     }
 
 }

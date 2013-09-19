@@ -96,12 +96,7 @@ class Menu extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('Menu', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->menu_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->menu_pagesize);
     }
 
 }

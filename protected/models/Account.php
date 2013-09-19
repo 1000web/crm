@@ -115,12 +115,7 @@ class Account extends MyActiveRecord
                 $criteria->params[':oid'] = $param;
                 break;
         }
-        return new CActiveDataProvider('Account', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->account_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria, $userProfile->account_pagesize);
     }
 
 }
