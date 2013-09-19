@@ -136,9 +136,7 @@ class Deal extends MyActiveRecord
         $criteria->compare('open_date', $this->open_date, true);
         $criteria->compare('close_date', $this->close_date, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+        return $this->getByCriteria($criteria);
     }
 
     public function getAll($userProfile, $select = '', $param = 0)

@@ -107,9 +107,7 @@ class MenuItem extends MyActiveRecord
         $criteria->compare('prior', $this->prior);
         $criteria->compare('visible', $this->visible);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+        return $this->getByCriteria($criteria);
     }
 
     function getItems($menu_name, $parent_id = NULL, $levels = 2)

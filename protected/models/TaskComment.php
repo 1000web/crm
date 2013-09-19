@@ -91,9 +91,7 @@ class TaskComment extends MyActiveRecord
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('comment', $this->comment, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+        return $this->getByCriteria($criteria);
     }
 
     public function getAll($userProfile, $select = '')

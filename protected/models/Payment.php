@@ -96,9 +96,7 @@ class Payment extends MyActiveRecord
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+        return $this->getByCriteria($criteria);
     }
 
     public function getAll($userProfile, $select = '', $param = 0)
