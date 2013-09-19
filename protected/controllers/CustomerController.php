@@ -100,10 +100,8 @@ class CustomerController extends Controller
         $this->_filter->unsetAttributes(); // clear any default values
         if (isset($_GET['Customer'])) $this->_filter->attributes = $_GET['Customer'];
 
-        $criteria = new CDbCriteria;
-
         $this->render('index', array(
-            'dataProvider' => Customer::model()->getByCriteria($criteria, $this->_pagesize),
+            'dataProvider' => Customer::model()->getAll($userProfile),
         ));
     }
 
