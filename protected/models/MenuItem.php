@@ -101,10 +101,6 @@ class MenuItem extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('menu_id', $this->menu_id);
         $criteria->compare('item_id', $this->item_id);

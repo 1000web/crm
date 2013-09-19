@@ -1,6 +1,6 @@
 <?php
 
-class OrganizationRegionController extends Controller
+class SafetyclassController extends Controller
 {
     /**
      * Creates a new model.
@@ -8,15 +8,15 @@ class OrganizationRegionController extends Controller
      */
     public function actionCreate()
     {
-        $this->_model = new OrganizationRegion;
+        $this->_model = new Safetyclass;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['OrganizationRegion'])) {
-            $this->_model->attributes = $_POST['OrganizationRegion'];
+        if (isset($_POST['Safetyclass'])) {
+            $this->_model->attributes = $_POST['Safetyclass'];
             if ($this->_model->save()) {
-                $log = new OrganizationRegionLog;
+                $log = new SafetyclassLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -38,10 +38,10 @@ class OrganizationRegionController extends Controller
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['OrganizationRegion'])) {
-            $this->_model->attributes = $_POST['OrganizationRegion'];
+        if (isset($_POST['Safetyclass'])) {
+            $this->_model->attributes = $_POST['Safetyclass'];
             if ($this->_model->save()) {
-                $log = new OrganizationRegionLog;
+                $log = new SafetyclassLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -58,7 +58,7 @@ class OrganizationRegionController extends Controller
      */
     public function actionDelete($id)
     {
-        $log = new OrganizationRegionLog;
+        $log = new SafetyclassLog;
         $this->loadModel($id);
         $log->save_log_record($this->_model, $this->getAction()->id);
         $this->_model->delete();
@@ -75,10 +75,10 @@ class OrganizationRegionController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->organizationregion_pagesize;
+        $this->_pagesize = $userProfile->safetyclass_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => OrganizationRegion::model()->getAll($userProfile),
+            'dataProvider' => Safetyclass::model()->getAll($userProfile),
         ));
     }
 
@@ -86,11 +86,11 @@ class OrganizationRegionController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->organizationregion_pagesize;
+        $this->_pagesize = $userProfile->safetyclass_pagesize;
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationRegionLog::model()->getAll($userProfile, $id),
+            'dataProvider' => SafetyclassLog::model()->getAll($userProfile, $id),
         ));
     }
 
@@ -98,7 +98,7 @@ class OrganizationRegionController extends Controller
     {
         $this->buildPageOptions();
         $this->render('../column', array(
-            'model' => new OrganizationRegion,
+            'model' => new Safetyclass,
         ));
     }
 
@@ -107,10 +107,10 @@ class OrganizationRegionController extends Controller
      */
     public function actionAdmin()
     {
-        $this->_model = new OrganizationRegion('search');
+        $this->_model = new Safetyclass('search');
         $this->_model->unsetAttributes(); // clear any default values
-        if (isset($_GET['OrganizationRegion']))
-            $this->_model->attributes = $_GET['OrganizationRegion'];
+        if (isset($_GET['Safetyclass']))
+            $this->_model->attributes = $_GET['Safetyclass'];
 
 
         $this->buildPageOptions();
@@ -121,14 +121,14 @@ class OrganizationRegionController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return OrganizationRegion the loaded model
+     * @return Safetyclass the loaded model
      * @throws CHttpException
      */
     public function loadModel($id = NULL)
     {
         if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
         if ($this->_model === NULL) {
-            $this->_model = OrganizationRegion::model()->findbyPk($id);
+            $this->_model = Safetyclass::model()->findbyPk($id);
             if ($this->_model === NULL) $this->HttpException(404);
         }
         return $this->_model;
@@ -136,11 +136,11 @@ class OrganizationRegionController extends Controller
 
     /**
      * Performs the AJAX validation.
-     * @param OrganizationRegion $model the model to be validated
+     * @param Safetyclass $model the model to be validated
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'organization-region-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'safetyclass-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

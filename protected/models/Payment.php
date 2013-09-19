@@ -75,14 +75,7 @@ class Payment extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array(
-            'id',
-            'deal_id',
-            'payment_type_id',
-            'amount',
-            'value',
-            'description',
-        );
+        return array( 'id', 'deal_id', 'payment_type_id', 'amount', 'value', 'description',);
     }
 
     /**
@@ -97,10 +90,6 @@ class Payment extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('payment_type_id', $this->payment_type_id);
         $criteria->compare('deal_id', $this->deal_id);
         $criteria->compare('amount', $this->amount, true);

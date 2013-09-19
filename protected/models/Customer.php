@@ -86,68 +86,22 @@ class Customer extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
+        $criteria->with = array('organization');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
-        $criteria->compare('organization_id', $this->organization_id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('position', $this->position, true);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('organization.value', $this->organization_id, true);
+        $criteria->compare('t.position', $this->position, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
+        $criteria->compare('t.user_id', $this->user_id);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    public function getFavorite($userProfile)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
-        $criteria->condition = 'j.user_id=:userid';
-        $criteria->params = array(':userid' => Yii::app()->user->id);
-        $criteria->order = 'value ASC';
-        $criteria->limit = -1;
-        return new CActiveDataProvider('Customer', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->customer_pagesize,
-            ),
-        ));
-    }
-
-    public function getAll($userProfile, $select = '', $param = 0)
-    {
-        $criteria = new CDbCriteria;
-        switch ($select) {
-            case 'favorite':
-                $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
-                $criteria->condition = 'j.user_id=:userid';
-                $criteria->params = array(':userid' => Yii::app()->user->id);
-                break;
-            case 'organization_id':
-                $criteria->condition = 'organization_id=:oid';
-                $criteria->params[':oid'] = $param;
-                break;
-        }
-        return new CActiveDataProvider('Customer', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->customer_pagesize,
-            ),
-        ));
+        return $this->getByCriteria($criteria);
     }
 
     public function getAvailableAttributes()
     {
-        return array('id', 'organization_id', 'position', 'value', 'description', 'user_id');
+        return array('id', 'value', 'position', 'organization_id', 'description', 'user_id');
     }
 
 }

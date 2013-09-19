@@ -105,10 +105,6 @@ class Task extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('task_type_id', $this->task_type_id);
         $criteria->compare('task_stage_id', $this->task_stage_id);
         $criteria->compare('task_prior_id', $this->task_prior_id);
@@ -120,22 +116,6 @@ class Task extends MyActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-        ));
-    }
-
-    public function getFavorite($userProfile)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->join = 'LEFT JOIN {{task_fav}} j ON j.id=t.id';
-        $criteria->condition = 'j.user_id=:userid';
-        $criteria->params = array(':userid' => Yii::app()->user->id);
-        $criteria->order = 'value';
-        $criteria->limit = -1;
-        return new CActiveDataProvider('Task', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_pagesize,
-            ),
         ));
     }
 

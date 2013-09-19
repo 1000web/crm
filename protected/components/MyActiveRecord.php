@@ -17,6 +17,15 @@ class MyActiveRecord extends CActiveRecord
         } else return false;
     }
 
+    public function getByCriteria($criteria, $pagesize = 20) {
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $pagesize,
+            ),
+        ));
+    }
+
     public function getOptions($id = 'id', $value = 'value', $order = NULL, $params = NULL, $optional = false)
     {
         $criteria = new CDbCriteria;

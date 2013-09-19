@@ -87,10 +87,6 @@ class Kb extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('state', $this->state);
         $criteria->compare('question', $this->question, true);
         $criteria->compare('answer', $this->answer, true);

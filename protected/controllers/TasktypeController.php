@@ -9,7 +9,6 @@ class TasktypeController extends Controller
     public function actionCreate()
     {
         $this->_model = new TaskType;
-        $log = new TaskTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -17,6 +16,7 @@ class TasktypeController extends Controller
         if (isset($_POST['TaskType'])) {
             $this->_model->attributes = $_POST['TaskType'];
             if ($this->_model->save()) {
+                $log = new TaskTypeLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -34,7 +34,6 @@ class TasktypeController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new TaskTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -42,6 +41,7 @@ class TasktypeController extends Controller
         if (isset($_POST['TaskType'])) {
             $this->_model->attributes = $_POST['TaskType'];
             if ($this->_model->save()) {
+                $log = new TaskTypeLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -87,7 +87,7 @@ class TasktypeController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->tasktype_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => TaskTypeLog::model()->getAll($userProfile, $id),

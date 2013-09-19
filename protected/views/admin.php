@@ -8,7 +8,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#contact-type-grid').yiiGridView('update', {
+	$('#admin-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -18,10 +18,11 @@ $('.search-form form').submit(function(){
 ?>
     Можно использовать операторы сравнения (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> или
     <b>=</b>) в начале параметра поиска.</p>
-<?php CHtml::link('Расширенный поиск', '#', array('class' => 'search-button')); ?>
+<?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
     <div class="search-form" style="display:none">
-        <?php $this->renderPartial('_search', array('model' => $this->_model)); ?>
+        <?php $this->renderPartial('/' . $this->id . '/_search', array('model' => $this->_model)); ?>
     </div><!-- search-form -->
+
 
 <?php
 $columns = $this->_model->getAvailableAttributes();

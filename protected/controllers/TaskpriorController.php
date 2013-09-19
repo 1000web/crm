@@ -9,7 +9,6 @@ class TaskpriorController extends Controller
     public function actionCreate()
     {
         $this->_model = new TaskPrior;
-        $log = new TaskPriorLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($this->_model);
@@ -17,6 +16,7 @@ class TaskpriorController extends Controller
         if (isset($_POST['TaskPrior'])) {
             $this->_model->attributes = $_POST['TaskPrior'];
             if ($this->_model->save()) {
+                $log = new TaskPriorLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -34,7 +34,6 @@ class TaskpriorController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new TaskPriorLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($this->_model);
@@ -42,6 +41,7 @@ class TaskpriorController extends Controller
         if (isset($_POST['TaskPrior'])) {
             $this->_model->attributes = $_POST['TaskPrior'];
             if ($this->_model->save()) {
+                $log = new TaskPriorLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -87,7 +87,7 @@ class TaskpriorController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->taskprior_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => TaskPriorLog::model()->getAll($userProfile, $id),

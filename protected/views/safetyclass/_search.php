@@ -1,6 +1,6 @@
 <?php
-/* @var $this ProductController */
-/* @var $model Product */
+/* @var $this SafetyclassController */
+/* @var $model Safetyclass */
 /* @var $form CActiveForm */
 ?>
 
@@ -37,8 +37,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'product_type_id'); ?>
-        <?php echo $form->textField($model, 'product_type_id'); ?>
+        <?php echo $form->label($model, 'prior'); ?>
+        <?php echo $form->textField($model, 'prior'); ?>
     </div>
 
     <div class="row">

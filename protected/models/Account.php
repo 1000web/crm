@@ -93,15 +93,11 @@ class Account extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('organization_id', $this->organization_id);
         $criteria->compare('bank', $this->bank, true);
-        $criteria->compare('bik', $this->bik);
-        $criteria->compare('inn', $this->inn);
-        $criteria->compare('kpp', $this->kpp);
+        $criteria->compare('bik', $this->bik, true);
+        $criteria->compare('inn', $this->inn, true);
+        $criteria->compare('kpp', $this->kpp, true);
         $criteria->compare('korr', $this->korr, true);
         $criteria->compare('schet', $this->schet, true);
         $criteria->compare('value', $this->value, true);

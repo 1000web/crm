@@ -20,13 +20,13 @@
  */
 class TaskStage extends MyActiveRecord
 {
-    public static $STAGE_NEW = 1;
-    public static $STAGE_FROZEN = 2;
-    public static $STAGE_ACTIVE = 3;
-    public static $STAGE_DONE = 4;
-    public static $STAGE_FAILED = 5;
-    public static $STAGE_CONFIRMED = 6;
-    public static $STAGE_CANCELLED = 7;
+    static $STAGE_NEW = 1;
+    static $STAGE_FROZEN = 2;
+    static $STAGE_ACTIVE = 3;
+    static $STAGE_DONE = 4;
+    static $STAGE_FAILED = 5;
+    static $STAGE_CONFIRMED = 6;
+    static $STAGE_CANCELLED = 7;
 
     /**
      * Returns the static model of the specified AR class.
@@ -94,10 +94,6 @@ class TaskStage extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('prior', $this->prior);
         $criteria->compare('state', $this->state);
         $criteria->compare('value', $this->value, true);

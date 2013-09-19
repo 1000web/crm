@@ -1,6 +1,6 @@
 <?php
-/* @var $this ProductTypeController */
-/* @var $this ->_model ProductType */
+/* @var $this SafetyclassController */
+/* @var $this ->_model Safetyclass */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(

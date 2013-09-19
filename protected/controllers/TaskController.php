@@ -50,7 +50,6 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $this->_model = new Task;
-        $log = new TaskLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -67,6 +66,7 @@ class TaskController extends Controller
                 'task_stage_id' => $stage,
             ));
             if ($this->_model->save()) {
+                $log = new TaskLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
 
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
@@ -140,7 +140,7 @@ class TaskController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->task_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => TaskLog::model()->getAll($userProfile, $id),

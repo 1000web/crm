@@ -10,7 +10,6 @@ class OrganizationcontactController extends Controller
     public function actionCreate()
     {
         $this->_model = new OrganizationContact;
-        $log = new OrganizationContactLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -18,6 +17,7 @@ class OrganizationcontactController extends Controller
         if (isset($_POST['OrganizationContact'])) {
             $this->_model->attributes = $_POST['OrganizationContact'];
             if ($this->_model->save()) {
+                $log = new OrganizationContactLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -35,7 +35,6 @@ class OrganizationcontactController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new OrganizationContactLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -43,6 +42,7 @@ class OrganizationcontactController extends Controller
         if (isset($_POST['OrganizationContact'])) {
             $this->_model->attributes = $_POST['OrganizationContact'];
             if ($this->_model->save()) {
+                $log = new OrganizationContactLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -88,7 +88,7 @@ class OrganizationcontactController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organizationcontact_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => OrganizationContactLog::model()->getAll($userProfile, $id),

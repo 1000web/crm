@@ -1,10 +1,10 @@
 <?php
-/* @var $this ProductTypeController */
+/* @var $this SafetyclassController */
 /* @var $dataProvider CActiveDataProvider */
 
-$controller = 'producttype';
+$controller = 'safetyclass';
 $this->addButtons($controller, array('view', 'update', 'delete', 'log'));
-$this->addColumns($this->getColumns($controller, ProductType::model()->getAvailableAttributes()));
+$this->addColumns($this->getColumns($controller, Safetyclass::model()->getAvailableAttributes()));
 
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,

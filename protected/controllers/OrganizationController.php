@@ -9,7 +9,7 @@ class OrganizationController extends Controller
     public function actionView($id)
     {
         $userProfile = $this->getUserProfile();
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('view', array(
             'account' => Account::model()->getAll($userProfile, 'organization_id', $id),
@@ -26,7 +26,6 @@ class OrganizationController extends Controller
     public function actionCreate()
     {
         $this->_model = new Organization;
-        $log = new OrganizationLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -34,6 +33,7 @@ class OrganizationController extends Controller
         if (isset($_POST['Organization'])) {
             $this->_model->attributes = $_POST['Organization'];
             if ($this->_model->save()) {
+                $log = new OrganizationLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -51,7 +51,6 @@ class OrganizationController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new OrganizationLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -59,6 +58,7 @@ class OrganizationController extends Controller
         if (isset($_POST['Organization'])) {
             $this->_model->attributes = $_POST['Organization'];
             if ($this->_model->save()) {
+                $log = new OrganizationLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -105,7 +105,7 @@ class OrganizationController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organization_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => OrganizationLog::model()->getAll($userProfile, $id),

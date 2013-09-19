@@ -27,7 +27,6 @@ class CustomerController extends Controller
     public function actionCreate()
     {
         $this->_model = new Customer;
-        $log = new CustomerLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -35,6 +34,7 @@ class CustomerController extends Controller
         if (isset($_POST['Customer'])) {
             $this->_model->attributes = $_POST['Customer'];
             if ($this->_model->save()) {
+                $log = new CustomerLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -52,7 +52,6 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new CustomerLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -60,6 +59,7 @@ class CustomerController extends Controller
         if (isset($_POST['Customer'])) {
             $this->_model->attributes = $_POST['Customer'];
             if ($this->_model->save()) {
+                $log = new CustomerLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -95,8 +95,15 @@ class CustomerController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->customer_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Customer('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Customer'])) $this->_filter->attributes = $_GET['Customer'];
+
+        $criteria = new CDbCriteria;
+
         $this->render('index', array(
-            'dataProvider' => Customer::model()->getAll($userProfile),
+            'dataProvider' => Customer::model()->getByCriteria($criteria, $this->_pagesize),
         ));
     }
 
@@ -105,7 +112,7 @@ class CustomerController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->customer_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => CustomerLog::model()->getAll($userProfile, $id),
@@ -118,21 +125,6 @@ class CustomerController extends Controller
         $this->render('../column', array(
             'model' => new Customer,
         ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $this->_model = new Customer('search');
-        $this->_model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Customer']))
-            $this->_model->attributes = $_GET['Customer'];
-
-
-        $this->buildPageOptions();
-        $this->render('../admin');
     }
 
     /**
@@ -186,9 +178,11 @@ class CustomerController extends Controller
             if (isset($add)) {
                 if (!$this->checkFavorite($add)) {
                     $model = new CustomerFav();
-                    $model->setAttribute('id', $add);
-                    $model->setAttribute('datetime', time());
-                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->setAttributes(array(
+                        'id' => $add,
+                        'datetime' => time(),
+                        'user_id' => Yii::app()->user->id,
+                    ));
                     $model->save();
                 }
             }
@@ -207,8 +201,14 @@ class CustomerController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->customer_pagesize;
         $this->buildPageOptions();
+        $criteria = new CDbCriteria;
+        $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
+        $criteria->condition = 'j.user_id=:userid';
+        $criteria->params = array(':userid' => Yii::app()->user->id);
+
         $this->render('index', array(
-            'dataProvider' => Customer::model()->getAll($userProfile, 'favorite'),
+            //'dataProvider' => Customer::model()->getAll($userProfile, 'favorite'),
+            'dataProvider' => Customer::model()->getByCriteria($criteria, $this->_pagesize),
         ));
     }
 

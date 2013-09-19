@@ -10,7 +10,6 @@ class DealstageController extends Controller
     public function actionCreate()
     {
         $this->_model = new DealStage;
-        $log = new DealStageLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -18,6 +17,7 @@ class DealstageController extends Controller
         if (isset($_POST['DealStage'])) {
             $this->_model->attributes = $_POST['DealStage'];
             if ($this->_model->save()) {
+                $log = new DealStageLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -35,7 +35,6 @@ class DealstageController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new DealStageLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -43,6 +42,7 @@ class DealstageController extends Controller
         if (isset($_POST['DealStage'])) {
             $this->_model->attributes = $_POST['DealStage'];
             if ($this->_model->save()) {
+                $log = new DealStageLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -88,7 +88,7 @@ class DealstageController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->dealstage_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => DealStageLog::model()->getAll($userProfile, $id),

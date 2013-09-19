@@ -68,33 +68,6 @@ class OrganizationLog extends LogActiveRecord
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('log_id', $this->log_id);
-        $criteria->compare('log_action', $this->log_action, true);
-        $criteria->compare('log_datetime', $this->log_datetime);
-        $criteria->compare('log_user_id', $this->log_user_id);
-        $criteria->compare('id', $this->id);
-        $criteria->compare('organization_type_id', $this->organization_type_id);
-        $criteria->compare('organization_group_id', $this->organization_group_id);
-        $criteria->compare('organization_region_id', $this->organization_region_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
     public function getAll($userProfile, $id)
     {
         $criteria = new CDbCriteria;

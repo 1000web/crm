@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{deal_source}}".
+ * This is the model class for table "{{safetyclass}}".
  *
- * The followings are the available columns in table '{{deal_source}}':
+ * The followings are the available columns in table '{{safetyclass}}':
  * @property integer $id
  * @property integer $create_time
  * @property integer $update_time
@@ -17,12 +17,12 @@
  * @property Users $update_user
  * @property Users $create_user
  */
-class DealSource extends MyActiveRecord
+class Safetyclass extends MyActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return DealSource the static model class
+     * @return Safetyclass the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -34,7 +34,7 @@ class DealSource extends MyActiveRecord
      */
     public function tableName()
     {
-        return '{{deal_source}}';
+        return '{{safetyclass}}';
     }
 
     /**
@@ -97,10 +97,10 @@ class DealSource extends MyActiveRecord
     public function getAll($userProfile)
     {
         $criteria = new CDbCriteria;
-        return new CActiveDataProvider('DealSource', array(
+        return new CActiveDataProvider('Safetyclass', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->dealsource_pagesize,
+                'pageSize' => $userProfile->safetyclass_pagesize,
             ),
         ));
     }

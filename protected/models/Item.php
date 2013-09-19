@@ -101,10 +101,6 @@ class Item extends MyActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('module', $this->module, true);
         $criteria->compare('controller', $this->controller, true);
         $criteria->compare('action', $this->action, true);

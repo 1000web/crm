@@ -103,21 +103,9 @@ class Deal extends MyActiveRecord
     public function getAvailableAttributes()
     {
         return array(
-            'id',
-            'inner_number',
-            'external_number',
-            'value',
-            'description',
-            'owner_id',
-            'performer_id',
-            'organization_id',
-            'customer_id',
-            'deal_source_id',
-            'deal_stage_id',
-            'amount',
-            'probability',
-            'open_date',
-            'close_date',
+            'id', 'inner_number', 'external_number', 'value', 'description', 'owner_id', 'performer_id',
+            'organization_id', 'customer_id', 'deal_source_id', 'deal_stage_id', 'amount', 'probability',
+            'open_date', 'close_date',
         );
     }
 
@@ -133,10 +121,6 @@ class Deal extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('inner_number', $this->inner_number, true);
         $criteria->compare('external_number', $this->external_number, true);
         $criteria->compare('value', $this->value, true);

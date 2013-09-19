@@ -6,8 +6,7 @@
 $this->show_pagesize = false;
 
 echo $this->renderPartial('../detail_view');
-
-
+/**/
 $controller = 'customercontact';
 if (MyHelper::checkAccess($controller, 'view')) {
     echo '<h2>Контакты Клиента ';
@@ -40,5 +39,3 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal,
     ));
 }
-
-

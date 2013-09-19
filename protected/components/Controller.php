@@ -22,6 +22,7 @@ class Controller extends RController
     public $labels = array();
 
     protected $_model = NULL;
+    protected $_filter = NULL;
     protected $_pagesize = 20;
     protected $show_pagesize = false;
 
@@ -181,6 +182,10 @@ class Controller extends RController
                     $this->buttons[$action]['url'] = 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("parent_id"=>$data->id))';
                     $this->buttons[$action]['icon'] = 'icon-plus';
                     break;
+                case 'copy':
+                    $this->buttons[$action]['url'] = 'Yii::app()->createUrl("' . $controller . '/create", array("copy"=>$data->id))';
+                    $this->buttons[$action]['icon'] = 'icon-plus';
+                    break;
             }
         }
     }
@@ -244,10 +249,6 @@ class Controller extends RController
                 'label' => Yii::t('lang', 'Список'),
                 'icon' => MyHelper::action_icon('index'),
                 'url' => array('index')),
-            'admin' => array(
-                'label' => Yii::t('lang', 'Управление'),
-                'icon' => MyHelper::action_icon('admin'),
-                'url' => array('admin')),
             'update' => array(
                 'label' => Yii::t('lang', 'Редактировать'),
                 'icon' => MyHelper::action_icon('update'),
@@ -293,7 +294,6 @@ class Controller extends RController
         switch ($this->getAction()->getId()) {
             case 'create':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'index':
                 if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
@@ -301,15 +301,9 @@ class Controller extends RController
                 if ($this->favorite_available) {
                     if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] = $items['favorite'];
                 }
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'column':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
-                break;
-            case 'admin':
-                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
-                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
                 break;
             case 'update':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
@@ -330,13 +324,11 @@ class Controller extends RController
             case 'favorite':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
                 if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] = $items['column'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
             case 'log':
                 if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
                 if (MyHelper::checkAccess($this->id, 'view')) $this->menu[] = $items['view'];
                 if (MyHelper::checkAccess($this->id, 'update')) $this->menu[] = $items['update'];
-                if (MyHelper::checkAccess($this->id, 'admin')) $this->menu[] = $items['admin'];
                 break;
         }
         return;

@@ -87,11 +87,7 @@ class ProductType extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
-        $criteria->compare('prior', $this->prior, true);
+        $criteria->compare('prior', $this->prior);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 

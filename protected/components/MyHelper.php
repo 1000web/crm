@@ -7,7 +7,6 @@ class MyHelper
         $icons = array(
             'create' => 'icon-plus',
             'index' => 'icon-list',
-            'admin' => 'icon-wrench',
             'update' => 'icon-pencil',
             'view' => 'icon-eye-open',
             'delete' => 'icon-trash',

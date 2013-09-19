@@ -9,7 +9,6 @@ class ProducttypeController extends Controller
     public function actionCreate()
     {
         $this->_model = new ProductType;
-        $log = new ProductTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -17,6 +16,7 @@ class ProducttypeController extends Controller
         if (isset($_POST['ProductType'])) {
             $this->_model->attributes = $_POST['ProductType'];
             if ($this->_model->save()) {
+                $log = new ProductTypeLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -34,7 +34,6 @@ class ProducttypeController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new ProductTypeLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -42,6 +41,7 @@ class ProducttypeController extends Controller
         if (isset($_POST['ProductType'])) {
             $this->_model->attributes = $_POST['ProductType'];
             if ($this->_model->save()) {
+                $log = new ProductTypeLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -87,7 +87,7 @@ class ProducttypeController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->product_type_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => ProductTypeLog::model()->getAll($userProfile, $id),

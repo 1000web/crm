@@ -75,13 +75,7 @@ class CustomerContact extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array(
-            'id',
-            'customer_id',
-            'contact_type_id',
-            'value',
-            'description',
-        );
+        return array('id', 'customer_id', 'contact_type_id', 'value', 'description');
     }
 
     /**
@@ -96,10 +90,6 @@ class CustomerContact extends MyActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('create_user_id', $this->create_user_id);
-        $criteria->compare('update_user_id', $this->update_user_id);
         $criteria->compare('contact_type_id', $this->contact_type_id);
         $criteria->compare('customer_id', $this->customer_id);
         $criteria->compare('value', $this->value, true);

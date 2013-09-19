@@ -9,3 +9,4 @@ $this->addColumns($this->getColumns($controller, Customer::model()->getAvailable
 echo $this->renderPartial('../grid_view', array(
     'dataProvider' => $dataProvider,
 ));
+

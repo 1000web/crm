@@ -1,6 +1,7 @@
 <?php
 /* @var $this Controller */
 /* @var $dataProvider CActiveDataProvider */
+/* @var $filter CActiveDataProvider */
 
 $template = '';
 $width = 15;
@@ -17,10 +18,12 @@ if (!empty($template)) array_push($this->columns,
             'style' => 'text-align:center; width: ' . $width . 'px;',
         ),
     ));
-$this->widget('bootstrap.widgets.TbGridView', array(
+
+$params = array(
+    'id' => 'data-grid',
     'type' => 'striped bordered condensed',
-    'dataProvider' => $dataProvider,
     'template' => '{summary}{items}{pager}',
+    'dataProvider' => $dataProvider,
     'enablePagination' => true,
     'columns' => $this->columns,
     'pager' => array(
@@ -28,6 +31,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'maxButtonCount' => 10,
         'class' => 'bootstrap.widgets.TbPager',
     ),
-));
+);
+if(!empty($this->_filter)) {
+    //$params['dataProvider'] = $dataProvider->search();
+    $params['dataProvider'] = $this->_filter->search();
+    $params['filter'] = $this->_filter;
+    //$this->renderPartial('../search');
+}
+
+$this->widget('bootstrap.widgets.TbGridView', $params);
 
 

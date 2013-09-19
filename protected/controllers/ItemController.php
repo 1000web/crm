@@ -6,17 +6,22 @@ class ItemController extends Controller
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate()
+    public function actionCreate($copy = NULL)
     {
-        $this->_model = new Item;
-        $log = new ItemLog;
-
+        if($copy === NULL) {
+            $this->_model = new Item;
+        } else {
+            $this->loadModel($copy);
+            $this->_model->unsetAttributes(array('id'));
+            $this->_model->setIsNewRecord(true);
+        }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
             $this->_model->attributes = $_POST['Item'];
             if ($this->_model->save()) {
+                $log = new ItemLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -34,14 +39,13 @@ class ItemController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new ItemLog;
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
             $this->_model->attributes = $_POST['Item'];
             if ($this->_model->save()) {
+                $log = new ItemLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -87,7 +91,7 @@ class ItemController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->item_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => ItemLog::model()->getAll($userProfile, $id),

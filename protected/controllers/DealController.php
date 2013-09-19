@@ -35,7 +35,6 @@ class DealController extends Controller
     public function actionCreate()
     {
         $this->_model = new Deal;
-        $log = new DealLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -43,6 +42,7 @@ class DealController extends Controller
         if (isset($_POST['Deal'])) {
             $this->_model->attributes = $_POST['Deal'];
             if ($this->_model->save()) {
+                $log = new DealLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -61,7 +61,6 @@ class DealController extends Controller
     public function actionUpdate($id)
     {
         $this->loadModel($id);
-        $log = new DealLog;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -69,6 +68,7 @@ class DealController extends Controller
         if (isset($_POST['Deal'])) {
             $this->_model->attributes = $_POST['Deal'];
             if ($this->_model->save()) {
+                $log = new DealLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -114,7 +114,7 @@ class DealController extends Controller
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->deal_pagesize;
-        $this->_model = $this->loadModel($id);
+        $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
             'dataProvider' => DealLog::model()->getAll($userProfile, $id),
