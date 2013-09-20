@@ -407,7 +407,7 @@ class Controller extends RController
         return $img;
     }
 
-    public function submit_3buttons()
+    public function submit3buttons()
     {
         echo "\n\n<div class='row buttons text-center'>\n";
         $this->widget('bootstrap.widgets.TbButton', array(

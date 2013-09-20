@@ -128,6 +128,7 @@ class MyHelper
             'date' => 'Дата',
             'time' => 'Время',
 
+            'specification_id' => 'Спецификация',
             'deal_id' => 'Сделка',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
@@ -172,7 +173,6 @@ class MyHelper
             'password' => 'Пароль',
             'probability' => 'Вероятность, %',
             'position' => 'Должность',
-            'product_type_id' => 'Тип продукта',
             'payment_type_id' => 'Тип платежа',
             'status' => 'Статус',
             'superuser' => 'Суперпользователь',
@@ -301,8 +301,8 @@ class MyHelper
             case 'payment_type_id':
                 $value = '$data->payment_type->value';
                 break;
-            case 'product_type_id':
-                $value = '$data->product_type->value';
+            case 'specification_id':
+                $value = '$data->specification->value';
                 break;
             case 'datetime':
                 //$value = 'date("'.$datetime_format.'",$data->datetime)';

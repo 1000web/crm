@@ -22,6 +22,6 @@ echo $form->dropDownListRow($this->_model, 'visible', array(0 => 'Скрыто',
 
 echo $form->dropDownListRow($this->_model, 'guest_only', array(0 => 'Нет', 1 => 'Да'), array('class' => 'input-block-level'));
 
-$this->submit_3buttons();
+$this->submit3buttons();
 
 $this->endWidget();

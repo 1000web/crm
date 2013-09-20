@@ -22,6 +22,6 @@ echo $form->textFieldRow($this->_model, 'organization_name', array('maxlength' =
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
-$this->submit_3buttons();
+$this->submit3buttons();
 
 $this->endWidget();

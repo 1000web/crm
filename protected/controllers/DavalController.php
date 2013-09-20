@@ -1,40 +1,22 @@
 <?php
 
-class SpecificationController extends Controller
+class DavalController extends Controller
 {
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $this->_model = Specification::model()->findByPk($id);
-        if ($this->_model === null) $this->HttpException(404);
-
-        $this->buildPageOptions();
-        $userProfile = $this->getUserProfile();
-        $this->render('view', array(
-            'product' => Product::model()->getAll($userProfile, 'specification_id', $id),
-            'shipping' => Shipping::model()->getAll($userProfile, 'specification_id', $id),
-            'daval' => Daval::model()->getAll($userProfile, 'specification_id', $id),
-        ));
-    }
-
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate()
     {
-        $this->_model = new Specification;
+        $this->_model = new Daval;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Specification'])) {
-            $this->_model->attributes = $_POST['Specification'];
+        if (isset($_POST['Daval'])) {
+            $this->_model->attributes = $_POST['Daval'];
             if ($this->_model->save()) {
-                $log = new SpecificationLog;
+                $log = new DavalLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -56,10 +38,10 @@ class SpecificationController extends Controller
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Specification'])) {
-            $this->_model->attributes = $_POST['Specification'];
+        if (isset($_POST['Daval'])) {
+            $this->_model->attributes = $_POST['Daval'];
             if ($this->_model->save()) {
-                $log = new SpecificationLog;
+                $log = new DavalLog;
                 $log->save_log_record($this->_model, $this->getAction()->id);
                 if (isset($_POST['create_new'])) $this->redirect(array('create'));
                 else $this->redirect(array('view', 'id' => $this->_model->id));
@@ -76,7 +58,7 @@ class SpecificationController extends Controller
      */
     public function actionDelete($id)
     {
-        $log = new SpecificationLog;
+        $log = new DavalLog;
         $this->loadModel($id);
         $log->save_log_record($this->_model, $this->getAction()->id);
         $this->_model->delete();
@@ -93,10 +75,10 @@ class SpecificationController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->specification_pagesize;
+        $this->_pagesize = $userProfile->daval_pagesize;
         $this->buildPageOptions();
         $this->render('index', array(
-            'dataProvider' => Specification::model()->getAll($userProfile),
+            'dataProvider' => Daval::model()->getAll($userProfile),
         ));
     }
 
@@ -104,11 +86,11 @@ class SpecificationController extends Controller
     {
         $userProfile = $this->getUserProfile();
         $this->show_pagesize = true;
-        $this->_pagesize = $userProfile->specification_pagesize;
+        $this->_pagesize = $userProfile->daval_pagesize;
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => SpecificationLog::model()->getAll($userProfile, $id),
+            'dataProvider' => DavalLog::model()->getAll($userProfile, $id),
         ));
     }
 
@@ -116,7 +98,7 @@ class SpecificationController extends Controller
     {
         $this->buildPageOptions();
         $this->render('../column', array(
-            'model' => new Specification,
+            'model' => new Daval,
         ));
     }
 
@@ -125,10 +107,10 @@ class SpecificationController extends Controller
      */
     public function actionAdmin()
     {
-        $this->_model = new Specification('search');
+        $this->_model = new Daval('search');
         $this->_model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Specification']))
-            $this->_model->attributes = $_GET['Specification'];
+        if (isset($_GET['Daval']))
+            $this->_model->attributes = $_GET['Daval'];
 
 
         $this->buildPageOptions();
@@ -139,14 +121,14 @@ class SpecificationController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Specification the loaded model
+     * @return Daval the loaded model
      * @throws CHttpException
      */
     public function loadModel($id = NULL)
     {
         if (isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
         if ($this->_model === NULL) {
-            $this->_model = Specification::model()->findbyPk($id);
+            $this->_model = Daval::model()->findbyPk($id);
             if ($this->_model === NULL) $this->HttpException(404);
         }
         return $this->_model;
@@ -154,7 +136,7 @@ class SpecificationController extends Controller
 
     /**
      * Performs the AJAX validation.
-     * @param Specification $model the model to be validated
+     * @param Daval $model the model to be validated
      */
     protected function performAjaxValidation($model)
     {

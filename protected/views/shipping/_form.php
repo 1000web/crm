@@ -1,6 +1,6 @@
 <?php
-/* @var $this SpecificationController */
-/* @var $this ->_model Account */
+/* @var $this ShippingController */
+/* @var $this ->_model Shipping */
 /* @var $form CActiveForm */
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
@@ -11,10 +11,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 echo $form->errorSummary($this->_model);
 
-// если есть параметр oid, то выбираем эту организацию
-if (isset($_GET['did'])) $this->_model->setAttribute('deal_id', $_GET['did']);
+// если есть параметр sid, то выбираем эту спецификацию
+if (isset($_GET['sid'])) $this->_model->setAttribute('specification_id', $_GET['sid']);
 
-echo $form->dropDownListRow($this->_model, 'deal_id', Deal::model()->getOptions(), array('class' => 'input-block-level'));
+echo $form->dropDownListRow($this->_model, 'specification_id', Specification::model()->getOptions(), array('class' => 'input-block-level'));
 
 echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 

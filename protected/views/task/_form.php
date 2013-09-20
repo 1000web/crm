@@ -58,6 +58,6 @@ echo $form->textArea($this->_model, 'description', array('rows' => 4,
     'placeholder' => $this->_model->getLabel('description'),
 ));
 
-$this->submit_3buttons();
+$this->submit3buttons();
 
 $this->endWidget();
