@@ -56,13 +56,13 @@ class SiteController extends Controller
         $userProfile = $this->getUserProfile();
         $this->buildPageOptions();
 
-        $criteria_customer = new CDbCriteria;
-        $criteria_customer->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
-        $criteria_customer->condition = 'j.user_id=:userid';
-        $criteria_customer->params = array(':userid' => Yii::app()->user->id);
+        $userProfile->customer_pagesize = 100;
+        $userProfile->organization_pagesize = 100;
+        $userProfile->task_pagesize = 100;
+        $userProfile->deal_pagesize = 100;
 
         $this->render('favorite', array(
-            'customer' => Customer::model()->getByCriteria($criteria_customer, $userProfile->customer_pagesize),
+            'customer' => Customer::model()->getAll($userProfile, 'favorite'),
             'organization' => Organization::model()->getAll($userProfile, 'favorite'),
             'task' => Task::model()->getAll($userProfile, 'favorite'),
             'deal' => Deal::model()->getAll($userProfile, 'favorite'),

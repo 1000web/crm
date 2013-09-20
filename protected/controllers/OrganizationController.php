@@ -204,6 +204,7 @@ class OrganizationController extends Controller
             else $this->redirect($this->id);
         }
         $this->buildPageOptions();
+        $this->show_pagesize = true;
         $this->render('index', array(
             'dataProvider' => Organization::model()->getAll($this->getUserProfile(), 'favorite'),
         ));
