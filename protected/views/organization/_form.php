@@ -18,6 +18,8 @@ echo $form->dropDownListRow($this->_model, 'organization_region_id', Organizatio
 
 echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 
+echo $form->textFieldRow($this->_model, 'organization_name', array('maxlength' => 255, 'class' => 'input-block-level'));
+
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));
 
 $this->submit_button();

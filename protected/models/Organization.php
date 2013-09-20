@@ -12,6 +12,7 @@
  * @property integer $organization_type_id
  * @property integer $organization_group_id
  * @property integer $organization_region_id
+ * @property string $organization_name
  * @property string $value
  * @property string $description
  *
@@ -57,11 +58,11 @@ class Organization extends MyActiveRecord
         return array(
             array('organization_type_id, organization_group_id, organization_region_id, value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id', 'numerical', 'integerOnly' => true),
-            array('value', 'length', 'max' => 255),
+            array('value, organization_name', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id, organization_name, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -100,15 +101,13 @@ class Organization extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
         $criteria->compare('organization_type_id', $this->organization_type_id);
         $criteria->compare('organization_group_id', $this->organization_group_id);
         $criteria->compare('organization_region_id', $this->organization_region_id);
+        $criteria->compare('organization_name', $this->organization_name, true);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 
@@ -122,7 +121,7 @@ class Organization extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'value', 'organization_type_id', 'organization_group_id', 'organization_region_id', 'description');
+        return array('id', 'organization_type_id', 'organization_group_id', 'organization_region_id', 'value', 'organization_name', 'description');
     }
 
     public function getAll($userProfile, $select = '')

@@ -98,6 +98,7 @@ class MyHelper
     {
         $array = array(
             'id' => '#',
+            'organization_name' => 'Полное наименование организации',
             'value' => 'Значение',
             'comment' => 'Комментарий',
             'organization_type_id' => 'Тип',
@@ -255,7 +256,7 @@ class MyHelper
                 //$value = '($data->owner_id == Yii::app()->user->id)?"Я":$data->owner->username';
                 break;
             case 'performer_id':
-                $value = '$data->performer?$data->performer->username:""';
+                $value = '$data->performer_id?$data->performer->value:""';
                 //$value = '($data->performer_id == Yii::app()->user->id)?"Я":$data->performer->username';
                 break;
             case 'log_user_id':

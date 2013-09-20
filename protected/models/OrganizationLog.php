@@ -12,6 +12,7 @@
  * @property integer $organization_type_id
  * @property integer $organization_group_id
  * @property integer $organization_region_id
+ * @property string $organization_name
  * @property string $value
  * @property string $description
  */
@@ -49,7 +50,7 @@ class OrganizationLog extends LogActiveRecord
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, organization_type_id, organization_group_id, organization_region_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, organization_type_id, organization_group_id, organization_region_id, organization_name, value, description', 'safe', 'on' => 'search'),
         );
     }
 
