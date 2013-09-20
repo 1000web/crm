@@ -3,7 +3,7 @@ $this->breadcrumbs = array(
     UserModule::t('Users') => array('index'),
     $model->username,
 );
-$this->layout = '//layouts/column2';
+//$this->layout = '//layouts/column2';
 $this->menu = array(
     array('label' => UserModule::t('List User'), 'url' => array('index')),
 );
@@ -35,9 +35,9 @@ array_push($attributes,
     )
 );
 
-$this->widget('zii.widgets.CDetailView', array(
-    'data' => $model,
-    'attributes' => $attributes,
-));
 
-?>
+$this->widget('bootstrap.widgets.TbDetailView', array(
+    'type' => 'striped bordered condensed',
+    'attributes' => $attributes,
+    'data' => $model,
+));

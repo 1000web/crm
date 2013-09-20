@@ -12,8 +12,9 @@ if (UserModule::isAdmin()) {
 
 $this->h1 = UserModule::t("List User");
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider' => $dataProvider,
+    'type' => 'striped bordered condensed',
     'columns' => array(
         array(
             'name' => 'username',
