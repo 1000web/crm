@@ -11,6 +11,12 @@ class OrganizationController extends Controller
         $userProfile = $this->getUserProfile();
         $this->loadModel($id);
         $this->buildPageOptions();
+
+        $userProfile->account_pagesize = 100;
+        $userProfile->deal_pagesize = 100;
+        $userProfile->organizationcontact_pagesize = 100;
+        $userProfile->customer_pagesize = 100;
+
         $this->render('view', array(
             'account' => Account::model()->getAll($userProfile, 'organization_id', $id),
             'deal' => Deal::model()->getAll($userProfile, 'organization_id', $id),
