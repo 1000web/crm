@@ -14,17 +14,22 @@ class DealController extends Controller
 
         $this->buildPageOptions();
         $userProfile = $this->getUserProfile();
+
         $payment = Payment::model()->getAll($userProfile, 'deal_id', $id);
+
         $total_paid = 0;
         $awaiting = 0;
         foreach($this->_model->payments as $pay) {
             if($pay->payment_type->id == 4) $awaiting += $pay->amount;
             else $total_paid += $pay['amount'];
         }
+        $specification = Specification::model()->getAll($userProfile, 'deal_id', $id);
+
         $this->render('view', array(
             'payment' => $payment,
             'awaiting' => $awaiting,
             'total_paid' => $total_paid,
+            'specification' => $specification,
         ));
     }
 

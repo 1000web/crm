@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "{{safetyclass_log}}".
+ * This is the model class for table "{{specification_log}}".
  *
- * The followings are the available columns in table '{{safetyclass_log}}':
+ * The followings are the available columns in table '{{specification_log}}':
  * @property integer $log_id
  * @property string $log_action
  * @property integer $log_datetime
  * @property integer $log_user_id
  * @property integer $id
- * @property integer $prior
+ * @property integer $deal_id
  * @property string $value
  * @property string $description
  */
-class SafetyclassLog extends LogActiveRecord
+class SpecificationLog extends LogActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return SafetyclassLog the static model class
+     * @return SpecificationLog the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -30,7 +30,7 @@ class SafetyclassLog extends LogActiveRecord
      */
     public function tableName()
     {
-        return '{{safetyclass_log}}';
+        return '{{specification_log}}';
     }
 
     /**
@@ -41,13 +41,13 @@ class SafetyclassLog extends LogActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('log_datetime, log_user_id, id, prior', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, deal_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, prior, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, deal_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -69,10 +69,10 @@ class SafetyclassLog extends LogActiveRecord
         $criteria->addCondition('id=:id');
         $criteria->params[':id'] = $id;
 
-        return new CActiveDataProvider('SafetyclassLog', array(
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->safetyclass_pagesize,
+                'pageSize' => $userProfile->specification_pagesize,
             ),
         ));
     }

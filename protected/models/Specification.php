@@ -1,28 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "{{safetyclass}}".
+ * This is the model class for table "{{specification}}".
  *
- * The followings are the available columns in table '{{safetyclass}}':
+ * The followings are the available columns in table '{{specification}}':
  * @property integer $id
  * @property integer $create_time
- * @property integer $update_time
  * @property integer $create_user_id
+ * @property integer $update_time
  * @property integer $update_user_id
- * @property integer $prior
+ * @property integer $deal_id
  * @property string $value
  * @property string $description
  *
  * The followings are the available model relations:
- * @property Users $update_user
- * @property Users $create_user
+ * @property Deal $deal
+ * @property Users $createUser
+ * @property Users $updateUser
  */
-class Safetyclass extends MyActiveRecord
+class Specification extends MyActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return Safetyclass the static model class
+     * @return Specification the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -34,7 +35,7 @@ class Safetyclass extends MyActiveRecord
      */
     public function tableName()
     {
-        return '{{safetyclass}}';
+        return '{{specification}}';
     }
 
     /**
@@ -45,13 +46,12 @@ class Safetyclass extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, prior', 'numerical', 'integerOnly' => true),
+            array('deal_id, value', 'required'),
+            array('create_time, create_user_id, update_time, update_user_id, deal_id', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
-            array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, prior, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, deal_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,7 +60,10 @@ class Safetyclass extends MyActiveRecord
      */
     public function relations()
     {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
         return array(
+            'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
@@ -68,7 +71,7 @@ class Safetyclass extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'prior', 'value', 'description');
+        return array('id', 'deal_id', 'value', 'description');
     }
 
     /**
@@ -77,23 +80,28 @@ class Safetyclass extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('prior', $this->prior);
+        $criteria->compare('deal_id', $this->deal_id);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 
-        return $this->getByCriteria($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
     }
 
-    public function getAll($userProfile)
+    public function getAll($userProfile, $select = '', $param = 0)
     {
         $criteria = new CDbCriteria;
-        return $this->getByCriteria($criteria, $userProfile->safetyclass_pagesize);
+        switch ($select) {
+            case 'deal_id':
+                $criteria->condition = 'deal_id=:did';
+                $criteria->params[':did'] = $param;
+                break;
+        }
+        return $this->getByCriteria($criteria, $userProfile->specification_pagesize);
     }
 
 }
