@@ -4,7 +4,7 @@
 
 $this->renderPartial('_actions');
 
-$this->renderPartial('../detail_view');
+echo $this->renderPartial('../detail_view');
 
 if(empty($this->_model->comments)) {
     echo "<h4>Пока нет комментариев к задаче.</h4>\n\n";
@@ -34,6 +34,8 @@ if($this->_model->owner_id == Yii::app()->user->id OR $this->_model->user_id == 
     echo $form->hiddenField($comment, 'user_id');
     echo $form->textAreaRow($comment, 'comment', array('rows' => 4, 'class' => 'input-block-level'));
 
-    $this->submit_comment();
+    echo $this->submit_button();
+
     $this->endWidget();
 }
+

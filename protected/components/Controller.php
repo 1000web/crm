@@ -407,7 +407,7 @@ class Controller extends RController
         return $img;
     }
 
-    public function submit_button()
+    public function submit_3buttons()
     {
         echo "\n\n<div class='row buttons text-center'>\n";
         $this->widget('bootstrap.widgets.TbButton', array(
@@ -435,16 +435,17 @@ class Controller extends RController
         echo "</div>\n\n";
     }
 
-    public function submit_comment()
+    public function submit_button()
     {
-        echo "\n\n<div class='row buttons text-center'>\n";
-        $this->widget('bootstrap.widgets.TbButton', array(
+        $ret = "\n\n<div class='row buttons text-center'>\n";
+        $ret .= $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Отправить',
             'type' => 'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'buttonType' => 'submit',
             'htmlOptions' => array('class' => 'span3'),
-        ));
-        echo "</div>\n\n";
+        ), true);
+        $ret .= "</div>\n\n";
+        return $ret;
     }
 
     public function HttpException($code)

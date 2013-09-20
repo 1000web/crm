@@ -30,6 +30,6 @@ echo $form->textFieldRow($this->_model, 'value', array('size' => 60, 'maxlength'
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 6, 'cols' => 50));
 
-$this->submit_button();
+$this->submit_3buttons();
 
 $this->endWidget();
