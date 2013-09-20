@@ -7,6 +7,7 @@
 
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'verticalForm',
+    //'method' => 'get',
     'htmlOptions' => array(
         //'class'=>'form-inline',
         'class' => 'well'

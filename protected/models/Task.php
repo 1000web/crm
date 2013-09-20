@@ -27,6 +27,18 @@
  */
 class Task extends MyActiveRecord
 {
+    public function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            if($this->time AND $this->time) {
+                list($hr, $min, $sec) = explode(':', $this->time);
+                list($day, $month, $year) = explode('-', $this->date);
+                $this->datetime = CTimestamp::getTimestamp(intval($hr), intval($min), intval($sec), intval($month), intval($day), intval($year));
+            }
+            return true;
+        } else return false;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -55,11 +67,12 @@ class Task extends MyActiveRecord
         return array(
             array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id, owner_id', 'numerical', 'integerOnly' => true),
+            array('date, time', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, owner_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, date, time, user_id, owner_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -85,7 +98,7 @@ class Task extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'date', 'time', 'owner_id', 'user_id', 'value', 'description');
+        return array('id', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
     }
 
     public function attributeLabels()

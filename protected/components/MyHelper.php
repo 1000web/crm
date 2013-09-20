@@ -62,35 +62,46 @@ class MyHelper
     }
 
     public static function datetime_format($timestamp){
+        if(! $timestamp) return NULL;
 
         $cur_time = time();
         $date = '';
-        if(($cur_time - $timestamp) < 60) $time = ' менее минуты назад';
-        else {
-            if(($cur_time - $timestamp) < (60 * 60)) {
-                $n = floor(($cur_time - $timestamp)/60);
-                $v = 'минут';
-                if($n < 5 OR $n > 20) {
-                    $i = $n%10;
-                    /*if($i == 0) $v = 'минут';
-                    else /**/ if($i == 1) $v = 'минуту';
-                    else if($i >= 2 AND $i <= 4) $v = 'минуты';
-                    //else if($i >= 5 AND $i <= 9) $v = 'минут';
-                }
-                $time = $n . ' ' . $v . ' назад';
-            }
+        // будущее время
+        if($cur_time < $timestamp) {
+            $date = date('d-m-Y', $timestamp);
+            if(($timestamp%60) != 0) $time = 'в ' . date('H:i:s', $timestamp);
+            else $time = 'в ' . date('H:i', $timestamp);
+        } else {
+            // прошлое
+            if(($cur_time - $timestamp) < 60) $time = ' менее минуты назад';
             else {
-                $time = 'в ' . date('H:i', $timestamp);
-                if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time)) $date = 'сегодня';
+                if(($cur_time - $timestamp) < (60 * 60)) {
+                    $n = floor(($cur_time - $timestamp)/60);
+                    $v = 'минут';
+                    if($n < 5 OR $n > 20) {
+                        $i = $n%10;
+                        /*if($i == 0) $v = 'минут';
+                        else /**/ if($i == 1) $v = 'минуту';
+                        else if($i >= 2 AND $i <= 4) $v = 'минуты';
+                        //else if($i >= 5 AND $i <= 9) $v = 'минут';
+                    }
+                    $time = $n . ' ' . $v . ' назад';
+                }
                 else {
-                    if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time - (24 * 60 * 60))) $date = 'вчера';
+                    $time = 'в ' . date('H:i', $timestamp);
+                    if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time)) $date = 'сегодня';
                     else {
-                        if(date('Y', $timestamp) == date('Y', $cur_time)) $date = date('d-m', $timestamp);
-                        else $date = date('d-m-Y', $timestamp);
+                        if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time - (24 * 60 * 60))) $date = 'вчера';
+                        else {
+                            if(date('Y', $timestamp) == date('Y', $cur_time)) $date = date('d-m', $timestamp);
+                            else $date = date('d-m-Y', $timestamp);
+                        }
                     }
                 }
             }
         }
+
+
         return $date . ' ' . $time;
     }
 
@@ -305,8 +316,8 @@ class MyHelper
                 $value = '$data->specification->value';
                 break;
             case 'datetime':
-                //$value = 'date("'.$datetime_format.'",$data->datetime)';
-                $value = '$data->datetime';
+                $value = 'MyHelper::datetime_format($data->datetime)';
+                //$value = '$data->datetime';
                 break;
             case 'create_time':
                 $value = 'date("'.$datetime_format.'",$data->create_time)';
