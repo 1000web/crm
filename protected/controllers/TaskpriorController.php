@@ -90,7 +90,7 @@ class TaskpriorController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => TaskPriorLog::model()->getAll($userProfile, $id),
+            'dataProvider' => TaskPriorLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

@@ -90,7 +90,7 @@ class PaymentController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => PaymentLog::model()->getAll($userProfile, $id),
+            'dataProvider' => PaymentLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

@@ -90,7 +90,7 @@ class OrganizationgroupController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationGroupLog::model()->getAll($userProfile, $id),
+            'dataProvider' => OrganizationGroupLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

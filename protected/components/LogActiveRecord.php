@@ -16,4 +16,20 @@ class LogActiveRecord extends CActiveRecord
         ));
         $this->save();
     }
+
+    public function getLog($id, $pagesize = 20)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'log_datetime DESC';
+        $criteria->addCondition('id=:id');
+        $criteria->params[':id'] = $id;
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $pagesize,
+            ),
+        ));
+    }
+
 }

@@ -91,7 +91,7 @@ class OrganizationcontactController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationContactLog::model()->getAll($userProfile, $id),
+            'dataProvider' => OrganizationContactLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

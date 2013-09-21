@@ -90,7 +90,7 @@ class PaymenttypeController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => PaymentTypeLog::model()->getAll($userProfile, $id),
+            'dataProvider' => PaymentTypeLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

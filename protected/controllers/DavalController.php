@@ -90,7 +90,7 @@ class DavalController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => DavalLog::model()->getAll($userProfile, $id),
+            'dataProvider' => DavalLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

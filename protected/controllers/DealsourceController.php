@@ -90,7 +90,7 @@ class DealsourceController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => DealSourceLog::model()->getAll($userProfile, $id),
+            'dataProvider' => DealSourceLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

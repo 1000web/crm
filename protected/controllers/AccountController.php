@@ -90,7 +90,7 @@ class AccountController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => AccountLog::model()->getAll($userProfile, $id),
+            'dataProvider' => AccountLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

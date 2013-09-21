@@ -80,21 +80,4 @@ class DealLog extends LogActiveRecord
             'deal_stage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
         );
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider('DealLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->deal_pagesize,
-            ),
-        ));
-    }
-
 }

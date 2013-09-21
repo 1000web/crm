@@ -90,7 +90,7 @@ class TasktypeController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => TaskTypeLog::model()->getAll($userProfile, $id),
+            'dataProvider' => TaskTypeLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

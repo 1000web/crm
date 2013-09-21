@@ -96,7 +96,7 @@ class ProductController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => ProductLog::model()->getAll($userProfile, $id),
+            'dataProvider' => ProductLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

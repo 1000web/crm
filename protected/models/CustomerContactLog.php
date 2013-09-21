@@ -65,21 +65,4 @@ class CustomerContactLog extends LogActiveRecord
             'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
         );
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider('CustomerContactLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->customercontact_pagesize,
-            ),
-        ));
-    }
-
 }

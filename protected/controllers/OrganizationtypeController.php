@@ -90,7 +90,7 @@ class OrganizationtypeController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationTypeLog::model()->getAll($userProfile, $id),
+            'dataProvider' => OrganizationTypeLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

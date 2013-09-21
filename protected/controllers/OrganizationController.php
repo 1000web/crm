@@ -114,7 +114,7 @@ class OrganizationController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => OrganizationLog::model()->getAll($userProfile, $id),
+            'dataProvider' => OrganizationLog::model()->getLog($id, $this->_pagesize),
         ));
 
     }

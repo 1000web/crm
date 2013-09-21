@@ -42,8 +42,6 @@ class ProductLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, specification_id, safetyclass_id, prior, num, edizm_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
@@ -67,21 +65,4 @@ class ProductLog extends LogActiveRecord
             'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
         );
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->product_pagesize,
-            ),
-        ));
-    }
-
 }

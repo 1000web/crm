@@ -143,7 +143,7 @@ class TaskController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => TaskLog::model()->getAll($userProfile, $id),
+            'dataProvider' => TaskLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

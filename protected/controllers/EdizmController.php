@@ -90,7 +90,7 @@ class EdizmController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => EdizmLog::model()->getAll($userProfile, $id),
+            'dataProvider' => EdizmLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

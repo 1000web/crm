@@ -108,7 +108,7 @@ class SpecificationController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => SpecificationLog::model()->getAll($userProfile, $id),
+            'dataProvider' => SpecificationLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

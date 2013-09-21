@@ -45,8 +45,6 @@ class TaskLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, owner_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
@@ -63,8 +61,6 @@ class TaskLog extends LogActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
@@ -74,21 +70,4 @@ class TaskLog extends LogActiveRecord
             'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),
         );
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider('TaskLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->task_pagesize,
-            ),
-        ));
-    }
-
 }

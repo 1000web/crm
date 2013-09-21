@@ -61,21 +61,4 @@ class ContactTypeLog extends LogActiveRecord
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
         );
     }
-
-    public function getAll($userProfile, $id)
-    {
-        $criteria = new CDbCriteria();
-
-        $criteria->order = 'log_datetime DESC';
-        $criteria->addCondition('id=:id');
-        $criteria->params[':id'] = $id;
-
-        return new CActiveDataProvider('ContactTypeLog', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $userProfile->contact_type_pagesize,
-            ),
-        ));
-
-    }
 }

@@ -122,7 +122,7 @@ class DealController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => DealLog::model()->getAll($userProfile, $id),
+            'dataProvider' => DealLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

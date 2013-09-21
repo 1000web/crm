@@ -90,7 +90,7 @@ class SafetyclassController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => SafetyclassLog::model()->getAll($userProfile, $id),
+            'dataProvider' => SafetyclassLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

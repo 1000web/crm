@@ -90,7 +90,7 @@ class ContacttypeController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => ContactTypeLog::model()->getAll($userProfile, $id),
+            'dataProvider' => ContactTypeLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

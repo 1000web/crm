@@ -40,8 +40,6 @@ class PaymentLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, payment_type_id, deal_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
@@ -63,6 +61,8 @@ class PaymentLog extends LogActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
+            'payment_type' => array(self::BELONGS_TO, 'PaymentType', 'payment_type_id'),
         );
     }
 

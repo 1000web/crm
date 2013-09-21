@@ -90,7 +90,7 @@ class TaskstageController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => TaskStageLog::model()->getAll($userProfile, $id),
+            'dataProvider' => TaskStageLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

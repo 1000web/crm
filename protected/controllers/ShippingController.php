@@ -90,7 +90,7 @@ class ShippingController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => ShippingLog::model()->getAll($userProfile, $id),
+            'dataProvider' => ShippingLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 

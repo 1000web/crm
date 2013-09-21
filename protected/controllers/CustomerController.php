@@ -113,7 +113,7 @@ class CustomerController extends Controller
         $this->loadModel($id);
         $this->buildPageOptions();
         $this->render('log', array(
-            'dataProvider' => CustomerLog::model()->getAll($userProfile, $id),
+            'dataProvider' => CustomerLog::model()->getLog($id, $this->_pagesize),
         ));
     }
 
