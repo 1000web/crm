@@ -58,6 +58,7 @@ class ProductLog extends LogActiveRecord
     {
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
         );
     }
 

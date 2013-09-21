@@ -104,7 +104,7 @@ class Customer extends MyActiveRecord
         return array('id', 'value', 'position', 'organization_id', 'description', 'user_id');
     }
 
-    public function getAll($userProfile, $select = '')
+    public function getAll($userProfile, $select = '', $param = NULL)
     {
         $criteria = new CDbCriteria;
         switch ($select) {
@@ -112,6 +112,10 @@ class Customer extends MyActiveRecord
                 $criteria->join = 'LEFT JOIN {{customer_fav}} j ON j.id=t.id';
                 $criteria->condition = 'j.user_id=:userid';
                 $criteria->params = array(':userid' => Yii::app()->user->id);
+                break;
+            case 'organization_id':
+                $criteria->condition = 'organization_id=:oid';
+                $criteria->params[':oid'] = $param;
                 break;
         }
         return $this->getByCriteria($criteria, $userProfile->customer_pagesize);

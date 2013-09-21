@@ -30,7 +30,7 @@ class Task extends MyActiveRecord
     public function beforeSave()
     {
         if (parent::beforeSave()) {
-            if($this->time AND $this->time) {
+            if($this->date AND $this->time) {
                 list($hr, $min, $sec) = explode(':', $this->time);
                 list($day, $month, $year) = explode('-', $this->date);
                 $this->datetime = CTimestamp::getTimestamp(intval($hr), intval($min), intval($sec), intval($month), intval($day), intval($year));
