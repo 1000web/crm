@@ -103,21 +103,6 @@ class ContacttypeController extends Controller
     }
 
     /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $this->_model = new ContactType('search');
-        $this->_model->unsetAttributes(); // clear any default values
-        if (isset($_GET['ContactType']))
-            $this->_model->attributes = $_GET['ContactType'];
-
-
-        $this->buildPageOptions();
-        $this->render('../admin');
-    }
-
-    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
