@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{contact_type_log}}".
+ * This is the model class for table "{{edizm_log}}".
  *
- * The followings are the available columns in table '{{contact_type_log}}':
+ * The followings are the available columns in table '{{edizm_log}}':
  * @property integer $log_id
  * @property string $log_action
  * @property integer $log_datetime
@@ -12,12 +12,12 @@
  * @property string $value
  * @property string $description
  */
-class ContactTypeLog extends LogActiveRecord
+class EdizmLog extends LogActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ContactTypeLog the static model class
+     * @return EdizmLog the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -29,7 +29,7 @@ class ContactTypeLog extends LogActiveRecord
      */
     public function tableName()
     {
-        return '{{contact_type_log}}';
+        return '{{edizm_log}}';
     }
 
     /**
@@ -70,10 +70,10 @@ class ContactTypeLog extends LogActiveRecord
         $criteria->addCondition('id=:id');
         $criteria->params[':id'] = $id;
 
-        return new CActiveDataProvider('ContactTypeLog', array(
+        return new CActiveDataProvider('EdizmLog', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => $userProfile->contact_type_pagesize,
+                'pageSize' => $userProfile->edizm_pagesize,
             ),
         ));
 
