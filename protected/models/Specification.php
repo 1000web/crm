@@ -60,8 +60,6 @@ class Specification extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),

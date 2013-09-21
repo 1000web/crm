@@ -243,6 +243,9 @@ class MyHelper
             case 'organization':
                 $array['value'] = 'Название организации';
                 break;
+            case 'specification':
+                $array['value'] = 'Номер спецификации';
+                break;
             case 'task':
                 $array['value'] = 'Суть задачи';
                 $array['user_id'] = 'Исполнитель';

@@ -16,6 +16,7 @@ $content[] = array(
 );
 //----------------------------------------------------------------------------------------------------------------------
 $controller = 'payment';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     $payment_content = '';
     $payment_content .= '<h2>Платежи по договору ';
@@ -49,6 +50,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
 }
 //----------------------------------------------------------------------------------------------------------------------
 $controller = 'specification';
+$this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
     $specification_content = '';
     $specification_content .= '<h2>Спецификации ';

@@ -7,7 +7,6 @@ $this->show_pagesize = false;
 
 $content = array();
 
-
 $content[] = array(
     'label' => 'Подробно',
     'content' => $this->renderPartial('../detail_view', NULL, TRUE),
@@ -15,6 +14,7 @@ $content[] = array(
 );
 //----------------------------------------------------------------------------------------------------------------------
 $controller = 'product';
+$this->columnLabels($controller);
 $product_content = '';
 if (MyHelper::checkAccess($controller, 'view')) {
     /**/
@@ -35,10 +35,10 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'label' => 'Продукция',
         'content' => $product_content,
     );
-
 }
 //----------------------------------------------------------------------------------------------------------------------
 $controller = 'daval';
+$this->columnLabels($controller);
 $daval_content = '';
 if (MyHelper::checkAccess($controller, 'view')) {
     /**/
@@ -63,6 +63,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
 }
 //----------------------------------------------------------------------------------------------------------------------
 $controller = 'shipping';
+$this->columnLabels($controller);
 $shipping_content = '';
 if (MyHelper::checkAccess($controller, 'view')) {
     /**/
