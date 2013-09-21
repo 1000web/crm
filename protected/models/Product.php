@@ -10,11 +10,16 @@
  * @property integer $update_time
  * @property integer $update_user_id
  * @property integer $specification_id
+ * @property integer $safetyclass_id
+ * @property integer $num
+ * @property integer $edizm_id
  * @property string $value
  * @property string $description
  *
  * The followings are the available model relations:
  * @property Specification $specification
+ * @property Safetyclass $safetyclass
+ * @property Edizm $edizm
  * @property Users $createUser
  * @property Users $updateUser
  */
@@ -46,12 +51,12 @@ class Product extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('specification_id, value', 'required'),
-            array('create_time, create_user_id, update_time, update_user_id, specification_id', 'numerical', 'integerOnly' => true),
+            array('specification_id, edizm_id, value', 'required'),
+            array('create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, num', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, num, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -64,6 +69,8 @@ class Product extends MyActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
+            'safetyclass' => array(self::BELONGS_TO, 'Safetyclass', 'safetyclass_id'),
+            'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
@@ -71,7 +78,7 @@ class Product extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'specification_id', 'value', 'description');
+        return array('id', 'specification_id', 'safetyclass_id', 'num', 'edizm_id', 'value', 'description');
     }
 
     /**
@@ -84,6 +91,9 @@ class Product extends MyActiveRecord
 
         $criteria->compare('id', $this->id);
         $criteria->compare('specification_id', $this->specification_id);
+        $criteria->compare('safetyclass_id', $this->safetyclass_id);
+        $criteria->compare('num', $this->num);
+        $criteria->compare('edizm_id', $this->edizm_id);
         $criteria->compare('value', $this->value, true);
         $criteria->compare('description', $this->description, true);
 
@@ -99,6 +109,14 @@ class Product extends MyActiveRecord
             case 'specification_id':
                 $criteria->condition = 'specification_id=:sid';
                 $criteria->params[':sid'] = $param;
+                break;
+            case 'safetyclass_id':
+                $criteria->condition = 'safetyclass_id=:scid';
+                $criteria->params[':scid'] = $param;
+                break;
+            case 'edizm_id':
+                $criteria->condition = 'edizm_id=:ecid';
+                $criteria->params[':eid'] = $param;
                 break;
         }
         return $this->getByCriteria($criteria, $userProfile->product_pagesize);

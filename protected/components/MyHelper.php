@@ -213,6 +213,7 @@ class MyHelper
             'action' => 'Действие',
             'url' => 'Url',
             'guest_only' => 'Только гость',
+            'safetyclass_id' => 'Класс безопасности',
 
         );
         switch ($param) {
@@ -324,7 +325,7 @@ class MyHelper
                 $value = '$data->payment_type->value';
                 break;
             case 'edizm_id':
-                $value = '$data->edizm->value';
+                $value = '$data->edizm_id?$data->edizm->value:""';
                 break;
             case 'specification_id':
                 //$value = '$data->specification->value';
@@ -336,13 +337,16 @@ class MyHelper
                 //$value = '$data->datetime';
                 break;
             case 'create_time':
-                $value = 'date("'.$datetime_format.'",$data->create_time)';
+                //$value = 'date("'.$datetime_format.'",$data->create_time)';
+                $value = 'MyHelper::datetime_format($data->create_time)';
                 break;
             case 'update_time':
-                $value = 'date("'.$datetime_format.'",$data->update_time)';
+                //$value = 'date("'.$datetime_format.'",$data->update_time)';
+                $value = 'MyHelper::datetime_format($data->update_time)';
                 break;
             case 'log_datetime':
-                $value = 'date("'.$datetime_format.'",$data->log_datetime)';
+                //$value = 'date("'.$datetime_format.'",$data->log_datetime)';
+                $value = 'MyHelper::datetime_format($data->log_datetime)';
                 break;
             case 'task_type_id':
                 $value = '$data->task_type->value';
@@ -352,6 +356,9 @@ class MyHelper
                 break;
             case 'task_prior_id':
                 $value = '$data->task_prior->value';
+                break;
+            case 'safetyclass_id':
+                $value = '$data->safetyclass_id?$data->safetyclass->value:""';
                 break;
             case 'state':
                 $value = '$data->getStateName($data->state)';

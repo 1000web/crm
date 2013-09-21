@@ -58,6 +58,7 @@ class SpecificationLog extends LogActiveRecord
     {
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
+            'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
         );
     }
 
