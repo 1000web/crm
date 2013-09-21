@@ -140,6 +140,8 @@ class MyHelper
             'time' => 'Время',
 
             'specification_id' => 'Спецификация',
+            'num' => 'Кол-во',
+            'edizm_id' => 'Ед.изм.',
             'deal_id' => 'Сделка',
             'deal_source_id' => 'Источник',
             'deal_stage_id' => 'Стадия',
@@ -224,6 +226,9 @@ class MyHelper
             case 'customer':
                 $array['value'] = 'Фамилия Имя Отчество';
                 break;
+            case 'daval':
+                $array['value'] = 'Наименование';
+                break;
             case 'deal':
                 $array['value'] = 'Предмет договора';
                 $array['customer_id'] = 'Исполнитель от клиента';
@@ -287,6 +292,9 @@ class MyHelper
             case 'amount':
                 $value = 'MyHelper::number_format($data->amount)';
                 break;
+            case 'num':
+                $value = 'MyHelper::number_format($data->num)';
+                break;
             case 'contact_type_id':
                 $value = '$data->contact_type->value';
                 break;
@@ -312,8 +320,13 @@ class MyHelper
             case 'payment_type_id':
                 $value = '$data->payment_type->value';
                 break;
+            case 'edizm_id':
+                $value = '$data->edizm->value';
+                break;
             case 'specification_id':
-                $value = '$data->specification->value';
+                //$value = '$data->specification->value';
+                if (!self::checkAccess('specification', 'view')) $value = '$data->specification->value';
+                else $value = 'CHtml::link(CHtml::encode($data->specification->value),array("/specification/view","id"=>$data->specification_id))';
                 break;
             case 'datetime':
                 $value = 'MyHelper::datetime_format($data->datetime)';

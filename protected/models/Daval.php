@@ -46,12 +46,12 @@ class Daval extends MyActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('specification_id, value', 'required'),
-            array('create_time, create_user_id, update_time, update_user_id, specification_id', 'numerical', 'integerOnly' => true),
+            array('specification_id, edizm_id, num, value', 'required'),
+            array('create_time, create_user_id, update_time, update_user_id, specification_id, edizm_id, num', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, edizm_id, num, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -64,6 +64,7 @@ class Daval extends MyActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
+            'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
@@ -71,7 +72,7 @@ class Daval extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'specification_id', 'value', 'description');
+        return array('id', 'specification_id', 'value', 'num', 'edizm_id', 'description');
     }
 
     /**
