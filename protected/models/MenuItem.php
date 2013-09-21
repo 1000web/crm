@@ -52,10 +52,10 @@ class MenuItem extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('menu_id, item_id, prior, visible', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible, guest_only', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, parent_id, menu_id, item_id, prior, visible, guest_only', 'safe', 'on' => 'search'),
         );
     }
 
