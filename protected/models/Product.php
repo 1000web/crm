@@ -11,6 +11,7 @@
  * @property integer $update_user_id
  * @property integer $specification_id
  * @property integer $safetyclass_id
+ * @property integer $prior
  * @property integer $num
  * @property integer $edizm_id
  * @property string $value
@@ -52,11 +53,11 @@ class Product extends MyActiveRecord
         // will receive user inputs.
         return array(
             array('specification_id, edizm_id, value', 'required'),
-            array('create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, num', 'numerical', 'integerOnly' => true),
+            array('create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, prior, num', 'numerical', 'integerOnly' => true),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, num, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, prior, num, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -78,7 +79,7 @@ class Product extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'specification_id', 'safetyclass_id', 'num', 'edizm_id', 'value', 'description');
+        return array('id', 'specification_id', 'safetyclass_id', 'prior', 'num', 'edizm_id', 'value', 'description');
     }
 
     /**
