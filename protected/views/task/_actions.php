@@ -1,6 +1,32 @@
 <div class="span11">
     <?php
-    echo '<strong>ЗАДАЧА ' . $this->_model->task_stage->value . '</strong> ';
+
+    switch ($this->_model->task_stage_id) {
+        case TaskStage::$STAGE_NEW:
+            $label_type = 'muted';
+            break;
+        case TaskStage::$STAGE_ACTIVE:
+            $label_type = 'text-info';
+            break;
+        case TaskStage::$STAGE_FROZEN:
+            $label_type = 'text-warning';
+            break;
+        case TaskStage::$STAGE_FAILED:
+            $label_type = 'text-error';
+            break;
+        case TaskStage::$STAGE_CANCELLED:
+            $label_type = 'muted';
+            break;
+        case TaskStage::$STAGE_DONE:
+            $label_type = 'text-success';
+            break;
+        case TaskStage::$STAGE_CONFIRMED:
+            $label_type = 'text-success';
+            break;
+        default:
+            $label_type = '';
+    }
+    echo '<h3 class="' . $label_type . '">ЗАДАЧА ' . $this->_model->task_stage->value . ' ';
 
     $task_active = $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Принять в работу',
@@ -22,7 +48,6 @@
             'type' => 'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
             'url' => array('view', 'id' => $this->_model->id, 'stage' => TaskStage::$STAGE_DONE),
         ), true) . ' ';
-
     $task_cancel = $this->widget('bootstrap.widgets.TbButton', array(
             'label' => 'Отменить',
             'type' => 'inverse', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
@@ -43,6 +68,9 @@
         // я - владелец и исполнитель задачи
         if ($this->_model->user_id == Yii::app()->user->id) {
             switch ($this->_model->task_stage_id) {
+                case TaskStage::$STAGE_NEW: // новая
+                    echo $task_active;
+                    break;
                 case TaskStage::$STAGE_ACTIVE: // в работе
                     echo $task_cancel;
                     echo $task_failed;
@@ -55,16 +83,16 @@
         } else {
             // я - владелец, но не исполнитель
             switch ($this->_model->task_stage_id) {
-                case TaskStage::$STAGE_NEW:     // задача не начата
-                case TaskStage::$STAGE_FROZEN:  // отложена
-                case TaskStage::$STAGE_ACTIVE:  // в работе
+                case TaskStage::$STAGE_NEW: // задача не начата
+                case TaskStage::$STAGE_FROZEN: // отложена
+                case TaskStage::$STAGE_ACTIVE: // в работе
                     echo $task_cancel;
                     break;
-                case TaskStage::$STAGE_DONE:    // завершена
+                case TaskStage::$STAGE_DONE: // завершена
                     echo $task_confirm;
                     echo $task_refuse;
                     break;
-                case TaskStage::$STAGE_FAILED:  // провалена
+                case TaskStage::$STAGE_FAILED: // провалена
                     echo $task_cancel;
                     echo $task_active;
                     break;
@@ -93,5 +121,6 @@
         }
     }
     ?>
+</h3>
 </div>
 <br/><br/>
