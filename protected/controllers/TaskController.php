@@ -47,15 +47,27 @@ class TaskController extends Controller
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate()
+    public function actionCreate($copy = NULL)
     {
-        $this->_model = new Task;
+        if($copy === NULL) {
+            $this->_model = new Task;
+            $this->_model->setAttributes(array(
+                'date' => date('d-m-Y', time()),
+                'time' => date('H:i:s', time()),
+                'user_id' => Yii::app()->user->id,
+            ));
+        } else {
+            $this->loadModel($copy);
+            $this->_model->unsetAttributes(array('id'));
+            $this->_model->setIsNewRecord(true);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Task'])) {
             $this->_model->attributes = $_POST['Task'];
+
             // если задача назначена самому себе, то статус ставится В работе
             if($this->_model->getAttribute('user_id') == Yii::app()->user->id) $stage = TaskStage::$STAGE_ACTIVE;
             // иначе задача новая, Не принята
@@ -73,7 +85,6 @@ class TaskController extends Controller
                 else $this->redirect(array('view', 'id' => $this->_model->id));
             }
         }
-        $this->_model->setAttribute('user_id', Yii::app()->user->id);
         $this->buildPageOptions();
         $this->render('_form');
     }
