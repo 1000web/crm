@@ -77,6 +77,11 @@ class TasktypeController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->tasktype_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new TaskType('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['TaskType'])) $this->_filter->attributes = $_GET['TaskType'];
+
         $this->render('index', array(
             'dataProvider' => TaskType::model()->getAll($userProfile),
         ));

@@ -77,6 +77,11 @@ class EdizmController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->edizm_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Edizm('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Edizm'])) $this->_filter->attributes = $_GET['Edizm'];
+
         $this->render('index', array(
             'dataProvider' => Edizm::model()->getAll($userProfile),
         ));

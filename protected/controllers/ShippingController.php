@@ -77,6 +77,11 @@ class ShippingController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->shipping_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Shipping('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Shipping'])) $this->_filter->attributes = $_GET['Shipping'];
+
         $this->render('index', array(
             'dataProvider' => Shipping::model()->getAll($userProfile),
         ));

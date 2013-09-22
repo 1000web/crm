@@ -44,8 +44,6 @@ class Kb extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('state, question, answer, value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, state', 'numerical', 'integerOnly' => true),
@@ -62,8 +60,6 @@ class Kb extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
@@ -81,9 +77,6 @@ class Kb extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);

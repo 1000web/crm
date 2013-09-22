@@ -77,6 +77,11 @@ class SafetyclassController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->safetyclass_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Safetyclass('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Safetyclass'])) $this->_filter->attributes = $_GET['Safetyclass'];
+
         $this->render('index', array(
             'dataProvider' => Safetyclass::model()->getAll($userProfile),
         ));

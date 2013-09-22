@@ -79,11 +79,12 @@ class Specification extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('deal');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('deal_id', $this->deal_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('deal.value', $this->deal_id, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

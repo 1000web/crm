@@ -44,8 +44,6 @@ class Users extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('create_at', 'required'),
             array('superuser, status', 'numerical', 'integerOnly' => true),
@@ -63,8 +61,6 @@ class Users extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'profiles' => array(self::HAS_ONE, 'Profiles', 'user_id'),
             'customers' => array(self::HAS_MANY, 'Customer', 'user_id'),
@@ -85,9 +81,6 @@ class Users extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);

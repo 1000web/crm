@@ -88,17 +88,19 @@ class Task extends MyActiveRecord
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-            'comments' => array(self::HAS_MANY, 'TaskComment', 'task_id'),
+
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
             'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
             'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),
+
+            'comments' => array(self::HAS_MANY, 'TaskComment', 'task_id'),
             //'fav_users' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
         );
     }
 
     public function getAvailableAttributes()
     {
-        return array('id', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
+        return array('id', 'create_time', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
     }
 
     public function attributeLabels()
@@ -112,20 +114,18 @@ class Task extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
+        $criteria->with = array('task_type', 'task_stage', 'task_prior', 'owner', 'user');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('task_type_id', $this->task_type_id);
-        $criteria->compare('task_stage_id', $this->task_stage_id);
-        $criteria->compare('task_prior_id', $this->task_prior_id);
-        $criteria->compare('datetime', $this->datetime);
-        $criteria->compare('owner_id', $this->owner_id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('task_type.value', $this->task_type_id, true);
+        $criteria->compare('task_stage.value', $this->task_stage_id, true);
+        $criteria->compare('task_prior.value', $this->task_prior_id, true);
+        $criteria->compare('t.datetime', $this->datetime);
+        $criteria->compare('owner.username', $this->owner_id, true);
+        $criteria->compare('user.username', $this->user_id, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }

@@ -83,6 +83,22 @@ class OrganizationcontactController extends Controller
         ));
     }
 
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organizationcontact_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new OrganizationContact('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['OrganizationContact'])) $this->_filter->attributes = $_GET['OrganizationContact'];
+
+        $this->render('index', array(
+            'dataProvider' => OrganizationContact::model()->getAll($userProfile),
+        ));
+    }
+
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();

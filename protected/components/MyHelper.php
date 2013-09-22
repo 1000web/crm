@@ -12,6 +12,7 @@ class MyHelper
             'delete' => 'icon-trash',
             'log' => 'icon-share-alt',
             'column' => 'icon-list',
+            'search' => 'icon-search',
             'favorite_add' => 'icon-star-empty',
             'favorite_del' => 'icon-star',
             'favorite' => 'icon-star',
@@ -147,7 +148,7 @@ class MyHelper
             'deal_stage_id' => 'Стадия',
             'deal_status' => 'Активность',
             'deal_probability' => 'Вероятность',
-            'datetime' => 'Дата/время',
+            'datetime' => 'Срок',
             'log_datetime' => 'Дата/время',
 
             'deleted' => 'Удалено',

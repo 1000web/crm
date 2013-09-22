@@ -77,6 +77,11 @@ class DealsourceController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->dealsource_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new DealSource('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['DealSource'])) $this->_filter->attributes = $_GET['DealSource'];
+
         $this->render('index', array(
             'dataProvider' => DealSource::model()->getAll($userProfile),
         ));

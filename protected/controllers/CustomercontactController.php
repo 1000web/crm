@@ -82,6 +82,22 @@ class CustomercontactController extends Controller
         ));
     }
 
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->customercontact_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new CustomerContact('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['CustomerContact'])) $this->_filter->attributes = $_GET['CustomerContact'];
+
+        $this->render('index', array(
+            'dataProvider' => CustomerContact::model()->getAll($userProfile),
+        ));
+    }
+
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();

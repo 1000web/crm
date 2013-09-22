@@ -77,6 +77,11 @@ class OrganizationRegionController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organizationregion_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new OrganizationRegion('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['OrganizationRegion'])) $this->_filter->attributes = $_GET['OrganizationRegion'];
+
         $this->render('index', array(
             'dataProvider' => OrganizationRegion::model()->getAll($userProfile),
         ));

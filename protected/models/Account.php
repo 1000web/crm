@@ -67,12 +67,11 @@ class Account extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
-            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+
+            'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
         );
     }
 
@@ -87,21 +86,19 @@ class Account extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
+        $criteria->with = array('organization');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('organization_id', $this->organization_id);
-        $criteria->compare('bank', $this->bank, true);
-        $criteria->compare('bik', $this->bik, true);
-        $criteria->compare('inn', $this->inn, true);
-        $criteria->compare('kpp', $this->kpp, true);
-        $criteria->compare('korr', $this->korr, true);
-        $criteria->compare('schet', $this->schet, true);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('organization.value', $this->organization_id, true);
+        $criteria->compare('t.bank', $this->bank, true);
+        $criteria->compare('t.bik', $this->bik, true);
+        $criteria->compare('t.inn', $this->inn, true);
+        $criteria->compare('t.kpp', $this->kpp, true);
+        $criteria->compare('t.korr', $this->korr, true);
+        $criteria->compare('t.schet', $this->schet, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }

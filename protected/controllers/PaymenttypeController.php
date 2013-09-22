@@ -77,6 +77,11 @@ class PaymenttypeController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->payment_type_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new PaymentType('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['PaymentType'])) $this->_filter->attributes = $_GET['PaymentType'];
+
         $this->render('index', array(
             'dataProvider' => PaymentType::model()->getAll($userProfile),
         ));

@@ -95,6 +95,11 @@ class SpecificationController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->specification_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Specification('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Specification'])) $this->_filter->attributes = $_GET['Specification'];
+
         $this->render('index', array(
             'dataProvider' => Specification::model()->getAll($userProfile),
         ));

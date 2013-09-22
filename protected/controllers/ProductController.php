@@ -83,6 +83,23 @@ class ProductController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->product_pagesize;
         $this->buildPageOptions();
+
+        $this->render('index', array(
+            'dataProvider' => Product::model()->getAll($userProfile),
+        ));
+    }
+
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->product_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new Product('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Product'])) $this->_filter->attributes = $_GET['Product'];
+
         $this->render('index', array(
             'dataProvider' => Product::model()->getAll($userProfile),
         ));

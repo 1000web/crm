@@ -77,6 +77,11 @@ class DavalController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->daval_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Daval('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Daval'])) $this->_filter->attributes = $_GET['Daval'];
+
         $this->render('index', array(
             'dataProvider' => Daval::model()->getAll($userProfile),
         ));

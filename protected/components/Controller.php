@@ -6,20 +6,19 @@
 class Controller extends RController
 {
     public $layout = '//layouts/column1';
-    public $menu = array();
+
+    public $attributes = array();
     public $breadcrumbs = array();
+    public $buttons = array();
+    public $columns = array();
+    public $labels = array();
+    public $menu = array();
 
     public $header_image = '';
     public $h1 = 'Header H1';
     public $description = '';
 
     public $favorite_available = false;
-
-    public $attributes = array();
-    public $buttons = array();
-    public $columns = array();
-
-    public $labels = array();
 
     protected $_model = NULL;
     protected $_filter = NULL;
@@ -265,6 +264,10 @@ class Controller extends RController
                 'label' => Yii::t('lang', 'Столбцы'),
                 'icon' => MyHelper::action_icon('column'),
                 'url' => array('column')),
+            'search' => array(
+                'label' => Yii::t('lang', 'Поиск'),
+                'icon' => MyHelper::action_icon('search'),
+                'url' => array('search')),
             'favorite' => array(
                 'label' => 'Избранное',
                 'icon' => MyHelper::action_icon('favorite'),
@@ -297,6 +300,15 @@ class Controller extends RController
                 break;
             case 'index':
                 if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
+                if (MyHelper::checkAccess($this->id, 'search')) $this->menu[] = $items['search'];
+                if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] = $items['column'];
+                if ($this->favorite_available) {
+                    if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] = $items['favorite'];
+                }
+                break;
+            case 'search':
+                if (MyHelper::checkAccess($this->id, 'create')) $this->menu[] = $items['create'];
+                if (MyHelper::checkAccess($this->id, 'index')) $this->menu[] = $items['index'];
                 if (MyHelper::checkAccess($this->id, 'column')) $this->menu[] = $items['column'];
                 if ($this->favorite_available) {
                     if (MyHelper::checkAccess($this->id, 'favorite')) $this->menu[] = $items['favorite'];

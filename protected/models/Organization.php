@@ -102,14 +102,15 @@ class Organization extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('organization_type', 'organization_group', 'organization_region');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('organization_type_id', $this->organization_type_id);
-        $criteria->compare('organization_group_id', $this->organization_group_id);
-        $criteria->compare('organization_region_id', $this->organization_region_id);
-        $criteria->compare('organization_name', $this->organization_name, true);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('organization_type.value', $this->organization_type_id, true);
+        $criteria->compare('organization_group.value', $this->organization_group_id, true);
+        $criteria->compare('organization_region.value', $this->organization_region_id, true);
+        $criteria->compare('t.organization_name', $this->organization_name, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }

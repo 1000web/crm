@@ -77,6 +77,11 @@ class KbController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->kb_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Kb('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Kb'])) $this->_filter->attributes = $_GET['Kb'];
+
         $this->render('index', array(
             'dataProvider' => Kb::model()->getAll($userProfile),
         ));

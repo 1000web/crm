@@ -85,12 +85,13 @@ class OrganizationContact extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('organization', 'contact_type');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('organization_id', $this->organization_id);
-        $criteria->compare('contact_type_id', $this->contact_type_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('organization.value', $this->organization_id, true);
+        $criteria->compare('contact_type.value', $this->contact_type_id, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }

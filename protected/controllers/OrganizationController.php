@@ -108,7 +108,22 @@ class OrganizationController extends Controller
         $this->render('index', array(
             'dataProvider' => Organization::model()->getAll($userProfile),
         ));
+    }
 
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->organization_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new Organization('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Organization'])) $this->_filter->attributes = $_GET['Organization'];
+
+        $this->render('index', array(
+            'dataProvider' => Organization::model()->getAll($userProfile),
+        ));
     }
 
     public function actionLog($id)
@@ -141,7 +156,7 @@ class OrganizationController extends Controller
      */
     public function loadModel($id = NULL)
     {
-        if(isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
+        if (isset($_GET['id']) AND $id === NULL) $id = $_GET['id'];
         if ($this->_model === NULL) {
             $this->_model = Organization::model()->findbyPk($id);
             if ($this->_model === NULL) $this->HttpException(404);
@@ -183,9 +198,11 @@ class OrganizationController extends Controller
             if (isset($add)) {
                 if (!$this->checkFavorite($add)) {
                     $model = new OrganizationFav;
-                    $model->setAttribute('id', $add);
-                    //$model->setAttribute('datetime', time());
-                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->setAttributes(array(
+                        'id' => $add,
+                        'datetime' => time(),
+                        'user_id' => Yii::app()->user->id,
+                    ));
                     $model->save();
                 }
             }

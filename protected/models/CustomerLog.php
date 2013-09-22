@@ -40,8 +40,6 @@ class CustomerLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, organization_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
@@ -58,8 +56,6 @@ class CustomerLog extends LogActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),

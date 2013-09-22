@@ -77,6 +77,11 @@ class TaskstageController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->taskstage_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new TaskStage('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['TaskStage'])) $this->_filter->attributes = $_GET['TaskStage'];
+
         $this->render('index', array(
             'dataProvider' => TaskStage::model()->getAll($userProfile),
         ));

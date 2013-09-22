@@ -77,6 +77,11 @@ class TaskpriorController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->taskprior_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new TaskPrior('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['TaskPrior'])) $this->_filter->attributes = $_GET['TaskPrior'];
+
         $this->render('index', array(
             'dataProvider' => TaskPrior::model()->getAll($userProfile),
         ));

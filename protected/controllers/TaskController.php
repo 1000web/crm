@@ -141,6 +141,23 @@ class TaskController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->task_pagesize;
         $this->buildPageOptions();
+
+        $this->render('index', array(
+            'dataProvider' => Task::model()->getAll($userProfile),
+        ));
+    }
+
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->task_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new Task('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Task'])) $this->_filter->attributes = $_GET['Task'];
+
         $this->render('index', array(
             'dataProvider' => Task::model()->getAll($userProfile),
         ));
@@ -218,9 +235,11 @@ class TaskController extends Controller
             if (isset($add)) {
                 if (!$this->checkFavorite($add)) {
                     $model = new TaskFav();
-                    $model->setAttribute('id', $add);
-                    $model->setAttribute('datetime', time());
-                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->setAttributes(array(
+                        'id' => $add,
+                        'datetime' => time(),
+                        'user_id' => Yii::app()->user->id,
+                    ));
                     $model->save();
                 }
             }

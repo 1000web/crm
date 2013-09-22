@@ -77,6 +77,11 @@ class ContacttypeController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->contact_type_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new ContactType('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['ContactType'])) $this->_filter->attributes = $_GET['ContactType'];
+
         $this->render('index', array(
             'dataProvider' => ContactType::model()->getAll($userProfile),
         ));

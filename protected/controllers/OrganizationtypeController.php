@@ -77,6 +77,11 @@ class OrganizationtypeController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->organizationtype_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new OrganizationType('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['OrganizationType'])) $this->_filter->attributes = $_GET['OrganizationType'];
+
         $this->render('index', array(
             'dataProvider' => OrganizationType::model()->getAll($userProfile),
         ));

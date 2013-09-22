@@ -84,16 +84,14 @@ class CustomerContact extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
+        $criteria->with = array('customer', 'contact_type');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('contact_type_id', $this->contact_type_id);
-        $criteria->compare('customer_id', $this->customer_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('contact_type.value', $this->contact_type_id, true);
+        $criteria->compare('customer.value', $this->customer_id, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }

@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'organizationcontact';
-$this->renderPartial('../' . $controller . '/_filter_buttons');
+if($this->getAction()->getId() != 'search') $this->renderPartial('../' . $controller . '/_filter_buttons');
 $this->addButtons($controller, array('view', 'update', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, OrganizationContact::model()->getAvailableAttributes()));
 

@@ -78,6 +78,11 @@ class DealstageController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->dealstage_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new DealStage('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['DealStage'])) $this->_filter->attributes = $_GET['DealStage'];
+
         $this->render('index', array(
             'dataProvider' => DealStage::model()->getAll($userProfile),
         ));

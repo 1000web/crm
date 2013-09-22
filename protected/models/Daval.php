@@ -43,8 +43,6 @@ class Daval extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('specification_id, edizm_id, num, value', 'required'),
             array('create_time, create_user_id, update_time, update_user_id, specification_id, edizm_id, num', 'numerical', 'integerOnly' => true),
@@ -60,13 +58,12 @@ class Daval extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
-            'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
-            'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+
+            'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
+            'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
         );
     }
 
@@ -82,11 +79,14 @@ class Daval extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('specification', 'edizm');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('specification_id', $this->specification_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('specification.value', $this->specification_id, true);
+        $criteria->compare('edizm.value', $this->edizm_id, true);
+        $criteria->compare('t.num', $this->num, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

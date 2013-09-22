@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'task';
-$this->renderPartial('../'.$controller.'/_filter_buttons');
+if($this->getAction()->getId() != 'search') $this->renderPartial('../'.$controller.'/_filter_buttons');
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, Task::model()->getAvailableAttributes()));
 

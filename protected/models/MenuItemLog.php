@@ -42,8 +42,6 @@ class MenuItemLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, parent_id, menu_id, item_id, prior, visible', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
@@ -60,8 +58,6 @@ class MenuItemLog extends LogActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
         );

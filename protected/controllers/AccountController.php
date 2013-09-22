@@ -77,6 +77,11 @@ class AccountController extends Controller
         $this->show_pagesize = true;
         $this->_pagesize = $userProfile->account_pagesize;
         $this->buildPageOptions();
+
+        $this->_filter = new Account('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Account'])) $this->_filter->attributes = $_GET['Account'];
+
         $this->render('index', array(
             'dataProvider' => Account::model()->getAll($userProfile),
         ));

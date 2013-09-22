@@ -49,8 +49,6 @@ class Product extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('specification_id, edizm_id, value', 'required'),
             array('create_time, create_user_id, update_time, update_user_id, specification_id, safetyclass_id, edizm_id, prior, num', 'numerical', 'integerOnly' => true),
@@ -66,14 +64,13 @@ class Product extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
+            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
+            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+
             'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
             'safetyclass' => array(self::BELONGS_TO, 'Safetyclass', 'safetyclass_id'),
             'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
-            'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
-            'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
     }
 
@@ -89,14 +86,15 @@ class Product extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('specification', 'safetyclass', 'edizm');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('specification_id', $this->specification_id);
-        $criteria->compare('safetyclass_id', $this->safetyclass_id);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('specification.value', $this->specification_id, true);
+        $criteria->compare('safetyclass.value', $this->safetyclass_id, true);
         $criteria->compare('num', $this->num);
-        $criteria->compare('edizm_id', $this->edizm_id);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('edizm.value', $this->edizm_id, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

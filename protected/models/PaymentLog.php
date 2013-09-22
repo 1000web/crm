@@ -57,8 +57,6 @@ class PaymentLog extends LogActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),

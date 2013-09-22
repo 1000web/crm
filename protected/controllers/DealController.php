@@ -207,9 +207,11 @@ class DealController extends Controller
             if (isset($add)) {
                 if (!$this->checkFavorite($add)) {
                     $model = new DealFav();
-                    $model->setAttribute('id', $add);
-                    $model->setAttribute('datetime', time());
-                    $model->setAttribute('user_id', Yii::app()->user->id);
+                    $model->setAttributes(array(
+                        'id' => $add,
+                        'datetime' => time(),
+                        'user_id' => Yii::app()->user->id,
+                    ));
                     $model->save();
                 }
             }

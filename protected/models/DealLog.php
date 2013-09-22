@@ -52,8 +52,6 @@ class DealLog extends LogActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('log_datetime, log_user_id, id, owner_id, customer_zakaz_id, organization_id, organization_gruz_id, organization_pay_id, organization_end_id,
             customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
@@ -73,8 +71,6 @@ class DealLog extends LogActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'log_user' => array(self::BELONGS_TO, 'Users', 'log_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
