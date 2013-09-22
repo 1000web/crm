@@ -377,6 +377,62 @@ class Controller extends RController
         $this->buildBreadcrumbs($item->parent_id);
     }
 
+    public function save_current_page() {
+        if (Yii::app()->user->id) {
+            $rights = '';
+            $rights_flag = false;
+            if(MyHelper::checkAccess($this->id, 'view')) {
+                if($rights_flag) $rights .= ', ';
+                $rights .= 'Чтение';
+                $rights_flag = true;
+            }
+            if(MyHelper::checkAccess($this->id, 'update')) {
+                if($rights_flag) $rights .= ', ';
+                $rights .= 'Редактирование';
+                $rights_flag = true;
+            }
+            if(MyHelper::checkAccess($this->id, 'delete')) {
+                if($rights_flag) $rights .= ', ';
+                $rights .= 'Удаление';
+                $rights_flag = true;
+            }
+            $this->setparam('current_page_url', Yii::app()->getRequest()->getRequestUri());
+            $this->setparam('current_page_datetime', time());
+            $this->setparam('current_page_rights', $rights);
+        }
+    }
+
+    public function check_current_page() {
+        $text = '';
+        $n = 0;
+        $criteria = new CDbCriteria;
+        // за последние сутки
+        $criteria->addCondition('profiles.current_page_datetime > :time');
+        $criteria->params[':time'] = time() - 86400;
+        // кроме самого этого юзера
+        $criteria->addCondition('id != :id');
+        $criteria->params[':id'] = Yii::app()->user->id;
+        // с такой же текущей страницей
+        $criteria->addCondition('profiles.current_page_url = :url');
+        $criteria->params[':url'] = Yii::app()->getRequest()->getRequestUri();
+
+        $criteria->with = array('profiles');
+        $criteria->order = 'profiles.last_name, profiles.first_name';
+        $users = Users::model()->findAll($criteria);
+        foreach($users as $user) {
+                if($user->profiles->current_page_datetime) $text .= MyHelper::datetime_format($user->profiles->current_page_datetime) . ' ';
+                $text .= $user->profiles->last_name . ' ' . $user->profiles->first_name . ' (' . $user->username . ') ';
+                if(!empty($user->profiles->current_page_rights)) $text .= 'с правами ' . $user->profiles->current_page_rights . "<br />\n";
+                $n++;
+        }
+        if($n != 0) {
+            if($n == 1) $header = "Эту страницу также просматривает";
+            else $header = "Эту страницу также просматривают";
+            $header = "<strong>" . $header . "</strong>:<br />\n";
+            Yii::app()->user->setFlash('warning', $header . $text);
+        }
+    }
+
     public function buildPageOptions()
     {
         $module = $this->getModule();
@@ -386,6 +442,10 @@ class Controller extends RController
             'controller' => $this->id,
             'action' => $this->getAction()->id,
         ));
+
+        $this->save_current_page();
+        $this->check_current_page();
+
         $this->buildBreadcrumbs($item->id);
 
         $this->header_image = $this->insertImage('150x150');

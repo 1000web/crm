@@ -76,6 +76,8 @@
     </div>
     <!-- page_header -->
 
+    <?php $this->widget('bootstrap.widgets.TbAlert',array('block' => true,'fade' => true)); ?>
+
     <?php echo $content; ?>
 
     <div class="clear"></div>
