@@ -32,7 +32,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         //'dataProvider' => $this->_model->contacts,
     ), true);
     $content[] = array(
-        'label' => 'Продукция',
+        'label' => 'Продукция ('.count($product->getData()).')',
         'content' => $product_content,
     );
 }
@@ -56,7 +56,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         //'dataProvider' => $this->_model->contacts,
     ), true);
     $content[] = array(
-        'label' => 'Давальческие',
+        'label' => 'Давальческие ('.count($daval->getData()).')',
         'content' => $daval_content,
     );
 
@@ -81,7 +81,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         //'dataProvider' => $this->_model->contacts,
     ), true);
     $content[] = array(
-        'label' => 'Отгрузки',
+        'label' => 'Отгрузки ('.count($shipping->getData()).')',
         'content' => $shipping_content,
     );
 

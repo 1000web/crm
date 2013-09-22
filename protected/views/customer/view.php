@@ -32,7 +32,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         //'dataProvider' => $this->_model->contacts,
     ), true);
     $content[] = array(
-        'label' => 'Контакты',
+        'label' => 'Контакты ('.count($contact->getData()).')',
         'content' => $contact_content,
     );
 
@@ -55,7 +55,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal,
     ), true);
     $content[] = array(
-        'label' => 'Сделки',
+        'label' => 'Сделки ('.count($deal->getData()).')',
         'content' => $deal_content,
     );
 

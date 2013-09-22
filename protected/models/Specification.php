@@ -59,9 +59,9 @@ class Specification extends MyActiveRecord
     public function relations()
     {
         return array(
-            'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
         );
     }
 

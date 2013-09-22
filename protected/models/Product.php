@@ -71,6 +71,11 @@ class Product extends MyActiveRecord
             'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
             'safetyclass' => array(self::BELONGS_TO, 'Safetyclass', 'safetyclass_id'),
             'edizm' => array(self::BELONGS_TO, 'Edizm', 'edizm_id'),
+            /*
+            'count' => array(self::STAT, 'Product', 'specification_id',
+                // 'condition' => 'stato='.Brano::STATUS_CLOSED
+            ),/**/
+
         );
     }
 

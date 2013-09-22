@@ -17,6 +17,20 @@ class OrganizationController extends Controller
         $userProfile->organizationcontact_pagesize = 100;
         $userProfile->customer_pagesize = 100;
 
+        // если это не 1-я организация, показываем кнопки Купить у них и Продать им.
+        if($this->_model->id != 1) $this->description =
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'url' => array('/deal/create', 'zakaz_oid' => 1, 'post_oid' => $this->_model->id),
+                'label' => 'Купить у них',
+                'type' => 'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            ), true)
+            . ' ' .
+            $this->widget('bootstrap.widgets.TbButton', array(
+                'url' => array('/deal/create', 'zakaz_oid' => $this->_model->id, 'post_oid' => 1),
+                'label' => 'Продать им',
+                'type' => 'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            ), true);
+
         $this->render('view', array(
             'account' => Account::model()->getAll($userProfile, 'organization_id', $id),
             'contact' => OrganizationContact::model()->getAll($userProfile, 'organization_id', $id),

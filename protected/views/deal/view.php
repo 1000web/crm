@@ -44,7 +44,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $payment,
     ), true);
     $content[] = array(
-        'label' => 'Платежи',
+        'label' => 'Платежи ('.count($payment->getData()).')',
         'content' => $payment_content,
     );
 }
@@ -67,7 +67,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $specification,
     ), true);
     $content[] = array(
-        'label' => 'Спецификации',
+        'label' => 'Спецификации ('.count($specification->getData()).')',
         'content' => $specification_content,
     );
 }

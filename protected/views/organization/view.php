@@ -33,7 +33,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $contact,
     ), true);
     $content[] = array(
-        'label' => 'Контакты',
+        'label' => 'Контакты ('.count($contact->getData()).')',
         'content' => $contact_content,
     );
 }
@@ -53,7 +53,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $account,
     ), true);
     $content[] = array(
-        'label' => 'Счета',
+        'label' => 'Счета ('.count($account->getData()).')',
         'content' => $account_content,
     );
 }
@@ -73,24 +73,11 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $customer,
     ), true);
     $content[] = array(
-        'label' => 'Сотрудники',
+        'label' => 'Сотрудники ('.count($customer->getData()).')',
         'content' => $customer_content,
     );
 }
 //----------------------------------------------------------------------------------------------------------------------
-$this->description =
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'url' => array('/deal/create', 'zakaz_oid' => 1, 'post_oid' => $this->_model->id),
-        'label' => 'Купить у них',
-        'type' => 'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    ), true)
-    . ' ' .
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'url' => array('/deal/create', 'zakaz_oid' => $this->_model->id, 'post_oid' => 1),
-        'label' => 'Продать им',
-        'type' => 'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    ), true);
-
 $controller = 'deal';
 $this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
@@ -99,7 +86,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal_zakaz,
     ), true);
     $content[] = array(
-        'label' => 'Заказчик',
+        'label' => 'Заказчик ('.count($deal_zakaz->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -112,7 +99,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal_gruz,
     ), true);
     $content[] = array(
-        'label' => 'Грузополучатель',
+        'label' => 'Грузополучатель ('.count($deal_gruz->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -125,7 +112,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal_pay,
     ), true);
     $content[] = array(
-        'label' => 'Плательщик',
+        'label' => 'Плательщик ('.count($deal_pay->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -138,7 +125,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal_end,
     ), true);
     $content[] = array(
-        'label' => 'Потребитель',
+        'label' => 'Потребитель ('.count($deal_end->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -159,7 +146,7 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'dataProvider' => $deal_post,
     ), true);
     $content[] = array(
-        'label' => 'Поставщик',
+        'label' => 'Поставщик ('.count($deal_post->getData()).')',
         'content' => $deal_content,
     );
 }
