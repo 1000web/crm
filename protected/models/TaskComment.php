@@ -66,6 +66,11 @@ class TaskComment extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('taskcomment');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'task_id', 'user_id', 'comment');

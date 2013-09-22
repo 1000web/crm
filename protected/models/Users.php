@@ -68,6 +68,11 @@ class Users extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('users');
+    }
+
     /*
         public function defaultScope(){
             return array(

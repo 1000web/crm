@@ -42,8 +42,6 @@ class Safetyclass extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, prior', 'numerical', 'integerOnly' => true),
@@ -66,6 +64,11 @@ class Safetyclass extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('safetyclass');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'prior', 'value', 'description');
@@ -77,9 +80,6 @@ class Safetyclass extends MyActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);

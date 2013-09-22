@@ -75,6 +75,12 @@ class Account extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('account');
+    }
+
+
     public function getAvailableAttributes()
     {
         return array('id', 'organization_id', 'value', 'bank', 'bik', 'inn', 'kpp', 'korr', 'schet', 'description');

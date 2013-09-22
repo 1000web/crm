@@ -76,6 +76,11 @@ class Customer extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('customer');
+    }
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

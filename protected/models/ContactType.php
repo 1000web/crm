@@ -71,6 +71,11 @@ class ContactType extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('contacttype');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'value', 'description');

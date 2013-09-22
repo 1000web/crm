@@ -67,6 +67,11 @@ class Daval extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('daval');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'specification_id', 'value', 'num', 'edizm_id', 'description');

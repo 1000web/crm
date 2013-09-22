@@ -66,6 +66,11 @@ class Kb extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('kb');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'state', 'question', 'answer', 'value', 'description');

@@ -43,8 +43,6 @@ class Edizm extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
@@ -61,14 +59,17 @@ class Edizm extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             //'customer_contacts' => array(self::HAS_MANY, 'CustomerContact', 'edizm_id'),
             //'organization_contacts' => array(self::HAS_MANY, 'OrganizationContact', 'edizm_id'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('edizm');
     }
 
     public function getAvailableAttributes()

@@ -52,8 +52,6 @@ class Item extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('value', 'required'),
             array('parent_id, create_time, update_time, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
@@ -71,8 +69,6 @@ class Item extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
@@ -81,6 +77,11 @@ class Item extends MyActiveRecord
             'menuItems' => array(self::HAS_MANY, 'MenuItem', 'item_id'),
             'menus' => array(self::HAS_MANY, 'Menu', 'menu_id', 'through' => 'menuItems'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('item');
     }
 
     public function getAvailableAttributes()

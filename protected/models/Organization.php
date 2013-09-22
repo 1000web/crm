@@ -53,8 +53,6 @@ class Organization extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('organization_type_id, organization_group_id, organization_region_id, value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, organization_type_id, organization_group_id, organization_region_id', 'numerical', 'integerOnly' => true),
@@ -71,8 +69,6 @@ class Organization extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
@@ -87,6 +83,11 @@ class Organization extends MyActiveRecord
             //'tblUsers' => array(self::MANY_MANY, 'Users', '{{organization_fav}}(organization_id, user_id)'),
             //'fav_users' => array(self::HAS_MANY, 'OrganizationFav', 'id'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('organization');
     }
 
     public function defaultScope()
@@ -113,11 +114,6 @@ class Organization extends MyActiveRecord
         $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
-    }
-
-    public function attributeLabels()
-    {
-        return MyHelper::labels('organization');
     }
 
     public function getAvailableAttributes()

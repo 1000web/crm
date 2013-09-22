@@ -65,6 +65,11 @@ class DealStage extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('dealstage');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'prior', 'state', 'value', 'description');

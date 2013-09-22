@@ -42,8 +42,6 @@ class DealSource extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, prior', 'numerical', 'integerOnly' => true),
@@ -64,6 +62,11 @@ class DealSource extends MyActiveRecord
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('dealsource');
     }
 
     public function getAvailableAttributes()

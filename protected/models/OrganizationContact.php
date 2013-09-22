@@ -45,8 +45,6 @@ class OrganizationContact extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('organization_id, contact_type_id, value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, organization_id, contact_type_id', 'numerical', 'integerOnly' => true),
@@ -63,14 +61,17 @@ class OrganizationContact extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'contact_type' => array(self::BELONGS_TO, 'ContactType', 'contact_type_id'),
             'organization' => array(self::BELONGS_TO, 'Organization', 'organization_id'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return MyHelper::labels('organizationcontact');
     }
 
     public function getAvailableAttributes()

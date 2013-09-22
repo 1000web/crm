@@ -74,6 +74,11 @@ class Product extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('product');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'specification_id', 'safetyclass_id', 'prior', 'num', 'edizm_id', 'value', 'description');

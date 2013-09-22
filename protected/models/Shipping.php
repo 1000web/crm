@@ -65,6 +65,11 @@ class Shipping extends MyActiveRecord
         );
     }
 
+    public function attributeLabels()
+    {
+        return MyHelper::labels('shipping');
+    }
+
     public function getAvailableAttributes()
     {
         return array('id', 'specification_id', 'value', 'description');

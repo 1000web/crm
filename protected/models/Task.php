@@ -62,8 +62,6 @@ class Task extends MyActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('value', 'required'),
             array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id, owner_id', 'numerical', 'integerOnly' => true),
@@ -81,8 +79,6 @@ class Task extends MyActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
@@ -98,14 +94,14 @@ class Task extends MyActiveRecord
         );
     }
 
-    public function getAvailableAttributes()
-    {
-        return array('id', 'create_time', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
-    }
-
     public function attributeLabels()
     {
         return MyHelper::labels('task');
+    }
+
+    public function getAvailableAttributes()
+    {
+        return array('id', 'create_time', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
     }
 
     /**
