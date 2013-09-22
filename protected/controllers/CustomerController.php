@@ -16,7 +16,11 @@ class CustomerController extends Controller
         $userProfile = $this->getUserProfile();
         $this->render('view', array(
             'contact' => CustomerContact::model()->getAll($userProfile, 'customer_id', $id),
-            'deal' => Deal::model()->getAll($userProfile, 'customer_id', $id),
+            'deal_zakaz' => Deal::model()->getAll($userProfile, 'customer_zakaz_id', $id),
+            'deal_gruz' => Deal::model()->getAll($userProfile, 'customer_gruz_id', $id),
+            'deal_pay' => Deal::model()->getAll($userProfile, 'customer_pay_id', $id),
+            'deal_end' => Deal::model()->getAll($userProfile, 'customer_end_id', $id),
+            'deal_post' => Deal::model()->getAll($userProfile, 'customer_post_id', $id),
         ));
     }
 

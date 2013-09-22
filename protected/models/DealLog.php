@@ -14,12 +14,19 @@
  * @property string $value
  * @property string $description
  * @property integer $owner_id
+
  * @property integer $customer_zakaz_id
- * @property integer $organization_id
+ * @property integer $customer_gruz_id
+ * @property integer $customer_pay_id
+ * @property integer $customer_end_id
+ * @property integer $customer_post_id
+
+ * @property integer $organization_zakaz_id
  * @property integer $organization_gruz_id
  * @property integer $organization_pay_id
  * @property integer $organization_end_id
- * @property integer $customer_id
+ * @property integer $organization_post_id
+
  * @property integer $deal_source_id
  * @property integer $deal_stage_id
  * @property string $amount
@@ -53,16 +60,20 @@ class DealLog extends LogActiveRecord
     public function rules()
     {
         return array(
-            array('log_datetime, log_user_id, id, owner_id, customer_zakaz_id, organization_id, organization_gruz_id, organization_pay_id, organization_end_id,
-            customer_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, owner_id,
+            customer_zakaz_id, customer_gruz_id, customer_pay_id, customer_end_id, customer_post_id,
+            organization_zakaz_id, organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id,
+            deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('inner_number, external_number, value', 'length', 'max' => 255),
             array('amount', 'length', 'max' => 12),
             array('description, open_date, close_date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, value, description, owner_id, customer_zakaz_id, customer_id, deal_source_id, deal_stage_id,
-            organization_id, organization_gruz_id, organization_pay_id, organization_end_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, value, description, owner_id, deal_source_id, deal_stage_id,
+            customer_zakaz_id, customer_gruz_id, customer_pay_id, customer_end_id, customer_post_id,
+            organization_zakaz_id, organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id,
+            amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,7 +87,10 @@ class DealLog extends LogActiveRecord
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
 
             'customer_zakaz' => array(self::BELONGS_TO, 'Customer', 'customer_zakaz_id'),
-            'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
+            'customer_gruz' => array(self::BELONGS_TO, 'Customer', 'customer_gruz_id'),
+            'customer_pay' => array(self::BELONGS_TO, 'Customer', 'customer_pay_id'),
+            'customer_end' => array(self::BELONGS_TO, 'Customer', 'customer_end_id'),
+            'customer_post' => array(self::BELONGS_TO, 'Customer', 'customer_post_id'),
 
             'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
             'deal_stage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
