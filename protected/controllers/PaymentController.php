@@ -82,6 +82,22 @@ class PaymentController extends Controller
         ));
     }
 
+    public function actionSearch()
+    {
+        $userProfile = $this->getUserProfile();
+        $this->show_pagesize = true;
+        $this->_pagesize = $userProfile->payment_pagesize;
+        $this->buildPageOptions();
+
+        $this->_filter = new Payment('search');
+        $this->_filter->unsetAttributes(); // clear any default values
+        if (isset($_GET['Payment'])) $this->_filter->attributes = $_GET['Payment'];
+
+        $this->render('index', array(
+            'dataProvider' => Payment::model()->getAll($userProfile),
+        ));
+    }
+
     public function actionLog($id)
     {
         $userProfile = $this->getUserProfile();

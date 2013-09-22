@@ -86,13 +86,14 @@ class Payment extends MyActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('payment_type', 'deal');
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('payment_type_id', $this->payment_type_id);
-        $criteria->compare('deal_id', $this->deal_id);
-        $criteria->compare('amount', $this->amount, true);
-        $criteria->compare('value', $this->value, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('payment_type.value', $this->payment_type_id, true);
+        $criteria->compare('deal.value', $this->deal_id, true);
+        $criteria->compare('t.amount', $this->amount, true);
+        $criteria->compare('t.value', $this->value, true);
+        $criteria->compare('t.description', $this->description, true);
 
         return $this->getByCriteria($criteria);
     }
