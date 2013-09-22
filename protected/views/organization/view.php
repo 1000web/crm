@@ -2,9 +2,13 @@
 /* @var $this OrganizationController */
 /* @var $this ->_model Organization */
 /* @var $contact OrganizationContact */
-/* @var $customer Customer */
-/* @var $deal Deal */
 /* @var $account Account */
+/* @var $customer Customer */
+/* @var $deal_zakaz Deal */
+/* @var $deal_gruz Deal */
+/* @var $deal_pay Deal */
+/* @var $deal_end Deal */
+/* @var $deal_post Deal */
 
 $content = array();
 $detail_content = $this->renderPartial('../detail_view', NULL, true);
@@ -22,7 +26,6 @@ if (MyHelper::checkAccess($controller, 'view')) {
         $contact_content .= $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'oid' => $this->_model->id),
             'label' => 'Добавить контакт',
-            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ), true);
     }
     $contact_content .= '</h2>';
@@ -43,7 +46,6 @@ if (MyHelper::checkAccess($controller, 'view')) {
         $account_content .= $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'oid' => $this->_model->id),
             'label' => 'Добавить счет',
-            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ), true);
     }
     $account_content .=  '</h2>';
@@ -64,13 +66,11 @@ if (MyHelper::checkAccess($controller, 'view')) {
         $customer_content .= $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'oid' => $this->_model->id),
             'label' => 'Добавить клиента',
-            'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ), true);
     }
     $customer_content .= '</h2>';
     $customer_content .= $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $customer,
-        //'dataProvider' => $this->_model->customers,
     ), true);
     $content[] = array(
         'label' => 'Сотрудники',
@@ -78,23 +78,88 @@ if (MyHelper::checkAccess($controller, 'view')) {
     );
 }
 //----------------------------------------------------------------------------------------------------------------------
+$this->description =
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'url' => array('/deal/create', 'zakaz_oid' => 1, 'post_oid' => $this->_model->id),
+        'label' => 'Купить у них',
+        'type' => 'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    ), true)
+    . ' ' .
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'url' => array('/deal/create', 'zakaz_oid' => $this->_model->id, 'post_oid' => 1),
+        'label' => 'Продать им',
+        'type' => 'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    ), true);
+
 $controller = 'deal';
 $this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
-    $deal_content = '<h2>Сделки ';
+    $deal_content = '<h2>Сделки (заказчик)</h2>';
+    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $deal_zakaz,
+    ), true);
+    $content[] = array(
+        'label' => 'Заказчик',
+        'content' => $deal_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'deal';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $deal_content = '<h2>Сделки (грузополучатель)</h2>';
+    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $deal_gruz,
+    ), true);
+    $content[] = array(
+        'label' => 'Грузополучатель',
+        'content' => $deal_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'deal';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $deal_content = '<h2>Сделки (плательщик)</h2>';
+    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $deal_pay,
+    ), true);
+    $content[] = array(
+        'label' => 'Плательщик',
+        'content' => $deal_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'deal';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $deal_content = '<h2>Сделки (Конечный потребитель)</h2>';
+    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $deal_end,
+    ), true);
+    $content[] = array(
+        'label' => 'Потребитель',
+        'content' => $deal_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'deal';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $deal_content = '<h2>Сделки (поставщик) ';
     if (MyHelper::checkAccess($controller, 'create')) {
         $deal_content .= $this->widget('bootstrap.widgets.TbButton', array(
             'url' => array('/' . $controller . '/create', 'oid' => $this->_model->id),
-            'label' => 'Добавить сделку',
+            'label' => 'Добавить',
             'type' => '', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         ), true);
     }
     $deal_content .= '</h2>';
     $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
-        'dataProvider' => $deal,
+        'dataProvider' => $deal_post,
     ), true);
     $content[] = array(
-        'label' => 'Сделки',
+        'label' => 'Поставщик',
         'content' => $deal_content,
     );
 }

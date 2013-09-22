@@ -53,10 +53,6 @@ echo $form->textField($this->_model, 'inner_number', array(
 
 echo $form->dropDownListRow($this->_model, 'owner_id', Users::model()->getOptions('id', 'username'), array('class' => 'input-block-level'));
 
-// Наша организация №1 в списке
-$values = Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => 1), true);
-echo $form->dropDownListRow($this->_model, 'performer_id', $values, array('class' => 'input-block-level'));
-
 
 echo $form->sliderRow($this->_model, 'probability', array(
     'class' => 'span11',
@@ -69,19 +65,35 @@ echo $form->sliderRow($this->_model, 'probability', array(
     )
 ));
 
-// если есть параметр oid, то выбираем эту организацию
-if (isset($_GET['oid'])) $this->_model->setAttribute('organization_id', $_GET['oid']);
-echo $form->dropDownListRow($this->_model, 'organization_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+echo $form->dropDownListRow($this->_model, 'organization_zakaz_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if(! $this->_model->isNewRecord)
+    echo $form->dropDownListRow($this->_model, 'customer_zakaz_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_zakaz_id), true),
+        array('class' => 'input-block-level'));
 
-// если есть параметр oid, то показываем только сотрудников этой организации
-if (isset($_GET['oid'])) $values = Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $_GET['oid']));
-// иначе показываем всех сотрудников
-else  $values = Customer::model()->getOptions();
+echo $form->dropDownListRow($this->_model, 'organization_gruz_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if(! $this->_model->isNewRecord)
+    echo $form->dropDownListRow($this->_model, 'customer_gruz_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_gruz_id), true),
+        array('class' => 'input-block-level'));
 
-// если есть параметр cid, то выбираем соответствующего сотрудника
-if (isset($_GET['cid'])) $this->_model->setAttribute('customer_id', $_GET['cid']);
+echo $form->dropDownListRow($this->_model, 'organization_pay_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if(! $this->_model->isNewRecord)
+    echo $form->dropDownListRow($this->_model, 'customer_pay_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_pay_id), true),
+        array('class' => 'input-block-level'));
 
-echo $form->dropDownListRow($this->_model, 'customer_id', $values, array('class' => 'input-block-level'));
+echo $form->dropDownListRow($this->_model, 'organization_end_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if(! $this->_model->isNewRecord)
+    echo $form->dropDownListRow($this->_model, 'customer_end_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_end_id), true),
+        array('class' => 'input-block-level'));
+
+echo $form->dropDownListRow($this->_model, 'organization_post_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if(! $this->_model->isNewRecord)
+    echo $form->dropDownListRow($this->_model, 'customer_post_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_post_id), true),
+        array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 

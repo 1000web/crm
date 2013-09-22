@@ -19,9 +19,14 @@ class OrganizationController extends Controller
 
         $this->render('view', array(
             'account' => Account::model()->getAll($userProfile, 'organization_id', $id),
-            'deal' => Deal::model()->getAll($userProfile, 'organization_id', $id),
             'contact' => OrganizationContact::model()->getAll($userProfile, 'organization_id', $id),
             'customer' => Customer::model()->getAll($userProfile, 'organization_id', $id),
+
+            'deal_zakaz' => Deal::model()->getAll($userProfile, 'organization_zakaz_id', $id),
+            'deal_gruz' => Deal::model()->getAll($userProfile, 'organization_gruz_id', $id),
+            'deal_pay' => Deal::model()->getAll($userProfile, 'organization_pay_id', $id),
+            'deal_end' => Deal::model()->getAll($userProfile, 'organization_end_id', $id),
+            'deal_post' => Deal::model()->getAll($userProfile, 'organization_post_id', $id),
         ));
     }
 

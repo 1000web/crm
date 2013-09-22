@@ -37,9 +37,31 @@ class DealController extends Controller
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate()
+    public function actionCreate($copy = NULL)
     {
-        $this->_model = new Deal;
+        if($copy === NULL) {
+            $this->_model = new Deal;
+            // если есть параметр oid, то выбираем эту организацию
+            if (isset($_GET['zakaz_oid'])) {
+                // мы покупаем, вероятность 100%
+                if($_GET['zakaz_oid'] == 1) $this->_model->setAttributes(array(
+                    'probability' => 100,
+                ));
+                $this->_model->setAttributes(array(
+                    'organization_zakaz_id' => $_GET['zakaz_oid'],
+                    'organization_gruz_id' => $_GET['zakaz_oid'],
+                    'organization_pay_id' => $_GET['zakaz_oid'],
+                    'organization_end_id' => $_GET['zakaz_oid'],
+                ));
+            }
+            if (isset($_GET['post_oid'])) $this->_model->setAttributes(array(
+                'organization_post_id' => $_GET['post_oid'],
+            ));
+        } else {
+            $this->loadModel($copy);
+            $this->_model->unsetAttributes(array('id'));
+            $this->_model->setIsNewRecord(true);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);

@@ -172,11 +172,22 @@ class MyHelper
             'menu' => 'Меню #',
             'menu_id' => 'Меню #',
             'open_date' => 'Дата договора',
-            'organization' => 'Организация',
-            'organization_id' => 'Организация',
 
             'owner_id' => 'Менеджер',
-            'performer_id' => 'Исполнитель',
+
+            'organization' => 'Организация',
+            'organization_id' => 'Организация',
+            'organization_zakaz_id' => 'Заказчик',
+            'organization_post_id' => 'Поставщик',
+            'organization_gruz_id' => 'Грузополучатель',
+            'organization_pay_id' => 'Плательщик',
+            'organization_end_id' => 'Конечный потребитель',
+
+            'customer_zakaz_id' => 'Исполнитель от заказчика',
+            'customer_gruz_id' => 'Исполнитель от грузополучателя',
+            'customer_pay_id' => 'Исполнитель от плательщика',
+            'customer_end_id' => 'Исполнитель от конечного потребителя',
+            'customer_post_id' => 'Исполнитель от поставщика',
 
             'type' => 'Тип',
             'group' => 'Группа',
@@ -266,6 +277,41 @@ class MyHelper
                 if (!self::checkAccess('organization', 'view')) $value = '$data->organization->value';
                 else $value = 'CHtml::link(CHtml::encode($data->organization->value),array("/organization/view","id"=>$data->organization_id))';
                 break;
+            case 'organization_zakaz_id':
+                if (!self::checkAccess('organization', 'view')) $value = '$data->organization_zakaz->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization_zakaz->value),array("/organization/view","id"=>$data->organization_zakaz_id))';
+                break;
+            case 'organization_gruz_id':
+                if (!self::checkAccess('organization', 'view')) $value = '$data->organization_gruz->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization_gruz->value),array("/organization/view","id"=>$data->organization_gruz_id))';
+                break;
+            case 'organization_pay_id':
+                if (!self::checkAccess('organization', 'view')) $value = '$data->organization_pay->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization_pay->value),array("/organization/view","id"=>$data->organization_pay_id))';
+                break;
+            case 'organization_end_id':
+                if (!self::checkAccess('organization', 'view')) $value = '$data->organization_end->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization_end->value),array("/organization/view","id"=>$data->organization_end_id))';
+                break;
+            case 'organization_post_id':
+                if (!self::checkAccess('organization', 'view')) $value = '$data->organization_post->value';
+                else $value = 'CHtml::link(CHtml::encode($data->organization_post->value),array("/organization/view","id"=>$data->organization_post_id))';
+                break;
+            case 'customer_zakaz_id':
+                $value = '$data->customer_zakaz_id?$data->customer_zakaz->value:""';
+                break;
+            case 'customer_gruz_id':
+                $value = '$data->customer_gruz_id?$data->customer_gruz->value:""';
+                break;
+            case 'customer_pay_id':
+                $value = '$data->customer_pay_id?$data->customer_pay->value:""';
+                break;
+            case 'customer_end_id':
+                $value = '$data->customer_end_id?$data->customer_end->value:""';
+                break;
+            case 'customer_post_id':
+                $value = '$data->customer_post_id?$data->customer_post->value:""';
+                break;
             case 'user_id':
                 $value = '$data->user?$data->user->username:""';
                 //$value = '($data->user_id == Yii::app()->user->id)?"Я":$data->user->username';
@@ -274,10 +320,6 @@ class MyHelper
             case 'owner_id':
                 $value = '$data->owner->username';
                 //$value = '($data->owner_id == Yii::app()->user->id)?"Я":$data->owner->username';
-                break;
-            case 'performer_id':
-                $value = '$data->performer_id?$data->performer->value:""';
-                //$value = '($data->performer_id == Yii::app()->user->id)?"Я":$data->performer->username';
                 break;
             case 'log_user_id':
                 $value = '$data->log_user->username';
