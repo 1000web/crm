@@ -116,17 +116,25 @@ class Product extends MyActiveRecord
         $criteria = new CDbCriteria;
         switch ($select) {
             case 'specification_id':
-                $criteria->condition = 'specification_id=:sid';
-                $criteria->params[':sid'] = $param;
+                $criteria->condition = 'specification_id=:param1';
+                $criteria->params[':param1'] = $param;
                 break;
             case 'safetyclass_id':
-                $criteria->condition = 'safetyclass_id=:scid';
-                $criteria->params[':scid'] = $param;
+                $criteria->condition = 'safetyclass_id=:param2';
+                $criteria->params[':param2'] = $param;
                 break;
             case 'edizm_id':
-                $criteria->condition = 'edizm_id=:ecid';
-                $criteria->params[':eid'] = $param;
+                $criteria->condition = 'edizm_id=:param3';
+                $criteria->params[':param3'] = $param;
                 break;
+        }
+        if ($userProfile->filter_safetyclass_id) {
+            $criteria->addCondition('safetyclass_id=:scid');
+            $criteria->params[':scid'] = $userProfile->filter_safetyclass_id;
+        }
+        if ($userProfile->filter_edizm_id) {
+            $criteria->addCondition('edizm_id=:eid');
+            $criteria->params[':eid'] = $userProfile->filter_edizm_id;
         }
         return $this->getByCriteria($criteria, $userProfile->product_pagesize);
     }
