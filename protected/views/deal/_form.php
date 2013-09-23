@@ -66,31 +66,31 @@ echo $form->sliderRow($this->_model, 'probability', array(
 ));
 
 echo $form->dropDownListRow($this->_model, 'organization_zakaz_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
-if(! $this->_model->isNewRecord)
+if(! $this->_model->isNewRecord OR $this->_model->organization_zakaz_id != NULL)
     echo $form->dropDownListRow($this->_model, 'customer_zakaz_id',
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_zakaz_id), true),
         array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'organization_gruz_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
-if(! $this->_model->isNewRecord)
+if(! $this->_model->isNewRecord OR $this->_model->organization_gruz_id != NULL)
     echo $form->dropDownListRow($this->_model, 'customer_gruz_id',
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_gruz_id), true),
         array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'organization_pay_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
-if(! $this->_model->isNewRecord)
+if(! $this->_model->isNewRecord OR $this->_model->organization_pay_id != NULL)
     echo $form->dropDownListRow($this->_model, 'customer_pay_id',
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_pay_id), true),
         array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'organization_end_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
-if(! $this->_model->isNewRecord)
+if(! $this->_model->isNewRecord OR $this->_model->organization_end_id != NULL)
     echo $form->dropDownListRow($this->_model, 'customer_end_id',
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_end_id), true),
         array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'organization_post_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
-if(! $this->_model->isNewRecord)
+if(! $this->_model->isNewRecord OR $this->_model->organization_post_id != NULL)
     echo $form->dropDownListRow($this->_model, 'customer_post_id',
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_post_id), true),
         array('class' => 'input-block-level'));
