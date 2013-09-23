@@ -44,7 +44,7 @@ class OrganizationLog extends LogActiveRecord
         return array(
             array('log_datetime, log_user_id, id, organization_type_id, organization_group_id, organization_region_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
-            array('value', 'length', 'max' => 255),
+            array('value, organization_name', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

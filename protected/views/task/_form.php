@@ -23,6 +23,8 @@ echo $form->datepickerRow($this->_model, 'date', array(
         'format' => 'dd-mm-yyyy',
         'viewMode' => 1,
         'autoclose' => true,
+        'language' => 'ru',
+        'weekStart' => 1,
     )
 ));
 echo $form->timepickerRow($this->_model, 'time', array(
@@ -32,6 +34,8 @@ echo $form->timepickerRow($this->_model, 'time', array(
         'showMeridian' => false,
         'minuteStep' => 1,
         'showSeconds' => true,
+        'showInputs' => true,
+        'template' => 'dropdown', //dropdown, modal
     ),
 ));
 //$this->widget('bootstrap.widgets.TbButton', array('icon'=>'icon-time', 'disabled' => true));

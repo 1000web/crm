@@ -64,7 +64,7 @@ class Task extends MyActiveRecord
     {
         return array(
             array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, user_id, owner_id', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, owner_id', 'numerical', 'integerOnly' => true),
             array('date, time', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),

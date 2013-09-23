@@ -48,6 +48,7 @@ class TaskLog extends LogActiveRecord
         return array(
             array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, owner_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
+            array('date, time', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
