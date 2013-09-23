@@ -444,7 +444,9 @@ class Controller extends RController
         ));
 
         $this->save_current_page();
-        $this->check_current_page();
+        if(Yii::app()->getRequest()->getRequestUri() != '/' AND Yii::app()->user->id) {
+            $this->check_current_page();
+        }
 
         $this->buildBreadcrumbs($item->id);
 

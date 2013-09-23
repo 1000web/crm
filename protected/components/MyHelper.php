@@ -69,7 +69,9 @@ class MyHelper
         $date = '';
         // будущее время
         if($cur_time < $timestamp) {
-            $date = date('d-m-Y', $timestamp);
+            if(date('Y', $cur_time) == date('Y', $timestamp)) $date = date('d M', $timestamp);
+            else $date = date('d-m-Y', $timestamp);
+
             if(($timestamp%60) != 0) $time = 'в ' . date('H:i:s', $timestamp);
             else $time = 'в ' . date('H:i', $timestamp);
         } else {
