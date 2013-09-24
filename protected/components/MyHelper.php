@@ -96,7 +96,7 @@ class MyHelper
                     else {
                         if(date('d-m-Y', $timestamp) == date('d-m-Y', $cur_time - (24 * 60 * 60))) $date = 'вчера';
                         else {
-                            if(date('Y', $timestamp) == date('Y', $cur_time)) $date = date('d-m', $timestamp);
+                            if(date('Y', $timestamp) == date('Y', $cur_time)) $date = date('d M', $timestamp);
                             else $date = date('d-m-Y', $timestamp);
                         }
                     }
@@ -147,6 +147,7 @@ class MyHelper
             'edizm_id' => 'Ед.изм.',
             'deal_id' => 'Сделка',
             'deal_source_id' => 'Источник',
+            'deal_type_id' => 'Тип сделки',
             'deal_stage_id' => 'Стадия',
             'deal_status' => 'Активность',
             'deal_probability' => 'Вероятность',
@@ -350,6 +351,9 @@ class MyHelper
             case 'deal_id':
                 if (!self::checkAccess('deal', 'view')) $value = '$data->deal->value';
                 else $value = 'CHtml::link(CHtml::encode($data->deal->value),array("/deal/view","id"=>$data->deal_id))';
+                break;
+            case 'deal_type_id':
+                $value = '$data->deal_type->value';
                 break;
             case 'deal_source_id':
                 $value = '$data->deal_source->value';

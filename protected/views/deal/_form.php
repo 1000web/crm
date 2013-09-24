@@ -95,6 +95,8 @@ if(! $this->_model->isNewRecord OR $this->_model->organization_post_id != NULL)
         Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_post_id), true),
         array('class' => 'input-block-level'));
 
+echo $form->dropDownListRow($this->_model, 'deal_type_id', DealType::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
+
 echo $form->dropDownListRow($this->_model, 'deal_source_id', DealSource::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));
 
 echo $form->dropDownListRow($this->_model, 'deal_stage_id', DealStage::model()->getOptions('id', 'value', 'prior'), array('class' => 'input-block-level'));

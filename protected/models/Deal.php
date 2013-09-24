@@ -14,6 +14,7 @@
  * @property string $value
  * @property string $description
  * @property integer $owner_id
+ * @property integer $deal_type_id
  * @property integer $deal_source_id
  * @property integer $deal_stage_id
  * @property string $amount
@@ -77,7 +78,7 @@ class Deal extends MyActiveRecord
             array('create_time, update_time, create_user_id, update_user_id, owner_id,
             customer_zakaz_id, customer_gruz_id, customer_pay_id, customer_end_id, customer_post_id,
             organization_zakaz_id, organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id,
-            deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
+            deal_type_id, deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
             array('inner_number, external_number, value', 'length', 'max' => 255),
             array('amount', 'length', 'max' => 12),
             array('description, open_date, close_date', 'safe'),
@@ -86,7 +87,7 @@ class Deal extends MyActiveRecord
             array('id, create_time, update_time, create_user_id, update_user_id, inner_number, external_number, value, description, owner_id,
             customer_zakaz_id, customer_gruz_id, customer_pay_id, customer_end_id, customer_post_id,
             organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id, customer_id,
-            deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
+            deal_type_id, deal_source_id, deal_stage_id, amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -99,6 +100,8 @@ class Deal extends MyActiveRecord
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
+
+            'deal_type' => array(self::BELONGS_TO, 'DealType', 'deal_type_id'),
             'deal_source' => array(self::BELONGS_TO, 'DealSource', 'deal_source_id'),
             'deal_stage' => array(self::BELONGS_TO, 'DealStage', 'deal_stage_id'),
             'payments' => array(self::HAS_MANY, 'Payment', 'deal_id'),
@@ -128,7 +131,7 @@ class Deal extends MyActiveRecord
     {
         return array(
             'id', 'inner_number', 'external_number', 'open_date', 'close_date',
-            'deal_source_id', 'deal_stage_id', 'amount', 'probability', 'owner_id',
+            'deal_type_id', 'deal_source_id', 'deal_stage_id', 'amount', 'probability', 'owner_id',
             'organization_zakaz_id', 'organization_gruz_id', 'organization_pay_id', 'organization_end_id', 'organization_post_id',
             'customer_zakaz_id', 'customer_gruz_id', 'customer_pay_id', 'customer_end_id', 'customer_post_id',
             'value', 'description',
@@ -165,6 +168,7 @@ class Deal extends MyActiveRecord
         $criteria->compare('customer_end_id', $this->customer_end_id);
         $criteria->compare('customer_post_id', $this->customer_post_id);
 
+        $criteria->compare('deal_type_id', $this->deal_type_id);
         $criteria->compare('deal_source_id', $this->deal_source_id);
         $criteria->compare('deal_stage_id', $this->deal_stage_id);
         $criteria->compare('amount', $this->amount, true);
@@ -225,6 +229,10 @@ class Deal extends MyActiveRecord
                 $criteria->condition = 'customer_post_id=:cid';
                 $criteria->params[':cid'] = $param;
                 break;
+        }
+        if ($userProfile->filter_deal_type_id) {
+            $criteria->addCondition('deal_type_id=:type');
+            $criteria->params[':type'] = $userProfile->filter_deal_type_id;
         }
         if ($userProfile->filter_deal_stage_id) {
             $criteria->addCondition('deal_stage_id=:stage');
