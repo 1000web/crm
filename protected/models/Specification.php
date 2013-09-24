@@ -10,6 +10,13 @@
  * @property integer $update_time
  * @property integer $update_user_id
  * @property integer $deal_id
+ * @property integer $spkd_id
+
+ * @property integer $zakaz_num
+ * @property string $zakaz_date
+ * @property string $out_num
+ * @property string $out_date
+
  * @property string $value
  * @property string $description
  *
@@ -44,12 +51,14 @@ class Specification extends MyActiveRecord
     public function rules()
     {
         return array(
-            array('deal_id, value', 'required'),
-            array('create_time, create_user_id, update_time, update_user_id, deal_id', 'numerical', 'integerOnly' => true),
+            array('deal_id, spkd_id, value', 'required'),
+            array('create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id, zakaz_num', 'numerical', 'integerOnly' => true),
+            array('zakaz_date, out_date', 'length', 'max' => 10),
+            array('out_num', 'length', 'max' => 16),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, deal_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id, zakaz_num, zakaz_date, out_num, out_date, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,6 +71,7 @@ class Specification extends MyActiveRecord
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
+            'spkd' => array(self::BELONGS_TO, 'Spkd', 'spkd_id'),
         );
     }
 
@@ -72,7 +82,7 @@ class Specification extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'deal_id', 'value', 'description');
+        return array('id', 'deal_id',  'spkd_id', 'zakaz_num', 'zakaz_date', 'out_num', 'out_date', 'value', 'description');
     }
 
     /**
@@ -86,6 +96,7 @@ class Specification extends MyActiveRecord
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('deal.value', $this->deal_id, true);
+        $criteria->compare('spkd.value', $this->deal_id, true);
         $criteria->compare('t.value', $this->value, true);
         $criteria->compare('t.description', $this->description, true);
 
@@ -99,8 +110,12 @@ class Specification extends MyActiveRecord
         $criteria = new CDbCriteria;
         switch ($select) {
             case 'deal_id':
-                $criteria->condition = 'deal_id=:did';
-                $criteria->params[':did'] = $param;
+                $criteria->condition = 'deal_id=:param';
+                $criteria->params[':param'] = $param;
+                break;
+            case 'spkd_id':
+                $criteria->condition = 'spkd_id=:param';
+                $criteria->params[':param'] = $param;
                 break;
         }
         return $this->getByCriteria($criteria, $userProfile->specification_pagesize);

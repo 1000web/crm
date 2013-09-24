@@ -12,6 +12,10 @@
  * @property string $inner_number
  * @property string $external_number
  * @property string $value
+ * @property string $soprdoc
+ * @property string $insurance
+ * @property string $shipping
+
  * @property string $description
  * @property integer $owner_id
 
@@ -65,15 +69,15 @@ class DealLog extends LogActiveRecord
             organization_zakaz_id, organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id,
             deal_source_id, deal_stage_id, probability', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
-            array('inner_number, external_number, value', 'length', 'max' => 255),
+            array('inner_number, external_number, value, soprdoc, insurance, shipping', 'length', 'max' => 255),
             array('amount', 'length', 'max' => 12),
             array('description, open_date, close_date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, value, description, owner_id, deal_source_id, deal_stage_id,
+            array('log_id, log_action, log_datetime, log_user_id, id, inner_number, external_number, owner_id, deal_source_id, deal_stage_id,
             customer_zakaz_id, customer_gruz_id, customer_pay_id, customer_end_id, customer_post_id,
             organization_zakaz_id, organization_gruz_id, organization_pay_id, organization_end_id, organization_post_id,
-            amount, probability, open_date, close_date', 'safe', 'on' => 'search'),
+            amount, probability, open_date, close_date, value, soprdoc, insurance, shipping, description', 'safe', 'on' => 'search'),
         );
     }
 

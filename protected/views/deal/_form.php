@@ -107,9 +107,21 @@ echo $form->textFieldRow($this->_model, 'amount', array(
     'append' => 'Руб.',
 ));
 
-echo $form->textAreaRow($this->_model, 'value', array('rows' => 4,
+echo $form->textAreaRow($this->_model, 'value', array('rows' => 2,
     'class' => 'input-block-level',
     'placeholder' => $this->_model->getLabel('value'),
+));
+echo $form->textAreaRow($this->_model, 'soprdoc', array('rows' => 2,
+    'class' => 'input-block-level',
+    'placeholder' => $this->_model->getLabel('soprdoc'),
+));
+echo $form->textAreaRow($this->_model, 'insurance', array('rows' => 2,
+    'class' => 'input-block-level',
+    'placeholder' => $this->_model->getLabel('insurance'),
+));
+echo $form->textAreaRow($this->_model, 'shipping', array('rows' => 2,
+    'class' => 'input-block-level',
+    'placeholder' => $this->_model->getLabel('shipping'),
 ));
 echo $form->textArea($this->_model, 'description', array('rows' => 4,
     'class' => 'input-block-level',

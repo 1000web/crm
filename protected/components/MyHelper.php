@@ -162,6 +162,10 @@ class MyHelper
             'first_name' => 'Имя',
             'state' => 'Статус',
 
+            'soprdoc' => 'Сопроводительная документация',
+            'insurance' => 'Договор страхования',
+            'shipping' => 'Условия поставки',
+
             'item_id' => 'Пункт',
             'item_parent_id' => 'Родитель',
             'item_module' => 'Модуль',
@@ -229,6 +233,12 @@ class MyHelper
             'url' => 'Url',
             'guest_only' => 'Только гость',
             'safetyclass_id' => 'Класс безопасности',
+
+            'spkd_id' => 'КД',
+            'zakaz_num' => 'Номер заказа',
+            'zakaz_date' => 'Дата заказа',
+            'out_num' => 'Исх.№',
+            'out_date' => 'Дата Служебки',
 
         );
         switch ($param) {
@@ -411,6 +421,9 @@ class MyHelper
                 break;
             case 'state':
                 $value = '$data->getStateName($data->state)';
+                break;
+            case 'spkd_id':
+                $value = '$data->spkd_id?$data->spkd->value:""';
                 break;
             default:
                 $value = NULL;
