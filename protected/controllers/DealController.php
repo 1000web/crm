@@ -49,9 +49,7 @@ class DealController extends Controller
                 ));
                 $this->_model->setAttributes(array(
                     'organization_zakaz_id' => $_GET['zakaz_oid'],
-                    'organization_gruz_id' => $_GET['zakaz_oid'],
                     'organization_pay_id' => $_GET['zakaz_oid'],
-                    'organization_end_id' => $_GET['zakaz_oid'],
                 ));
             }
             if (isset($_GET['post_oid'])) $this->_model->setAttributes(array(
