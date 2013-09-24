@@ -239,6 +239,8 @@ class MyHelper
             'zakaz_date' => 'Дата заказа',
             'out_num' => 'Исх.№',
             'out_date' => 'Дата Служебки',
+            'plan_date' => 'Запланированная дата',
+            'real_date' => 'Дата платежа',
 
         );
         switch ($param) {
@@ -424,6 +426,12 @@ class MyHelper
                 break;
             case 'spkd_id':
                 $value = '$data->spkd_id?$data->spkd->value:""';
+                break;
+            case 'plan_date':
+                $value = '$data->plan_date?$data->plan_date:""';
+                break;
+            case 'real_date':
+                $value = '$data->real_date?$data->real_date:""';
                 break;
             default:
                 $value = NULL;

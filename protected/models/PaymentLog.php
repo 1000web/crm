@@ -11,6 +11,10 @@
  * @property integer $id
  * @property integer $payment_type_id
  * @property integer $deal_id
+
+ * @property string $plan_date
+ * @property string $real_date
+
  * @property string $amount
  * @property string $value
  * @property string $description
@@ -44,6 +48,7 @@ class PaymentLog extends LogActiveRecord
             array('log_datetime, log_user_id, id, payment_type_id, deal_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('amount', 'length', 'max' => 15),
+            array('plan_date, real_date', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
