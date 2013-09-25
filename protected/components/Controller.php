@@ -169,7 +169,9 @@ class Controller extends RController
     public function addButton($controller, $action)
     {
         if (!$controller) $controller = $this->id;
-        if (MyHelper::checkAccess($controller, $action)) {
+        if($action == 'copy') $check = 'create';
+        else $check = $action;
+        if (MyHelper::checkAccess($controller, $check)) {
             $this->buttons[$action] = array(
                 'url' => 'Yii::app()->createUrl("' . $controller . '/' . $action . '", array("id"=>$data->id))',
             );

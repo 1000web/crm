@@ -4,7 +4,7 @@
 
 $controller = 'menuitem';
 $this->renderPartial('../' . $controller . '/_filter_buttons');
-$this->addButtons($controller, array('view', 'update', 'delete', 'log'));
+$this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 /*
 $this->addColumns(array('menu_id', 'id', 'item_id', 'parent_id', 'prior', 'visible', 'guest_only'));
 $this->addColumns(array('value', 'controller', 'action'), true);
