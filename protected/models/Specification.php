@@ -12,6 +12,11 @@
  * @property integer $deal_id
  * @property integer $spkd_id
 
+ * @property integer $customer_gruz_id
+ * @property integer $customer_end_id
+ * @property integer $organization_gruz_id
+ * @property integer $organization_end_id
+
  * @property integer $zakaz_num
  * @property string $zakaz_date
  * @property string $out_num
@@ -22,8 +27,12 @@
  *
  * The followings are the available model relations:
  * @property Deal $deal
- * @property Users $createUser
- * @property Users $updateUser
+ * @property Customer $customer_gruz
+ * @property Customer $customer_end
+ * @property Organization $organization_gruz
+ * @property Organization $organization_end
+ * @property Users $create_user
+ * @property Users $update_user
  */
 class Specification extends MyActiveRecord
 {
@@ -52,13 +61,16 @@ class Specification extends MyActiveRecord
     {
         return array(
             array('deal_id, spkd_id, value', 'required'),
-            array('create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id, zakaz_num', 'numerical', 'integerOnly' => true),
+            array('create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id, zakaz_num,
+             customer_gruz_id, customer_end_id, organization_gruz_id, organization_end_id', 'numerical', 'integerOnly' => true),
             array('zakaz_date, out_date', 'length', 'max' => 10),
             array('out_num', 'length', 'max' => 16),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id, zakaz_num, zakaz_date, out_num, out_date, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, deal_id, spkd_id,
+            customer_gruz_id, customer_end_id, organization_gruz_id, organization_end_id,
+            zakaz_num, zakaz_date, out_num, out_date, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,6 +84,10 @@ class Specification extends MyActiveRecord
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
             'deal' => array(self::BELONGS_TO, 'Deal', 'deal_id'),
             'spkd' => array(self::BELONGS_TO, 'Spkd', 'spkd_id'),
+            'customer_gruz' => array(self::BELONGS_TO, 'Customer', 'customer_gruz_id'),
+            'customer_end' => array(self::BELONGS_TO, 'Customer', 'customer_end_id'),
+            'organization_gruz' => array(self::BELONGS_TO, 'Organization', 'organization_gruz_id'),
+            'organization_end' => array(self::BELONGS_TO, 'Organization', 'organization_end_id'),
         );
     }
 
@@ -82,7 +98,10 @@ class Specification extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'deal_id',  'spkd_id', 'zakaz_num', 'zakaz_date', 'out_num', 'out_date', 'value', 'description');
+        return array('id', 'deal_id',  'spkd_id', 'zakaz_num', 'zakaz_date', 'out_num', 'out_date',
+            'organization_gruz_id', 'customer_gruz_id', 'organization_end_id', 'customer_end_id',
+            'value', 'description',
+        );
     }
 
     /**
@@ -97,6 +116,12 @@ class Specification extends MyActiveRecord
         $criteria->compare('t.id', $this->id);
         $criteria->compare('deal.value', $this->deal_id, true);
         $criteria->compare('spkd.value', $this->deal_id, true);
+
+        $criteria->compare('customer_gruz_id', $this->customer_gruz_id);
+        $criteria->compare('customer_end_id', $this->customer_end_id);
+        $criteria->compare('organization_gruz_id', $this->organization_gruz_id);
+        $criteria->compare('organization_end_id', $this->organization_end_id);
+
         $criteria->compare('t.value', $this->value, true);
         $criteria->compare('t.description', $this->description, true);
 
@@ -115,6 +140,22 @@ class Specification extends MyActiveRecord
                 break;
             case 'spkd_id':
                 $criteria->condition = 'spkd_id=:param';
+                $criteria->params[':param'] = $param;
+                break;
+            case 'customer_gruz_id':
+                $criteria->condition = 'customer_gruz_id=:param';
+                $criteria->params[':param'] = $param;
+                break;
+            case 'customer_end_id':
+                $criteria->condition = 'customer_end_id=:param';
+                $criteria->params[':param'] = $param;
+                break;
+            case 'organization_gruz_id':
+                $criteria->condition = 'organization_gruz_id=:param';
+                $criteria->params[':param'] = $param;
+                break;
+            case 'organization_end_id':
+                $criteria->condition = 'organization_end_id=:param';
                 $criteria->params[':param'] = $param;
                 break;
         }

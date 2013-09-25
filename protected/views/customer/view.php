@@ -2,6 +2,11 @@
 /* @var $this CustomerController */
 /* @var $this ->_model Customer */
 /* @var $contact CustomerContact */
+/* @var $deal_zakaz Deal */
+/* @var $deal_pay Deal */
+/* @var $deal_post Deal */
+/* @var $specification_gruz Specification */
+/* @var $specification_end Specification */
 
 $this->show_pagesize = false;
 
@@ -54,38 +59,12 @@ if (MyHelper::checkAccess($controller, 'view')) {
 $controller = 'deal';
 $deal_content = '';
 if (MyHelper::checkAccess($controller, 'view')) {
-    $deal_content .= '<h2>Сделки (Грузополучатель)</h2>';
-    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
-        'dataProvider' => $deal_gruz,
-    ), true);
-    $content[] = array(
-        'label' => 'Грузополучатель ('.count($deal_gruz->getData()).')',
-        'content' => $deal_content,
-    );
-}
-//----------------------------------------------------------------------------------------------------------------------
-$controller = 'deal';
-$deal_content = '';
-if (MyHelper::checkAccess($controller, 'view')) {
     $deal_content .= '<h2>Сделки (плательщик)</h2>';
     $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $deal_pay,
     ), true);
     $content[] = array(
         'label' => 'Плательщик ('.count($deal_pay->getData()).')',
-        'content' => $deal_content,
-    );
-}
-//----------------------------------------------------------------------------------------------------------------------
-$controller = 'deal';
-$deal_content = '';
-if (MyHelper::checkAccess($controller, 'view')) {
-    $deal_content .= '<h2>Сделки (Конечный потребитель)</h2>';
-    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
-        'dataProvider' => $deal_end,
-    ), true);
-    $content[] = array(
-        'label' => 'Потребитель ('.count($deal_end->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -102,6 +81,32 @@ if (MyHelper::checkAccess($controller, 'view')) {
         'content' => $deal_content,
     );
 
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'specification';
+$specification_content = '';
+if (MyHelper::checkAccess($controller, 'view')) {
+    $specification_content .= '<h2>Спецификации (Грузополучатель)</h2>';
+    $specification_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $specification_gruz,
+    ), true);
+    $content[] = array(
+        'label' => 'Грузополучатель ('.count($specification_gruz->getData()).')',
+        'content' => $specification_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'specification';
+$specification_content = '';
+if (MyHelper::checkAccess($controller, 'view')) {
+    $specification_content .= '<h2>Спецификации (Конечный потребитель)</h2>';
+    $specification_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $specification_end,
+    ), true);
+    $content[] = array(
+        'label' => 'Потребитель ('.count($specification_end->getData()).')',
+        'content' => $specification_content,
+    );
 }
 //----------------------------------------------------------------------------------------------------------------------
 $this->widget('bootstrap.widgets.TbTabs', array(

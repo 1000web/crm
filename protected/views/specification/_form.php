@@ -43,6 +43,19 @@ echo $form->datepickerRow($this->_model, 'out_date', array(
         'weekStart' => 1,
     )
 ));
+
+echo $form->dropDownListRow($this->_model, 'organization_gruz_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if($this->_model->organization_gruz_id != NULL)
+    echo $form->dropDownListRow($this->_model, 'customer_gruz_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_gruz_id), true),
+        array('class' => 'input-block-level'));
+
+echo $form->dropDownListRow($this->_model, 'organization_end_id', Organization::model()->getOptions(), array('class' => 'input-block-level'));
+if($this->_model->organization_end_id != NULL)
+    echo $form->dropDownListRow($this->_model, 'customer_end_id',
+        Customer::model()->getOptions('id', 'value', 'value', array('organization_id' => $this->_model->organization_end_id), true),
+        array('class' => 'input-block-level'));
+
 echo $form->textFieldRow($this->_model, 'value', array('maxlength' => 255, 'class' => 'input-block-level'));
 
 echo $form->textAreaRow($this->_model, 'description', array('rows' => 4, 'class' => 'input-block-level'));

@@ -37,10 +37,11 @@ class OrganizationController extends Controller
             'customer' => Customer::model()->getAll($userProfile, 'organization_id', $id),
 
             'deal_zakaz' => Deal::model()->getAll($userProfile, 'organization_zakaz_id', $id),
-            'deal_gruz' => Deal::model()->getAll($userProfile, 'organization_gruz_id', $id),
             'deal_pay' => Deal::model()->getAll($userProfile, 'organization_pay_id', $id),
-            'deal_end' => Deal::model()->getAll($userProfile, 'organization_end_id', $id),
             'deal_post' => Deal::model()->getAll($userProfile, 'organization_post_id', $id),
+
+            'specification_gruz' => Specification::model()->getAll($userProfile, 'organization_gruz_id', $id),
+            'specification_end' => Specification::model()->getAll($userProfile, 'organization_end_id', $id),
         ));
     }
 

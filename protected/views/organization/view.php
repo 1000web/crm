@@ -5,10 +5,10 @@
 /* @var $account Account */
 /* @var $customer Customer */
 /* @var $deal_zakaz Deal */
-/* @var $deal_gruz Deal */
 /* @var $deal_pay Deal */
-/* @var $deal_end Deal */
 /* @var $deal_post Deal */
+/* @var $specification_gruz Specification */
+/* @var $specification_end Specification */
 
 $content = array();
 $detail_content = $this->renderPartial('../detail_view', NULL, true);
@@ -94,38 +94,12 @@ if (MyHelper::checkAccess($controller, 'view')) {
 $controller = 'deal';
 $this->columnLabels($controller);
 if (MyHelper::checkAccess($controller, 'view')) {
-    $deal_content = '<h2>Сделки (грузополучатель)</h2>';
-    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
-        'dataProvider' => $deal_gruz,
-    ), true);
-    $content[] = array(
-        'label' => 'Грузополучатель ('.count($deal_gruz->getData()).')',
-        'content' => $deal_content,
-    );
-}
-//----------------------------------------------------------------------------------------------------------------------
-$controller = 'deal';
-$this->columnLabels($controller);
-if (MyHelper::checkAccess($controller, 'view')) {
     $deal_content = '<h2>Сделки (плательщик)</h2>';
     $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
         'dataProvider' => $deal_pay,
     ), true);
     $content[] = array(
         'label' => 'Плательщик ('.count($deal_pay->getData()).')',
-        'content' => $deal_content,
-    );
-}
-//----------------------------------------------------------------------------------------------------------------------
-$controller = 'deal';
-$this->columnLabels($controller);
-if (MyHelper::checkAccess($controller, 'view')) {
-    $deal_content = '<h2>Сделки (Конечный потребитель)</h2>';
-    $deal_content .= $this->renderPartial('../' . $controller . '/index', array(
-        'dataProvider' => $deal_end,
-    ), true);
-    $content[] = array(
-        'label' => 'Потребитель ('.count($deal_end->getData()).')',
         'content' => $deal_content,
     );
 }
@@ -148,6 +122,32 @@ if (MyHelper::checkAccess($controller, 'view')) {
     $content[] = array(
         'label' => 'Поставщик ('.count($deal_post->getData()).')',
         'content' => $deal_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'specification';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $specification_content = '<h2>Спецификации (грузополучатель)</h2>';
+    $specification_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $specification_gruz,
+    ), true);
+    $content[] = array(
+        'label' => 'Грузополучатель ('.count($specification_gruz->getData()).')',
+        'content' => $specification_content,
+    );
+}
+//----------------------------------------------------------------------------------------------------------------------
+$controller = 'specification';
+$this->columnLabels($controller);
+if (MyHelper::checkAccess($controller, 'view')) {
+    $sp_content = '<h2>Спецификации (Конечный потребитель)</h2>';
+    $sp_content .= $this->renderPartial('../' . $controller . '/index', array(
+        'dataProvider' => $specification_end,
+    ), true);
+    $content[] = array(
+        'label' => 'Потребитель ('.count($specification_end->getData()).')',
+        'content' => $specification_content,
     );
 }
 //----------------------------------------------------------------------------------------------------------------------

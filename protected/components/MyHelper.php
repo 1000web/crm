@@ -272,7 +272,7 @@ class MyHelper
                 $array['value'] = 'Название организации';
                 break;
             case 'specification':
-                $array['value'] = 'Номер спецификации';
+                $array['value'] = 'Название спецификации';
                 break;
             case 'task':
                 $array['value'] = 'Суть задачи';
