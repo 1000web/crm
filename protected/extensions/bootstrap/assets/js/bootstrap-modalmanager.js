@@ -51,25 +51,25 @@
 				modal.isShown = true;
 
 				var transition = $.support.transition && modal.$element.hasClass('fade');
-				
+
 				that.$element
-					.toggleClass('modal-open', that.hasOpenModal())		
+					.toggleClass('modal-open', that.hasOpenModal())
 					.toggleClass('page-overflow', $(window).height() < that.$element.height());
-			
+
 				modal.$parent = modal.$element.parent();
-				
+
 				modal.$container = that.createContainer(modal);
 
 				modal.$element.appendTo(modal.$container);
 
 				var modalOverflow = $(window).height() < modal.$element.height() || modal.options.modalOverflow;
-					
+
 				that.backdrop(modal, function () {
 
 					modal.$element.show();
 
 					if (transition) {
-						modal.$element[0].style.display = 'run-in'; 
+						modal.$element[0].style.display = 'run-in';
 						modal.$element[0].offsetWidth;
 						modal.$element.one($.support.transition.end, function () { modal.$element[0].style.display = 'block' });
 					}
@@ -79,7 +79,7 @@
 						.css('margin-top', modalOverflow ? 0 : 0 - modal.$element.height()/2)
 						.addClass('in')
 						.attr('aria-hidden', false);
-					
+
 					var complete = function () {
 						that.setFocus();
 						modal.$element.triggerHandler('shown');
@@ -117,7 +117,7 @@
 			var hasOpenModal = this.hasOpenModal();
 
 			this.$element.toggleClass('modal-open', hasOpenModal);
-			
+
 			if (!hasOpenModal){
 				this.$element.removeClass('page-overflow');
 			}
@@ -167,7 +167,7 @@
 		removeBackdrop: function (modal) {
 			modal.$backdrop.remove();
 			modal.$backdrop = null;
-		}, 
+		},
 
 		createBackdrop: function (animate) {
 			var $backdrop;
@@ -190,13 +190,13 @@
 		removeContainer: function (modal) {
 			modal.$container.remove();
 			modal.$container = null;
-		}, 
+		},
 
 		createContainer: function (modal) {
 			var $container;
 
 			$container = $('<div class="modal-scrollable">')
-				.css('z-index', getzIndex( 'modal', 
+				.css('z-index', getzIndex( 'modal',
 					modal ? this.getIndexOfModal(modal) : this.stack.length ))
 				.appendTo(this.$element);
 
@@ -216,7 +216,7 @@
 
 		backdrop: function (modal, callback) {
 			var animate = modal.$element.hasClass('fade') ? 'fade' : '',
-				showBackdrop = modal.options.backdrop && 
+				showBackdrop = modal.options.backdrop &&
 					this.backdropCount < this.options.backdropLimit;
 
 			if (modal.isShown && showBackdrop) {
@@ -261,16 +261,16 @@
 
 		loading: function (callback) {
 			callback = callback || function () { };
-			
+
 			this.$element
 				.toggleClass('modal-open', !this.isLoading || this.hasOpenModal())
 				.toggleClass('page-overflow', $(window).height() < this.$element.height());
-			
+
 			if (!this.isLoading) {
 
 				this.$loading = this.createBackdrop('fade');
 
-				this.$loading[0].offsetWidth // force reflow	
+				this.$loading[0].offsetWidth // force reflow
 
 				this.$loading
 					.css('z-index', getzIndex('backdrop', this.stack.length))
@@ -312,7 +312,7 @@
 
 	// computes and caches the zindexes
 	var getzIndex = (function () {
-		var zIndexFactor, 
+		var zIndexFactor,
 			baseIndex = {};
 
 		return function (type, pos) {
@@ -324,7 +324,7 @@
 				baseIndex['modal'] = +$baseModal.css('z-index'),
 				baseIndex['backdrop'] = +$baseBackdrop.css('z-index'),
 				zIndexFactor = baseIndex['modal'] - baseIndex['backdrop'];
-				
+
 				$baseModal.remove();
 				$baseBackdrop.remove();
 				$baseBackdrop = $baseModal = null;
@@ -335,14 +335,14 @@
 		}
 	}())
 
-	// make sure the event target is the modal itself in order to prevent 
-	// other components such as tabsfrom triggering the modal manager. 
+	// make sure the event target is the modal itself in order to prevent
+	// other components such as tabsfrom triggering the modal manager.
 	// if Boostsrap namespaced events, this would not be needed.
 	function targetIsSelf(callback){
 		return function (e) {
 			if (this === e.target){
 				return callback.apply(this, arguments);
-			} 
+			}
 		}
 	}
 
@@ -352,7 +352,7 @@
 
 	$.fn.modalmanager = function (option) {
 		return this.each(function () {
-			var $this = $(this), 
+			var $this = $(this),
 				data = $this.data('modalmanager');
 
 			if (!data) $this.data('modalmanager', (data = new ModalManager(this, option)))

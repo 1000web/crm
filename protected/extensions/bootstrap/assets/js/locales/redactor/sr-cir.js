@@ -20,7 +20,7 @@ RELANG['sr-cir'] = {
 	fontcolor: 'Боја слова',
 	backcolor: 'Боја позадине',
 	unorderedlist: 'Несортирана листа',
-	orderedlist: 'Сортирана листа',	
+	orderedlist: 'Сортирана листа',
 	outdent: 'Извуци',
 	indent: 'Увуци',
 	redo: 'Корак напред',

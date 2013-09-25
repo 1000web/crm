@@ -38,7 +38,7 @@ RELANG['eo'] = {
 	rows: 'Vicoj', // substantive (plural)
 	columns: 'Kolumnoj', // substantive (plural)
 	add_head: 'Enŝovu kapon', // imperative
-	delete_head: 'Forigu kapon', // imperative	
+	delete_head: 'Forigu kapon', // imperative
 	title: 'Titolo', // substantive
 	image_position: 'Bildloko', // substantive
 	none: 'Neniu', // determiner

@@ -12,13 +12,13 @@
 var bootstrapWizardCreate = function(element, options) {
 	var element = $(element);
 	var obj = this;
-	
+
 	// Merge options with defaults
 	//var $settings = $.extend($.fn.bootstrapWizard.defaults, options || {});
 	var $settings = $.extend({}, $.fn.bootstrapWizard.defaults, options);
 	var $activeTab = null;
 	var $navigation = null;
-	
+
 	this.fixNavigationButtons = function() {
 		// Get the current active tab
 		if(!$activeTab.length) {
@@ -26,36 +26,36 @@ var bootstrapWizardCreate = function(element, options) {
 			$navigation.find('a:first').tab('show');
 			$activeTab = $navigation.find('li:first');
 		}
-		
+
 		// See if we currently in the first then disable the previous and last buttons
 		if(obj.firstIndex() >= obj.currentIndex()) {
 			$('li.previous', element).addClass('disabled');
 		} else{
 			$('li.previous', element).removeClass('disabled');
 		}
-		
+
 		if(obj.currentIndex() >= obj.navigationLength()) {
 			$('li.next', element).addClass('disabled');
 		} else {
 			$('li.next', element).removeClass('disabled');
 		}
-		
+
 		if($settings.onTabShow && typeof $settings.onTabShow === 'function' && $settings.onTabShow($activeTab, $navigation, obj.currentIndex())===false){
 		    return false;
 		}
 	};
-	
+
 	this.next = function(e) {
-		
+
 		// If we clicked the last then dont activate this
 		if(element.hasClass('last')) {
 			return false;
 		}
-		
+
 		if($settings.onNext && typeof $settings.onNext === 'function' && $settings.onNext($activeTab, $navigation, obj.nextIndex())===false){
 		    return false;
 		}
-		
+
 		// Did we click the last button
 		$index = obj.nextIndex();
 		if($index > obj.navigationLength()) {
@@ -65,16 +65,16 @@ var bootstrapWizardCreate = function(element, options) {
     };
 
 	this.previous = function(e) {
-		
+
 		// If we clicked the first then dont activate this
 		if(element.hasClass('first')) {
 			return false;
 		}
-		
+
 		if($settings.onPrevious && typeof $settings.onPrevious === 'function' && $settings.onPrevious($activeTab, $navigation, obj.previousIndex())===false){
 		    return false;
 		}
-		
+
       	$index = obj.previousIndex();
 		if($index < 0) {
 		} else {
@@ -86,19 +86,19 @@ var bootstrapWizardCreate = function(element, options) {
 		if($settings.onFirst && typeof $settings.onFirst === 'function' && $settings.onFirst($activeTab, $navigation, obj.firstIndex())===false){
 		    return false;
 		}
-		
+
 		// If the element is disabled then we won't do anything
 		if(element.hasClass('disabled')) {
 			return false;
 		}
 		$navigation.find('li:eq(0) a').tab('show');
-		
+
 	};
 	this.last = function(e) {
 		if($settings.onLast && typeof $settings.onLast === 'function' && $settings.onLast($activeTab, $navigation, obj.lastIndex())===false){
 		    return false;
 		}
-		
+
 		// If the element is disabled then we won't do anything
 		if(element.hasClass('disabled')) {
 			return false;
@@ -138,19 +138,19 @@ var bootstrapWizardCreate = function(element, options) {
 		}
 		return $navigation.find('li:eq('+parseInt(obj.currentIndex()-1)+')');
 	};
-	
+
 	$navigation = element.find('ul:first', element);
 	$activeTab = $navigation.find('li.active', element);
-	
+
 	if(!$navigation.hasClass($settings.class)) {
 		$navigation.addClass($settings.class);
 	}
-	
+
 	// Load onShow
 	if($settings.onInit && typeof $settings.onInit === 'function'){
 	    $settings.onInit($activeTab, $navigation, 0);
 	}
-	
+
 	// Next/Previous events
 	$($settings.nextSelector, element).bind('click', obj.next);
 	$($settings.previousSelector, element).bind('click', obj.previous);
@@ -161,29 +161,29 @@ var bootstrapWizardCreate = function(element, options) {
 	if($settings.onShow && typeof $settings.onShow === 'function'){
 	    $settings.onShow($activeTab, $navigation, obj.nextIndex());
 	}
-	
+
 	// Work the next/previous buttons
 	obj.fixNavigationButtons();
-	
+
 	$('a[data-toggle="tab"]', element).on('click', function (e) {
 		if($settings.onTabClick && typeof $settings.onTabClick === 'function' && $settings.onTabClick($activeTab, $navigation, obj.currentIndex())===false){
 		    return false;
 		}
 	});
-	
+
 	$('a[data-toggle="tab"]', element).on('show', function (e) {
 		$element = $(e.target).parent();
 		// If it's disabled then do not change
 		if($element.hasClass('disabled')) {
 			return false;
 		}
-		
+
 	  	$activeTab = $element; // activated tab
 		obj.fixNavigationButtons();
 
 	});
 };
-$.fn.bootstrapWizard = function(options) {	
+$.fn.bootstrapWizard = function(options) {
     return this.each(function(index){
         var element = $(this);
 		// Return early if this element already has a plugin instance

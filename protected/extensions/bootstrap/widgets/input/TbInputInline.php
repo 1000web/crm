@@ -88,7 +88,7 @@ class TbInputInline extends TbInputVertical
 		echo $this->form->typeAheadField($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getAppend();
 	}
-    
+
      /**
      * Renders a slider field.
      * @return string the rendered content

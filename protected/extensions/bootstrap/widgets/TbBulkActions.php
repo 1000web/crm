@@ -47,12 +47,12 @@ class TbBulkActions extends CComponent
      * @var array the checkbox column configuration
      */
     public $checkBoxColumnConfig = array();
-    
+
     /**
      * @var bool
      */
     public $selectableRows;
-	
+
 	/**
 	 * @var string
 	 */
@@ -219,7 +219,7 @@ class TbBulkActions extends CComponent
      */
     public function registerClientScript()
     {
-       
+
         $js = '';
         if(!$this->selectableRows)
         {

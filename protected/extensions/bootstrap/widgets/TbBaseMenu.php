@@ -116,7 +116,7 @@ abstract class TbBaseMenu extends CMenu
 								: $this->submenuHtmlOptions,
 							'items' => $item['items'],
 						);
-						$dropdownOptions['id'] = isset($dropdownOptions['htmlOptions']['id']) ? 
+						$dropdownOptions['id'] = isset($dropdownOptions['htmlOptions']['id']) ?
 							$dropdownOptions['htmlOptions']['id'] : null;
 						$this->controller->widget('bootstrap.widgets.TbDropdown', $dropdownOptions);
 					}

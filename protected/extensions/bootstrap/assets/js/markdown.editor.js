@@ -50,7 +50,7 @@
     // A help button is not displayed by default to preserve previous functionality. To include a help
     // button, add a "help" property to the buttons object using Markdown.Editor.MakeHelpButton(), passing
     // the onClick handler and optional title. Title defaults to "Markdown Editing Help".
-    
+
     // The previous method for specifying a help button continues to be supported, so this class
     // remains completely backward compatible.
     // 
@@ -69,7 +69,7 @@
 			buttons = idPostfix;
 			idPostfix = null;
 		}
-		
+
         idPostfix = idPostfix || "";
         inputId = inputId || "wmd-input";
 
@@ -180,7 +180,7 @@
             beforeReplacer = function (s) { that.before += s; return ""; }
             afterReplacer = function (s) { that.after = s + that.after; return ""; }
         }
-        
+
         this.selection = this.selection.replace(/^(\s*)/, beforeReplacer).replace(/(\s*)$/, afterReplacer);
     };
 
@@ -744,7 +744,7 @@
 
                 if (panels.ieCachedRange)
                     stateObj.scrollTop = panels.ieCachedScrollTop; // this is set alongside with ieCachedRange
-                
+
                 panels.ieCachedRange = null;
 
                 this.setInputAreaSelection();
@@ -984,7 +984,7 @@
         init();
     };
 
-    
+
     // This simulates a modal dialog box and asks for the URL when you
     // click the hyperlink or image buttons.
     //
@@ -1141,11 +1141,11 @@
                 range.moveEnd("character", defTextLen);
                 range.select();
             }
-            
+
             $(dialog).on('shown', function () {
                 input.focus();
             })
-            
+
             $(dialog).on('hidden', function () {
                 dialog.parentNode.removeChild(dialog);
             })
@@ -1159,12 +1159,12 @@
 
         var inputBox = panels.input,
             buttons = {}; // buttons.undo, buttons.link, etc. The actual DOM elements.
-		
+
 		// if no button options passed then set up defaults
         if (!buttonOptions)
         {
           buttonOptions = Markdown.Editor.getDefaultButtons();
-        } 
+        }
         // convert old style "help" parameter format to remain backward compatible - i.e. { handler: x, title:"x" }
         else if (buttonOptions.handler)
         {
@@ -1175,7 +1175,7 @@
             if (help.title)
               buttonOptions.help.title = help.title;
         }
-		
+
         makeSpritedButtonRow();
 
         var keyEvent = "keydown";
@@ -1274,9 +1274,9 @@
 
         // Perform the button's action.
         function doClick(button) {
-			
+
 			if (!button) return;
-			
+
             inputBox.focus();
 
             if (button.textOp) {
@@ -1400,7 +1400,7 @@
             group1 = makeGroup(1);
             buttons.bold = makeButton(buttonOptions.bold, bindCommand("doBold"), group1);
             buttons.italic = makeButton(buttonOptions.italic, bindCommand("doItalic"), group1);
-            
+
             group2 = makeGroup(2);
             buttons.link = makeButton(buttonOptions.link, bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
@@ -1420,7 +1420,7 @@
             }), group3);
             buttons.heading = makeButton(buttonOptions.heading, bindCommand("doHeading"), group3);
             buttons.hr = makeButton(buttonOptions.hr, bindCommand("doHorizontalRule"), group3);
-            
+
             group4 = makeGroup(4);
             buttons.undo = makeButton(buttonOptions.undo, null, group4);
 			if (buttons.undo)
@@ -1433,15 +1433,15 @@
             if (buttonOptions.help) {
                 group5 = makeGroup(5);
                 group5.className = group5.className + " pull-right";
-				
+
                 var helpButton = document.createElement("button");
                 helpButton.className = "btn";
 				helpButton.id = buttonOptions.help.id + postfix;
-				
+
 				var helpButtonImage = document.createElement("i");
                 helpButtonImage.className = "icon-question-sign";
                 helpButton.appendChild(helpButtonImage);
-                
+
                 helpButton.isHelp = true;
                 helpButton.title = buttonOptions.help.title;
                 $(helpButton).tooltip({placement: 'bottom'})
@@ -1657,7 +1657,7 @@
 
         }
         else {
-            
+
             // We're moving start and end tag back into the selection, since (as we're in the else block) we're not
             // *removing* a link, but *adding* one, so whatever findTags() found is now back to being part of the
             // link text. linkEnteredCallback takes care of escaping any brackets.
@@ -1693,7 +1693,7 @@
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
                     chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-                    
+
                     var linkDef = " [999]: " + properlyEncoded(link);
 
                     var num = that.addLinkDef(chunk, linkDef);
@@ -1734,7 +1734,7 @@
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}([*+-]|\d+[.])[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}>[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ \t]+\n$/, "\n\n");
-        
+
         // There's no selection, end the cursor wasn't at the end of the line:
         // The user wants to split the current list item / code line / blockquote line
         // (for the latter it doesn't really matter) in two. Temporarily select the
@@ -1762,7 +1762,7 @@
                 commandMgr.doCode(chunk);
             }
         }
-        
+
         if (fakeSelection) {
             chunk.after = chunk.selection + chunk.after;
             chunk.selection = "";
@@ -2145,7 +2145,7 @@
         chunk.selection = "";
         chunk.skipLines(2, 1, true);
     }
-	
+
 	Markdown.Editor.getDefaultButtons = function() {
         var result = {
                 bold: { id: "wmd-bold-button", title: "Strong <strong> Ctrl+B", icon: "icon-bold" },
@@ -2159,34 +2159,34 @@
                 heading: { id: "wmd-heading-button", title: "Heading <h1>/<h2> Ctrl+H", icon: "icon-header" },
                 hr: { id: "wmd-hr-button", title: "Horizontal Rule <hr> Ctrl+R", icon: "icon-hr-line" },
                 undo: { id: "wmd-undo-button", title: "Undo - Ctrl+Z", icon: "icon-undo" },
-                redo: { id: "wmd-redo-button", 
+                redo: { id: "wmd-redo-button",
                         title: /win/.test(nav.platform.toLowerCase()) ? "Redo - Ctrl+Y" : "Redo - Ctrl+Shift+Z" /* mac and other non-Windows platforms*/, icon: "icon-share-alt" }
             };
-            
+
         return result;
     }
 
     Markdown.Editor.getDefaultHelpButton = function() {
-    
+
         var result =
           {
               id: "wmd-help-button",
               title: defaultHelpHoverTitle,
               isHelp: true
           }
-          
+
        return result;
     }
-        
+
     Markdown.Editor.MakeHelpButton = function(handler, title) {
       button = Markdown.Editor.getDefaultHelpButton();
 
       if (handler)
           button.handler = handler;
-          
+
       if (title)
           button.title = title;
-      
+
       return button;
     }
 

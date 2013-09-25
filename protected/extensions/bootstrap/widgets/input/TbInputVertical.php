@@ -574,7 +574,7 @@ class TbInputVertical extends TbInput
 			$asDropDownList = $this->htmlOptions['asDropDownList'];
 			unset($this->htmlOptions['asDropDownList']);
 		}
-		
+
 		if (isset($this->htmlOptions['val']))
 		{
 			$val = $this->htmlOptions['val'];

@@ -3,7 +3,7 @@
  *##  TbButtonGroupColumn class file.
  *
  * @author Topher Kanyuga <kanjoti@gmail.com>
- * @copyright  
+ * @copyright
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 

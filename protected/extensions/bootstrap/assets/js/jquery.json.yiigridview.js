@@ -113,7 +113,7 @@
                         if( event.keyCode !== 13) {
                             return; // only react to enter key
                         } else {
-                            eventType = 'keydown'; 
+                            eventType = 'keydown';
                         }
                     } else {
                         // prevent processing for both keydown and change events

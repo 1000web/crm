@@ -4,7 +4,7 @@
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('bootstrap.widgets.TbGridView');
@@ -249,7 +249,7 @@ class TbExtendedGridView extends TbGridView
 	public function renderKeys()
 	{
 		$data = $this->dataProvider->getData();
-		
+
 		if (!$this->sortableRows || !$this->getAttribute($data[0], (string)$this->sortableAttribute)) {
 			parent::renderKeys();
 		}

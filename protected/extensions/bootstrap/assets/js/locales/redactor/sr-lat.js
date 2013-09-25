@@ -20,7 +20,7 @@ RELANG['sr-lat'] = {
 	fontcolor: 'Boja slova',
 	backcolor: 'Boja pozadine',
 	unorderedlist: 'Nesortirana lista',
-	orderedlist: 'Sortirana lista',	
+	orderedlist: 'Sortirana lista',
 	outdent: 'Izvuci',
 	indent: 'Uvuci',
 	redo: 'Korak napred',

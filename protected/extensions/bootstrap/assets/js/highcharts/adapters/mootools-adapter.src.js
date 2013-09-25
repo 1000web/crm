@@ -68,18 +68,18 @@ win.HighchartsAdapter = {
 		};
 		/*jslint unparam: false*/
 	},
-	
+
 	/**
 	 * Run a general method on the framework, following jQuery syntax
 	 * @param {Object} el The HTML element
 	 * @param {String} method Which method to run on the wrapped element
 	 */
 	adapterRun: function (el, method) {
-		
+
 		// This currently works for getting inner width and height. If adding
 		// more methods later, we need a conditional implementation for each.
 		return $(el).getStyle(method).toInt();
-		
+
 	},
 
 	/**
@@ -257,7 +257,7 @@ win.HighchartsAdapter = {
 			// el.removeEvents below apperantly calls this method again. Do not quite understand why, so for now just bail out.
 			return;
 		}
-		
+
 		win.HighchartsAdapter.extendWithEvents(el);
 		if (type) {
 			if (type === 'unload') { // Moo self destructs before custom unload events
@@ -298,7 +298,7 @@ win.HighchartsAdapter = {
 			defaultFunction(event);
 		}
 	},
-	
+
 	/**
 	 * Set back e.pageX and e.pageY that MooTools has abstracted away
 	 */
