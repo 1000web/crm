@@ -169,7 +169,7 @@ class Controller extends RController
     public function addButton($controller, $action)
     {
         if (!$controller) $controller = $this->id;
-        if($action == 'copy') $check = 'create';
+        if ($action == 'copy') $check = 'create';
         else $check = $action;
         if (MyHelper::checkAccess($controller, $check)) {
             $this->buttons[$action] = array(
@@ -193,7 +193,7 @@ class Controller extends RController
 
     public function addButtons($controller, $actions, $preserve = FALSE)
     {
-        if($preserve === FALSE) $this->buttons = array();
+        if ($preserve === FALSE) $this->buttons = array();
         foreach ($actions as $action) {
             $this->addButton($controller, $action);
         }
@@ -212,7 +212,7 @@ class Controller extends RController
 
     public function addColumns($list, $preserve = FALSE)
     {
-        if($preserve === FALSE) $this->columns = array();
+        if ($preserve === FALSE) $this->columns = array();
         foreach ($list as $item) {
             // for example: controller = organization, item = organization_id
             if ($item != $this->id . '_id') $this->addColumn($item);
@@ -221,14 +221,14 @@ class Controller extends RController
 
     public function columnLabels($controller = NULL)
     {
-        if($controller === NULL) $controller = $this->getId();
+        if ($controller === NULL) $controller = $this->getId();
         $this->labels = MyHelper::labels($controller);
     }
 
     public function getLabel($item)
     {
         // если массив с метками пустой. то загружаем массив для текущего контроллера
-        if (! $this->labels) $this->columnLabels();
+        if (!$this->labels) $this->columnLabels();
         // если такая метка есть, то возвращаем ее
         if (isset($this->labels[$item])) return $this->labels[$item];
         return 'НЕИЗВЕСТНО';
@@ -379,22 +379,23 @@ class Controller extends RController
         $this->buildBreadcrumbs($item->parent_id);
     }
 
-    public function save_current_page() {
+    public function save_current_page()
+    {
         if (Yii::app()->user->id) {
             $rights = '';
             $rights_flag = false;
-            if(MyHelper::checkAccess($this->id, 'view')) {
-                if($rights_flag) $rights .= ', ';
+            if (MyHelper::checkAccess($this->id, 'view')) {
+                if ($rights_flag) $rights .= ', ';
                 $rights .= 'Чтение';
                 $rights_flag = true;
             }
-            if(MyHelper::checkAccess($this->id, 'update')) {
-                if($rights_flag) $rights .= ', ';
+            if (MyHelper::checkAccess($this->id, 'update')) {
+                if ($rights_flag) $rights .= ', ';
                 $rights .= 'Редактирование';
                 $rights_flag = true;
             }
-            if(MyHelper::checkAccess($this->id, 'delete')) {
-                if($rights_flag) $rights .= ', ';
+            if (MyHelper::checkAccess($this->id, 'delete')) {
+                if ($rights_flag) $rights .= ', ';
                 $rights .= 'Удаление';
                 $rights_flag = true;
             }
@@ -404,7 +405,8 @@ class Controller extends RController
         }
     }
 
-    public function check_current_page() {
+    public function check_current_page()
+    {
         $text = '';
         $n = 0;
         $criteria = new CDbCriteria;
@@ -421,14 +423,14 @@ class Controller extends RController
         $criteria->with = array('profiles');
         $criteria->order = 'profiles.last_name, profiles.first_name';
         $users = Users::model()->findAll($criteria);
-        foreach($users as $user) {
-                if($user->profiles->current_page_datetime) $text .= MyHelper::datetime_format($user->profiles->current_page_datetime) . ' ';
-                $text .= $user->profiles->last_name . ' ' . $user->profiles->first_name . ' (' . $user->username . ') ';
-                if(!empty($user->profiles->current_page_rights)) $text .= 'с правами ' . $user->profiles->current_page_rights . "<br />\n";
-                $n++;
+        foreach ($users as $user) {
+            if ($user->profiles->current_page_datetime) $text .= MyHelper::datetime_format($user->profiles->current_page_datetime) . ' ';
+            $text .= $user->profiles->last_name . ' ' . $user->profiles->first_name . ' (' . $user->username . ') ';
+            if (!empty($user->profiles->current_page_rights)) $text .= 'с правами ' . $user->profiles->current_page_rights . "<br />\n";
+            $n++;
         }
-        if($n != 0) {
-            if($n == 1) $header = "Эту страницу также просматривает";
+        if ($n != 0) {
+            if ($n == 1) $header = "Эту страницу также просматривает";
             else $header = "Эту страницу также просматривают";
             $header = "<strong>" . $header . "</strong>:<br />\n";
             Yii::app()->user->setFlash('warning', $header . $text);
@@ -446,7 +448,7 @@ class Controller extends RController
         ));
 
         $this->save_current_page();
-        if(Yii::app()->getRequest()->getRequestUri() != '/' AND Yii::app()->user->id) {
+        if (Yii::app()->getRequest()->getRequestUri() != '/' AND Yii::app()->user->id) {
             $this->check_current_page();
         }
 
