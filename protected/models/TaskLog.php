@@ -13,6 +13,7 @@
  * @property integer $task_stage_id
  * @property integer $task_prior_id
  * @property integer $datetime
+ * @property integer $create_datetime
  * @property integer $date
  * @property integer $time
  * @property integer $user_id
@@ -46,14 +47,14 @@ class TaskLog extends LogActiveRecord
     public function rules()
     {
         return array(
-            array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, owner_id, user_id', 'numerical', 'integerOnly' => true),
+            array('log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, create_datetime, datetime, owner_id, user_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
             array('date, time', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, datetime, date, time, owner_id, user_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, task_type_id, task_stage_id, task_prior_id, create_datetime, datetime, date, time, owner_id, user_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 

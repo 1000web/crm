@@ -12,6 +12,7 @@
  * @property integer $task_type_id
  * @property integer $task_stage_id
  * @property integer $task_prior_id
+ * @property integer $create_datetime
  * @property integer $datetime
  * @property integer $user_id
  * @property integer $owner_id
@@ -35,6 +36,7 @@ class Task extends MyActiveRecord
                 list($day, $month, $year) = explode('-', $this->date);
                 $this->datetime = CTimestamp::getTimestamp(intval($hr), intval($min), intval($sec), intval($month), intval($day), intval($year));
             }
+            if($this->isNewRecord) $this->create_datetime = time();
             return true;
         } else return false;
     }
@@ -64,13 +66,14 @@ class Task extends MyActiveRecord
     {
         return array(
             array('value', 'required'),
-            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, user_id, owner_id', 'numerical', 'integerOnly' => true),
+            array('create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, create_datetime, datetime, user_id, owner_id', 'numerical', 'integerOnly' => true),
             array('date, time', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, datetime, date, time, user_id, owner_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, update_time, create_user_id, update_user_id, task_type_id, task_stage_id, task_prior_id, create_datetime, datetime,
+            date, time, user_id, owner_id, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -84,11 +87,9 @@ class Task extends MyActiveRecord
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
             'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-
             'task_type' => array(self::BELONGS_TO, 'TaskType', 'task_type_id'),
             'task_stage' => array(self::BELONGS_TO, 'TaskStage', 'task_stage_id'),
             'task_prior' => array(self::BELONGS_TO, 'TaskPrior', 'task_prior_id'),
-
             'comments' => array(self::HAS_MANY, 'TaskComment', 'task_id'),
             //'fav_users' => array(self::MANY_MANY, 'Users', '{{task_fav}}(id, user_id)'),
         );
@@ -101,7 +102,7 @@ class Task extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'create_time', 'task_type_id', 'task_stage_id', 'task_prior_id', 'datetime', 'owner_id', 'user_id', 'value', 'description');
+        return array('id', 'create_datetime', 'datetime', 'task_type_id', 'task_stage_id', 'task_prior_id', 'owner_id', 'user_id', 'value', 'description');
     }
 
     /**
@@ -117,6 +118,7 @@ class Task extends MyActiveRecord
         $criteria->compare('task_type.value', $this->task_type_id, true);
         $criteria->compare('task_stage.value', $this->task_stage_id, true);
         $criteria->compare('task_prior.value', $this->task_prior_id, true);
+        $criteria->compare('t.create_datetime', $this->create_datetime);
         $criteria->compare('t.datetime', $this->datetime);
         $criteria->compare('owner.username', $this->owner_id, true);
         $criteria->compare('user.username', $this->user_id, true);

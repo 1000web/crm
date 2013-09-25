@@ -141,6 +141,9 @@ class MyHelper
 
             'date' => 'Дата',
             'time' => 'Время',
+            'create_datetime' => 'Создано',
+            'datetime' => 'Срок',
+            'log_datetime' => 'Дата/время',
 
             'specification_id' => 'Спецификация',
             'num' => 'Кол-во',
@@ -151,8 +154,6 @@ class MyHelper
             'deal_stage_id' => 'Стадия',
             'deal_status' => 'Активность',
             'deal_probability' => 'Вероятность',
-            'datetime' => 'Срок',
-            'log_datetime' => 'Дата/время',
 
             'deleted' => 'Удалено',
             'email' => 'Email',
@@ -267,6 +268,10 @@ class MyHelper
                 break;
             case 'payment':
                 $array['value'] = 'Назначение платежа';
+                break;
+            case 'product':
+                $array['prior'] = '№ п/п';
+                $array['value'] = 'Название продукции';
                 break;
             case 'organization':
                 $array['value'] = 'Название организации';
@@ -393,9 +398,11 @@ class MyHelper
                 if (!self::checkAccess('specification', 'view')) $value = '$data->specification->value';
                 else $value = 'CHtml::link(CHtml::encode($data->specification->value),array("/specification/view","id"=>$data->specification_id))';
                 break;
+            case 'create_datetime':
+                $value = 'MyHelper::datetime_format($data->create_datetime)';
+                break;
             case 'datetime':
                 $value = 'MyHelper::datetime_format($data->datetime)';
-                //$value = '$data->datetime';
                 break;
             case 'create_time':
                 //$value = 'date("'.$datetime_format.'",$data->create_time)';
