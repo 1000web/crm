@@ -71,6 +71,18 @@ class SiteController extends Controller
 
     public function actionTest()
     {
+        /*
+        $value = 'date("Y-m-d H:i:s",time())';
+        echo $value . '<br>';
+        eval('echo ' . $value . ';');
+        /**/
+        echo date('Y-m-d H:i:s');
+        echo Yii::app()->getTimeZone();
+        phpinfo();
+    }
+
+    public function actionLog()
+    {
         $value = 'date("Y-m-d H:i:s",time())';
         echo $value . '<br>';
         eval('echo ' . $value . ';');

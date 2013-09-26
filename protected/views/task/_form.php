@@ -15,10 +15,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 
 echo $form->errorSummary($this->_model);
-
+echo '<div class="input-inline">';
 echo $form->datepickerRow($this->_model, 'date', array(
-    'class' => 'span2 text-center input-inline',
-    //'append' => '<i class="icon-calendar"></i>',
+    'class' => 'text-center',
+    'prepend' => '<i class="icon-calendar"></i>',
     'options' => array(
         'format' => 'dd-mm-yyyy',
         'viewMode' => 1,
@@ -28,8 +28,8 @@ echo $form->datepickerRow($this->_model, 'date', array(
     )
 ));
 echo $form->timepickerRow($this->_model, 'time', array(
-    'class' => 'span2 text-center input-inline',
-    //'append' => '<i class="icon-time"></i>',
+    'class' => 'text-center',
+    'prepend' => '<i class="icon-time"></i>',
     'options' => array(
         'showMeridian' => false,
         'minuteStep' => 1,
@@ -39,7 +39,7 @@ echo $form->timepickerRow($this->_model, 'time', array(
     ),
 ));
 //$this->widget('bootstrap.widgets.TbButton', array('icon'=>'icon-time', 'disabled' => true));
-
+echo '</div>';
 echo $form->dropDownListRow($this->_model, 'user_id', Users::model()->getOptions('id', 'username'), array('class' => 'input-block-level'));
 /*
 $datetime = date('H:i:s', $this->_model->datetime);
