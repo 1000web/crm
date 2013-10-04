@@ -2,8 +2,8 @@
 /* @var $this DavalController */
 /* @var $dataProvider CActiveDataProvider */
 
-
 $controller = 'daval';
+$this->columnLabels($controller);
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, Daval::model()->getAvailableAttributes()));
 

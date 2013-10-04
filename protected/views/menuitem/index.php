@@ -3,7 +3,8 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'menuitem';
-$this->renderPartial('../' . $controller . '/_filter_buttons');
+$this->columnLabels($controller);
+if($this->getAction()->getId() != 'search' AND !isset($no_filter_buttons)) $this->renderPartial('../' . $controller . '/_filter_buttons');
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 /*
 $this->addColumns(array('menu_id', 'id', 'item_id', 'parent_id', 'prior', 'visible', 'guest_only'));

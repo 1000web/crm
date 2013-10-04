@@ -2,8 +2,8 @@
 /* @var $this AccountController */
 /* @var $dataProvider CActiveDataProvider */
 
-
 $controller = 'account';
+$this->columnLabels($controller);
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, Account::model()->getAvailableAttributes()));
 

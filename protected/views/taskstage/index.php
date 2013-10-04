@@ -3,6 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'taskstage';
+$this->columnLabels($controller);
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, TaskStage::model()->getAvailableAttributes()));
 

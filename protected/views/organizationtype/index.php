@@ -3,6 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'organizationtype';
+$this->columnLabels($controller);
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, OrganizationType::model()->getAvailableAttributes()));
 

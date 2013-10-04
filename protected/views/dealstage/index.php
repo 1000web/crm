@@ -3,6 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $controller = 'dealstage';
+$this->columnLabels($controller);
 $this->addButtons($controller, array('view', 'update', 'copy', 'delete', 'log'));
 $this->addColumns($this->getColumns($controller, DealStage::model()->getAvailableAttributes()));
 
