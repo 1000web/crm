@@ -10,6 +10,8 @@
  * @property integer $log_user_id
  * @property integer $id
  * @property integer $specification_id
+ * @property string $plan_date
+ * @property string $real_date
  * @property string $value
  * @property string $description
  */
@@ -41,11 +43,12 @@ class ShippingLog extends LogActiveRecord
         return array(
             array('log_datetime, log_user_id, id, specification_id', 'numerical', 'integerOnly' => true),
             array('log_action', 'length', 'max' => 16),
+            array('plan_date, real_date', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, specification_id, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, specification_id, plan_date, real_date, value, description', 'safe', 'on' => 'search'),
         );
     }
 

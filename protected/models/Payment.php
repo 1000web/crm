@@ -11,10 +11,8 @@
  * @property integer $update_user_id
  * @property integer $payment_type_id
  * @property integer $deal_id
-
  * @property string $plan_date
  * @property string $real_date
-
  * @property string $value
  * @property string $description
  *

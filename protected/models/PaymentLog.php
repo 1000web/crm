@@ -11,10 +11,8 @@
  * @property integer $id
  * @property integer $payment_type_id
  * @property integer $deal_id
-
  * @property string $plan_date
  * @property string $real_date
-
  * @property string $amount
  * @property string $value
  * @property string $description
@@ -53,7 +51,7 @@ class PaymentLog extends LogActiveRecord
             array('description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('log_id, log_action, log_datetime, log_user_id, id, payment_type_id, deal_id, amount, value, description', 'safe', 'on' => 'search'),
+            array('log_id, log_action, log_datetime, log_user_id, id, payment_type_id, deal_id, plan_date, real_date, amount, value, description', 'safe', 'on' => 'search'),
         );
     }
 

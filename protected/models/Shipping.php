@@ -10,6 +10,8 @@
  * @property integer $update_time
  * @property integer $update_user_id
  * @property integer $specification_id
+ * @property string $plan_date
+ * @property string $real_date
  * @property string $value
  * @property string $description
  *
@@ -46,10 +48,11 @@ class Shipping extends MyActiveRecord
         return array(
             array('specification_id, value', 'required'),
             array('create_time, create_user_id, update_time, update_user_id, specification_id', 'numerical', 'integerOnly' => true),
+            array('plan_date, real_date', 'length', 'max' => 10),
             array('value', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, value, description', 'safe', 'on' => 'search'),
+            array('id, create_time, create_user_id, update_time, update_user_id, specification_id, plan_date, real_date, value, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -59,9 +62,9 @@ class Shipping extends MyActiveRecord
     public function relations()
     {
         return array(
-            'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
             'update_user' => array(self::BELONGS_TO, 'Users', 'update_user_id'),
             'create_user' => array(self::BELONGS_TO, 'Users', 'create_user_id'),
+            'specification' => array(self::BELONGS_TO, 'Specification', 'specification_id'),
         );
     }
 
@@ -72,7 +75,7 @@ class Shipping extends MyActiveRecord
 
     public function getAvailableAttributes()
     {
-        return array('id', 'specification_id', 'value', 'description');
+        return array('id', 'specification_id', 'plan_date', 'real_date', 'value', 'description');
     }
 
     /**
@@ -86,6 +89,8 @@ class Shipping extends MyActiveRecord
 
         $criteria->compare('t.id', $this->id);
         $criteria->compare('specification.value', $this->specification_id, true);
+        $criteria->compare('t.plan_date', $this->plan_date, true);
+        $criteria->compare('t.real_date', $this->real_date, true);
         $criteria->compare('t.value', $this->value, true);
         $criteria->compare('t.description', $this->description, true);
 

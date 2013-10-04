@@ -240,9 +240,6 @@ class MyHelper
             'zakaz_date' => 'Дата заказа',
             'out_num' => 'Исх.№',
             'out_date' => 'Дата Служебки',
-            'plan_date' => 'Запланированная дата',
-            'real_date' => 'Дата платежа',
-
         );
         switch ($param) {
             case 'account':
@@ -268,6 +265,8 @@ class MyHelper
                 break;
             case 'payment':
                 $array['value'] = 'Назначение платежа';
+                $array['plan_date'] = 'Запланированная дата';
+                $array['real_date'] = 'Дата платежа';
                 break;
             case 'product':
                 $array['prior'] = '№ п/п';
@@ -278,6 +277,11 @@ class MyHelper
                 break;
             case 'specification':
                 $array['value'] = 'Название спецификации';
+                break;
+            case 'shipping':
+                $array['value'] = 'Название отгрузки';
+                $array['plan_date'] = 'Запланированная дата';
+                $array['real_date'] = 'Дата отгрузки';
                 break;
             case 'task':
                 $array['value'] = 'Суть задачи';
