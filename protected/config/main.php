@@ -10,13 +10,16 @@ Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-switch (substr($_SERVER['SERVER_NAME'], 0, 6)) {
+switch ($_SERVER['SERVER_NAME']) {
     // если имя сервера начинается на local.
-    case "local.":
-        $config = 'development.php';
+    case "crm.1000web.ru":
+        $config = 'db/crm.1000web.ru.php';
+        break;
+    case "acc.1000web.ru":
+        $config = 'db/acc.1000web.ru.php';
         break;
     default:
-        $config = 'production.php';
+        $config = 'db/development.php';
 }
 // склеиваем массив - основной и настройки БД
 return CMap::mergeArray(
